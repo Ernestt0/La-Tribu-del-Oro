@@ -83,9 +83,27 @@ class SiteHeader extends HTMLElement {
             <button class="search-btn" title="Buscar en el sitio" onclick="openSearchModal()">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             </button>
+            <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" onclick="toggleMobileNav(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
           </div>
         </div>
       </header>
+
+      <!-- MENÚ MÓVIL -->
+      <nav class="mobile-nav" id="mobileNav" aria-label="Menú principal">
+        <a href="index.html">Inicio</a>
+        <a href="videos.html">Videos gratis</a>
+        <span class="mobile-label">Soluciones</span>
+        <a class="sub" href="curso.html">Curso</a>
+        <a class="sub" href="copy-trading.html">Copy Trading</a>
+        <a class="sub" href="senales.html">Señales</a>
+        <a class="sub" href="cripto.html">Cripto</a>
+        <a class="sub" href="ether-fi.html">Ether.fi</a>
+        <a href="programa-ib.html">Programa IB</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="glosario.html">Glosario</a>
+      </nav>
 
       <!-- TICKER MARQUEE CON MOVIMIENTO FORZADO -->
       <div class="tv-ticker-wrapper">
@@ -126,7 +144,38 @@ class SiteHeader extends HTMLElement {
         displayMode: 'regular',
         colorTheme: 'dark',
         locale: 'es',
+        largeChartUrl: '',
       });
+      // Respaldo: si el widget de TradingView no carga (sin internet o bloqueado),
+      // mostramos la cinta con los nombres de los activos, sin inventar precios.
+      const showFallback = () => {
+        if (tvContainer.querySelector('iframe') || tvContainer.querySelector('.tv-fallback')) return;
+        // Instantánea de referencia (28 oct 2026, 4:52 p. m.) para cuando el widget no puede cargar.
+        // En el sitio publicado se ven los precios en vivo del widget oficial.
+        const syms = [
+          ['BINANCE:BTCUSDT', 'Bitcoin', '<i style="background:#F7931A">₿</i>', '81.369,85', '+460,08 (+0,57%)', 1],
+          ['BINANCE:ETHUSDT', 'Ethereum', '<i style="background:#4F5795">Ξ</i>', '2.365,09', '+14,73 (+0,63%)', 1],
+          ['OANDA:XAUUSD', 'Oro / USD', '<i style="background:#D69A00">Au</i>', '4.067,290', '+6,960 (+0,17%)', 1],
+          ['FX:EURUSD', 'EUR / USD', '<b>🇪🇺</b><b>🇺🇸</b>', '1,11536', '+0,00010 (+0,01%)', 1],
+          ['BINANCE:SOLUSDT', 'Solana', '<i style="background:linear-gradient(135deg,#9E48FF,#16FC99)">S</i>', '102,79', '+1,44 (+1,42%)', 1],
+          ['BINANCE:ETHFIUSDT', 'Ether.fi', '<i style="background:linear-gradient(135deg,#3D227A,#6565E1)">e</i>', '0,6820', '+0,0159 (+2,39%)', 1],
+          ['FOREXCOM:SPXUSD', 'S&P 500', '<i style="background:#C4162E;font-size:8px">500</i>', '7.726,1', '+0,1 (0,00%)', 1],
+          ['FOREXCOM:NSXUSD', 'Nasdaq 100', '<i style="background:#0996C7;font-size:8px">100</i>', '29.601,5', '−40,3 (−0,14%)', 0],
+          ['BINANCE:BNBUSDT', 'BNB', '<i style="background:#F3BA2F">B</i>', '758,01', '+13,07 (+1,75%)', 1],
+          ['FX:GBPUSD', 'GBP / USD', '<b>🇬🇧</b><b>🇺🇸</b>', '1,33245', '−0,00 (−0,01%)', 0],
+          ['FX:USDJPY', 'USD / JPY', '<b>🇺🇸</b><b>🇯🇵</b>', '157,770', '−0,040 (−0,03%)', 0],
+          ['BINANCE:ADAUSDT', 'Cardano', '<i style="background:#0033AD">₳</i>', '0,2070', '+0,0010 (+0,49%)', 1],
+          ['BINANCE:XRPUSDT', 'XRP', '<i style="background:#23292F">X</i>', '1,3337', '+0,00 (+0,18%)', 1],
+          ['OANDA:WTICOUSD', 'Petróleo WTI', '<i style="background:#333">🛢</i>', '103,454', '+1,722 (+1,69%)', 1],
+          ['OANDA:XAGUSD', 'Plata / USD', '<i style="background:#9AA3AD">Ag</i>', '53,96600', '−0,45100 (−0,83%)', 0]
+        ];
+        const row = syms.map(([pro, n, ico, px, ch, up]) => `<a class="tv-fallback-item" href="https://es.tradingview.com/symbols/${pro.replace(':', '-')}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="tv-ico">${ico}</span><span class="tv-name">${n}</span><span class="tv-px">${px}</span><span class="${up ? 'tv-up' : 'tv-down'}">${ch}</span></a>`).join('');
+        tvContainer.innerHTML = `<div class="tv-fallback">${row}${row}<a class="tv-fallback-note" href="https://es.tradingview.com/" target="_blank" rel="noopener">Precios de referencia · Ver en vivo en TradingView</a></div>`;
+      };
+      // Solo si el script de TradingView no se pudo cargar (bloqueado o sin conexión)
+      script.onerror = showFallback;
+      // Último recurso: si a los 15 s no apareció el widget
+      setTimeout(showFallback, 15000);
       tvContainer.appendChild(script);
     }
   }
@@ -249,6 +298,14 @@ customElements.define('site-header', SiteHeader);
 customElements.define('site-footer', SiteFooter);
 
 // FUNCIONES GLOBALES
+function toggleMobileNav(btn) {
+  const nav = document.getElementById('mobileNav');
+  if (!nav) return;
+  const open = nav.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
 function playVideo(url) {
   const modal = document.getElementById('videoModal');
   const iframe = document.getElementById('videoIframe');

@@ -1239,3 +1239,29 @@ img {
     transform: translateX(-50%);
   }
 }
+
+/* ==========================================================================
+   MENÚ MÓVIL (agregado en components.js)
+   ========================================================================== */
+.menu-toggle { display: none; width: 42px; height: 42px; border-radius: 12px; border: 1px solid #e2e8f0; background: #fff; color: #0f172a; align-items: center; justify-content: center; cursor: pointer; }
+.menu-toggle svg { width: 20px; height: 20px; }
+.mobile-nav { display: none; position: fixed; inset: 72px 0 0 0; z-index: 99; background: #fff; padding: 20px; overflow-y: auto; flex-direction: column; gap: 2px; }
+.mobile-nav.open { display: flex; }
+.mobile-nav a { padding: 14px 4px; border-bottom: 1px solid #f1f5f9; font-size: 17px; font-weight: 600; color: #0f172a; }
+.mobile-nav a.sub { font-size: 15px; color: #475569; padding-left: 16px; }
+.mobile-nav .mobile-label { font-size: 11px; letter-spacing: .14em; color: #c59b27; margin-top: 16px; text-transform: uppercase; font-weight: 700; }
+@media (max-width: 960px) { .menu-toggle { display: inline-flex; } .header-actions { gap: 6px; } }
+
+/* Respaldo de la cinta de precios (solo si TradingView no carga) */
+.tv-fallback { display: inline-flex; align-items: center; white-space: nowrap; height: 48px; font-family: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif; }
+.tv-fallback-item { display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border-right: 1px solid #2a2e39; font-size: 14px; color: #d1d4dc; }
+.tv-fallback-item:hover { background: rgba(255,255,255,.04); }
+.tv-ico { display: inline-flex; }
+.tv-ico i { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 10px; font-weight: 800; color: #fff; }
+.tv-ico b { font-size: 13px; line-height: 1; margin-right: -4px; }
+.tv-name { font-weight: 700; color: #fff; }
+.tv-px { color: #d1d4dc; }
+.tv-up { color: #22ab94; }
+.tv-down { color: #f7525f; }
+.tv-fallback-note { color: #787b86; font-size: 12px; padding: 0 22px; }
+a.tv-fallback-note:hover { color: #d1d4dc; text-decoration: underline; }
