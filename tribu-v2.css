@@ -82,7 +82,8 @@ body.v2 { background: var(--paper); color: var(--text); font-family: var(--body)
 .path { display: flex; flex-direction: column; gap: 12px; padding: 24px 20px; border: 1px solid var(--line); border-radius: 18px; background: #fff; min-width: 0; transition: border-color .2s, box-shadow .2s, transform .2s; }
 .path:hover { border-color: var(--ink); transform: translateY(-3px); box-shadow: 0 16px 30px -18px rgba(15,23,42,.35); }
 .path .ico { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; }
-.path .ico svg, .path .ico img { width: 26px; height: 26px; object-fit: contain; }
+.path .ico svg { width: 26px; height: 26px; object-fit: contain; }
+.path .ico img { width: 36px; height: 36px; object-fit: contain; }
 .path h3 { font-size: 19px; font-weight: 700; }
 .path p { font-size: 14.5px; line-height: 1.5; color: var(--muted); }
 .path .more { margin-top: auto; font-size: 14px; font-weight: 700; color: var(--red); }
