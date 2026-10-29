@@ -268,6 +268,23 @@
     const hdr = () => document.querySelector('.header');
     addEventListener('scroll', () => { const h = hdr(); if (h) h.classList.toggle('scrolled', scrollY > 20); }, { passive: true });
     window.reel = d => { const c = track.querySelector('.vcard'); track.scrollBy({ left: d * (c.offsetWidth + 18), behavior: 'smooth' }); };
+    // Carrusel automático para los videos
+    let reelTimer;
+    const startReel = () => {
+      reelTimer = setInterval(() => {
+        const c = track.querySelector('.vcard');
+        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+          track.scrollTo({ left: 0, behavior: 'smooth' }); // Vuelve al inicio si llega al final
+        } else {
+          window.reel(1); // Mueve una tarjeta a la derecha
+        }
+      }, 3500); // 3500 = Se mueve cada 3.5 segundos
+    };
+    startReel();
+    
+    // Pausar si el usuario pone el mouse encima para poder leer o hacer clic
+    track.addEventListener('mouseenter', () => clearInterval(reelTimer));
+    track.addEventListener('mouseleave', startReel);
   })();
   </script>
 </body>
