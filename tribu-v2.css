@@ -338,9 +338,3 @@ body.v2 {
   transform: translate(-50%, -50%) scale(1.2) !important;
   box-shadow: 0 12px 30px rgba(229, 9, 20, 0.3) !important;
 }
-
-/* Efecto fundido para la cinta de precios */
-.tv-ticker-wrapper {
-  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-}
