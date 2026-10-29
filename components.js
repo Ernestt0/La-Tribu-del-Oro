@@ -61,9 +61,9 @@ class SiteHeader extends HTMLElement {
                   Cripto
                 </a>
                 <a href="ether-fi.html">
-                  <img src="etherfi.png" alt="Ether.fi" style="width: 16px; height: 16px; object-fit: contain;">
-                  Ether.fi
-                </a>
+  <img src="etherfi.png" alt="Ether.fi" style="width: 22px; height: 22px; object-fit: contain;">
+  Ether.fi
+</a>
               </div>
             </div>
 
@@ -99,7 +99,10 @@ class SiteHeader extends HTMLElement {
         <a class="sub" href="copy-trading.html">Copy Trading</a>
         <a class="sub" href="senales.html">Señales</a>
         <a class="sub" href="cripto.html">Cripto</a>
-        <a class="sub" href="ether-fi.html">Ether.fi</a>
+        <a class="sub" href="ether-fi.html">
+  <img src="etherfi.png" alt="Ether.fi" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle; margin-right: 8px;">
+  Ether.fi
+</a>
         <a href="programa-ib.html">Programa IB</a>
         <a href="calculadora.html">Calculadora</a>
         <a href="glosario.html">Glosario</a>
