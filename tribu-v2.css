@@ -265,7 +265,7 @@ body.v2 {
 .v2 .path:nth-child(2) .ico { background: linear-gradient(160deg, rgba(239, 246, 255, .9), rgba(37, 99, 235, .16)) !important; }
 .v2 .path:nth-child(3) .ico { background: linear-gradient(160deg, rgba(224, 242, 254, .9), rgba(34, 158, 217, .16)) !important; }
 .v2 .path:nth-child(4) .ico { background: linear-gradient(160deg, rgba(254, 243, 199, .9), rgba(247, 147, 26, .18)) !important; }
-.v2 .path:nth-child(5) .ico { background: linear-gradient(160deg, rgba(243, 232, 255, .9), rgba(124, 58, 237, .16)) !important; }
+.v2 .path:nth-child(5) .ico { background: linear-gradient(160deg, rgba(224, 246, 255, .9), rgba(14, 165, 233, .16)) !important; }
 
 /* Números de pasos, avatares y botones de play */
 .v2 .step::before { background: linear-gradient(180deg, rgba(40, 52, 75, .75), rgba(15, 23, 42, .85)); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.35); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 6px 14px -6px rgba(15,23,42,.5); }
