@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Mini-Curso de Copy Trading - Comunidad de Trading & Cripto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="tribu-v2.css" />
+    <link rel="stylesheet" href="tribu-pages.css" />
+    <style>
+      /* ENCABEZADO DEL CURSO */
+      .classroom-header {
+        background: #ffffff;
+        padding: 55px 0 35px;
+        border-bottom: 1px solid #ececec;
+      }
+      .classroom-tag {
+        display: inline-block;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #e50914;
+        background: #fee2e2;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 14px;
+      }
+
+      /* CONTENEDOR DEL AULA (REPRODUCTOR + PLAYLIST) */
+      .classroom-grid {
+        display: grid;
+        grid-template-columns: 1.45fr 0.95fr;
+        gap: 30px;
+        margin-top: 35px;
+        align-items: start;
+      }
+
+      /* REPRODUCTOR */
+      .player-container {
+        background: #0f172a;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+      }
+      .player-video-box {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        background: #000000;
+      }
+      .player-video-box iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      .player-meta {
+        background: #ffffff;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        border-top: none;
+        border-radius: 0 0 18px 18px;
+      }
+      .current-lesson-badge {
+        font-size: 11px;
+        font-weight: 700;
+        color: #e50914;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .current-lesson-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 6px 0 10px;
+      }
+      .current-lesson-desc {
+        font-size: 14px;
+        color: #64748b;
+        line-height: 1.6;
+      }
+
+      /* LISTA LATERAL DE LECCIONES */
+      .playlist-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+      }
+      .playlist-header {
+        padding: 20px 22px;
+        border-bottom: 1px solid #f1f5f9;
+        background: #f8fafc;
+      }
+      .playlist-header h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .playlist-header span {
+        font-size: 12.5px;
+        color: #64748b;
+      }
+      .lessons-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .lesson-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #ffffff;
+      }
+      .lesson-item:last-child {
+        border-bottom: none;
+      }
+      .lesson-item:hover {
+        background: #fef2f2;
+      }
+      .lesson-item.active {
+        background: #fff1f2;
+        border-left: 4px solid #e50914;
+      }
+      .lesson-num {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        color: #475569;
+        font-size: 12.5px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .lesson-item.active .lesson-num {
+        background: #e50914;
+        color: #ffffff;
+      }
+      .lesson-info {
+        flex-grow: 1;
+      }
+      .lesson-title-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1e293b;
+        line-height: 1.35;
+        margin-bottom: 3px;
+      }
+      .lesson-item.active .lesson-title-text {
+        color: #e50914;
+      }
+      .lesson-duration {
+        font-size: 11.5px;
+        color: #94a3b8;
+      }
+
+      /* CAJA DE RECOMENDACIONES DE SEGURIDAD */
+      .safety-box {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 32px;
+        margin-top: 50px;
+      }
+      .safety-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 20px;
+      }
+      .safety-item {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .safety-item h4 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .safety-item p {
+        font-size: 13px;
+        color: #64748b;
+        line-height: 1.55;
+      }
+
+      @media (max-width: 960px) {
+        .classroom-grid {
+          grid-template-columns: 1fr;
+        }
+        .safety-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="v2 page">
+    <!-- HEADER MAESTRO AUTOMÁTICO (SOLUCIONES ACTIVO) -->
+    <site-header active="copy-trading"></site-header>
+
+    <!-- ENCABEZADO DEL CURSO -->
+    <section class="classroom-header">
+      <div class="container">
+        <span class="classroom-tag">Mini-Curso Práctico Completo</span>
+        <h1 class="hero-title" style="font-size: 40px; margin-bottom: 10px">
+          Aprende Copy Trading<br />
+          <span>Con Criterio y Gestión de Riesgo</span>
+        </h1>
+        <p class="section-subtitle" style="max-width: 650px">
+          Domina cómo funciona la sincronización automática, cómo auditar el
+          rendimiento real de un trader y cómo blindar tu capital ante pérdidas
+          imprevistas.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DEL AULA -->
+    <main class="section">
+      <div class="container">
+        <div class="classroom-grid">
+          <!-- COLUMNA IZQUIERDA: REPRODUCTOR + DETALLE DE LA CLASE -->
+          <div>
+            <div class="player-container">
+              <div class="player-video-box">
+                <iframe
+                  id="mainPlayerIframe"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="player-meta">
+                <span class="current-lesson-badge" id="lessonBadge"
+                  >Clase 1 de 4</span
+                >
+                <h2 class="current-lesson-title" id="lessonTitle">
+                  ¿Qué es el Copy Trading y cómo funciona la réplica?
+                </h2>
+                <p class="current-lesson-desc" id="lessonDesc">
+                  Explicamos el mecanismo de sincronización proporcional entre
+                  el proveedor de estrategia y tu cuenta. Descubre por qué tus
+                  fondos nunca salen de tu propio broker y cómo se replican los
+                  tamaños de lote según tu balance disponible.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMNA DERECHA: PLAYLIST DE LECCIONES INTERACTIVA -->
+          <div>
+            <div class="playlist-card">
+              <div class="playlist-header">
+                <h3>Temario del Mini-Curso</h3>
+                <span>4 clases prácticas • 45 minutos en total</span>
+              </div>
+
+              <div class="lessons-list">
+                <!-- Clase 1 -->
+                <div class="lesson-item active" onclick="loadLesson(0)">
+                  <div class="lesson-num">1</div>
+                  <div class="lesson-info">
+                    <div class="lesson-title-text">
+                      Fundamentos y modelo de réplica proporcional
+                    </div>
+                    <div class="lesson-duration">
+                      ⏱ 10:15 min • Conceptos clave
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Clase 2 -->
+                <div class="lesson-item" onclick="loadLesson(1)">
+                  <div class="lesson-num">2</div>
+                  <div class="lesson-info">
+                    <div class="lesson-title-text">
+                      Cómo auditar el historial y drawdown de un trader
+                    </div>
+                    <div class="lesson-duration">
+                      ⏱ 14:30 min • Análisis de métricas
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Clase 3 -->
+                <div class="lesson-item" onclick="loadLesson(2)">
+                  <div class="lesson-num">3</div>
+                  <div class="lesson-info">
+                    <div class="lesson-title-text">
+                      Configuración de Stop Loss de emergencia
+                    </div>
+                    <div class="lesson-duration">
+                      ⏱ 11:20 min • Protección de capital
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Clase 4 -->
+                <div class="lesson-item" onclick="loadLesson(3)">
+                  <div class="lesson-num">4</div>
+                  <div class="lesson-info">
+                    <div class="lesson-title-text">
+                      Vinculación paso a paso y puesta en marcha
+                    </div>
+                    <div class="lesson-duration">
+                      ⏱ 09:45 min • Tutorial práctico
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BOTÓN DE APOYO / DUDAS -->
+            <div
+              style="
+                margin-top: 20px;
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 14px;
+                padding: 20px;
+                text-align: center;
+              "
+            >
+              <p
+                style="
+                  font-size: 13.5px;
+                  color: #475569;
+                  margin-bottom: 12px;
+                  font-weight: 500;
+                "
+              >
+                ¿Tienes dudas técnicas sobre la vinculación de cuentas?
+              </p>
+              <a
+                href="https://wa.me/"
+                target="_blank"
+                class="btn-hero-outline"
+                style="width: 100%; font-size: 13.5px; padding: 10px"
+              >
+                Consultar con soporte por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- REGLAS DE ORO Y PREVENCIÓN DE RIESGO -->
+        <div class="safety-box">
+          <h3
+            style="
+              font-size: 20px;
+              font-weight: 800;
+              color: #0f172a;
+              margin-bottom: 4px;
+            "
+          >
+            3 Reglas de oro antes de activar un Copy Trading
+          </h3>
+          <p style="font-size: 13.5px; color: #64748b">
+            Aplica estos principios para no caer en estrategias riesgosas o
+            martingalas destructivas.
+          </p>
+
+          <div class="safety-grid">
+            <div class="safety-item">
+              <h4>1. Revisa el Drawdown histórico</h4>
+              <p>
+                Descarta perfiles con caídas flotantes superiores al 25%-30%. Un
+                trader que arriesga demasiado terminará liquidando la cuenta
+                tarde o temprano.
+              </p>
+            </div>
+            <div class="safety-item">
+              <h4>2. Evita la martingala o grillas sin stop</h4>
+              <p>
+                Si la estrategia dobla lotajes ante pérdidas o no usa Stop Loss
+                en cada operación, no es trading profesional: es una bomba de
+                tiempo estadística.
+              </p>
+            </div>
+            <div class="safety-item">
+              <h4>3. Define un límite de parada propio</h4>
+              <p>
+                Usa la opción de parada de emergencia en tu panel para
+                desconectarte automáticamente si la cuenta sufre una pérdida
+                máxima predeterminada.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER MAESTRO AUTOMÁTICO -->
+    <site-footer></site-footer>
+
+    <!-- SCRIPTS -->
+    <script src="components.js"></script>
+    <script>
+      // DATOS DE LAS LECCIONES DEL MINI-CURSO
+      const lessonsData = [
+        {
+          badge: 'Clase 1 de 4',
+          title: '¿Qué es el Copy Trading y cómo funciona la réplica?',
+          desc: 'Explicamos el mecanismo de sincronización proporcional entre el proveedor de estrategia y tu cuenta. Descubre por qué tus fondos nunca salen de tu propio broker y cómo se replican los tamaños de lote según tu balance disponible.',
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        {
+          badge: 'Clase 2 de 4',
+          title: 'Cómo auditar el historial y drawdown de un trader',
+          desc: 'Aprende a leer estadísticas avanzadas: factor de beneficio (Profit Factor), porcentaje de acierto, tiempo de recuperación y consistencia mensual. Identifica fácilmente cuándo un trader opera con disciplina o cuando usa promediación destructiva.',
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        {
+          badge: 'Clase 3 de 4',
+          title: 'Configuración de Stop Loss de emergencia y control de riesgo',
+          desc: 'El pilar más importante: cómo fijar un drawdown máximo en tu cuenta para que el sistema cierre automáticamente todas las posiciones si el mercado va en contra, garantizando que nunca arriesgues más de lo planificado.',
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        {
+          badge: 'Clase 4 de 4',
+          title: 'Vinculación paso a paso y puesta en marcha',
+          desc: 'Guía visual en pantalla: cómo crear tu cuenta de inversor, seleccionar al proveedor verificado, asignar el capital deseado y verificar que las operaciones se abran y cierren sincrónicamente.',
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+      ];
+
+      function loadLesson(index) {
+        const data = lessonsData[index];
+        if (!data) return;
+
+        // Actualizar reproductor e información
+        document.getElementById('mainPlayerIframe').src = data.videoUrl;
+        document.getElementById('lessonBadge').innerText = data.badge;
+        document.getElementById('lessonTitle').innerText = data.title;
+        document.getElementById('lessonDesc').innerText = data.desc;
+
+        // Actualizar clase activa en la playlist
+        const items = document.querySelectorAll('.lesson-item');
+        items.forEach((item, idx) => {
+          if (idx === index) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

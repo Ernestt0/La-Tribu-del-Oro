@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Programa de Aliados IB - Comunidad de Trading & Cripto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="tribu-v2.css" />
+    <link rel="stylesheet" href="tribu-pages.css" />
+    <style>
+      /* HERO PROGRAMA IB */
+      .ib-hero {
+        background: #ffffff;
+        padding: 70px 0 60px;
+        border-bottom: 1px solid #ececec;
+      }
+      .ib-hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 50px;
+        align-items: center;
+      }
+      .ib-tag {
+        display: inline-block;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #e50914;
+        background: #fee2e2;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+      }
+
+      /* SECCIÓN DE VIDEOS EXPLICATIVOS */
+      .video-switch-grid {
+        display: grid;
+        grid-template-columns: 1.35fr 0.95fr;
+        gap: 30px;
+        margin-top: 40px;
+        align-items: start;
+      }
+      .video-frame-box {
+        background: #0f172a;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+      }
+      .video-frame-aspect {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        background: #000;
+      }
+      .video-frame-aspect iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      .video-info-box {
+        background: #ffffff;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        border-top: none;
+        border-radius: 0 0 18px 18px;
+      }
+
+      /* TABS DE VIDEOS */
+      .video-tabs-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .video-tab-btn {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 20px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.2s ease;
+      }
+      .video-tab-btn:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+      }
+      .video-tab-btn.active {
+        background: #fff1f2;
+        border-color: #e50914;
+        box-shadow: 0 4px 14px rgba(229, 9, 20, 0.08);
+      }
+      .tab-icon-box {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: #f1f5f9;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-weight: 700;
+        font-size: 13px;
+      }
+      .video-tab-btn.active .tab-icon-box {
+        background: #e50914;
+        color: #ffffff;
+      }
+
+      /* TARJETAS DE BENEFICIOS */
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 35px;
+      }
+      .benefit-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 28px 22px;
+        transition: transform 0.2s, border-color 0.2s;
+      }
+      .benefit-card:hover {
+        transform: translateY(-4px);
+        border-color: #e50914;
+      }
+
+      /* FORMULARIO DE ASESORÍA / APLICACIÓN */
+      .ib-form-box {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 650px;
+        margin: 40px auto 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      }
+      .ib-field {
+        margin-bottom: 18px;
+      }
+      .ib-field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 6px;
+      }
+      .ib-input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .ib-input:focus {
+        border-color: #e50914;
+      }
+
+      /* BANNER CTA */
+      .ib-cta-banner {
+        background: #0f172a;
+        border-radius: 20px;
+        padding: 50px 30px;
+        color: #ffffff;
+        text-align: center;
+        margin-top: 55px;
+      }
+
+      @media (max-width: 900px) {
+        .ib-hero-grid,
+        .video-switch-grid,
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+        .ib-form-box {
+          padding: 28px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body class="v2 page">
+    <!-- HEADER MAESTRO (ACTIVA PROGRAMA IB) -->
+    <site-header active="ib"></site-header>
+
+    <!-- HERO PROGRAMA IB -->
+    <section class="ib-hero">
+      <div class="container ib-hero-grid">
+        <div>
+          <span class="ib-tag">Alianzas & Expansión de Comunidad</span>
+          <h1 class="hero-title" style="font-size: 42px; margin-bottom: 16px">
+            Conviértete en Aliado IB<br />
+            <span>Monetiza y Potencia tu Audiencia</span>
+          </h1>
+          <p class="hero-subtitle">
+            Diseñado para líderes de comunidad, creadores de contenido y traders
+            consistentes. Te guiamos de la mano para convertirte en Introducing
+            Broker (IB), brindando soporte institucional, infraestructura
+            formativa y comisiones transparentes.
+          </p>
+
+          <div class="hero-buttons" style="margin-bottom: 0">
+            <a href="#contacto-ib" class="btn-hero-red"
+              >Quiero ser Aliado IB &rarr;</a
+            >
+            <a href="#videos-ib" class="btn-hero-outline"
+              >Ver videos explicativos</a
+            >
+          </div>
+        </div>
+
+        <!-- VIDEO DE PRESENTACIÓN IB -->
+        <div class="hero-video-wrapper">
+          <div class="hero-video-header">
+            <span class="video-label-badge">Presentación</span>
+            <h3 class="video-header-title">¿Qué es ser IB y por qué unirte?</h3>
+          </div>
+          <div
+            class="hero-video-box"
+            onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
+              alt="Alianzas y programa IB"
+            />
+            <div class="hero-play-btn">
+              <svg viewBox="0 0 24 24">
+                <polygon points="6 4 20 12 6 20 6 4" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE VIDEOS EXPLICATIVOS INTERACTIVOS -->
+    <section class="section" id="videos-ib">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            Serie de videos: Todo sobre el modelo IB
+          </h2>
+          <p class="section-subtitle">
+            Conoce al detalle las ventajas, la estructura de ingresos y el
+            acompañamiento que recibirás.
+          </p>
+        </div>
+
+        <div class="video-switch-grid">
+          <!-- REPRODUCTOR DINÁMICO -->
+          <div>
+            <div class="video-frame-box">
+              <div class="video-frame-aspect">
+                <iframe
+                  id="ibVideoIframe"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="video-info-box">
+                <span
+                  style="
+                    font-size: 11px;
+                    font-weight: 700;
+                    color: #e50914;
+                    text-transform: uppercase;
+                  "
+                  id="ibVideoBadge"
+                  >Video 1</span
+                >
+                <h3
+                  style="
+                    font-size: 19px;
+                    font-weight: 800;
+                    color: #0f172a;
+                    margin: 4px 0 8px;
+                  "
+                  id="ibVideoTitle"
+                >
+                  ¿Cómo funciona el modelo de Introducing Broker (IB)?
+                </h3>
+                <p
+                  style="font-size: 13.5px; color: #64748b; line-height: 1.6"
+                  id="ibVideoDesc"
+                >
+                  Explicamos cómo un broker regulado retribuye al aliado por
+                  cada lote transaccionado en su comunidad (rebates),
+                  permitiendo generar un flujo de ingresos constante sin
+                  cobrarle nada directamente a tus miembros.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LISTA DE VIDEOS -->
+          <div class="video-tabs-list">
+            <div class="video-tab-btn active" onclick="switchIbVideo(0)">
+              <div class="tab-icon-box">1</div>
+              <div>
+                <div
+                  style="font-size: 14.5px; font-weight: 700; color: #0f172a"
+                >
+                  ¿Qué es un IB y cómo se generan ingresos?
+                </div>
+                <div style="font-size: 12px; color: #64748b; margin-top: 2px">
+                  ⏱ 09:20 min • Modelo de rebates transparente
+                </div>
+              </div>
+            </div>
+
+            <div class="video-tab-btn" onclick="switchIbVideo(1)">
+              <div class="tab-icon-box">2</div>
+              <div>
+                <div
+                  style="font-size: 14.5px; font-weight: 700; color: #0f172a"
+                >
+                  Beneficios, herramientas y soporte VIP
+                </div>
+                <div style="font-size: 12px; color: #64748b; margin-top: 2px">
+                  ⏱ 11:45 min • Material educativo y asesor 1 a 1
+                </div>
+              </div>
+            </div>
+
+            <div class="video-tab-btn" onclick="switchIbVideo(2)">
+              <div class="tab-icon-box">3</div>
+              <div>
+                <div
+                  style="font-size: 14.5px; font-weight: 700; color: #0f172a"
+                >
+                  Paso a paso: Cómo te ayudamos a arrancar
+                </div>
+                <div style="font-size: 12px; color: #64748b; margin-top: 2px">
+                  ⏱ 08:15 min • Configuración de panel y seguimiento
+                </div>
+              </div>
+            </div>
+
+            <!-- CAJA DIRECTA A WHATSAPP -->
+            <div
+              style="
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 14px;
+                padding: 20px;
+                text-align: center;
+                margin-top: 10px;
+              "
+            >
+              <p
+                style="
+                  font-size: 13px;
+                  color: #475569;
+                  margin-bottom: 12px;
+                  font-weight: 500;
+                "
+              >
+                ¿Quieres revisar tu caso en detalle con un gestor?
+              </p>
+              <a
+                href="https://wa.me/"
+                target="_blank"
+                class="btn-hero-red"
+                style="
+                  width: 100%;
+                  justify-content: center;
+                  font-size: 14px;
+                  padding: 12px;
+                "
+              >
+                Hablar con un asesor por WhatsApp &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFICIOS CLAVE -->
+    <section
+      class="section"
+      style="background: #ffffff; border-top: 1px solid #ececec"
+    >
+      <div class="container">
+        <div
+          class="section-header"
+          style="text-align: center; max-width: 620px; margin: 0 auto 35px"
+        >
+          <h2 class="section-title">¿Qué ventajas recibes como Aliado?</h2>
+          <p class="section-subtitle">
+            No estás solo: te entregamos infraestructura para que aportes valor
+            real a tu comunidad.
+          </p>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="solution-logo-box">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 17px;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 8px;
+              "
+            >
+              Rebates Transparentes
+            </h3>
+            <p style="font-size: 13.5px; color: #64748b; line-height: 1.55">
+              Liquidación puntual y panel de control auditable en tiempo real
+              para verificar los lotes operados por tus referidos.
+            </p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="solution-logo-box">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 17px;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 8px;
+              "
+            >
+              Acompañamiento 1 a 1
+            </h3>
+            <p style="font-size: 13.5px; color: #64748b; line-height: 1.55">
+              Te asignamos un gestor personal para ayudarte a configurar tu
+              enlace, resolver temas de verificación y atender a tus clientes.
+            </p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="solution-logo-box">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"
+                />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 17px;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 8px;
+              "
+            >
+              Contenido Pedagógico
+            </h3>
+            <p style="font-size: 13.5px; color: #64748b; line-height: 1.55">
+              Acceso a guías, presentaciones y recursos listos para que eduques
+              a tu grupo sin tener que crear todo desde cero.
+            </p>
+          </div>
+        </div>
+
+        <!-- FORMULARIO DE POSTULACIÓN -->
+        <div class="ib-form-box" id="contacto-ib">
+          <h3
+            style="
+              font-size: 22px;
+              font-weight: 800;
+              color: #0f172a;
+              margin-bottom: 6px;
+              text-align: center;
+            "
+          >
+            Solicita tu asesoría para ser IB
+          </h3>
+          <p
+            style="
+              font-size: 13.5px;
+              color: #64748b;
+              text-align: center;
+              margin-bottom: 24px;
+            "
+          >
+            Completa tus datos y nos comunicaremos contigo vía WhatsApp en menos
+            de 24 horas hábiles.
+          </p>
+
+          <form
+            onsubmit="alert('¡Gracias por tu interés! Un gestor se comunicará contigo vía WhatsApp para guiarte en el proceso.'); return false;"
+          >
+            <div class="ib-field">
+              <label>Nombre y Apellidos</label>
+              <input
+                type="text"
+                class="ib-input"
+                placeholder="Ej. Juan Pérez"
+                required
+              />
+            </div>
+            <div class="ib-field">
+              <label>Número de WhatsApp (con código de país)</label>
+              <input
+                type="tel"
+                class="ib-input"
+                placeholder="+57 300 000 0000"
+                required
+              />
+            </div>
+            <div class="ib-field">
+              <label
+                >Canal, red social o tamaño aproximado de tu comunidad</label
+              >
+              <input
+                type="text"
+                class="ib-input"
+                placeholder="Ej. Canal de Telegram de 500 miembros, Instagram..."
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn-hero-red"
+              style="
+                width: 100%;
+                border-radius: 8px;
+                margin-top: 8px;
+                justify-content: center;
+              "
+            >
+              Enviar datos y contactar por WhatsApp &rarr;
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER MAESTRO AUTOMÁTICO -->
+    <site-footer></site-footer>
+
+    <!-- SCRIPTS -->
+    <script src="components.js"></script>
+    <script>
+      // DATOS DE LOS VIDEOS DEL PROGRAMA IB
+      const ibVideos = [
+        {
+          badge: 'Video 1 de 3',
+          title: '¿Cómo funciona el modelo de Introducing Broker (IB)?',
+          desc: 'Explicamos cómo un broker regulado retribuye al aliado por cada lote transaccionado en su comunidad (rebates), permitiendo generar un flujo de ingresos constante sin cobrarle nada directamente a tus miembros.',
+          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        {
+          badge: 'Video 2 de 3',
+          title:
+            'Beneficios exclusivos, material formativo y soporte institucional',
+          desc: 'Descubre todo el ecosistema que ponemos a tu disposición: materiales gráficos, webinars educativos para tu audiencia y canal de comunicación prioritario con la mesa de operaciones.',
+          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        {
+          badge: 'Video 3 de 3',
+          title:
+            'Paso a paso: Cómo te guiamos desde el registro hasta el lanzamiento',
+          desc: 'Te mostramos cómo te acompañamos a abrir tu cuenta IB, cómo obtener tus enlaces de seguimiento personalizados y cómo verificar las métricas en tu panel de control.',
+          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+      ];
+
+      function switchIbVideo(index) {
+        const data = ibVideos[index];
+        if (!data) return;
+
+        document.getElementById('ibVideoIframe').src = data.url;
+        document.getElementById('ibVideoBadge').innerText = data.badge;
+        document.getElementById('ibVideoTitle').innerText = data.title;
+        document.getElementById('ibVideoDesc').innerText = data.desc;
+
+        const buttons = document.querySelectorAll('.video-tab-btn');
+        buttons.forEach((btn, idx) => {
+          if (idx === index) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

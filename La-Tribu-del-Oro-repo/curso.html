@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Curso de Formación - Comunidad de Trading & Cripto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="tribu-v2.css">
+  <link rel="stylesheet" href="tribu-pages.css">
+  <style>
+    .course-hero {
+      background: #FFFFFF;
+      padding: 60px 0 50px;
+      border-bottom: 1px solid #ECECEC;
+    }
+    .course-hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .course-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #E50914;
+      background: #FEE2E2;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .modules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 35px;
+    }
+    .module-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .module-card:hover {
+      border-color: #CBD5E1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    }
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .module-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: #E50914;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .module-title { font-size: 17px; font-weight: 700; color: #0F172A; margin-bottom: 6px; }
+    .module-desc { font-size: 13.5px; color: #64748B; line-height: 1.5; }
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .included-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+    }
+    .included-icon {
+      width: 44px;
+      height: 44px;
+      background: #FEE2E2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      color: #E50914;
+    }
+    .included-icon svg { width: 22px; height: 22px; }
+    @media (max-width: 900px) {
+      .course-hero-grid, .included-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="v2 page">
+
+  <!-- HEADER MAESTRO (ACTIVA SOLUCIONES) -->
+  <site-header active="curso"></site-header>
+
+  <!-- HERO DEL CURSO -->
+  <section class="course-hero">
+    <div class="container course-hero-grid">
+      <div>
+        <span class="course-tag">Formación Estructurada</span>
+        <h1 class="hero-title" style="font-size: 42px; margin-bottom: 14px;">
+          Curso de Trading<br>
+          <span>Desde Cero a Avanzado</span>
+        </h1>
+        <p class="hero-subtitle">
+          Una ruta de aprendizaje diseñada para entender la estructura de los mercados, dominar la acción del precio y aplicar una gestión de riesgo profesional.
+        </p>
+        <div class="hero-buttons" style="margin-bottom: 0;">
+          <a href="#temario" class="btn-hero-red">Ver temario completo</a>
+          <a href="https://wa.me/" target="_blank" class="btn-hero-outline">Consultar disponibilidad</a>
+        </div>
+      </div>
+
+      <div class="hero-video-box">
+        <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80" alt="Estudio técnico de mercado">
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMARIO -->
+  <section id="temario" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Estructura del programa formativo</h2>
+        <p class="section-subtitle">5 módulos paso a paso para operar con criterio y disciplina.</p>
+      </div>
+
+      <div class="modules-list">
+        <div class="module-card">
+          <div class="module-header"><span class="module-num">Módulo 1</span><span style="font-size:12px; color:#94A3B8;">Fundamentos</span></div>
+          <h3 class="module-title">Introducción a los Mercados Financieros</h3>
+          <p class="module-desc">Participantes del mercado, tipos de activos (Forex, Cripto, Índices), sesiones operativas y cómo elegir plataformas reguladas.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-header"><span class="module-num">Módulo 2</span><span style="font-size:12px; color:#94A3B8;">Lectura Gráfica</span></div>
+          <h3 class="module-title">Análisis Técnico y Acción del Precio</h3>
+          <p class="module-desc">Estructuras de mercado, soportes, resistencias, zonas de oferta y demanda y lectura de velas sin sobrecargar el gráfico.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-header"><span class="module-num">Módulo 3</span><span style="font-size:12px; color:#94A3B8;">Pilar Esencial</span></div>
+          <h3 class="module-title">Gestión de Riesgo y Preservación de Capital</h3>
+          <p class="module-desc">Cálculo exacto de lotaje en función de pips, ratios riesgo/beneficio asimétricos y elaboración de bitácoras de trading.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-header"><span class="module-num">Módulo 4</span><span style="font-size:12px; color:#94A3B8;">Mentalidad</span></div>
+          <h3 class="module-title">Psicología y Disciplina Operativa</h3>
+          <p class="module-desc">Control de impulsos, gestión de rachas de pérdidas, evitar el overtrading y creación de un plan de trading ejecutable.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-header"><span class="module-num">Módulo 5</span><span style="font-size:12px; color:#94A3B8;">Activos Digitales</span></div>
+          <h3 class="module-title">Ecosistema Cripto y Operativa Básica</h3>
+          <p class="module-desc">Fundamentos de Bitcoin y Ethereum, diferencias entre exchanges centralizados y billeteras de autocustodia, y ciclos de mercado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER MAESTRO -->
+  <site-footer></site-footer>
+
+  <!-- SCRIPTS -->
+  <script src="components.js"></script>
+</body>
+</html>

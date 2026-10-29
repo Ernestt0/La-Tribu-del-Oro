@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Mini-Curso de Criptomonedas - Comunidad de Trading & Cripto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="tribu-v2.css" />
+    <link rel="stylesheet" href="tribu-pages.css" />
+    <style>
+      /* ENCABEZADO DEL CURSO CRIPTO */
+      .classroom-header {
+        background: #ffffff;
+        padding: 55px 0 35px;
+        border-bottom: 1px solid #ececec;
+      }
+      .classroom-tag {
+        display: inline-block;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #e50914;
+        background: #fee2e2;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 14px;
+      }
+
+      /* CONTENEDOR DEL AULA (REPRODUCTOR + PLAYLIST) */
+      .classroom-grid {
+        display: grid;
+        grid-template-columns: 1.45fr 0.95fr;
+        gap: 30px;
+        margin-top: 35px;
+        align-items: start;
+      }
+
+      /* REPRODUCTOR */
+      .player-container {
+        background: #0f172a;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+      }
+      .player-video-box {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        background: #000000;
+      }
+      .player-video-box iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      .player-meta {
+        background: #ffffff;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        border-top: none;
+        border-radius: 0 0 18px 18px;
+      }
+      .current-lesson-badge {
+        font-size: 11px;
+        font-weight: 700;
+        color: #e50914;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .current-lesson-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 6px 0 10px;
+      }
+      .current-lesson-desc {
+        font-size: 14px;
+        color: #64748b;
+        line-height: 1.6;
+      }
+
+      /* PLAYLIST LATERAL */
+      .playlist-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+      }
+      .playlist-header {
+        padding: 20px 22px;
+        border-bottom: 1px solid #f1f5f9;
+        background: #f8fafc;
+      }
+      .playlist-header h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .playlist-header span {
+        font-size: 12.5px;
+        color: #64748b;
+      }
+      .lessons-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .lesson-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #ffffff;
+      }
+      .lesson-item:last-child {
+        border-bottom: none;
+      }
+      .lesson-item:hover {
+        background: #fef2f2;
+      }
+      .lesson-item.active {
+        background: #fff1f2;
+        border-left: 4px solid #e50914;
+      }
+      .lesson-num {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        color: #475569;
+        font-size: 12.5px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .lesson-item.active .lesson-num {
+        background: #e50914;
+        color: #ffffff;
+      }
+      .lesson-info {
+        flex-grow: 1;
+      }
+      .lesson-title-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1e293b;
+        line-height: 1.35;
+        margin-bottom: 3px;
+      }
+      .lesson-item.active .lesson-title-text {
+        color: #e50914;
+      }
+      .lesson-duration {
+        font-size: 11.5px;
+        color: #94a3b8;
+      }
+
+      /* CAJA DE SEGURIDAD */
+      .safety-box {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 32px;
+        margin-top: 50px;
+      }
+      .safety-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 20px;
+      }
+      .safety-item {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .safety-item h4 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .safety-item p {
+        font-size: 13px;
+        color: #64748b;
+        line-height: 1.55;
+      }
+
+      @media (max-width: 960px) {
+        .classroom-grid {
+          grid-template-columns: 1fr;
+        }
+        .safety-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="v2 page">
+    <!-- HEADER MAESTRO AUTOMÁTICO (SOLUCIONES ACTIVO) -->
+    <site-header active="cripto"></site-header>
+
+    <!-- ENCABEZADO DEL CURSO -->
+    <section class="classroom-header">
+      <div class="container">
+        <span class="classroom-tag">Mini-Curso Formativo Gratuito</span>
+        <h1 class="hero-title" style="font-size: 40px; margin-bottom: 10px">
+          Fundamentos Cripto & Web3<br />
+          <span>Entiende la Tecnología y Protege tu Capital</span>
+        </h1>
+        <p class="section-subtitle" style="max-width: 660px">
+          Aprende cómo funciona blockchain, por qué Bitcoin y Ethereum lideran
+          el mercado, y cómo gestionar tus propios activos de forma segura y sin
+          intermediarios.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DEL AULA -->
+    <main class="section">
+      <div class="container">
+        <div class="classroom-grid">
+          <!-- COLUMNA IZQUIERDA: REPRODUCTOR + DETALLE DE LA CLASE -->
+          <div>
+            <div class="player-container">
+              <div class="player-video-box">
+                <iframe
+                  id="mainPlayerIframe"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="player-meta">
+                <span class="current-lesson-badge" id="lessonBadge"
+                  >Clase 1 de 4</span
+                >
+                <h2 class="current-lesson-title" id="lessonTitle">
+                  ¿Qué es Bitcoin y por qué representa escasez digital?
+                </h2>
+                <p class="current-lesson-desc" id="lessonDesc">
+                  Explicamos el origen de Bitcoin, la tecnología blockchain como
+                  libro contable inmutable y la regla de emisión estricta de 21
+                  millones de unidades que lo convierte en un activo resistente
+                  a la inflación y a la censura.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMNA DERECHA: PLAYLIST DE LECCIONES INTERACTIVA -->
+          <div>
+            <div class="playlist-card">
+              <div class="playlist-header">
+                <h3>Temario del Mini-Curso</h3>
+                <span>4 clases prácticas • 52 minutos en total</span>
+              </div>
+
+              <div class="lessons-list">
+                <!-- Clase 1 -->
+                <div class="lesson-item active" onclick="loadLesson(0)">
+                  <div class="lesson-num">1</div>
+                  <div class="lesson-info">
+                    <div class="lesson-title-text">
+                      ¿Qué es Bitcoin y la escasez digital?
+                    </div>
+                    <div class="lesson-duration">
+                      ⏱ 12:15 min • Fundamentos monetarios
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Clase 2 -->
+                <div class="lesson-item" onclick="loadLesson(1)">
+                  <div class="lesson-num">2</div>
+                  <div class="lesson-info">
+                    <div class="lesson-title-text">
+                      Ethereum, Smart Contracts y Finanzas DeFi
+                    </div>
+                    <div class="lesson-duration">
+                      ⏱ 15:40 min • Tecnología programable
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Clase 3 -->
+                <div class="lesson-item" onclick="loadLesson(2)">
+                  <div class="lesson-num">3</div>
+                  <div class="lesson-info">
+                    <div class="lesson-title-text">
+                      Stablecoins, Wallets y Autocustodia segura
+                    </div>
+                    <div class="lesson-duration">
+                      ⏱ 11:30 min • Almacenamiento y claves
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Clase 4 -->
+                <div class="lesson-item" onclick="loadLesson(3)">
+                  <div class="lesson-num">4</div>
+                  <div class="lesson-info">
+                    <div class="lesson-title-text">
+                      Ciclos de mercado, Halving y psicología
+                    </div>
+                    <div class="lesson-duration">
+                      ⏱ 13:10 min • Visión a largo plazo
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BOTÓN DE APOYO / DUDAS -->
+            <div
+              style="
+                margin-top: 20px;
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 14px;
+                padding: 20px;
+                text-align: center;
+              "
+            >
+              <p
+                style="
+                  font-size: 13.5px;
+                  color: #475569;
+                  margin-bottom: 12px;
+                  font-weight: 500;
+                "
+              >
+                ¿Quieres debatir sobre proyectos o resolver dudas técnicas?
+              </p>
+              <a
+                href="https://wa.me/"
+                target="_blank"
+                class="btn-hero-outline"
+                style="width: 100%; font-size: 13.5px; padding: 10px"
+              >
+                Preguntar en el canal de soporte
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- REGLAS DE ORO DE SEGURIDAD CRIPTO -->
+        <div class="safety-box">
+          <h3
+            style="
+              font-size: 20px;
+              font-weight: 800;
+              color: #0f172a;
+              margin-bottom: 4px;
+            "
+          >
+            3 Reglas de oro para proteger tus criptomonedas
+          </h3>
+          <p style="font-size: 13.5px; color: #64748b">
+            En el mundo de los activos digitales, tú eres tu propio banco. La
+            seguridad depende enteramente de tus hábitos.
+          </p>
+
+          <div class="safety-grid">
+            <div class="safety-item">
+              <h4>1. Tu frase semilla nunca se comparte</h4>
+              <p>
+                Las 12 o 24 palabras de recuperación jamás se escriben en una
+                foto, correo o chat. Guárdalas en papel físico o placa metálica
+                fuera de internet.
+              </p>
+            </div>
+            <div class="safety-item">
+              <h4>2. Cuidado con links y contratos maliciosos</h4>
+              <p>
+                Verifica siempre la URL exacta de las plataformas
+                descentralizadas. Los intentos de phishing y contratos con
+                permisos ilimitados son la causa #1 de pérdidas.
+              </p>
+            </div>
+            <div class="safety-item">
+              <h4>3. No dejes todo en un solo exchange</h4>
+              <p>
+                Aplica el principio de "Not your keys, not your coins". Si no
+                vas a operar activamente, transfiere tus activos a una billetera
+                de autocustodia (Hardware Wallet).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER MAESTRO AUTOMÁTICO -->
+    <site-footer></site-footer>
+
+    <!-- SCRIPTS -->
+    <script src="components.js"></script>
+    <script>
+      // DATOS DE LAS LECCIONES DE CRIPTO
+      const lessonsData = [
+        {
+          badge: 'Clase 1 de 4',
+          title: '¿Qué es Bitcoin y por qué representa escasez digital?',
+          desc: 'Explicamos el origen de Bitcoin, la tecnología blockchain como libro contable inmutable y la regla de emisión estricta de 21 millones de unidades que lo convierte en un activo resistente a la inflación y a la censura.',
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        {
+          badge: 'Clase 2 de 4',
+          title: 'Ethereum, Smart Contracts y el ecosistema DeFi',
+          desc: 'Cómo Ethereum expandió la tecnología blockchain permitiendo crear aplicaciones descentralizadas, protocolos de préstamos y contratos autoejecutables sin bancos tradicionales.',
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        {
+          badge: 'Clase 3 de 4',
+          title: 'Stablecoins, Wallets y Autocustodia segura',
+          desc: 'Diferencias clave entre exchanges centralizados (CEX) y billeteras no custodiales (como MetaMask o Ledger). Aprende qué son USDT y USDC y cómo transferir valor de forma eficiente.',
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        {
+          badge: 'Clase 4 de 4',
+          title: 'Ciclos de mercado, Halving de Bitcoin y psicología',
+          desc: 'El impacto del halving cada 4 años, cómo identificar fases de acumulación y distribución, y cómo evitar comprar en euforia o vender en pánico.',
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+      ];
+
+      function loadLesson(index) {
+        const data = lessonsData[index];
+        if (!data) return;
+
+        // Actualizar reproductor e información
+        document.getElementById('mainPlayerIframe').src = data.videoUrl;
+        document.getElementById('lessonBadge').innerText = data.badge;
+        document.getElementById('lessonTitle').innerText = data.title;
+        document.getElementById('lessonDesc').innerText = data.desc;
+
+        // Actualizar clase activa en la playlist
+        const items = document.querySelectorAll('.lesson-item');
+        items.forEach((item, idx) => {
+          if (idx === index) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
