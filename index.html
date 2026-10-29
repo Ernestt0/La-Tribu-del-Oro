@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Tribu del Oro - Comunidad de Trading & Cripto</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* SECCIÓN DE TESTIMONIOS Y EXPERIENCIAS EN VIDEO */
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 35px;
+      }
+      .testimonial-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+        transition: transform 0.2s, border-color 0.2s;
+      }
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        border-color: #e50914;
+      }
+      .testimonial-video-thumb {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        background: #0f172a;
+        cursor: pointer;
+        overflow: hidden;
+      }
+      .testimonial-video-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.9;
+        transition: transform 0.3s;
+      }
+      .testimonial-video-thumb:hover img {
+        transform: scale(1.05);
+      }
+      .testimonial-content {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+      .stars {
+        color: #f59e0b;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .testimonial-quote {
+        font-size: 14px;
+        color: #334155;
+        line-height: 1.6;
+        margin-bottom: 18px;
+        flex-grow: 1;
+        font-style: italic;
+      }
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 14px;
+      }
+      .author-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e50914;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .author-info h4 {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .author-info span {
+        font-size: 12px;
+        color: #64748b;
+      }
+      @media (max-width: 900px) {
+        .testimonials-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER MAESTRO AUTOMÁTICO (INICIO ACTIVO) -->
+    <site-header active="inicio"></site-header>
+
+    <!-- 1. HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <h1 class="hero-title">
+            Aprende trading<br />
+            y cripto <span class="text-red">a tu</span><br />
+            <span class="text-red">ritmo</span>
+          </h1>
+          <p class="hero-subtitle">
+            Formación práctica, herramientas y una comunidad enfocada en
+            aprender y tomar mejores decisiones.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="videos.html" class="btn-hero-red">Ver videos gratis</a>
+            <button class="btn-hero-outline" onclick="playHeroVideoDirectly()">
+              Ver introducción
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-video-wrapper">
+            <div class="hero-video-header">
+              <span class="video-label-badge">Presentación</span>
+              <h3 class="video-header-title">Ve nuestro video aquí</h3>
+            </div>
+
+            <div
+              class="hero-video-box"
+              id="heroVideoBox"
+              onclick="playHeroVideoDirectly()"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80"
+                alt="Gráfico de trading profesional"
+              />
+              <div class="hero-play-btn">
+                <svg viewBox="0 0 24 24">
+                  <polygon points="6 4 20 12 6 20 6 4" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. LÍNEA DIVISORIA EN ORO / DORADO SATINADO -->
+    <div class="divider-base divider-gold"></div>
+
+    <!-- 2. NUESTRAS SOLUCIONES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Nuestras soluciones</h2>
+          <p class="section-subtitle">
+            Todo lo que necesitas para aprender, practicar y avanzar en trading
+            y cripto.
+          </p>
+        </div>
+
+        <div class="solutions-grid">
+          <!-- 1. CURSO -->
+          <div class="solution-card">
+            <div class="solution-logo-box" style="background: #fee2e2">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="#E50914" />
+                <path
+                  d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"
+                  fill="#E50914"
+                  opacity="0.8"
+                />
+              </svg>
+            </div>
+            <h3>Curso</h3>
+            <p>
+              Formación completa desde cero hasta nivel avanzado, con enfoque
+              práctico.
+            </p>
+            <a href="curso.html" class="card-arrow-btn"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m9 18 6-6-6-6" /></svg
+            ></a>
+          </div>
+
+          <!-- 2. COPY TRADING -->
+          <div class="solution-card">
+            <div class="solution-logo-box" style="background: #eff6ff">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+                <rect
+                  x="2"
+                  y="5"
+                  width="13"
+                  height="13"
+                  rx="3"
+                  fill="#2563EB"
+                  opacity="0.85"
+                />
+                <rect
+                  x="9"
+                  y="8"
+                  width="13"
+                  height="13"
+                  rx="3"
+                  fill="#1D4ED8"
+                />
+                <path
+                  d="M13 12h5m-2.5-2.5L18 12l-2.5 2.5"
+                  stroke="#FFFFFF"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <h3>Copy Trading</h3>
+            <p>
+              Aprende cómo funciona y sigue estrategias de traders
+              experimentados.
+            </p>
+            <a href="copy-trading.html" class="card-arrow-btn"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m9 18 6-6-6-6" /></svg
+            ></a>
+          </div>
+
+          <!-- 3. SEÑALES -->
+          <div class="solution-card">
+            <div class="solution-logo-box" style="background: #e0f2fe">
+              <svg viewBox="0 0 24 24" width="28" height="28">
+                <circle cx="12" cy="12" r="12" fill="#229ED9" />
+                <path
+                  d="M5.4 11.9l11.7-4.5c.5-.2 1 .1.8.7l-2 9.4c-.1.6-.5.7-1 .4l-2.9-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.3-4.8c.2-.2 0-.3-.3-.1l-6.6 4.1-2.8-.9c-.6-.2-.6-.6.1-.8z"
+                  fill="#FFFFFF"
+                />
+              </svg>
+            </div>
+            <h3>Señales</h3>
+            <p>
+              Accede a señales y análisis del mercado en tiempo real para tomar
+              mejores decisiones.
+            </p>
+            <a href="senales.html" class="card-arrow-btn"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m9 18 6-6-6-6" /></svg
+            ></a>
+          </div>
+
+          <!-- 4. CRIPTO -->
+          <div class="solution-card">
+            <div class="solution-logo-box" style="background: #fef3c7">
+              <svg viewBox="0 0 32 32" width="28" height="28">
+                <circle cx="16" cy="16" r="16" fill="#F7931A" />
+                <path
+                  d="M22.5 13.5c.3-2-1.2-3.1-3.3-3.8l.7-2.7-1.7-.4-.7 2.6c-.4-.1-.9-.2-1.4-.3l.7-2.6-1.7-.4-.7 2.7c-.4-.1-.7-.2-1.1-.3l-2.3-.6-.5 1.8s1.2.3 1.2.3c.7.2.8.6.8.9l-.8 3.2c.1 0 .1 0 .2.1-.1 0-.1 0-.2-.1l-1.1 4.5c-.1.2-.3.6-.8.4 0 0-1.2-.3-1.2-.3l-.8 2 2.2.6c.4.1.8.2 1.2.3l-.7 2.8 1.7.4.7-2.7c.5.1.9.2 1.4.3l-.7 2.7 1.7.4.7-2.7c2.9.5 5.1.3 6-2.3.8-2 .1-3.2-1.4-4 1.1-.3 1.9-1 2.1-2.4zm-3.8 5.2c-.5 2.1-4 1-5.1.7l.9-3.6c1.1.3 4.7.8 4.2 2.9zm.5-5.3c-.5 1.9-3.4.9-4.3.7l.8-3.3c.9.2 3.9.7 3.5 2.6z"
+                  fill="#FFFFFF"
+                />
+              </svg>
+            </div>
+            <h3>Cripto</h3>
+            <p>
+              Aprende sobre el ecosistema cripto de forma sencilla y accesible,
+              desde lo básico.
+            </p>
+            <a href="cripto.html" class="card-arrow-btn"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m9 18 6-6-6-6" /></svg
+            ></a>
+          </div>
+
+          <!-- 5. ETHER.FI: PNG NATIVO TRANSPARENTE -->
+          <div class="solution-card">
+            <div
+              class="solution-logo-box"
+              style="
+                background: #f3e8ff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                src="etherfi.png"
+                alt="Ether.fi"
+                style="
+                  width: 38px;
+                  height: 38px;
+                  object-fit: contain;
+                  filter: drop-shadow(0 2px 4px rgba(124, 58, 237, 0.2));
+                "
+              />
+            </div>
+            <h3>Ether.fi</h3>
+            <p>
+              Conoce el ecosistema Ether.fi, sus productos y aprende cómo
+              funciona su tecnología.
+            </p>
+            <a href="ether-fi.html" class="card-arrow-btn"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m9 18 6-6-6-6" /></svg
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN TRADING EN VIVO -->
+    <section class="section" id="trading-en-vivo">
+      <div class="container">
+        <div class="live-trading-card">
+          <div class="live-trading-info">
+            <div class="live-badge"><span class="live-dot"></span> EN VIVO</div>
+            <h2 class="section-title" style="margin-top: 10px">
+              Sesiones de Trading en Vivo
+            </h2>
+            <p class="section-subtitle">
+              Conéctate a nuestras operativas en directo en Nueva York y
+              Londres. Análisis de mercado en tiempo real, entradas ejecutadas
+              con gestión de riesgo y preguntas y respuestas.
+            </p>
+            <ul class="live-perks">
+              <li>
+                ✓ Análisis institucional en directo (Oro, Forex e Índices)
+              </li>
+              <li>✓ Ejecución de operativas con Stop Loss estricto</li>
+              <li>✓ Resolución de dudas en tiempo real</li>
+            </ul>
+            <div class="live-actions">
+              <a href="https://t.me/" target="_blank" class="btn-hero-red"
+                >Unirse al canal en vivo</a
+              >
+              <span class="live-schedule"
+                >Horario: Lun - Vie | 8:00 AM (EST)</span
+              >
+            </div>
+          </div>
+
+          <div class="live-trading-preview">
+            <!-- Widget gráfico o miniatura interactiva de la transmisión -->
+            <div
+              class="live-screen-box"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=1000&q=80"
+                alt="Pantalla de trading en vivo"
+              />
+              <div class="hero-play-btn">
+                <svg viewBox="0 0 24 24">
+                  <polygon points="6 4 20 12 6 20 6 4" />
+                </svg>
+              </div>
+              <div class="live-tag-overlay">Stream interactivo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LÍNEA DIVISORIA DUAL -->
+    <div class="divider-base divider-gold-red"></div>
+
+    <!-- 2. LÍNEA DIVISORIA EN ROJO INSTITUCIONAL -->
+    <div class="divider-base divider-red"></div>
+
+    <!-- 3. LO QUE DICE NUESTRA COMUNIDAD -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">Lo que dice nuestra comunidad</h2>
+            <p class="section-subtitle">
+              Personas reales compartiendo su proceso, resultados y aprendizaje
+              con nosotros.
+            </p>
+          </div>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div
+              class="testimonial-video-thumb"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+                alt="Testimonio Sofia M."
+              />
+              <div class="video-play-mini">
+                <svg viewBox="0 0 24 24">
+                  <polygon points="6 4 20 12 6 20 6 4" />
+                </svg>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-quote">
+                "Venía de quemar dos cuentas por no entender la gestión de
+                riesgo. El enfoque claro del canal y las señales con Stop Loss
+                estricto cambiaron completamente mi disciplina operativa."
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">SM</div>
+                <div class="author-info">
+                  <h4>Sofía Martínez</h4>
+                  <span>Miembro activo • 6 meses</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div
+              class="testimonial-video-thumb"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
+                alt="Testimonio Daniel R."
+              />
+              <div class="video-play-mini">
+                <svg viewBox="0 0 24 24">
+                  <polygon points="6 4 20 12 6 20 6 4" />
+                </svg>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-quote">
+                "Lo que más valoro es que no te venden humo. El mini-curso de
+                Copy Trading me enseñó a auditar drawdowns antes de sincronizar
+                mi capital con cualquier trader."
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar" style="background: #0f172a">DR</div>
+                <div class="author-info">
+                  <h4>Daniel Restrepo</h4>
+                  <span>Inversor en Copy Trading</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div
+              class="testimonial-video-thumb"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
+                alt="Testimonio Andrés P."
+              />
+              <div class="video-play-mini">
+                <svg viewBox="0 0 24 24">
+                  <polygon points="6 4 20 12 6 20 6 4" />
+                </svg>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-quote">
+                "Me uní al programa IB para mi grupo de Telegram y el
+                acompañamiento 1 a 1 para configurar los enlaces y las
+                liquidaciones transparentes superó mis expectativas."
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar" style="background: #16a34a">AP</div>
+                <div class="author-info">
+                  <h4>Andrés Palacios</h4>
+                  <span>Líder de Comunidad & Aliado IB</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. LÍNEA DIVISORIA COMBINADA ORO A ROJO -->
+    <div class="divider-base divider-gold-red"></div>
+
+    <!-- 4. VIDEOS GRATIS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">Videos gratis</h2>
+            <p class="section-subtitle">
+              Contenido educativo para que empieces hoy.
+            </p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px">
+            <div style="display: flex; gap: 6px">
+              <button
+                class="carousel-nav-btn"
+                onclick="scrollCarouselManual(-1)"
+                title="Anterior"
+              >
+                &larr;
+              </button>
+              <button
+                class="carousel-nav-btn"
+                onclick="scrollCarouselManual(1)"
+                title="Siguiente"
+              >
+                &rarr;
+              </button>
+            </div>
+            <a href="videos.html" class="section-link"
+              >Ver todos los videos &rarr;</a
+            >
+          </div>
+        </div>
+
+        <div
+          class="carousel-wrapper"
+          onmouseenter="stopAutoCarousel()"
+          onmouseleave="startAutoCarousel()"
+        >
+          <div class="carousel-track" id="videoTrack">
+            <div
+              class="video-card-slide"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <div class="video-thumb">
+                <img
+                  src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80"
+                />
+                <div class="video-duration">12:34</div>
+                <div class="video-play-mini">
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="6 4 20 12 6 20 6 4" />
+                  </svg>
+                </div>
+              </div>
+              <h4 class="video-title">¿Qué es el trading y cómo funciona?</h4>
+              <span class="video-category">Conceptos básicos</span>
+            </div>
+
+            <div
+              class="video-card-slide"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <div class="video-thumb">
+                <img
+                  src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=600&q=80"
+                />
+                <div class="video-duration">15:20</div>
+                <div class="video-play-mini">
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="6 4 20 12 6 20 6 4" />
+                  </svg>
+                </div>
+              </div>
+              <h4 class="video-title">
+                Análisis técnico explicado de forma sencilla
+              </h4>
+              <span class="video-category">Análisis técnico</span>
+            </div>
+
+            <div
+              class="video-card-slide"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <div class="video-thumb">
+                <img
+                  src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80"
+                />
+                <div class="video-duration">10:18</div>
+                <div class="video-play-mini">
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="6 4 20 12 6 20 6 4" />
+                  </svg>
+                </div>
+              </div>
+              <h4 class="video-title">Gestión de riesgo en trading</h4>
+              <span class="video-category">Gestión de riesgo</span>
+            </div>
+
+            <div
+              class="video-card-slide"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <div class="video-thumb">
+                <img
+                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80"
+                />
+                <div class="video-duration">14:26</div>
+                <div class="video-play-mini">
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="6 4 20 12 6 20 6 4" />
+                  </svg>
+                </div>
+              </div>
+              <h4 class="video-title">Introducción a las criptomonedas</h4>
+              <span class="video-category">Criptomonedas</span>
+            </div>
+
+            <div
+              class="video-card-slide"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <div class="video-thumb">
+                <img
+                  src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80"
+                />
+                <div class="video-duration">11:03</div>
+                <div class="video-play-mini">
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="6 4 20 12 6 20 6 4" />
+                  </svg>
+                </div>
+              </div>
+              <h4 class="video-title">Psicología y disciplina del trading</h4>
+              <span class="video-category">Mentalidad</span>
+            </div>
+
+            <div
+              class="video-card-slide"
+              onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            >
+              <div class="video-thumb">
+                <img
+                  src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=600&q=80"
+                />
+                <div class="video-duration">18:45</div>
+                <div class="video-play-mini">
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="6 4 20 12 6 20 6 4" />
+                  </svg>
+                </div>
+              </div>
+              <h4 class="video-title">Soportes, resistencias y estructura</h4>
+              <span class="video-category">Análisis técnico</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. LÍNEA DIVISORIA EN AZUL DIGITAL / CRIPTO -->
+    <div class="divider-base divider-blue"></div>
+
+    <!-- 5. GLOSARIO PREVIEW -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">Glosario financiero</h2>
+            <p class="section-subtitle">
+              Aprende los términos más importantes del trading y las
+              criptomonedas.
+            </p>
+          </div>
+          <a href="glosario.html" class="section-link"
+            >Ver glosario completo &rarr;</a
+          >
+        </div>
+
+        <div class="glossary-grid">
+          <div class="glossary-card">
+            <div class="glossary-top">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"
+                />
+              </svg>
+              <h4 class="glossary-term">Trading</h4>
+            </div>
+            <p class="glossary-def">
+              Compra y venta de activos financieros con el objetivo de
+              aprovechar movimientos de precio.
+            </p>
+          </div>
+          <div class="glossary-card">
+            <div class="glossary-top">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 20V10M12 20V4M6 20v-6" />
+              </svg>
+              <h4 class="glossary-term">Análisis técnico</h4>
+            </div>
+            <p class="glossary-def">
+              Estudio del movimiento de precios a través de gráficos y patrones
+              de comportamiento.
+            </p>
+          </div>
+          <div class="glossary-card">
+            <div class="glossary-top">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+              </svg>
+              <h4 class="glossary-term">Volatilidad</h4>
+            </div>
+            <p class="glossary-def">
+              Medida de la variación del precio de un activo en un determinado
+              periodo de tiempo.
+            </p>
+          </div>
+          <div class="glossary-card">
+            <div class="glossary-top">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polygon points="12 2 2 12 12 22 22 12" />
+              </svg>
+              <h4 class="glossary-term">Blockchain</h4>
+            </div>
+            <p class="glossary-def">
+              Tecnología que permite registrar información de forma segura,
+              inmutable y descentralizada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER MAESTRO AUTOMÁTICO -->
+    <site-footer></site-footer>
+
+    <!-- SCRIPTS -->
+    <script src="components.js"></script>
+    <script>
+      function playHeroVideoDirectly() {
+        const box = document.getElementById('heroVideoBox');
+        if (!box) return;
+
+        box.onclick = null;
+        box.style.cursor = 'default';
+        box.innerHTML = `
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen style="width:100%; height:100%; border:none; display:block;"></iframe>
+      `;
+      }
+
+      const track = document.getElementById('videoTrack');
+      let autoPlayTimer = null;
+
+      function autoAdvanceCarousel() {
+        if (!track) return;
+        const step = 342;
+        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 20) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      }
+
+      function startAutoCarousel() {
+        stopAutoCarousel();
+        autoPlayTimer = setInterval(autoAdvanceCarousel, 3000);
+      }
+
+      function stopAutoCarousel() {
+        if (autoPlayTimer) clearInterval(autoPlayTimer);
+      }
+
+      startAutoCarousel();
+
+      function scrollCarouselManual(direction) {
+        stopAutoCarousel();
+        track.scrollBy({ left: direction * 342, behavior: 'smooth' });
+        setTimeout(startAutoCarousel, 4000);
+      }
+    </script>
+  </body>
+</html>

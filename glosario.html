@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glosario Financiero - La Tribu del Oro</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* SECCIÓN INTRODUCCIÓN CON VIDEO */
+      .glossary-hero {
+        background: #ffffff;
+        border-bottom: 1px solid #f1f5f9;
+        padding: 60px 0 70px;
+      }
+      .glossary-hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 45px;
+        align-items: center;
+      }
+      .glossary-intro-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #e50914;
+        background: #fee2e2;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 14px;
+      }
+      .glossary-hero-title {
+        font-size: 42px;
+        font-weight: 900;
+        color: #0f172a;
+        line-height: 1.15;
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+      }
+      .glossary-hero-desc {
+        font-size: 16px;
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 26px;
+      }
+
+      /* BUSCADOR DENTRO DE LA INTRODUCCIÓN */
+      .glossary-search-wrapper {
+        position: relative;
+        max-width: 520px;
+      }
+      .glossary-search-input {
+        width: 100%;
+        padding: 14px 18px 14px 46px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 15px;
+        font-family: inherit;
+        color: #0f172a;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .glossary-search-input:focus {
+        border-color: #e50914;
+        box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.08);
+      }
+      .glossary-search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        color: #94a3b8;
+        pointer-events: none;
+      }
+
+      /* BARRA DE NAVEGACIÓN ALFABÉTICA (A - Z) */
+      .alphabet-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 24px 0 10px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .alphabet-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        color: #475569;
+        font-size: 14px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.18s ease;
+      }
+      .alphabet-btn:hover {
+        background: #fef2f2;
+        color: #e50914;
+        border-color: #fca5a5;
+      }
+      .alphabet-btn.active {
+        background: #e50914;
+        color: #ffffff;
+        border-color: #e50914;
+        box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
+      }
+      .alphabet-btn-all {
+        width: auto;
+        padding: 0 16px;
+      }
+
+      /* SECCIONES POR LETRA (COLORES ADAPTADOS EN ROJO INSTITUCIONAL) */
+      .letter-group {
+        margin-bottom: 45px;
+      }
+      .letter-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 22px;
+      }
+      .letter-title {
+        font-size: 24px;
+        font-weight: 900;
+        color: #e50914;
+        width: 46px;
+        height: 46px;
+        background: #fee2e2;
+        border: 1.5px solid #fecaca;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(229, 9, 20, 0.08);
+        user-select: none;
+      }
+      .letter-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, #fca5a5 0%, #e2e8f0 60%);
+      }
+
+      /* REJILLA DE TARJETAS DENTRO DE CADA LETRA */
+      .letter-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .glossary-item-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      }
+      .glossary-item-card:hover {
+        transform: translateY(-4px);
+        border-color: #cbd5e1;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+      }
+      .glossary-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .glossary-item-title {
+        font-size: 17px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+      .glossary-badge-cat {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 6px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        color: #64748b;
+        text-transform: uppercase;
+      }
+      .glossary-item-text {
+        font-size: 14px;
+        color: #475569;
+        line-height: 1.55;
+      }
+
+      @media (max-width: 960px) {
+        .glossary-hero-grid {
+          grid-template-columns: 1fr;
+          gap: 35px;
+        }
+        .letter-cards-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .letter-cards-grid {
+          grid-template-columns: 1fr;
+        }
+        .glossary-hero-title {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER MAESTRO AUTOMÁTICO -->
+    <site-header active="glosario"></site-header>
+
+    <!-- SECCIÓN HERO INTRODUCTORIA CON VIDEO Y DESCRIPCIÓN -->
+    <section class="glossary-hero">
+      <div class="container glossary-hero-grid">
+        <!-- LADO IZQUIERDO: TEXTO Y DESCRIPCIÓN -->
+        <div>
+          <div class="glossary-intro-badge">
+            <svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"
+              />
+            </svg>
+            Diccionario Operativo A - Z
+          </div>
+          <h1 class="glossary-hero-title">Glosario Financiero & Cripto</h1>
+          <p class="glossary-hero-desc">
+            Domina los conceptos, métricas y terminología clave utilizada por
+            traders e inversores institucionales, organizados en orden
+            alfabético de la A a la Z para una consulta rápida.
+          </p>
+
+          <!-- BUSCADOR INTERACTIVO -->
+          <div class="glossary-search-wrapper">
+            <svg
+              class="glossary-search-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input
+              type="text"
+              id="glossarySearchInput"
+              class="glossary-search-input"
+              placeholder="Buscar concepto (ej: Apalancamiento, Drawdown, Pip...)"
+              onkeyup="filterGlossary()"
+            />
+          </div>
+        </div>
+
+        <!-- LADO DERECHO: VIDEO DE INTRODUCCIÓN -->
+        <div>
+          <div class="hero-video-wrapper">
+            <div class="hero-video-header">
+              <span class="video-label-badge">Video explicativo</span>
+              <h3 class="video-header-title">Conceptos esenciales</h3>
+            </div>
+
+            <div
+              class="hero-video-box"
+              id="glossaryVideoBox"
+              onclick="playGlossaryVideo()"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80"
+                alt="Video Glosario Financiero"
+              />
+              <div class="hero-play-btn">
+                <svg viewBox="0 0 24 24">
+                  <polygon points="6 4 20 12 6 20 6 4" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENIDO DEL GLOSARIO ALFABÉTICO -->
+    <section class="section">
+      <div class="container">
+        <!-- NAVEGACIÓN POR LETRAS (A - Z) -->
+        <div class="alphabet-nav">
+          <button
+            class="alphabet-btn alphabet-btn-all active"
+            onclick="filterByLetter('TODOS', this)"
+          >
+            Todos
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('A', this)">
+            A
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('B', this)">
+            B
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('C', this)">
+            C
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('D', this)">
+            D
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('E', this)">
+            E
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('F', this)">
+            F
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('G', this)">
+            G
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('L', this)">
+            L
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('M', this)">
+            M
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('P', this)">
+            P
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('R', this)">
+            R
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('S', this)">
+            S
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('T', this)">
+            T
+          </button>
+          <button class="alphabet-btn" onclick="filterByLetter('V', this)">
+            V
+          </button>
+        </div>
+
+        <!-- CONTENEDOR GENERAL DE GRUPOS ALFABÉTICOS -->
+        <div id="glossaryGroups">
+          <!-- LETRA A -->
+          <div class="letter-group" data-letter="A">
+            <div class="letter-header">
+              <div class="letter-title">A</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Análisis Fundamental</h3>
+                  <span class="glossary-badge-cat">Análisis</span>
+                </div>
+                <p class="glossary-item-text">
+                  Estudio de factores macroeconómicos, tasas de interés,
+                  reportes de empleo y estados financieros para evaluar el valor
+                  intrínseco de un activo.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Análisis Técnico</h3>
+                  <span class="glossary-badge-cat">Análisis</span>
+                </div>
+                <p class="glossary-item-text">
+                  Metodología que analiza el comportamiento histórico de precios
+                  y volumen mediante gráficos y patrones para proyectar
+                  movimientos futuros.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Apalancamiento</h3>
+                  <span class="glossary-badge-cat">Trading</span>
+                </div>
+                <p class="glossary-item-text">
+                  Mecanismo financiero que permite operar posiciones de mayor
+                  valor con solo una fracción del capital propio requerida como
+                  margen de garantía.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA B -->
+          <div class="letter-group" data-letter="B">
+            <div class="letter-header">
+              <div class="letter-title">B</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Blockchain</h3>
+                  <span class="glossary-badge-cat">Cripto</span>
+                </div>
+                <p class="glossary-item-text">
+                  Registro contable descentralizado e inmutable compuesto por
+                  bloques enlazados criptográficamente para validar y proteger
+                  transacciones.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Breakout</h3>
+                  <span class="glossary-badge-cat">Análisis</span>
+                </div>
+                <p class="glossary-item-text">
+                  Ruptura con fuerza de un nivel significativo de soporte o
+                  resistencia, que con frecuencia marca el comienzo de una nueva
+                  tendencia sostenida.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Broker</h3>
+                  <span class="glossary-badge-cat">Mercados</span>
+                </div>
+                <p class="glossary-item-text">
+                  Entidad regulada que actúa como intermediaria para permitir
+                  que traders particulares ejecuten órdenes de compra y venta en
+                  el mercado financiero.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA C -->
+          <div class="letter-group" data-letter="C">
+            <div class="letter-header">
+              <div class="letter-title">C</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Copy Trading</h3>
+                  <span class="glossary-badge-cat">Solución</span>
+                </div>
+                <p class="glossary-item-text">
+                  Sistema que replica automáticamente las operaciones de traders
+                  profesionales en tu propia cuenta en tiempo real, respetando
+                  el tamaño del capital.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">
+                    CFD (Contrato por Diferencia)
+                  </h3>
+                  <span class="glossary-badge-cat">Derivados</span>
+                </div>
+                <p class="glossary-item-text">
+                  Derivado financiero donde se negocia la diferencia entre el
+                  precio de entrada y salida de un activo subyacente sin
+                  necesidad de poseerlo físicamente.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Criptomoneda</h3>
+                  <span class="glossary-badge-cat">Cripto</span>
+                </div>
+                <p class="glossary-item-text">
+                  Activo digital protegido mediante criptografía que opera sobre
+                  redes descentralizadas como medio de intercambio y reserva de
+                  valor.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA D -->
+          <div class="letter-group" data-letter="D">
+            <div class="letter-header">
+              <div class="letter-title">D</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">
+                    DeFi (Finanzas Descentralizadas)
+                  </h3>
+                  <span class="glossary-badge-cat">Cripto</span>
+                </div>
+                <p class="glossary-item-text">
+                  Ecosistema de aplicaciones financieras construidas sobre
+                  contratos inteligentes que eliminan intermediarios bancarios
+                  tradicionales.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Drawdown</h3>
+                  <span class="glossary-badge-cat">Gestión</span>
+                </div>
+                <p class="glossary-item-text">
+                  Medida de la caída porcentual o monetaria desde el pico máximo
+                  de balance de una cuenta hasta su punto más bajo durante una
+                  racha de operaciones.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA E -->
+          <div class="letter-group" data-letter="E">
+            <div class="letter-header">
+              <div class="letter-title">E</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Ether.fi</h3>
+                  <span class="glossary-badge-cat">Protocolo</span>
+                </div>
+                <p class="glossary-item-text">
+                  Protocolo descentralizado de liquid staking y restaking no
+                  custodial en Ethereum, donde el usuario mantiene el control
+                  exclusivo de sus claves privadas.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Ethereum (ETH)</h3>
+                  <span class="glossary-badge-cat">Cripto</span>
+                </div>
+                <p class="glossary-item-text">
+                  Red blockchain descentralizada de código abierto que permite
+                  la creación y ejecución de contratos inteligentes y
+                  aplicaciones descentralizadas (dApps).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA F -->
+          <div class="letter-group" data-letter="F">
+            <div class="letter-header">
+              <div class="letter-title">F</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Forex (FX)</h3>
+                  <span class="glossary-badge-cat">Mercados</span>
+                </div>
+                <p class="glossary-item-text">
+                  Mercado global descentralizado donde se negocian todas las
+                  divisas del mundo, con la mayor liquidez y volumen diario de
+                  operaciones global.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA G -->
+          <div class="letter-group" data-letter="G">
+            <div class="letter-header">
+              <div class="letter-title">G</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Gas Fee</h3>
+                  <span class="glossary-badge-cat">Cripto</span>
+                </div>
+                <p class="glossary-item-text">
+                  Tarifa de red abonada a los validadores o mineros por procesar
+                  transacciones o ejecutar contratos inteligentes en redes como
+                  Ethereum.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Gestión de Riesgo</h3>
+                  <span class="glossary-badge-cat">Gestión</span>
+                </div>
+                <p class="glossary-item-text">
+                  Conjunto de reglas y directrices enfocadas en limitar las
+                  pérdidas potenciales por operación mediante el uso de lotaje
+                  adecuado y Stop Loss.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA L -->
+          <div class="letter-group" data-letter="L">
+            <div class="letter-header">
+              <div class="letter-title">L</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Liquidez</h3>
+                  <span class="glossary-badge-cat">Mercados</span>
+                </div>
+                <p class="glossary-item-text">
+                  Capacidad de un activo para ser comprado o vendido rápidamente
+                  en el mercado sin causar un impacto significativo en su
+                  cotización.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Lotaje (Lote)</h3>
+                  <span class="glossary-badge-cat">Trading</span>
+                </div>
+                <p class="glossary-item-text">
+                  Unidad de medida estandarizada del tamaño de una transacción.
+                  En Forex, un lote estándar equivale a 100.000 unidades de la
+                  divisa base.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA M -->
+          <div class="letter-group" data-letter="M">
+            <div class="letter-header">
+              <div class="letter-title">M</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Margen</h3>
+                  <span class="glossary-badge-cat">Trading</span>
+                </div>
+                <p class="glossary-item-text">
+                  Cantidad mínima de fondos que un trader debe depositar y
+                  mantener en la cuenta para abrir y sostener una posición
+                  apalancada.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA P -->
+          <div class="letter-group" data-letter="P">
+            <div class="letter-header">
+              <div class="letter-title">P</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Pip</h3>
+                  <span class="glossary-badge-cat">Trading</span>
+                </div>
+                <p class="glossary-item-text">
+                  Percentage in Point. La unidad mínima de fluctuación de valor
+                  entre dos divisas (habitualmente el cuarto decimal en la
+                  mayoría de pares de Forex).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA R -->
+          <div class="letter-group" data-letter="R">
+            <div class="letter-header">
+              <div class="letter-title">R</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Ratio Riesgo-Beneficio</h3>
+                  <span class="glossary-badge-cat">Gestión</span>
+                </div>
+                <p class="glossary-item-text">
+                  Relación matemática que compara el capital que se arriesga
+                  frente al beneficio esperado de una operación (por ejemplo 1:2
+                  o 1:3).
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Restaking</h3>
+                  <span class="glossary-badge-cat">Cripto</span>
+                </div>
+                <p class="glossary-item-text">
+                  Tecnología que permite volver a utilizar tokens ETH apostados
+                  en staking para asegurar protocolos adicionales y obtener
+                  rendimientos complementarios.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA S -->
+          <div class="letter-group" data-letter="S">
+            <div class="letter-header">
+              <div class="letter-title">S</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Smart Contract</h3>
+                  <span class="glossary-badge-cat">Cripto</span>
+                </div>
+                <p class="glossary-item-text">
+                  Código informático inmutable y programado en blockchain que se
+                  autoejecuta cuando se cumplen condiciones predefinidas sin
+                  intermediarios.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Soporte y Resistencia</h3>
+                  <span class="glossary-badge-cat">Análisis</span>
+                </div>
+                <p class="glossary-item-text">
+                  Zonas del gráfico donde el precio tiende a reaccionar, rebotar
+                  o pausarse debido a la concentración de órdenes compradoras o
+                  vendedoras.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Spread</h3>
+                  <span class="glossary-badge-cat">Trading</span>
+                </div>
+                <p class="glossary-item-text">
+                  Diferencia entre el precio de oferta (Bid) y demanda (Ask) que
+                  cobra el broker como comisión por abrir una orden en el
+                  mercado.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Staking</h3>
+                  <span class="glossary-badge-cat">Cripto</span>
+                </div>
+                <p class="glossary-item-text">
+                  Proceso de bloquear criptomonedas para validar transacciones y
+                  asegurar una red Proof of Stake (PoS) a cambio de recompensas
+                  porcentuales.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Stop Loss (SL)</h3>
+                  <span class="glossary-badge-cat">Gestión</span>
+                </div>
+                <p class="glossary-item-text">
+                  Orden automática de salida diseñada para cerrar una operación
+                  perdedora en un precio preestablecido y proteger el capital
+                  restante.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA T -->
+          <div class="letter-group" data-letter="T">
+            <div class="letter-header">
+              <div class="letter-title">T</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Take Profit (TP)</h3>
+                  <span class="glossary-badge-cat">Gestión</span>
+                </div>
+                <p class="glossary-item-text">
+                  Orden automática configurada para cerrar una posición ganadora
+                  cuando el precio alcanza el objetivo de beneficio proyectado.
+                </p>
+              </div>
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Trading</h3>
+                  <span class="glossary-badge-cat">General</span>
+                </div>
+                <p class="glossary-item-text">
+                  Actividad especulativa consistente en comprar y vender
+                  instrumentos financieros con la meta de generar beneficios
+                  económicos a corto o mediano plazo.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LETRA V -->
+          <div class="letter-group" data-letter="V">
+            <div class="letter-header">
+              <div class="letter-title">V</div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-cards-grid">
+              <div class="glossary-item-card">
+                <div class="glossary-card-header">
+                  <h3 class="glossary-item-title">Volatilidad</h3>
+                  <span class="glossary-badge-cat">Análisis</span>
+                </div>
+                <p class="glossary-item-text">
+                  Frecuencia y magnitud con la que varían los precios de un
+                  activo financiero en un espacio de tiempo determinado.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER MAESTRO AUTOMÁTICO -->
+    <site-footer></site-footer>
+
+    <!-- SCRIPTS -->
+    <script src="components.js"></script>
+    <script>
+      // REPRODUCCIÓN DEL VIDEO DE INTRODUCCIÓN
+      function playGlossaryVideo() {
+        const box = document.getElementById('glossaryVideoBox');
+        if (!box) return;
+
+        box.onclick = null;
+        box.style.cursor = 'default';
+        box.innerHTML = `
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen style="width:100%; height:100%; border:none; display:block;"></iframe>
+      `;
+      }
+
+      // FILTRO POR LETRA SELECCIONADA
+      let currentLetter = 'TODOS';
+
+      function filterByLetter(letter, btnElement) {
+        currentLetter = letter;
+
+        // Actualizar botón activo
+        const buttons = document.querySelectorAll('.alphabet-btn');
+        buttons.forEach((b) => b.classList.remove('active'));
+        btnElement.classList.add('active');
+
+        filterGlossary();
+      }
+
+      // BUSCADOR EN TIEMPO REAL COMBINADO CON FILTRO ALFABÉTICO
+      function filterGlossary() {
+        const searchTerm = document
+          .getElementById('glossarySearchInput')
+          .value.toLowerCase()
+          .trim();
+        const groups = document.querySelectorAll('.letter-group');
+
+        groups.forEach((group) => {
+          const groupLetter = group.getAttribute('data-letter');
+          const cards = group.querySelectorAll('.glossary-item-card');
+          let visibleCardsInGroup = 0;
+
+          cards.forEach((card) => {
+            const cardText = card.textContent.toLowerCase();
+            const matchesSearch = cardText.includes(searchTerm);
+            const matchesLetter =
+              currentLetter === 'TODOS' || groupLetter === currentLetter;
+
+            if (matchesSearch && matchesLetter) {
+              card.style.display = 'flex';
+              visibleCardsInGroup++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          // Ocultar el grupo de la letra si ninguna tarjeta coincide
+          if (visibleCardsInGroup > 0) {
+            group.style.display = 'block';
+          } else {
+            group.style.display = 'none';
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Riesgo & Lotaje - La Tribu del Oro</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* HERO DE LA PÁGINA */
+      .calc-page-hero {
+        background: #ffffff;
+        padding: 60px 0 45px;
+        border-bottom: 1px solid #ececec;
+      }
+      .calc-tag {
+        display: inline-block;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #e50914;
+        background: #fee2e2;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 14px;
+      }
+
+      /* CONTENEDOR PRINCIPAL Y RETÍCULA EN DOS COLUMNAS */
+      .calc-widget {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 38px 42px;
+        margin: 10px auto 50px;
+        max-width: 980px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      }
+      .calc-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .calc-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      /* CAMPOS DE ENTRADA */
+      .calc-input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .calc-field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .calc-field-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #334155;
+      }
+      .calc-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .calc-input-wrapper span.unit {
+        position: absolute;
+        right: 14px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #94a3b8;
+        pointer-events: none;
+      }
+      .calc-num-input {
+        width: 100%;
+        padding: 11px 48px 11px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #0f172a;
+        outline: none;
+        font-family: inherit;
+        background: #ffffff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .calc-num-input:focus {
+        border-color: #e50914;
+        box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1);
+      }
+      .calc-select {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 14.5px;
+        font-weight: 600;
+        color: #0f172a;
+        outline: none;
+        font-family: inherit;
+        background: #ffffff;
+        cursor: pointer;
+      }
+      .calc-select:focus {
+        border-color: #e50914;
+      }
+      .risk-presets {
+        display: flex;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      .risk-btn {
+        flex: 1;
+        padding: 6px 10px;
+        border-radius: 6px;
+        background: #f1f5f9;
+        font-size: 12px;
+        font-weight: 700;
+        color: #475569;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .risk-btn:hover {
+        background: #e2e8f0;
+        color: #0f172a;
+      }
+      .risk-btn.active {
+        background: #e50914;
+        color: #ffffff;
+      }
+
+      /* TARJETA OSCURA DE RESULTADOS */
+      .calc-result-box {
+        background: #0f172a;
+        border-radius: 18px;
+        padding: 30px 26px;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+      }
+      .calc-result-item {
+        border-bottom: 1px solid #1e293b;
+        padding-bottom: 14px;
+      }
+      .calc-result-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .calc-res-label {
+        font-size: 11px;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .calc-res-val {
+        font-size: 28px;
+        font-weight: 850;
+        line-height: 1.1;
+      }
+
+      /* GUÍAS EDUCATIVAS INFERIORES */
+      .calc-guide-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 40px;
+        max-width: 980px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .calc-guide-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+      }
+
+      @media (max-width: 900px) {
+        .calc-grid,
+        .calc-input-row,
+        .calc-guide-grid {
+          grid-template-columns: 1fr;
+        }
+        .calc-widget {
+          padding: 24px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER MAESTRO CON "LA TRIBU DEL ORO" -->
+    <site-header active="calculadora"></site-header>
+
+    <!-- HERO DE LA CALCULADORA -->
+    <section class="calc-page-hero">
+      <div class="container">
+        <span class="calc-tag">Herramienta Institucional Gratuita</span>
+        <h1 class="hero-title" style="font-size: 40px; margin-bottom: 10px">
+          Calculadora de Riesgo &<br />
+          <span>Tamaño de Posición (Lotaje)</span>
+        </h1>
+        <p class="section-subtitle" style="max-width: 680px">
+          Nunca entres al mercado sin saber exactamente cuánto dinero estás
+          arriesgando. Escribe tu capital y distancia de Stop Loss para obtener
+          el lotaje exacto sugerido.
+        </p>
+      </div>
+    </section>
+
+    <!-- CALCULADORA INTERACTIVA -->
+    <main class="section">
+      <div class="container">
+        <div class="calc-widget">
+          <div class="calc-grid">
+            <!-- COLUMNA IZQUIERDA: INPUTS DIRECTOS -->
+            <div class="calc-inputs">
+              <div>
+                <h3
+                  style="
+                    font-size: 20px;
+                    font-weight: 800;
+                    color: #0f172a;
+                    margin-bottom: 4px;
+                  "
+                >
+                  Parámetros de tu Orden
+                </h3>
+                <p style="font-size: 13px; color: #64748b">
+                  Ajusta los valores con tu teclado o selecciona los accesos
+                  rápidos.
+                </p>
+              </div>
+
+              <!-- FILA 1 -->
+              <div class="calc-input-row">
+                <div class="calc-field-group">
+                  <label>Balance de la cuenta</label>
+                  <div class="calc-input-wrapper">
+                    <input
+                      type="number"
+                      id="inCapital"
+                      class="calc-num-input"
+                      value="2000"
+                      step="100"
+                      min="50"
+                      oninput="calculatePosition()"
+                    />
+                    <span class="unit">USD</span>
+                  </div>
+                </div>
+
+                <div class="calc-field-group">
+                  <label>Instrumento / Mercado</label>
+                  <select
+                    id="inAsset"
+                    class="calc-select"
+                    onchange="calculatePosition()"
+                  >
+                    <option value="forex">Forex (EUR/USD, GBP/USD)</option>
+                    <option value="gold">Oro (XAU/USD)</option>
+                    <option value="crypto">Cripto (BTC, ETH)</option>
+                    <option value="indices">Índices (US30, NAS100)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- FILA 2 -->
+              <div class="calc-input-row">
+                <div class="calc-field-group">
+                  <label>Riesgo tolerado por trade (%)</label>
+                  <div class="calc-input-wrapper">
+                    <input
+                      type="number"
+                      id="inRisk"
+                      class="calc-num-input"
+                      value="1.0"
+                      step="0.1"
+                      min="0.1"
+                      max="10"
+                      oninput="calculatePosition()"
+                    />
+                    <span class="unit">%</span>
+                  </div>
+                  <div class="risk-presets">
+                    <button
+                      type="button"
+                      class="risk-btn"
+                      onclick="setRiskPreset(0.5, event)"
+                    >
+                      0.5%
+                    </button>
+                    <button
+                      type="button"
+                      class="risk-btn active"
+                      id="btnPreset1"
+                      onclick="setRiskPreset(1.0, event)"
+                    >
+                      1.0%
+                    </button>
+                    <button
+                      type="button"
+                      class="risk-btn"
+                      onclick="setRiskPreset(2.0, event)"
+                    >
+                      2.0%
+                    </button>
+                  </div>
+                </div>
+
+                <div class="calc-field-group">
+                  <label>Distancia de Stop Loss</label>
+                  <div class="calc-input-wrapper">
+                    <input
+                      type="number"
+                      id="inSL"
+                      class="calc-num-input"
+                      value="30"
+                      step="1"
+                      min="1"
+                      oninput="calculatePosition()"
+                    />
+                    <span class="unit" id="unitLabel">Pips</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: TARJETA OSCURA DE RESULTADOS -->
+            <div class="calc-result-box">
+              <div class="calc-result-item">
+                <div class="calc-res-label">Lotaje sugerido a operar</div>
+                <div
+                  class="calc-res-val"
+                  id="resLotSize"
+                  style="color: #60a5fa"
+                >
+                  0.07 Lotes
+                </div>
+              </div>
+              <div class="calc-result-item">
+                <div class="calc-res-label">Pérdida máxima monetaria</div>
+                <div
+                  class="calc-res-val"
+                  id="resMoneyRisk"
+                  style="color: #10b981; font-size: 24px"
+                >
+                  $20.00 USD
+                </div>
+              </div>
+              <div class="calc-result-item">
+                <div class="calc-res-label">Capital protegido remanente</div>
+                <div
+                  class="calc-res-val"
+                  id="resSafeCapital"
+                  style="color: #ffffff; font-size: 20px"
+                >
+                  $1,980.00 USD
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUÍAS EDUCATIVAS RÁPIDAS -->
+        <div class="calc-guide-grid">
+          <div class="calc-guide-card">
+            <div class="solution-logo-box">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="m15 9-6 6M9 9l6 6" />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 16px;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 6px;
+              "
+            >
+              La regla del 1%
+            </h3>
+            <p style="font-size: 13px; color: #64748b; line-height: 1.55">
+              Arriesgar entre el 0.5% y el 1.5% por operación te permite
+              soportar rachas negativas sin comprometer la supervivencia de tu
+              cuenta.
+            </p>
+          </div>
+
+          <div class="calc-guide-card">
+            <div class="solution-logo-box">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 16px;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 6px;
+              "
+            >
+              Pips vs. Lotes
+            </h3>
+            <p style="font-size: 13px; color: #64748b; line-height: 1.55">
+              El Stop Loss define la distancia técnica del gráfico, pero el
+              lotaje define cuánto dinero real representa cada movimiento.
+            </p>
+          </div>
+
+          <div class="calc-guide-card">
+            <div class="solution-logo-box">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 20V10M12 20V4M6 20v-6" />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 16px;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 6px;
+              "
+            >
+              Matemática a tu favor
+            </h3>
+            <p style="font-size: 13px; color: #64748b; line-height: 1.55">
+              Con un riesgo controlado por operación, basta con ratios de 1:2 o
+              1:3 para mantener una curva de rendimiento positiva a largo plazo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER MAESTRO -->
+    <site-footer></site-footer>
+
+    <!-- SCRIPTS -->
+    <script src="components.js"></script>
+    <script>
+      function setRiskPreset(val, event) {
+        document.getElementById('inRisk').value = val;
+        document
+          .querySelectorAll('.risk-btn')
+          .forEach((btn) => btn.classList.remove('active'));
+        if (event && event.target) {
+          event.target.classList.add('active');
+        }
+        calculatePosition();
+      }
+
+      function calculatePosition() {
+        const capital =
+          parseFloat(document.getElementById('inCapital').value) || 0;
+        const riskPercent =
+          parseFloat(document.getElementById('inRisk').value) || 0;
+        const slDist = parseFloat(document.getElementById('inSL').value) || 1;
+        const asset = document.getElementById('inAsset').value;
+
+        const unitLabel = document.getElementById('unitLabel');
+        if (asset === 'forex') unitLabel.innerText = 'Pips';
+        else if (asset === 'gold') unitLabel.innerText = 'Puntos';
+        else if (asset === 'crypto') unitLabel.innerText = 'USD ($)';
+        else unitLabel.innerText = 'Puntos';
+
+        const moneyAtRisk = capital * (riskPercent / 100);
+        const safeCapital = Math.max(0, capital - moneyAtRisk);
+
+        let pipValuePerLot = 10;
+        if (asset === 'gold') pipValuePerLot = 100;
+        if (asset === 'crypto' || asset === 'indices') pipValuePerLot = 1;
+
+        let lotSize = moneyAtRisk / (slDist * pipValuePerLot);
+        if (asset === 'forex' || asset === 'gold') {
+          lotSize = Math.max(0.01, Math.round(lotSize * 100) / 100);
+        } else {
+          lotSize = Math.max(0.001, Math.round(lotSize * 1000) / 1000);
+        }
+
+        document.getElementById('resLotSize').innerText =
+          lotSize.toFixed(2) + ' Lotes';
+        document.getElementById('resMoneyRisk').innerText =
+          '$' + moneyAtRisk.toFixed(2) + ' USD';
+        document.getElementById('resSafeCapital').innerText =
+          '$' +
+          safeCapital.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }) +
+          ' USD';
+      }
+
+      calculatePosition();
+    </script>
+  </body>
+</html>
