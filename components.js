@@ -95,14 +95,11 @@ class SiteHeader extends HTMLElement {
         <a href="index.html">Inicio</a>
         <a href="videos.html">Videos gratis</a>
         <span class="mobile-label">Soluciones</span>
-        <a class="sub" href="curso.html">Curso</a>
-        <a class="sub" href="copy-trading.html">Copy Trading</a>
-        <a class="sub" href="senales.html">Señales</a>
-        <a class="sub" href="cripto.html">Cripto</a>
-        <a class="sub" href="ether-fi.html">
-  <img src="etherfi.png" alt="Ether.fi" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle; margin-right: 8px;">
-  Ether.fi
-</a>
+        <a class="sub dd t-curso" href="curso.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="#E50914"/><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" fill="#E50914" opacity=".75"/></svg></span>Curso</a>
+        <a class="sub dd t-copy" href="copy-trading.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="13" height="13" rx="3" fill="#8a83cf" opacity=".85"/><rect x="9" y="8" width="13" height="13" rx="3" fill="#655fa7"/><path d="M13 12h5m-2.5-2.5L18 12l-2.5 2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>Copy Trading</a>
+        <a class="sub dd t-senales" href="senales.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#229ED9" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="2.3" fill="#229ED9" stroke="none"/><path d="M8.6 8.6a4.8 4.8 0 0 0 0 6.8M15.4 8.6a4.8 4.8 0 0 1 0 6.8"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></svg></span>Señales</a>
+        <a class="sub dd t-cripto" href="cripto.html"><span class="dd-ico"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#F7931A"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="18" fill="#fff">₿</text></svg></span>Cripto</a>
+        <a class="sub dd t-ether" href="ether-fi.html"><span class="dd-ico"><img src="etherfi.png" alt="Ether.fi" style="width: 22px; height: 22px; object-fit: contain;"></span>Ether.fi</a>
         <a href="programa-ib.html">Programa IB</a>
         <a href="calculadora.html">Calculadora</a>
         <a href="glosario.html">Glosario</a>

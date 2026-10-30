@@ -676,3 +676,13 @@ body.v2 {
 @keyframes dd-arrow { 40% { transform: translateX(2.5px); } }
 @keyframes dd-wave { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
 @keyframes dd-coin { to { transform: rotateY(360deg); } }
+
+/* ---------- Menú del celular: mismos íconos de color ---------- */
+.v2 .mobile-nav a.sub.dd { display: flex; align-items: center; gap: 14px; padding: 10px 4px 10px 8px; color: var(--ink); transition: background .2s ease; border-radius: 12px; }
+.v2 .mobile-nav a.sub.dd .dd-ico { width: 40px; height: 40px; }
+.v2 .mobile-nav a.sub.dd:active { background: rgba(229, 9, 20, .06); }
+.v2 .mobile-nav a.sub.dd:active .dd-ico { transform: scale(.94); }
+.v2 .mobile-nav a.sub.dd::after { display: none; }
+@media (max-width: 960px) {
+  .v2 .mobile-nav a.sub.dd { border-bottom: 0; }
+}
