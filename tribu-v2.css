@@ -444,7 +444,7 @@ body.v2 {
   .v2 .paths.bento { grid-template-columns: repeat(2, 1fr); }
   .v2 .bento-lg { grid-column: 1 / -1; grid-row: auto; }
 }
-@media (max-width: 900px) {
+@media (max-width: 700px) {
   .v2 .how { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
@@ -454,4 +454,52 @@ body.v2 {
   .v2 .how .step { padding: 24px; }
   .v2 .how .live-strip { padding: 22px; }
   .v2 .how .live-strip .btn { width: 100%; justify-content: center; }
+}
+
+/* ==========================================================================
+   INICIO COMPACTO: pasos, sesiones en vivo y CTA final
+   Menos altura para el mismo contenido.
+   ========================================================================== */
+.v2 .sec.sec-tight { padding-bottom: 56px; }
+.v2 .sec-tight .sec-head { margin-bottom: 24px; }
+.v2 .sec-tight .sec-head h2 { font-size: clamp(26px, 3.2vw, 36px); }
+
+/* Pasos: el número va junto al título */
+.v2 .how { gap: 12px; }
+.v2 .how .step {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto 1fr;
+  column-gap: 12px; row-gap: 8px; align-items: center; align-content: start;
+  padding: 20px 22px; border-radius: 20px;
+}
+.v2 .how .step::before { grid-column: 1; grid-row: 1; margin: 0; width: 30px; height: 30px; font-size: 14px; }
+.v2 .how .step h3 { grid-column: 2; grid-row: 1; font-size: 18px; line-height: 1.2; }
+.v2 .how .step p { grid-column: 1 / -1; grid-row: 2; margin: 0; font-size: 15px; line-height: 1.5; }
+.v2 .how .step a { grid-column: 1 / -1; grid-row: 3; align-self: end; margin-top: 0; padding-top: 4px; font-size: 14.5px; }
+
+/* Sesiones en vivo: franja delgada */
+.v2 .how .live-strip { padding: 16px 22px; gap: 14px 22px; border-radius: 20px; }
+.v2 .how .live-strip h3 { font-size: 18px; }
+.v2 .how .live-strip p { margin-top: 2px; font-size: 14.5px; }
+.v2 .how .live-strip .btn { padding: 10px 20px; font-size: 14.5px; }
+
+/* CTA final: una sola franja, texto a la izquierda y botones a la derecha */
+.v2 .cta.cta-compact {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 20px 32px; padding: 30px 40px; border-radius: 28px; text-align: left;
+}
+.v2 .cta-compact .cta-text { flex: 1 1 340px; min-width: 0; }
+.v2 .cta-compact h2 { font-size: clamp(24px, 2.8vw, 34px); }
+.v2 .cta-compact p { margin: 8px 0 0; max-width: 46ch; font-size: 16px; }
+.v2 .cta-compact .actions { margin-top: 0; justify-content: flex-start; flex: 0 0 auto; }
+
+@media (max-width: 900px) {
+  .v2 .how .step { padding: 18px 20px; }
+  .v2 .cta.cta-compact { padding: 26px 28px; }
+}
+@media (max-width: 640px) {
+  .v2 .sec.sec-tight { padding-bottom: 44px; }
+  .v2 .cta.cta-compact { padding: 24px 22px; border-radius: 24px; }
+  .v2 .cta-compact .actions { width: 100%; }
+  .v2 .cta-compact .actions { gap: 10px; flex-wrap: nowrap; }
+  .v2 .cta-compact .actions .btn { flex: 1 1 auto; justify-content: center; white-space: nowrap; padding-left: 12px; padding-right: 12px; font-size: 14.5px; }
 }
