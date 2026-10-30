@@ -622,3 +622,8 @@ body.v2 {
     border-color: rgba(229, 9, 20, 0.35);
   }
 }
+
+/* ---------- Banner con un solo fondo en negro ---------- */
+.v2 .hero-slider { background: #050505; }
+.v2 .slide::after { background: linear-gradient(180deg, rgba(5,5,5,.2) 0%, rgba(5,5,5,.5) 55%, rgba(5,5,5,.8) 100%); }
+.v2 .slide-copy { padding-bottom: 0; }

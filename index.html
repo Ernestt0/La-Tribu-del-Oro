@@ -15,10 +15,10 @@
   <!-- Header + cinta de precios TradingView (components.js) -->
   <site-header active="inicio"></site-header>
 
-  <!-- 1. BANNER PRINCIPAL CON VARIOS VIDEOS
-       Para usar videos propios: pon la ruta en data-video (ej. data-video="videos/hero-1.mp4").
-       Si el campo está vacío o el video no carga, se muestra la animación de respaldo. -->
-  <section class="hero-slider" id="hero" aria-roledescription="carrusel" aria-label="Lo que encuentras en La Tribu del Oro">
+  <!-- 1. BANNER PRINCIPAL CON UN SOLO VIDEO DE FONDO
+       Para usar tu video: pon la ruta en data-video (ej. data-video="videos/hero.mp4"), de preferencia oscuro y sin sonido.
+       Si el campo está vacío o el video no carga, se muestra la animación de velas en negro. -->
+  <section class="hero-slider" id="hero" aria-label="Aprende trading y cripto">
     <div class="slide on" data-video="" data-scene="velas">
       <div class="slide-copy">
         <h1>Aprende trading y cripto a tu ritmo</h1>
@@ -27,37 +27,6 @@
           <a href="videos.html" class="btn btn-red">Ver videos gratis</a>
           <a href="#presentacion" class="btn btn-white js-intro">Ver introducción</a>
         </div>
-      </div>
-    </div>
-    <div class="slide" data-video="" data-scene="vivo">
-      <div class="slide-copy">
-        <h2>Opera en vivo con la comunidad</h2>
-        <p>Sesiones de lunes a viernes a las 8:00 AM (EST): análisis en tiempo real, gestión de riesgo y respuestas a tus dudas.</p>
-        <div class="actions">
-          <a href="https://t.me/" target="_blank" rel="noopener" class="btn btn-red">Unirme al canal en vivo</a>
-          <a href="senales.html" class="btn btn-white">Ver señales</a>
-        </div>
-      </div>
-    </div>
-    <div class="slide" data-video="" data-scene="copy">
-      <div class="slide-copy">
-        <h2>Sigue a traders con experiencia</h2>
-        <p>Aprende cómo funciona el copy trading y a revisar el riesgo de cada estrategia antes de conectar tu capital.</p>
-        <div class="actions">
-          <a href="copy-trading.html" class="btn btn-red">Conocer copy trading</a>
-          <a href="curso.html" class="btn btn-white">Ver el curso</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="slider-ui">
-      <div class="container">
-        <div class="tabs" role="tablist">
-          <button class="tab on" role="tab" aria-selected="true"><span class="bar"><i></i></span><span class="label">Aprende a tu ritmo</span></button>
-          <button class="tab" role="tab" aria-selected="false"><span class="bar"><i></i></span><span class="label">Sesiones en vivo</span></button>
-          <button class="tab" role="tab" aria-selected="false"><span class="bar"><i></i></span><span class="label">Copy trading</span></button>
-        </div>
-        <button class="pause" aria-label="Pausar carrusel"><svg viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg></button>
       </div>
     </div>
   </section>
@@ -228,8 +197,8 @@
       function draw() {
         if (!w) size();
         if (kind === 'velas') {
-          bg('#2b2310', '#0d1117'); const s = 26, off = t % s;
-          data.forEach((c, i) => { const x = i * s - off; if (x > w + s) return; const up = c[1] >= c[0]; ctx.fillStyle = ctx.strokeStyle = up ? 'rgba(223,183,72,.85)' : 'rgba(229,9,20,.75)'; const hi = Math.max(c[0], c[1]) + .02, lo = Math.min(c[0], c[1]) - .02; ctx.beginPath(); ctx.moveTo(x + s / 2, Y(hi)); ctx.lineTo(x + s / 2, Y(lo)); ctx.stroke(); ctx.fillRect(x + s * .2, Y(Math.max(c[0], c[1])), s * .6, Math.max(2, Math.abs(Y(c[0]) - Y(c[1])))); });
+          bg('#14110a', '#050505'); const s = 26, off = t % s;
+          data.forEach((c, i) => { const x = i * s - off; if (x > w + s) return; const up = c[1] >= c[0]; ctx.fillStyle = ctx.strokeStyle = up ? 'rgba(223,183,72,.55)' : 'rgba(229,9,20,.45)'; const hi = Math.max(c[0], c[1]) + .02, lo = Math.min(c[0], c[1]) - .02; ctx.beginPath(); ctx.moveTo(x + s / 2, Y(hi)); ctx.lineTo(x + s / 2, Y(lo)); ctx.stroke(); ctx.fillRect(x + s * .2, Y(Math.max(c[0], c[1])), s * .6, Math.max(2, Math.abs(Y(c[0]) - Y(c[1])))); });
           t += .35; if (t % s < .35) { data.shift(); const l = data[data.length - 1][1]; data.push([l, Math.min(.85, Math.max(.15, l + rnd(-.05, .053)))]); }
         } else if (kind === 'vivo') {
           bg('#3a0b0e', '#0d1117'); const s = 9, off = t % s; ctx.lineWidth = 2.5; ctx.strokeStyle = '#ffffff'; ctx.beginPath();
@@ -252,27 +221,9 @@
 
     // ---------- Banner principal ----------
     const hero = document.getElementById('hero');
-    const slides = [...hero.querySelectorAll('.slide')], tabs = [...hero.querySelectorAll('.tab')];
-    const DUR = 7000; let cur = 0, timer = null, paused = false;
-    slides.forEach(sl => {
-      const src = sl.dataset.video, fallback = () => { const c = document.createElement('canvas'); c.setAttribute('aria-hidden', 'true'); sl.prepend(c); scene(c, sl.dataset.scene); };
-      if (src) { const v = document.createElement('video'); Object.assign(v, { src, muted: true, loop: true, playsInline: true, autoplay: true }); v.setAttribute('aria-hidden', 'true'); v.onerror = () => { v.remove(); fallback(); }; sl.prepend(v); } else fallback();
-    });
-    function go(i) {
-      cur = (i + slides.length) % slides.length;
-      slides.forEach((s, k) => s.classList.toggle('on', k === cur));
-      tabs.forEach((b, k) => { b.classList.remove('on'); b.setAttribute('aria-selected', k === cur); });
-      void tabs[cur].offsetWidth; tabs[cur].classList.add('on'); tabs[cur].style.setProperty('--dur', DUR + 'ms');
-      schedule();
-    }
-    function schedule() { clearTimeout(timer); if (!paused && !reduce) timer = setTimeout(() => go(cur + 1), DUR); }
-    tabs.forEach((b, k) => b.addEventListener('click', () => go(k)));
-    const pbtn = hero.querySelector('.pause');
-    pbtn.addEventListener('click', () => { paused = !paused; hero.classList.toggle('paused', paused); pbtn.setAttribute('aria-label', paused ? 'Reanudar carrusel' : 'Pausar carrusel'); pbtn.innerHTML = paused ? '<svg viewBox="0 0 24 24"><polygon points="7 4 20 12 7 20"/></svg>' : '<svg viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>'; schedule(); });
-    let sx = null; hero.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
-    hero.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) go(cur + (dx < 0 ? 1 : -1)); sx = null; });
-    hero.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1); });
-    go(0);
+    const sl = hero.querySelector('.slide'), src = sl.dataset.video;
+    const fallback = () => { const c = document.createElement('canvas'); c.setAttribute('aria-hidden', 'true'); sl.prepend(c); scene(c, sl.dataset.scene); };
+    if (src) { const v = document.createElement('video'); Object.assign(v, { src, muted: true, loop: true, playsInline: true, autoplay: true }); v.setAttribute('aria-hidden', 'true'); v.onerror = () => { v.remove(); fallback(); }; sl.prepend(v); } else fallback();
 
     // ---------- Presentación ----------
     const box = document.getElementById('introBox');
