@@ -565,3 +565,29 @@ body.v2 {
 .v2 .how-step:nth-child(2) .ic { animation-delay: 1s; }
 .v2 .how-step:nth-child(3) .ic { animation-delay: 1.7s; }
 .v2 .how-step:nth-child(3) .ic-h2 { animation-delay: 2.2s; }
+
+/* ==========================================================================
+   INICIO: mini zoom al pasar el cursor por enlaces y botones
+   Solo en la página de inicio (las internas llevan body.page), solo con
+   puntero y solo si la persona no pidió reducir el movimiento.
+   ========================================================================== */
+.v2:not(.page) .path .more { align-self: flex-start; }
+.v2:not(.page) .path .more, .v2:not(.page) .how-step a {
+  transform-origin: left center;
+  transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1), color .2s ease;
+}
+.v2:not(.page) .how-step a { transform-origin: center; }
+.v2:not(.page) .btn-white, .v2:not(.page) .btn-line {
+  transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1), background .2s, color .2s, border-color .2s;
+}
+.v2:not(.page) .reel-nav button { transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color .2s; }
+@media (max-width: 700px) { .v2:not(.page) .how-step a { transform-origin: left center; } }
+
+@media (hover: hover) {
+  .v2:not(.page) .path:hover .more, .v2:not(.page) .how-step a:hover { color: var(--red-h); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .v2:not(.page) .path:hover .more, .v2:not(.page) .how-step a:hover { transform: scale(1.08); }
+  .v2:not(.page) .btn-white:hover, .v2:not(.page) .btn-line:hover { transform: translateY(-2px) scale(1.03); }
+  .v2:not(.page) .reel-nav button:hover { transform: scale(1.1); }
+}
