@@ -135,11 +135,31 @@
   <!-- 5. CÓMO EMPEZAR -->
   <section class="sec sec-tight" style="padding-top:0">
     <div class="container">
-      <div class="sec-head"><h2>Empieza en 3 pasos</h2></div>
+      <div class="sec-head center"><h2>Empieza en 3 pasos</h2></div>
       <div class="how">
-        <div class="step"><h3>Mira los videos gratis</h3><p>Entiende lo básico del trading y las cripto sin costo.</p><a href="videos.html">Ir a los videos</a></div>
-        <div class="step"><h3>Elige tu ruta</h3><p>Curso, copy trading, señales o cripto, según tus objetivos.</p><a href="curso.html">Ver el curso</a></div>
-        <div class="step"><h3>Únete a la comunidad</h3><p>Conéctate a las sesiones en vivo y resuelve dudas en tiempo real.</p><a href="https://t.me/" target="_blank" rel="noopener">Unirme al canal</a></div>
+        <ol class="how-steps">
+          <li class="how-step">
+            <span class="how-node" aria-hidden="true">1</span>
+            <span class="how-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4-2.5z"/></svg></span>
+            <h3>Mira los videos gratis</h3>
+            <p>Entiende lo básico del trading y las cripto sin costo.</p>
+            <a href="videos.html">Ir a los videos</a>
+          </li>
+          <li class="how-step">
+            <span class="how-node" aria-hidden="true">2</span>
+            <span class="how-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M12 6h6l2 2.5-2 2.5h-6"/><path d="M12 13H6l-2 2.5L6 18h6"/></svg></span>
+            <h3>Elige tu ruta</h3>
+            <p>Curso, copy trading, señales o cripto, según tus objetivos.</p>
+            <a href="curso.html">Ver el curso</a>
+          </li>
+          <li class="how-step">
+            <span class="how-node" aria-hidden="true">3</span>
+            <span class="how-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><circle cx="17" cy="9" r="2.4"/><path d="M16.5 14.2c2.6.2 4.5 1.9 4.5 4.8"/></svg></span>
+            <h3>Únete a la comunidad</h3>
+            <p>Conéctate a las sesiones en vivo y resuelve dudas en tiempo real.</p>
+            <a href="https://t.me/" target="_blank" rel="noopener">Unirme al canal</a>
+          </li>
+        </ol>
         <div class="live-strip">
           <div>
             <h3><span class="live-dot"></span>Sesiones en vivo de lunes a viernes</h3>
@@ -294,6 +314,21 @@
     // Pausar si el usuario pone el mouse encima para poder leer o hacer clic
     track.addEventListener('mouseenter', () => clearInterval(reelTimer));
     track.addEventListener('mouseleave', startReel);
+  })();
+  </script>
+
+  <script>
+  // "Empieza en 3 pasos": la línea de progreso se llena una vez al llegar a la sección
+  (() => {
+    const el = document.querySelector('.how-steps');
+    if (!el || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    el.classList.add('pre');
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-in')));
+    }, { threshold: 0.4 });
+    io.observe(el);
   })();
   </script>
 </body>

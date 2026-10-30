@@ -422,17 +422,7 @@ body.v2 {
 .v2 .bubble b { color: var(--ink); font-size: 13.5px; }
 
 /* ---------- Empieza en 3 pasos ---------- */
-.v2 .how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: st; }
-.v2 .how .step {
-  display: flex; flex-direction: column; min-width: 0; padding: 28px; border-top: 0; border-radius: 24px;
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  box-shadow: 0 12px 32px -18px rgba(15, 23, 42, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-.v2 .how .step::before { position: static; margin-bottom: 18px; }
-.v2 .how .step h3 { margin-top: 0; }
-.v2 .how .step a { margin-top: auto; padding-top: 14px; }
+.v2 .how { display: grid; gap: 20px; }
 .v2 .how .live-strip {
   grid-column: 1 / -1;
   background: linear-gradient(135deg, rgba(251, 245, 227, 0.8), rgba(255, 255, 255, 0.55));
@@ -444,14 +434,10 @@ body.v2 {
   .v2 .paths.bento { grid-template-columns: repeat(2, 1fr); }
   .v2 .bento-lg { grid-column: 1 / -1; grid-row: auto; }
 }
-@media (max-width: 700px) {
-  .v2 .how { grid-template-columns: 1fr; }
-}
 @media (max-width: 640px) {
   .v2 .paths.bento { grid-template-columns: 1fr; gap: 14px; }
   .v2 .bento-lg { padding: 24px; }
   .v2 .bento-modules li { padding: 11px 12px; font-size: 14.5px; }
-  .v2 .how .step { padding: 24px; }
   .v2 .how .live-strip { padding: 22px; }
   .v2 .how .live-strip .btn { width: 100%; justify-content: center; }
 }
@@ -463,18 +449,6 @@ body.v2 {
 .v2 .sec.sec-tight { padding-bottom: 56px; }
 .v2 .sec-tight .sec-head { margin-bottom: 24px; }
 .v2 .sec-tight .sec-head h2 { font-size: clamp(26px, 3.2vw, 36px); }
-
-/* Pasos: el número va junto al título */
-.v2 .how { gap: 12px; }
-.v2 .how .step {
-  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto 1fr;
-  column-gap: 12px; row-gap: 8px; align-items: center; align-content: start;
-  padding: 20px 22px; border-radius: 20px;
-}
-.v2 .how .step::before { grid-column: 1; grid-row: 1; margin: 0; width: 30px; height: 30px; font-size: 14px; }
-.v2 .how .step h3 { grid-column: 2; grid-row: 1; font-size: 18px; line-height: 1.2; }
-.v2 .how .step p { grid-column: 1 / -1; grid-row: 2; margin: 0; font-size: 15px; line-height: 1.5; }
-.v2 .how .step a { grid-column: 1 / -1; grid-row: 3; align-self: end; margin-top: 0; padding-top: 4px; font-size: 14.5px; }
 
 /* Sesiones en vivo: franja delgada */
 .v2 .how .live-strip { padding: 16px 22px; gap: 14px 22px; border-radius: 20px; }
@@ -493,7 +467,6 @@ body.v2 {
 .v2 .cta-compact .actions { margin-top: 0; justify-content: flex-start; flex: 0 0 auto; }
 
 @media (max-width: 900px) {
-  .v2 .how .step { padding: 18px 20px; }
   .v2 .cta.cta-compact { padding: 26px 28px; }
 }
 @media (max-width: 640px) {
@@ -502,4 +475,65 @@ body.v2 {
   .v2 .cta-compact .actions { width: 100%; }
   .v2 .cta-compact .actions { gap: 10px; flex-wrap: nowrap; }
   .v2 .cta-compact .actions .btn { flex: 1 1 auto; justify-content: center; white-space: nowrap; padding-left: 12px; padding-right: 12px; font-size: 14.5px; }
+}
+
+/* ==========================================================================
+   EMPIEZA EN 3 PASOS: línea de progreso
+   Los textos se ven siempre. Solo la línea y los nodos se animan, una vez,
+   al llegar a la sección. Sin JavaScript o con movimiento reducido se
+   muestra directamente el estado final.
+   ========================================================================== */
+.v2 .how-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
+.v2 .how-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 20px; min-width: 0; }
+
+/* Nodo numerado */
+.v2 .how-node {
+  position: relative; z-index: 1; width: 32px; height: 32px; margin-bottom: 14px; display: grid; place-items: center;
+  border-radius: 50%; border: 3px solid var(--red); background: var(--red); color: #fff;
+  font: 700 13px var(--display); box-shadow: 0 0 0 6px rgba(229, 9, 20, 0.12);
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
+}
+
+/* Tramo de línea hacia el siguiente nodo: base gris + relleno rojo */
+.v2 .how-step:not(:last-child)::before,
+.v2 .how-step:not(:last-child)::after {
+  content: ""; position: absolute; top: 14px; left: 50%; width: 100%; height: 4px; border-radius: 4px;
+}
+.v2 .how-step:not(:last-child)::before { background: var(--line); }
+.v2 .how-step:not(:last-child)::after { background: var(--red); transform-origin: left center; transition: transform .7s linear; }
+
+/* Orden de llegada: nodo 1 -> tramo 1 -> nodo 2 -> tramo 2 -> nodo 3 */
+.v2 .how-step:nth-child(2) .how-node { transition-delay: .7s; }
+.v2 .how-step:nth-child(3) .how-node { transition-delay: 1.4s; }
+.v2 .how-step:nth-child(2)::after { transition-delay: .7s; }
+
+/* Estado inicial (solo lo añade el JavaScript, antes de entrar en pantalla) */
+.v2 .how-steps.pre:not(.is-in) .how-node { background: #fff; border-color: var(--line); color: var(--muted); box-shadow: none; transition: none; }
+.v2 .how-steps.pre:not(.is-in) .how-step::after { transform: scaleX(0); transition: none; }
+
+/* Contenido del paso */
+.v2 .how-ico {
+  width: 40px; height: 40px; margin-bottom: 10px; display: grid; place-items: center; border-radius: 12px;
+  background: var(--gold-soft); color: var(--gold); border: 1px solid #ecdcae;
+}
+.v2 .how-ico svg { width: 24px; height: 24px; }
+.v2 .how-step h3 { font-size: 18px; font-weight: 800; line-height: 1.2; }
+.v2 .how-step p { margin: 8px 0 0; max-width: 28ch; font-size: 15px; line-height: 1.5; color: var(--muted); }
+.v2 .how-step a { margin-top: 10px; font-size: 14.5px; font-weight: 700; color: var(--red); }
+
+/* Celular: línea vertical a la izquierda */
+@media (max-width: 700px) {
+  .v2 .how-steps { grid-template-columns: 1fr; }
+  .v2 .how-step { display: grid; grid-template-columns: 32px 1fr; column-gap: 16px; align-items: start; text-align: left; padding: 0 0 24px; }
+  .v2 .how-step:last-child { padding-bottom: 0; }
+  .v2 .how-node { grid-column: 1; grid-row: 1 / span 3; margin: 0; }
+  .v2 .how-ico { display: none; }
+  .v2 .how-step h3, .v2 .how-step p, .v2 .how-step a { grid-column: 2; }
+  .v2 .how-step h3 { padding-top: 5px; }
+  .v2 .how-step p { max-width: none; margin-top: 6px; }
+  .v2 .how-step a { justify-self: start; }
+  .v2 .how-step:not(:last-child)::before,
+  .v2 .how-step:not(:last-child)::after { top: 34px; bottom: -4px; left: 14px; width: 4px; height: auto; }
+  .v2 .how-step:not(:last-child)::after { transform-origin: center top; }
+  .v2 .how-steps.pre:not(.is-in) .how-step::after { transform: scaleY(0); }
 }
