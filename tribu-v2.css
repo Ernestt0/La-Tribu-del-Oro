@@ -513,10 +513,10 @@ body.v2 {
 
 /* Contenido del paso */
 .v2 .how-ico {
-  width: 40px; height: 40px; margin-bottom: 10px; display: grid; place-items: center; border-radius: 12px;
+  width: 44px; height: 44px; margin-bottom: 8px; display: grid; place-items: center; border-radius: 14px;
   background: var(--gold-soft); color: var(--gold); border: 1px solid #ecdcae;
 }
-.v2 .how-ico svg { width: 24px; height: 24px; }
+.v2 .how-ico svg { width: 28px; height: 28px; }
 .v2 .how-step h3 { font-size: 18px; font-weight: 800; line-height: 1.2; }
 .v2 .how-step p { margin: 8px 0 0; max-width: 28ch; font-size: 15px; line-height: 1.5; color: var(--muted); }
 .v2 .how-step a { margin-top: 10px; font-size: 14.5px; font-weight: 700; color: var(--red); }
@@ -524,10 +524,11 @@ body.v2 {
 /* Celular: línea vertical a la izquierda */
 @media (max-width: 700px) {
   .v2 .how-steps { grid-template-columns: 1fr; }
-  .v2 .how-step { display: grid; grid-template-columns: 32px 1fr; column-gap: 16px; align-items: start; text-align: left; padding: 0 0 24px; }
+  .v2 .how-step { display: grid; grid-template-columns: 32px 1fr 44px; column-gap: 16px; align-items: start; text-align: left; padding: 0 0 24px; }
   .v2 .how-step:last-child { padding-bottom: 0; }
   .v2 .how-node { grid-column: 1; grid-row: 1 / span 3; margin: 0; }
-  .v2 .how-ico { display: none; }
+  .v2 .how-ico { grid-column: 3; grid-row: 1 / span 3; margin: 0; width: 40px; height: 40px; justify-self: end; }
+  .v2 .how-ico svg { width: 24px; height: 24px; }
   .v2 .how-step h3, .v2 .how-step p, .v2 .how-step a { grid-column: 2; }
   .v2 .how-step h3 { padding-top: 5px; }
   .v2 .how-step p { max-width: none; margin-top: 6px; }
@@ -537,3 +538,30 @@ body.v2 {
   .v2 .how-step:not(:last-child)::after { transform-origin: center top; }
   .v2 .how-steps.pre:not(.is-in) .how-step::after { transform: scaleY(0); }
 }
+
+/* Íconos con vida: cada uno despierta cuando la línea llega a su paso y
+   después se repite suave. Con movimiento reducido quedan quietos. */
+.v2 .how-ico svg .ic { transform-box: fill-box; transform-origin: center; }
+.v2 .how-ico svg .ic-bar { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+@keyframes ic-play { 0%, 55%, 100% { transform: scale(1); } 18% { transform: scale(1.25); } 34% { transform: scale(0.94); } }
+@keyframes ic-bar { 0% { stroke-dashoffset: 1; opacity: 1; } 68% { stroke-dashoffset: 0; opacity: 1; } 88%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes ic-nudge-r { 0%, 60%, 100% { transform: translateX(0); } 25% { transform: translateX(2.8px); } }
+@keyframes ic-nudge-l { 0%, 10%, 75%, 100% { transform: translateX(0); } 42% { transform: translateX(-2.8px); } }
+@keyframes ic-bob { 0%, 55%, 100% { transform: translateY(0); } 25% { transform: translateY(-2.2px); } }
+
+.v2 .how-steps:not(.pre) .ic, .v2 .how-steps.is-in .ic {
+  animation-duration: 2.8s; animation-timing-function: ease-in-out; animation-iteration-count: infinite;
+}
+.v2 .how-steps:not(.pre) .ic-play, .v2 .how-steps.is-in .ic-play { animation-name: ic-play; }
+.v2 .how-steps:not(.pre) .ic-bar,  .v2 .how-steps.is-in .ic-bar  { animation-name: ic-bar; animation-timing-function: linear; }
+.v2 .how-steps:not(.pre) .ic-a1,   .v2 .how-steps.is-in .ic-a1   { animation-name: ic-nudge-r; }
+.v2 .how-steps:not(.pre) .ic-a2,   .v2 .how-steps.is-in .ic-a2   { animation-name: ic-nudge-l; }
+.v2 .how-steps:not(.pre) .ic-h1,   .v2 .how-steps.is-in .ic-h1,
+.v2 .how-steps:not(.pre) .ic-h2,   .v2 .how-steps.is-in .ic-h2   { animation-name: ic-bob; }
+
+/* Cada ícono empieza cuando su nodo se enciende */
+.v2 .how-step:nth-child(1) .ic { animation-delay: .3s; }
+.v2 .how-step:nth-child(2) .ic { animation-delay: 1s; }
+.v2 .how-step:nth-child(3) .ic { animation-delay: 1.7s; }
+.v2 .how-step:nth-child(3) .ic-h2 { animation-delay: 2.2s; }
