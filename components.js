@@ -44,26 +44,26 @@ class SiteHeader extends HTMLElement {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
               </button>
               <div class="dropdown-menu">
-                <a href="curso.html">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                  Curso
+                <a href="curso.html" class="dd t-curso">
+                  <span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="cap" d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="#E50914"/><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" fill="#E50914" opacity=".75"/></svg></span>
+                  <span class="dd-txt"><b>Curso</b><small>De lo básico a lo avanzado</small></span>
                 </a>
-                <a href="copy-trading.html">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
-                  Copy Trading
+                <a href="copy-trading.html" class="dd t-copy">
+                  <span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="13" height="13" rx="3" fill="#8a83cf" opacity=".85"/><rect class="front" x="9" y="8" width="13" height="13" rx="3" fill="#655fa7"/><path class="arrow" d="M13 12h5m-2.5-2.5L18 12l-2.5 2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>
+                  <span class="dd-txt"><b>Copy Trading</b><small>Traders con experiencia</small></span>
                 </a>
-                <a href="senales.html">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.93 19.07a10 10 0 0 1 0-14.14M7.76 16.24a6 6 0 0 1 0-8.48M12 12h.01"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
-                  Señales
+                <a href="senales.html" class="dd t-senales">
+                  <span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#229ED9" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="2.3" fill="#229ED9" stroke="none"/><path class="w1" d="M8.6 8.6a4.8 4.8 0 0 0 0 6.8M15.4 8.6a4.8 4.8 0 0 1 0 6.8"/><path class="w2" d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></svg></span>
+                  <span class="dd-txt"><b>Señales</b><small>Análisis en tiempo real</small></span>
                 </a>
-                <a href="cripto.html">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11.77 4.5V2m3.5 2.5V2m-5 17.5V22m3.5-2.5V22M7 6.5h7a3.5 3.5 0 0 1 2.5 5.95A4 4 0 0 1 15 20H7V6.5zm0 6h8"/></svg>
-                  Cripto
+                <a href="cripto.html" class="dd t-cripto">
+                  <span class="dd-ico"><svg viewBox="0 0 32 32" aria-hidden="true"><g class="coin"><circle cx="16" cy="16" r="16" fill="#F7931A"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="18" fill="#fff">₿</text></g></svg></span>
+                  <span class="dd-txt"><b>Cripto</b><small>Explicado fácil</small></span>
                 </a>
-                <a href="ether-fi.html">
-  <img src="etherfi.png" alt="Ether.fi" style="width: 22px; height: 22px; object-fit: contain;">
-  Ether.fi
-</a>
+                <a href="ether-fi.html" class="dd t-ether">
+                  <span class="dd-ico"><img src="etherfi.png" alt="Ether.fi" style="width: 22px; height: 22px; object-fit: contain;"></span>
+                  <span class="dd-txt"><b>Ether.fi</b><small>Productos y tecnología</small></span>
+                </a>
               </div>
             </div>
 
