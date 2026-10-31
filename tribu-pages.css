@@ -274,3 +274,31 @@ body.page .hero-play-btn::after { content: ''; position: absolute; inset: -3px; 
   }
 }
 @keyframes pg-reveal { from { opacity: 0; transform: translateY(18px); } }
+
+/* ---------- Íconos de las tarjetas: versión rellena a dos tonos, cada uno con su gesto al pasar el cursor ---------- */
+body.page .solution-logo-box svg { width: 34px; height: 34px; overflow: visible; }
+body.page .solution-logo-box svg * { transform-box: fill-box; transform-origin: center; }
+body.page .tab-icon-box { background: rgba(241,245,249,.9); }
+body.page .video-tab-btn.active .tab-icon-box { background: rgba(229,9,20,.12); color: var(--red); }
+body.page .ic-bars rect { transform-origin: bottom center; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-shield { animation: pg-shake .5s ease; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-bars rect { animation: pg-grow .6s cubic-bezier(.2,.8,.2,1) backwards; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-bars rect:nth-child(2) { animation-delay: .08s; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-bars rect:nth-child(3) { animation-delay: .16s; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-check .tick { stroke-dasharray: 16; animation: pg-draw .6s ease backwards; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-coin .disc { animation: pg-flip .7s ease; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-user .head { animation: pg-bob .5s ease; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-book .l { animation: pg-page-l .6s ease; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-book .r { animation: pg-page-r .6s ease; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-target .o { animation: pg-pulse .7s ease; }
+  body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-target .m { animation: pg-pulse .7s ease .08s; }
+}
+@keyframes pg-shake { 20% { transform: rotate(-8deg); } 50% { transform: rotate(7deg); } 80% { transform: rotate(-3deg); } }
+@keyframes pg-grow { from { transform: scaleY(.35); } }
+@keyframes pg-draw { from { stroke-dashoffset: 16; } }
+@keyframes pg-flip { to { transform: rotateY(360deg); } }
+@keyframes pg-bob { 40% { transform: translateY(-2px); } }
+@keyframes pg-page-l { 40% { transform: rotate(-6deg); } }
+@keyframes pg-page-r { 40% { transform: rotate(6deg); } }
+@keyframes pg-pulse { 40% { transform: scale(1.15); } }
