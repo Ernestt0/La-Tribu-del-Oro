@@ -666,8 +666,7 @@ body.v2 {
   .v2 .dd.t-curso:hover .cap { animation: dd-cap .6s ease; }
   .v2 .dd.t-copy:hover .front { animation: dd-front .5s ease; }
   .v2 .dd.t-copy:hover .arrow { animation: dd-arrow .5s ease; }
-  .v2 .dd.t-senales:hover .w1 { animation: dd-wave .9s ease-in-out infinite; }
-  .v2 .dd.t-senales:hover .w2 { animation: dd-wave .9s ease-in-out .25s infinite; }
+  .v2 .dd.t-senales:hover .plane { animation: path-plane .6s ease; }
   .v2 .dd.t-cripto:hover .coin { animation: dd-coin .7s ease; }
 }
 @keyframes dd-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
