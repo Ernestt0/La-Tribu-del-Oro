@@ -177,6 +177,74 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* ===== Identidad Ether.fi: paleta morada del logo ===== */
+      body.page { --efi: #655fa7; --efi-d: #52498f; --efi-l: #8a83cf; }
+      body.page .efi-hero { position: relative; isolation: isolate; overflow: hidden; }
+      body.page .efi-hero::before {
+        content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+        background:
+          radial-gradient(42% 62% at 88% 8%, rgba(101,95,167,.24), transparent 70%),
+          radial-gradient(36% 52% at 4% 92%, rgba(138,131,207,.18), transparent 70%);
+      }
+      body.page .efi-tag { color: var(--efi-d); border-color: rgba(101,95,167,.35); }
+      body.page .efi-hero .hero-title span { background: linear-gradient(90deg, #52498f, #8a83cf 55%, #52498f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      body.page .efi-hero .hero-video-box { box-shadow: 0 30px 60px -28px rgba(82,73,143,.6); border-color: rgba(168,162,235,.5); }
+      .efi-pillars { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; padding: 0; }
+      .efi-pillars li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--efi-d);
+        background: rgba(255,255,255,.65); border: 1px solid rgba(101,95,167,.25); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 1px 0 #fff; }
+      .efi-pillars svg { width: 18px; height: 18px; color: var(--efi); }
+
+      .efi-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .efi-why-card { padding: 24px; border-radius: 24px; background: rgba(255,255,255,.62); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(255,255,255,.85); box-shadow: 0 14px 34px -22px rgba(82,73,143,.45), inset 0 1px 0 rgba(255,255,255,.9); transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease; }
+      .efi-why-card h3 { font-size: 17px; font-weight: 800; margin: 16px 0 6px; }
+      .efi-why-card p { font-size: 14px; color: #64748b; line-height: 1.6; }
+      .efi-ico { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; color: var(--efi-d);
+        background: linear-gradient(160deg, rgba(237,235,251,.95), rgba(101,95,167,.22)); transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease; }
+      .efi-ico svg { width: 30px; height: 30px; overflow: visible; }
+      .efi-ico svg * { transform-box: fill-box; transform-origin: center; }
+
+      /* Pasos con línea guía y tarjetas moradas */
+      body.page .steps-grid { position: relative; }
+      body.page .steps-grid::before { content: ''; position: absolute; top: 54px; left: 16%; right: 16%; border-top: 2px dashed rgba(101,95,167,.35); }
+      body.page .step-card { z-index: 1; padding: 24px 22px; border-radius: 24px; }
+      body.page .step-card .efi-ico { display: grid; margin-bottom: 14px; }
+      body.page .step-number { display: table; padding: 3px 11px; border-radius: 999px; background: rgba(101,95,167,.12); color: var(--efi-d); letter-spacing: .03em; text-transform: none; font-size: 12.5px; margin-bottom: 10px; }
+
+      /* Banner final en morado profundo, igual que la marca */
+      body.page .referral-banner { position: relative; isolation: isolate; overflow: hidden;
+        background: radial-gradient(100% 140% at 0% 0%, #4a4390 0%, #2a2552 50%, #14122b 100%) !important; border: 1px solid rgba(168,162,235,.4);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 30px 60px -30px rgba(82,73,143,.75); }
+      body.page .referral-banner::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 80% at 90% 0%, rgba(168,162,235,.28), transparent 65%); pointer-events: none; }
+      body.page .referral-banner p { color: rgba(255,255,255,.78) !important; }
+      body.page .referral-banner .btn-referral { background: rgba(255,255,255,.16); color: #fff; border-color: rgba(255,255,255,.5); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+      body.page .referral-banner .btn-referral:hover { background: rgba(255,255,255,.26); color: #fff; }
+
+      @media (hover: hover) {
+        .efi-why-card:hover { transform: translateY(-4px); box-shadow: 0 24px 44px -22px rgba(82,73,143,.5), inset 0 1px 0 #fff; }
+        .efi-why-card:hover .efi-ico, body.page .step-card:hover .efi-ico { transform: scale(1.1) rotate(-4deg); box-shadow: 0 10px 20px -10px rgba(82,73,143,.6); }
+        .efi-pillars li { transition: transform .2s ease; } .efi-pillars li:hover { transform: scale(1.05); }
+      }
+      @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+        .efi-why-card:hover .sh { animation: efi-lift .5s ease; }
+        .efi-why-card:hover .top { animation: efi-top .6s ease; }
+        .efi-why-card:hover .disc { animation: efi-flip .7s ease; }
+        .step-card:hover .flap { animation: efi-flap .5s ease; }
+        .step-card:hover .arr { animation: efi-drop .6s ease; }
+        .step-card:hover .ic-star { animation: efi-spin .7s ease; }
+      }
+      @keyframes efi-lift { 40% { transform: translateY(-2.5px) rotate(-8deg); } }
+      @keyframes efi-top { 40% { transform: translateY(-2.5px); } }
+      @keyframes efi-flip { to { transform: rotateY(360deg); } }
+      @keyframes efi-flap { 40% { transform: translateX(-2px); } }
+      @keyframes efi-drop { 40% { transform: translateY(2.5px); } }
+      @keyframes efi-spin { to { transform: rotate(144deg) scale(1.1); } }
+      @media (max-width: 900px) {
+        .efi-why-grid { grid-template-columns: 1fr; }
+        body.page .steps-grid::before { display: none; }
+        .efi-pillars { margin-top: 20px; }
+      }
     </style>
   </head>
   <body class="v2 page">
@@ -207,6 +275,11 @@
               >Ver tutoriales en video</a
             >
           </div>
+          <ul class="efi-pillars" aria-label="Lo esencial de Ether.fi">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.7-3.2 8.2-8 9.8-4.8-1.6-8-5.1-8-9.8V5.5z" fill="currentColor"/><path d="M8.5 12l2.6 2.6 4.4-4.8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>No custodial</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z" fill="currentColor"/><path d="M3 12.2l9 5 9-5" stroke="currentColor" stroke-width="2.2" fill="none" opacity=".6" stroke-linecap="round" stroke-linejoin="round"/></svg>Restaking con EigenLayer</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M12 5.5l4 6.3-4 2.3-4-2.3z" fill="#fff"/><path d="M12 15.3l4-2.3-4 6.2-4-6.2z" fill="#fff" opacity=".8"/></svg>Token eETH</li>
+          </ul>
         </div>
 
         <!-- VIDEO INTRODUCTORIO GENERAL -->
@@ -228,6 +301,33 @@
                 <polygon points="6 4 20 12 6 20 6 4" />
               </svg>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUÉ ETHER.FI -->
+    <section class="section efi-why">
+      <div class="container">
+        <div class="section-header" style="text-align: center; max-width: 620px; margin: 0 auto 28px">
+          <h2 class="section-title">¿Por qué conocer Ether.fi?</h2>
+          <p class="section-subtitle">Lo esencial del protocolo, en simple.</p>
+        </div>
+        <div class="efi-why-grid">
+          <div class="efi-why-card">
+            <span class="efi-ico"><svg class="ic-lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3" fill="currentColor"/><path class="sh" d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.5" fill="#fff"/></svg></span>
+            <h3>Tus claves, tu control</h3>
+            <p>Ether.fi es no custodial: mantienes el control de tus claves privadas en todo momento.</p>
+          </div>
+          <div class="efi-why-card">
+            <span class="efi-ico"><svg class="ic-layers" viewBox="0 0 24 24" aria-hidden="true"><path class="top" d="M12 3l9 5-9 5-9-5z" fill="currentColor"/><path d="M3 12.2l9 5 9-5" stroke="currentColor" stroke-width="2.2" fill="none" opacity=".6" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 16.4l9 5 9-5" stroke="currentColor" stroke-width="2.2" fill="none" opacity=".35" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Dos tipos de recompensas</h3>
+            <p>Combina las recompensas de validación nativa de Ethereum y las de restaking con EigenLayer.</p>
+          </div>
+          <div class="efi-why-card">
+            <span class="efi-ico"><svg class="ic-token" viewBox="0 0 24 24" aria-hidden="true"><g class="disc"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M12 5.5l4 6.3-4 2.3-4-2.3z" fill="#fff"/><path d="M12 15.3l4-2.3-4 6.2-4-6.2z" fill="#fff" opacity=".8"/></g></svg></span>
+            <h3>Token líquido eETH</h3>
+            <p>Al depositar ETH recibes eETH 1:1 y puedes usarlo en protocolos DeFi sin bloquear tu capital.</p>
           </div>
         </div>
       </div>
@@ -395,6 +495,7 @@
 
         <div class="steps-grid">
           <div class="step-card">
+            <span class="efi-ico"><svg class="ic-wallet" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="14.5" rx="3.5" fill="currentColor"/><rect class="flap" x="13.5" y="11" width="7.5" height="4.6" rx="2.3" fill="#fff" opacity=".9"/></svg></span>
             <div class="step-number">Paso 1</div>
             <h3
               style="
@@ -413,6 +514,7 @@
           </div>
 
           <div class="step-card">
+            <span class="efi-ico"><svg class="ic-deposit" viewBox="0 0 24 24" aria-hidden="true"><path class="arr" d="M12 3.5v10m0 0l-3.8-3.8M12 13.5l3.8-3.8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M4.5 15.5V18a2.5 2.5 0 0 0 2.5 2.5h10a2.5 2.5 0 0 0 2.5-2.5v-2.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg></span>
             <div class="step-number">Paso 2</div>
             <h3
               style="
@@ -432,6 +534,7 @@
           </div>
 
           <div class="step-card">
+            <span class="efi-ico"><svg class="ic-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.3 5.7 6.2.5-4.7 4 1.5 6-5.3-3.3L6.7 18.7l1.5-6-4.7-4 6.2-.5z" fill="currentColor"/></svg></span>
             <div class="step-number">Paso 3</div>
             <h3
               style="
