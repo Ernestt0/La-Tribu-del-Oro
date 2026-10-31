@@ -174,6 +174,41 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* ===== Señales: identidad azul Telegram, barra riesgo/beneficio y cierre ===== */
+    body.page { --acc: #229ed9; --acc-d: #17699a; }
+    body.page .signals-hero { position: relative; isolation: isolate; overflow: hidden; }
+    body.page .signals-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
+      background: radial-gradient(42% 62% at 90% 6%, rgba(34,158,217,.22), transparent 70%), radial-gradient(36% 52% at 3% 96%, rgba(101,95,167,.14), transparent 70%); }
+    body.page .signals-tag { color: #17699a; border-color: rgba(34,158,217,.4); }
+    body.page .signals-hero .hero-title span { background: linear-gradient(90deg, #17699a, #229ed9 55%, #17699a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    body.page .signals-hero .hero-video-box { box-shadow: 0 30px 60px -28px rgba(23,105,154,.6); border-color: rgba(120,200,240,.5); }
+    body.page .signals-hero .cls-pills { margin-top: 24px; }
+
+    body.page .telegram-preview-card { border-radius: 28px; box-shadow: 0 30px 60px -30px rgba(23,105,154,.45), inset 0 1px 0 rgba(255,255,255,.9); }
+    body.page .telegram-avatar { background: linear-gradient(160deg, #3cb4ec, #1f8fc9) !important; color: #fff; }
+    body.page .telegram-data-line { border-radius: 8px; padding-left: 6px; padding-right: 6px; transition: background-color .2s ease; }
+    .rr { margin: 14px 0 4px; }
+    .rr-bar { display: flex; gap: 3px; height: 10px; }
+    .rr-bar i { display: block; border-radius: 6px; transform-origin: left; }
+    .rr-sl { background: #ef4444; } .rr-tp1 { background: #86d9a4; } .rr-tp2 { background: #16a34a; }
+    .rr-labels { display: flex; gap: 3px; margin-top: 6px; font-size: 11.5px; font-weight: 700; color: #475569; }
+    .rr-labels span:nth-child(1) { color: #b91c1c; } .rr-labels span:nth-child(2) { color: #15803d; } .rr-labels span:nth-child(3) { color: #166534; text-align: right; }
+
+    body.page .cta-banner { background: radial-gradient(100% 140% at 0% 0%, #1b6ea0 0%, #0c3a5a 50%, #061b2c 100%) !important; border: 1px solid rgba(120,200,240,.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 30px 60px -30px rgba(23,105,154,.7); }
+    body.page .cta-banner p { color: rgba(255,255,255,.78) !important; }
+    body.page .cta-banner .btn-telegram { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.55); }
+    body.page .cta-banner .btn-telegram:hover { background: rgba(255,255,255,.28); }
+
+    @media (hover: hover) { body.page .telegram-data-line:hover { background: rgba(34,158,217,.08); } }
+    @supports (animation-timeline: view()) {
+      @media (prefers-reduced-motion: no-preference) {
+        body.page .telegram-data-line { animation: pg-reveal linear backwards; animation-timeline: view(); animation-range: entry 0% entry 50%; }
+        .rr-bar i { animation: sig-grow linear backwards; animation-timeline: view(); animation-range: entry 10% entry 70%; }
+      }
+    }
+    @keyframes sig-grow { from { transform: scaleX(0); } }
   </style>
 </head>
 <body class="v2 page">
@@ -200,6 +235,11 @@
             Unirme al Canal de Telegram (Gratis)
           </a>
         </div>
+        <ul class="cls-pills" aria-label="Lo esencial de las señales">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.7-3.2 8.2-8 9.8-4.8-1.6-8-5.1-8-9.8V5.5z" fill="currentColor"/><path d="M9 9l6 6M15 9l-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>Stop loss obligatorio</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="12" width="4.5" height="8.5" rx="1.5" fill="currentColor" opacity=".55"/><rect x="9.8" y="7" width="4.5" height="13.5" rx="1.5" fill="currentColor" opacity=".8"/><rect x="16" y="3" width="4.5" height="17.5" rx="1.5" fill="currentColor"/></svg>Ratio mínimo 1:2</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M7.8 12.3l2.9 2.9 5.5-5.9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Canal gratuito</li>
+        </ul>
       </div>
 
       <!-- VIDEO INTRODUCTORIO DE METODOLOGÍA -->
@@ -263,6 +303,13 @@
             <div class="telegram-data-line">
               <span style="color: #64748B;">Ratio Riesgo / Beneficio:</span>
               <strong style="color: #0F172A;">1 : 2.77</strong>
+            </div>
+
+            <div class="rr" role="img" aria-label="Riesgo de 27 pips frente a un objetivo de 75 pips">
+              <div class="rr-bar">
+                <i class="rr-sl" style="flex: 27"></i><i class="rr-tp1" style="flex: 35"></i><i class="rr-tp2" style="flex: 40"></i>
+              </div>
+              <div class="rr-labels"><span style="flex: 27">Riesgo 27</span><span style="flex: 35">TP1 +35</span><span style="flex: 40">TP2 +75</span></div>
             </div>
 
             <div style="margin-top: 10px; font-size: 12.5px; color: #475569; font-style: italic;">
