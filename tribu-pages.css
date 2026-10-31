@@ -174,3 +174,103 @@ body.page .divider-base { opacity: .5; }
 /* La info bajo los reproductores va sólida para que se lea sobre el marco oscuro */
 body.page .player-meta, body.page .video-info-box { background: rgba(255, 255, 255, 0.94); -webkit-backdrop-filter: none; backdrop-filter: none; }
 body.page .hero-play-btn, body.page .video-play-mini { background: rgba(255, 255, 255, 0.82) !important; box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.16), 0 10px 26px -8px rgba(0, 0, 0, 0.5) !important; }
+
+/* ==========================================================================
+   CAPA COMÚN DE INTERACCIÓN (mismo lenguaje del inicio y de Videos gratis)
+   Espacios más compactos, íconos de color, hover con zoom corto, entrada
+   suave y foco visible. Todo el movimiento respeta prefers-reduced-motion.
+   ========================================================================== */
+
+/* ---------- Espacios más compactos ---------- */
+body.page .course-hero, body.page .classroom-header, body.page .signals-hero,
+body.page .efi-hero, body.page .ib-hero, body.page .calc-page-hero,
+body.page .page-header, body.page .glossary-hero, body.page .help-hero { padding-bottom: 28px; }
+body.page .section { padding-top: 44px; padding-bottom: 44px; }
+body.page .section-header { margin-bottom: 28px; }
+@media (max-width: 900px) {
+  body.page .section { padding-top: 32px; padding-bottom: 32px; }
+}
+
+/* ---------- Títulos del pie: se leían oscuros sobre el fondo oscuro ---------- */
+.v2 .footer-col-title { color: #ffffff; }
+
+/* ---------- Íconos de las tarjetas en chips de color ---------- */
+body.page .solution-logo-box { width: 52px; height: 52px; border-radius: 16px; }
+body.page .features-grid > :nth-child(3n+1) .solution-logo-box,
+body.page .benefits-grid > :nth-child(3n+1) .solution-logo-box,
+body.page .calc-guide-grid > :nth-child(3n+1) .solution-logo-box { background: linear-gradient(160deg, rgba(254,226,226,.9), rgba(229,9,20,.14)) !important; color: #c40811 !important; }
+body.page .features-grid > :nth-child(3n+2) .solution-logo-box,
+body.page .benefits-grid > :nth-child(3n+2) .solution-logo-box,
+body.page .calc-guide-grid > :nth-child(3n+2) .solution-logo-box { background: linear-gradient(160deg, rgba(224,242,254,.9), rgba(34,158,217,.16)) !important; color: #17699a !important; }
+body.page .features-grid > :nth-child(3n) .solution-logo-box,
+body.page .benefits-grid > :nth-child(3n) .solution-logo-box,
+body.page .calc-guide-grid > :nth-child(3n) .solution-logo-box { background: linear-gradient(160deg, rgba(237,235,251,.95), rgba(101,95,167,.2)) !important; color: #52498f !important; }
+body.page .solution-logo-box { transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease; }
+body.page .tab-icon-box { transition: transform .25s ease, background-color .2s ease; }
+
+/* ---------- Foco visible con teclado ---------- */
+body.page a:focus-visible, body.page button:focus-visible, body.page [role="button"]:focus-visible,
+body.page .lesson-item:focus-visible, body.page input:focus-visible, body.page select:focus-visible {
+  outline: 2px solid var(--red); outline-offset: 3px;
+}
+
+/* ---------- Transiciones (sin !important para que reduced-motion las apague) ---------- */
+body.page .btn-hero-red, body.page .btn-hero-outline, body.page .btn-referral, body.page .btn-telegram,
+body.page .btn-support-wa, body.page .btn-support-wa, body.page .risk-btn, body.page .alphabet-btn,
+body.page .help-tab-btn, body.page .video-tab-btn {
+  transition: transform .25s cubic-bezier(.16,1,.3,1), background-color .2s ease, border-color .2s ease, box-shadow .25s ease, color .2s ease;
+}
+body.page .lesson-item { transition: background-color .2s ease, transform .2s ease; }
+body.page .lesson-num { transition: background-color .2s ease, color .2s ease, transform .25s cubic-bezier(.34,1.56,.64,1); }
+body.page .faq-item { transition: border-color .2s ease, box-shadow .25s ease, transform .25s ease; }
+
+/* ---------- Hover (solo con mouse) ---------- */
+@media (hover: hover) {
+  body.page .btn-hero-red:hover, body.page .btn-hero-outline:hover, body.page .btn-referral:hover,
+  body.page .btn-telegram:hover, body.page .btn-support-wa:hover { transform: translateY(-2px) scale(1.03); }
+  body.page .risk-btn:hover, body.page .alphabet-btn:hover, body.page .help-tab-btn:hover,
+  body.page .video-tab-btn:hover { transform: scale(1.05); }
+  body.page .feature-card:hover .solution-logo-box, body.page .benefit-card:hover .solution-logo-box,
+  body.page .calc-guide-card:hover .solution-logo-box { transform: scale(1.1) rotate(-4deg); box-shadow: 0 10px 20px -10px rgba(15,23,42,.35); }
+  body.page .included-card:hover, body.page .safety-box:hover { box-shadow: 0 22px 44px -22px rgba(15,23,42,.3), inset 0 1px 0 rgba(255,255,255,.9); }
+  body.page .lesson-item:hover { transform: translateX(3px); }
+  body.page .lesson-item:hover .lesson-num { transform: scale(1.12); }
+  body.page .video-tab-btn:hover .tab-icon-box { transform: scale(1.1); }
+  body.page .faq-item:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -20px rgba(15,23,42,.35); }
+  body.page .step-card:hover .step-number, body.page .module-card:hover .module-num { letter-spacing: .09em; }
+  body.page .step-card .step-number, body.page .module-card .module-num { transition: letter-spacing .3s ease; }
+}
+
+/* ---------- Anillo del botón de play al pasar el cursor ---------- */
+body.page .hero-play-btn::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid rgba(229,9,20,.55); opacity: 0; pointer-events: none; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body.page .hero-video-box:hover .hero-play-btn::after, body.page .video-frame-box:hover .hero-play-btn::after { animation: pg-ring 1.3s ease-out infinite; }
+}
+@keyframes pg-ring { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.7); } }
+
+/* ---------- Entrada: el encabezado aparece escalonado al cargar ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  body.page :is(.course-tag, .classroom-tag, .signals-tag, .efi-tag, .ib-tag, .calc-tag, .glossary-intro-badge, .help-badge) { animation: pg-in .5s cubic-bezier(.2,.8,.2,1) backwards; }
+  body.page :is(.hero-title, .glossary-hero-title, .help-hero-title) { animation: pg-in .6s cubic-bezier(.2,.8,.2,1) .06s backwards; }
+  body.page :is(.hero-subtitle, .glossary-hero-desc, .help-hero-subtitle, .calc-page-hero .section-subtitle) { animation: pg-in .6s cubic-bezier(.2,.8,.2,1) .12s backwards; }
+  body.page :is(.hero-buttons, .glossary-search-wrapper, .help-tabs-wrapper) { animation: pg-in .6s cubic-bezier(.2,.8,.2,1) .18s backwards; }
+  body.page :is(.hero-video-wrapper, .hero-video-box) { animation: pg-in .7s cubic-bezier(.2,.8,.2,1) .15s backwards; }
+  body.page .faq-item.open .faq-answer { animation: pg-in .3s ease backwards; }
+  body.page .calc-res-val.bump { animation: pg-bump .4s ease; }
+  body.page .telegram-preview-card .telegram-live { animation: pg-blink 1.6s ease-in-out infinite; }
+}
+@keyframes pg-in { from { opacity: 0; transform: translateY(14px); } }
+@keyframes pg-bump { 40% { transform: scale(1.06); } }
+@keyframes pg-blink { 50% { opacity: .35; } }
+
+/* ---------- Entrada al hacer scroll (solo navegadores que lo soportan; si no, todo se ve normal) ---------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    body.page :is(.feature-card, .benefit-card, .step-card, .module-card, .calc-guide-card, .included-card, .safety-box,
+      .playlist-card, .player-container, .player-meta, .calc-widget, .telegram-preview-card, .cta-banner, .referral-banner,
+      .ib-cta-banner, .support-box, .ib-form-box, .video-switch-grid, .legal-document, .faq-item, .glossary-item-card, .letter-header) {
+      animation: pg-reveal linear backwards; animation-timeline: view(); animation-range: entry 0% entry 40%;
+    }
+  }
+}
+@keyframes pg-reveal { from { opacity: 0; transform: translateY(18px); } }

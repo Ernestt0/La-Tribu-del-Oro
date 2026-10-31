@@ -472,6 +472,22 @@
     <!-- SCRIPTS -->
     <script src="components.js"></script>
     <script>
+      // Las cifras del resultado dan un pequeño pulso cuando cambian
+      (() => {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const box = document.querySelector('.calc-result-box');
+        if (!box) return;
+        new MutationObserver((muts) => {
+          muts.forEach((m) => {
+            const el = (m.target.nodeType === 3 ? m.target.parentElement : m.target);
+            if (el && el.classList && el.classList.contains('calc-res-val')) {
+              el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+            }
+          });
+        }).observe(box, { childList: true, characterData: true, subtree: true });
+      })();
+    </script>
+    <script>
       function setRiskPreset(val, event) {
         document.getElementById('inRisk').value = val;
         document
