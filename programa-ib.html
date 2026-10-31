@@ -190,6 +190,38 @@
           padding: 28px 20px;
         }
       }
+
+      /* ===== Programa IB: identidad dorada, pasos de la asesoría y formulario con estado ===== */
+      body.page { --acc: #c59b27; --acc-d: #8a6a12; }
+      body.page .ib-hero { position: relative; isolation: isolate; overflow: hidden; }
+      body.page .ib-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
+        background: radial-gradient(42% 62% at 90% 6%, rgba(223,183,72,.3), transparent 70%), radial-gradient(36% 52% at 3% 96%, rgba(229,9,20,.12), transparent 70%); }
+      body.page .ib-tag { color: #8a6a12; border-color: rgba(197,155,39,.45); }
+      body.page .ib-hero .hero-title span { background: linear-gradient(90deg, #8a6a12, #c59b27 50%, #e50914); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      body.page .ib-hero .hero-video-box { box-shadow: 0 30px 60px -28px rgba(138,106,18,.55); border-color: rgba(223,183,72,.5); }
+      body.page .ib-hero .cls-pills { margin-top: 24px; }
+      body.page .ib-hero .cls-pills li { border-color: rgba(197,155,39,.35); color: #8a6a12; }
+      body.page .ib-hero .cls-pills svg { color: #c59b27; }
+
+      .ib-steps { list-style: none; max-width: 650px; margin: 56px auto 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; position: relative; }
+      .ib-steps li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 16px 12px; border-radius: 20px; background: rgba(255,255,255,.6);
+        -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.85); box-shadow: 0 12px 28px -20px rgba(15,23,42,.35), inset 0 1px 0 #fff; transition: transform .25s ease; }
+      .ib-n { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff; background: linear-gradient(160deg, #dfb748, #c59b27); box-shadow: 0 8px 16px -8px rgba(138,106,18,.7); transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+      .ib-steps b { display: block; font-size: 14px; color: #0f172a; margin-bottom: 2px; }
+      .ib-steps span:not(.ib-n) { font-size: 12.5px; color: #64748b; line-height: 1.45; }
+      body.page .ib-form-box { margin-top: 22px; border-radius: 28px; padding: 36px; box-shadow: 0 30px 60px -34px rgba(138,106,18,.5), inset 0 1px 0 rgba(255,255,255,.9); border-top: 3px solid #c59b27; }
+      .ib-field { position: relative; }
+      body.page .ib-input { transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease; padding-right: 40px; }
+      .ib-field.filled::after { content: ''; position: absolute; right: 15px; bottom: 15px; width: 6px; height: 11px; border: solid #16a34a; border-width: 0 2.4px 2.4px 0; transform: rotate(45deg); }
+      body.page .ib-form-box .btn-hero-red { border-radius: 999px !important; min-height: 50px; }
+      body.page .ib-input:focus-visible { outline: none; }
+
+      @media (hover: hover) {
+        .ib-steps li:hover { transform: translateY(-3px); }
+        .ib-steps li:hover .ib-n { transform: scale(1.12); }
+      }
+      @media (prefers-reduced-motion: no-preference) { .ib-field.filled::after { animation: pg-in .25s ease backwards; } }
+      @media (max-width: 700px) { .ib-steps { grid-template-columns: 1fr; } .ib-steps li { flex-direction: row; text-align: left; } body.page .ib-form-box { padding: 26px 20px; } }
     </style>
   </head>
   <body class="v2 page">
@@ -220,6 +252,11 @@
               >Ver videos explicativos</a
             >
           </div>
+          <ul class="cls-pills" aria-label="Lo esencial del programa">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M12 6.5v11M14.6 9.3c-.4-.9-1.3-1.4-2.6-1.4-1.5 0-2.6.8-2.6 2 0 1.3 1.1 1.7 2.6 2 1.6.3 2.6.8 2.6 2.1 0 1.2-1.1 2-2.6 2-1.4 0-2.3-.6-2.7-1.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg>Rebates transparentes</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.2" fill="currentColor"/><path d="M3.8 20.5c0-4.1 3.6-6.6 8.2-6.6s8.2 2.5 8.2 6.6z" fill="currentColor" opacity=".6"/></svg>Acompañamiento 1 a 1</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.2c3-1.2 6-1 9 1v13.6c-3-2-6-2.2-9-1z" fill="currentColor" opacity=".6"/><path d="M21 5.2c-3-1.2-6-1-9 1v13.6c3-2 6-2.2 9-1z" fill="currentColor"/></svg>Contenido pedagógico</li>
+          </ul>
         </div>
 
         <!-- VIDEO DE PRESENTACIÓN IB -->
@@ -470,6 +507,11 @@
         </div>
 
         <!-- FORMULARIO DE POSTULACIÓN -->
+        <ol class="ib-steps" aria-label="Cómo funciona la asesoría">
+          <li><span class="ib-n">1</span><div><b>Completa tus datos</b><span>Nombre, WhatsApp y tu comunidad.</span></div></li>
+          <li><span class="ib-n">2</span><div><b>Te escribimos por WhatsApp</b><span>En menos de 24 horas hábiles.</span></div></li>
+          <li><span class="ib-n">3</span><div><b>Configuras tu enlace</b><span>Un gestor te acompaña en el proceso.</span></div></li>
+        </ol>
         <div class="ib-form-box" id="contacto-ib">
           <h3
             style="
@@ -498,30 +540,30 @@
             onsubmit="alert('¡Gracias por tu interés! Un gestor se comunicará contigo vía WhatsApp para guiarte en el proceso.'); return false;"
           >
             <div class="ib-field">
-              <label>Nombre y Apellidos</label>
+              <label for="ibNombre">Nombre y Apellidos</label>
               <input
                 type="text"
-                class="ib-input"
+                id="ibNombre" class="ib-input"
                 placeholder="Ej. Juan Pérez"
                 required
               />
             </div>
             <div class="ib-field">
-              <label>Número de WhatsApp (con código de país)</label>
+              <label for="ibWhatsapp">Número de WhatsApp (con código de país)</label>
               <input
                 type="tel"
-                class="ib-input"
+                id="ibWhatsapp" class="ib-input"
                 placeholder="+57 300 000 0000"
                 required
               />
             </div>
             <div class="ib-field">
-              <label
+              <label for="ibComunidad"
                 >Canal, red social o tamaño aproximado de tu comunidad</label
               >
               <input
                 type="text"
-                class="ib-input"
+                id="ibComunidad" class="ib-input"
                 placeholder="Ej. Canal de Telegram de 500 miembros, Instagram..."
               />
             </div>
@@ -571,6 +613,13 @@
           url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
         },
       ];
+
+      // Marca con un visto verde cada campo del formulario que ya tiene contenido
+      document.querySelectorAll('.ib-input').forEach((inp) => {
+        const sync = () => inp.closest('.ib-field').classList.toggle('filled', inp.value.trim().length > 0);
+        inp.addEventListener('input', sync);
+        sync();
+      });
 
       function switchIbVideo(index) {
         const data = ibVideos[index];
