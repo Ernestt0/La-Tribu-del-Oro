@@ -205,6 +205,7 @@
           grid-template-columns: 1fr;
         }
       }
+      body.page { --acc: #655fa7; --acc-d: #52498f; --acc-glow: rgba(101,95,167,.24); --acc-glow2: rgba(138,131,207,.18); }
     </style>
   </head>
   <body class="v2 page">
@@ -224,6 +225,11 @@
           rendimiento real de un trader y cómo blindar tu capital ante pérdidas
           imprevistas.
         </p>
+        <ul class="cls-pills" aria-label="Lo esencial del mini-curso">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M10 8.2l6 3.8-6 3.8z" fill="#fff"/></svg>4 clases prácticas</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M12 6.5V12l3.6 2.2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>45 minutos en total</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.7-3.2 8.2-8 9.8-4.8-1.6-8-5.1-8-9.8V5.5z" fill="currentColor"/><path d="M8.5 12l2.6 2.6 4.4-4.8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Riesgo primero</li>
+        </ul>
       </div>
     </section>
 
@@ -265,6 +271,7 @@
               <div class="playlist-header">
                 <h3>Temario del Mini-Curso</h3>
                 <span>4 clases prácticas • 45 minutos en total</span>
+                <div class="pl-progress" role="progressbar" aria-label="Progreso del mini-curso" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1"><i></i></div>
               </div>
 
               <div class="lessons-list">
@@ -323,31 +330,14 @@
             </div>
 
             <!-- BOTÓN DE APOYO / DUDAS -->
-            <div
-              style="
-                margin-top: 20px;
-                background: #ffffff;
-                border: 1px solid #e2e8f0;
-                border-radius: 14px;
-                padding: 20px;
-                text-align: center;
-              "
-            >
-              <p
-                style="
-                  font-size: 13.5px;
-                  color: #475569;
-                  margin-bottom: 12px;
-                  font-weight: 500;
-                "
-              >
+            <div class="help-card">
+              <p>
                 ¿Tienes dudas técnicas sobre la vinculación de cuentas?
               </p>
               <a
                 href="https://wa.me/"
                 target="_blank"
                 class="btn-hero-outline"
-                style="width: 100%; font-size: 13.5px; padding: 10px"
               >
                 Consultar con soporte por WhatsApp
               </a>
@@ -373,7 +363,8 @@
           </p>
 
           <div class="safety-grid">
-            <div class="safety-item">
+            <div class="safety-item" data-tone="blue">
+              <span class="cls-ico"><svg class="ic-down" viewBox="0 0 24 24" aria-hidden="true"><path class="ln" d="M3.5 6.5l6 6 4-4 7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M20.5 10.5v5h-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
               <h4>1. Revisa el Drawdown histórico</h4>
               <p>
                 Descarta perfiles con caídas flotantes superiores al 25%-30%. Un
@@ -381,7 +372,8 @@
                 tarde o temprano.
               </p>
             </div>
-            <div class="safety-item">
+            <div class="safety-item" data-tone="red">
+              <span class="cls-ico"><svg class="ic-ban" viewBox="0 0 24 24" aria-hidden="true"><g class="sp"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><circle cx="12" cy="12" r="5.6" stroke="#fff" stroke-width="2" fill="none"/><path d="M8 16l8-8" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></g></svg></span>
               <h4>2. Evita la martingala o grillas sin stop</h4>
               <p>
                 Si la estrategia dobla lotajes ante pérdidas o no usa Stop Loss
@@ -389,7 +381,8 @@
                 tiempo estadística.
               </p>
             </div>
-            <div class="safety-item">
+            <div class="safety-item" data-tone="purple">
+              <span class="cls-ico"><svg class="ic-stop" viewBox="0 0 24 24" aria-hidden="true"><path class="oct" d="M8.5 2.5h7l6 6v7l-6 6h-7l-6-6v-7z" fill="currentColor"/><rect x="7" y="10.8" width="10" height="2.4" rx="1.2" fill="#fff"/></svg></span>
               <h4>3. Define un límite de parada propio</h4>
               <p>
                 Usa la opción de parada de emergencia en tu panel para
@@ -437,6 +430,7 @@
       ];
 
       function loadLesson(index) {
+        markProgress(index);
         const data = lessonsData[index];
         if (!data) return;
 
@@ -456,6 +450,22 @@
           }
         });
       }
+
+      // Progreso del mini-curso: barra y clases ya vistas
+      function markProgress(index) {
+        const items = document.querySelectorAll('.lesson-item');
+        items.forEach((it, i) => it.classList.toggle('done', i < index));
+        const bar = document.querySelector('.pl-progress');
+        if (bar) {
+          bar.style.setProperty('--p', ((index + 1) / items.length) * 100 + '%');
+          bar.setAttribute('aria-valuenow', index + 1);
+        }
+      }
+      document.querySelectorAll('.lesson-item').forEach((it) => {
+        it.setAttribute('tabindex', '0'); it.setAttribute('role', 'button');
+        it.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); it.click(); } });
+      });
+      markProgress(0);
     </script>
   </body>
 </html>

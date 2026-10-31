@@ -302,3 +302,54 @@ body.page .ic-bars rect { transform-origin: bottom center; }
 @keyframes pg-page-l { 40% { transform: rotate(-6deg); } }
 @keyframes pg-page-r { 40% { transform: rotate(6deg); } }
 @keyframes pg-pulse { 40% { transform: scale(1.15); } }
+
+/* ==========================================================================
+   AULA (Copy trading y Cripto): color de acento por página con --acc / --acc-d
+   ========================================================================== */
+body.page .classroom-header { position: relative; isolation: isolate; overflow: hidden; }
+body.page .classroom-header::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
+  background: radial-gradient(42% 70% at 90% 0%, var(--acc-glow, rgba(229,9,20,.14)), transparent 70%), radial-gradient(36% 60% at 2% 100%, var(--acc-glow2, rgba(223,183,72,.2)), transparent 70%); }
+body.page .classroom-tag { color: var(--acc-d, var(--red)); border-color: color-mix(in srgb, var(--acc, #e50914) 35%, transparent); }
+body.page .classroom-header .hero-title span { background: linear-gradient(90deg, var(--acc-d, #e50914), var(--acc, #e50914) 55%, var(--acc-d, #e50914)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cls-pills { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; }
+.cls-pills li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--acc-d, #c40811);
+  background: rgba(255,255,255,.65); border: 1px solid color-mix(in srgb, var(--acc, #e50914) 28%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 1px 0 #fff; transition: transform .2s ease; }
+.cls-pills svg { width: 18px; height: 18px; color: var(--acc, #e50914); }
+body.page .player-container { box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--acc, #0f172a) 55%, transparent); border-color: color-mix(in srgb, var(--acc, #fff) 35%, white); }
+body.page .current-lesson-badge { display: inline-block; padding: 3px 12px; border-radius: 999px; background: color-mix(in srgb, var(--acc, #e50914) 12%, white); color: var(--acc-d, #c40811); letter-spacing: .03em; }
+
+/* Barra de progreso del temario y clases vistas */
+.pl-progress { margin-top: 12px; height: 6px; border-radius: 6px; background: rgba(15,23,42,.08); overflow: hidden; --p: 25%; }
+.pl-progress i { display: block; height: 100%; width: var(--p); border-radius: 6px; background: linear-gradient(90deg, var(--acc, #e50914), var(--acc-d, #c40811)); transition: width .5s cubic-bezier(.2,.8,.2,1); }
+body.page .lesson-item.done .lesson-num { background: color-mix(in srgb, var(--acc, #e50914) 16%, white); color: transparent; position: relative; }
+body.page .lesson-item.done .lesson-num::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 9px; border: solid var(--acc-d, #c40811); border-width: 0 2.2px 2.2px 0; transform: translate(-50%, -62%) rotate(45deg); }
+body.page .lesson-item.active { box-shadow: inset 4px 0 0 var(--red); }
+
+/* Tarjeta de ayuda (antes con estilos en línea) */
+.help-card { margin-top: 20px; padding: 20px; text-align: center; border-radius: 22px; background: rgba(255,255,255,.62); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255,255,255,.85); box-shadow: 0 14px 34px -22px rgba(15,23,42,.3), inset 0 1px 0 rgba(255,255,255,.9); }
+.help-card p { font-size: 13.5px; color: #475569; margin-bottom: 12px; font-weight: 500; }
+.help-card .btn-hero-outline { width: 100%; font-size: 13.5px; min-height: 44px; }
+
+/* Reglas de oro con íconos */
+body.page .safety-box { border-radius: 26px; padding: 30px; }
+body.page .safety-item { padding: 18px; border-radius: 18px; background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.8); transition: transform .25s ease, box-shadow .25s ease; }
+.cls-ico { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; margin-bottom: 4px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.cls-ico svg { width: 26px; height: 26px; overflow: visible; }
+.cls-ico svg * { transform-box: fill-box; transform-origin: center; }
+.safety-item[data-tone="blue"] .cls-ico { background: linear-gradient(160deg, rgba(224,242,254,.95), rgba(34,158,217,.2)); color: #17699a; }
+.safety-item[data-tone="red"] .cls-ico { background: linear-gradient(160deg, rgba(254,226,226,.95), rgba(229,9,20,.16)); color: #c40811; }
+.safety-item[data-tone="purple"] .cls-ico { background: linear-gradient(160deg, rgba(237,235,251,.95), rgba(101,95,167,.22)); color: #52498f; }
+.safety-item[data-tone="orange"] .cls-ico { background: linear-gradient(160deg, rgba(255,238,220,.95), rgba(247,147,26,.24)); color: #c4720a; }
+@media (hover: hover) {
+  body.page .safety-item:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -20px rgba(15,23,42,.4); }
+  body.page .safety-item:hover .cls-ico { transform: scale(1.1) rotate(-4deg); }
+  .cls-pills li:hover { transform: scale(1.05); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body.page .safety-item:hover .ic-down .ln { stroke-dasharray: 26; animation: cls-draw .7s ease backwards; }
+  body.page .safety-item:hover .ic-ban .sp { animation: cls-spin .7s ease; }
+  body.page .safety-item:hover .ic-stop .oct { animation: pg-pulse .6s ease; }
+}
+@keyframes cls-draw { from { stroke-dashoffset: 26; } }
+@keyframes cls-spin { to { transform: rotate(360deg); } }

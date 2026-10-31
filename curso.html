@@ -97,7 +97,7 @@
 
     /* ===== Curso: línea de tiempo del temario, íconos por módulo y encabezado con brillo ===== */
     body.page .course-hero { position: relative; isolation: isolate; overflow: hidden; }
-    body.page .course-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    body.page .course-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
       background: radial-gradient(42% 62% at 90% 6%, rgba(229,9,20,.14), transparent 70%), radial-gradient(36% 52% at 4% 95%, rgba(223,183,72,.2), transparent 70%); }
     .crs-pills { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; padding: 0; }
     .crs-pills li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #c40811;
