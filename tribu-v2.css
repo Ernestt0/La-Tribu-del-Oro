@@ -694,3 +694,14 @@ body.v2 {
   .v2 .promo .actions { flex-direction: column; align-items: stretch; max-width: 320px; margin-left: auto; margin-right: auto; }
   .v2 .promo .actions .btn { width: 100%; justify-content: center; }
 }
+
+/* ---------- Tarjetas de rutas: el ícono hace su gesto al pasar el cursor (Ether.fi sin animación) ---------- */
+.v2 .path .ico svg * { transform-box: fill-box; transform-origin: center; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .v2 .path.t-curso:hover .cap { animation: dd-cap .6s ease; }
+  .v2 .path.t-copy:hover .front { animation: dd-front .5s ease; }
+  .v2 .path.t-copy:hover .arrow { animation: dd-arrow .5s ease; }
+  .v2 .path.t-senales:hover .plane { animation: path-plane .6s ease; }
+  .v2 .path.t-cripto:hover .coin { animation: dd-coin .7s ease; }
+}
+@keyframes path-plane { 40% { transform: translate(2px, -2px); } }
