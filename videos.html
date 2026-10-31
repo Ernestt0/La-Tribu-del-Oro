@@ -11,16 +11,54 @@
   <link rel="stylesheet" href="tribu-v2.css">
   <link rel="stylesheet" href="tribu-pages.css">
   <style>
-    .page-header { background: #FFFFFF; padding: 50px 0 35px; border-bottom: 1px solid #ECECEC; }
-    .page-title { font-size: 38px; font-weight: 850; color: #0F172A; margin-bottom: 8px; }
-    .page-title span { color: #E50914; }
-    .category-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-    .filter-chip { padding: 9px 18px; font-size: 13.5px; font-weight: 600; border-radius: 20px; background: #F1F5F9; color: #475569; cursor: pointer; transition: all 0.2s; }
-    .filter-chip:hover { background: #E2E8F0; color: #0F172A; }
-    .filter-chip.active { background: #E50914; color: #FFFFFF; box-shadow: 0 4px 14px rgba(229, 9, 20, 0.25); }
-    .video-grid-expanded { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 35px; }
-    @media (max-width: 900px) { .video-grid-expanded { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .video-grid-expanded { grid-template-columns: 1fr; } }
+    /* Videos gratis: mismo lenguaje del inicio (vidrio, chips de color, movimiento breve) */
+    body.page .page-header { padding: 56px 0 8px; }
+    body.page .page-title { font-size: clamp(32px, 4.4vw, 48px); font-weight: 800; margin-bottom: 8px; }
+    body.page .category-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    body.page .filter-chip { padding: 9px 18px; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
+    body.page .filter-chip:focus-visible, body.page .video-card-slide:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+    body.page .vid-count { margin-top: 16px; font-size: 13.5px; color: var(--muted); }
+    body.page main.section { padding-top: 24px; }
+    body.page .video-grid-expanded { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 8px; }
+
+    /* Tarjeta */
+    body.page .video-card-slide { flex: initial; padding: 10px 10px 14px; border-radius: 24px; outline-offset: 3px; }
+    body.page .video-card-slide .video-thumb { border-radius: 16px; margin-bottom: 14px; border-color: rgba(255,255,255,.7); box-shadow: 0 14px 28px -20px rgba(15,23,42,.6); }
+    body.page .video-card-slide .video-title { padding: 0 6px; font-family: var(--display); font-size: 17px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; margin-bottom: 10px; transition: color .2s ease; }
+    body.page .video-duration { background: rgba(15,23,42,.62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 3px 9px; }
+    body.page .video-card-slide .video-category { align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; margin: auto 6px 0; padding: 4px 11px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--c, var(--ink)); background: var(--bg, rgba(241,245,249,.9)); }
+    body.page .video-card-slide .video-category::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    body.page .video-card-slide[data-cat="basicos"] { --c: #8a6a12; --bg: var(--gold-soft, #fbf5e3); }
+    body.page .video-card-slide[data-cat="tecnico"] { --c: #17699a; --bg: rgba(224,242,254,.95); }
+    body.page .video-card-slide[data-cat="riesgo"] { --c: #c40811; --bg: rgba(254,226,226,.9); }
+    body.page .video-card-slide[data-cat="cripto"] { --c: #a85a08; --bg: rgba(254,230,205,.95); }
+    body.page .video-card-slide[data-cat="psicologia"] { --c: #52498f; --bg: rgba(228,225,248,.95); }
+    body.page .video-play-mini::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(229,9,20,.55); opacity: 0; pointer-events: none; }
+
+    @media (hover: hover) {
+      body.page .filter-chip:hover { transform: scale(1.05); }
+      body.page .video-card-slide:hover .video-title { color: var(--red); }
+    }
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      body.page .video-card-slide:hover .video-play-mini::after { animation: vid-ring 1.3s ease-out infinite; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      body.page .video-card-slide { animation: vid-in .5s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: calc(var(--i, 0) * 60ms); }
+      body.page .page-title, body.page .page-header .section-subtitle, body.page .category-filters { animation: vid-in .6s cubic-bezier(.2,.8,.2,1) backwards; }
+      body.page .page-header .section-subtitle { animation-delay: .08s; }
+      body.page .category-filters { animation-delay: .16s; }
+    }
+    @keyframes vid-in { from { opacity: 0; transform: translateY(14px); } }
+    @keyframes vid-ring { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.7); } }
+
+    @media (max-width: 900px) { body.page .video-grid-expanded { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) {
+      body.page .page-header { padding: 32px 0 4px; }
+      body.page .video-grid-expanded { grid-template-columns: 1fr; gap: 16px; }
+      body.page .category-filters { flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding: 4px 16px 8px; scroll-snap-type: x proximity; scrollbar-width: none; }
+      body.page .category-filters::-webkit-scrollbar { display: none; }
+      body.page .filter-chip { flex: 0 0 auto; scroll-snap-align: start; white-space: nowrap; }
+    }
   </style>
 </head>
 <body class="v2 page">
@@ -42,44 +80,45 @@
         <button class="filter-chip" onclick="filterVideoCategory('cripto', this)">Criptomonedas</button>
         <button class="filter-chip" onclick="filterVideoCategory('psicologia', this)">Psicología</button>
       </div>
+      <p class="vid-count" id="vidCount" aria-live="polite"></p>
     </div>
   </section>
 
   <main class="section">
     <div class="container">
       <div class="video-grid-expanded">
-        <div class="video-card-slide" data-cat="basicos" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80"><div class="video-duration">12:34</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
+        <div class="video-card-slide" data-cat="basicos" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80"><div class="video-duration">12:34</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
           <h4 class="video-title">¿Qué es el trading y cómo funciona?</h4>
           <span class="video-category">Conceptos básicos</span>
         </div>
 
-        <div class="video-card-slide" data-cat="tecnico" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=600&q=80"><div class="video-duration">15:20</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
+        <div class="video-card-slide" data-cat="tecnico" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=600&q=80"><div class="video-duration">15:20</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
           <h4 class="video-title">Análisis técnico explicado de forma sencilla</h4>
           <span class="video-category">Análisis técnico</span>
         </div>
 
-        <div class="video-card-slide" data-cat="riesgo" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80"><div class="video-duration">10:18</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
+        <div class="video-card-slide" data-cat="riesgo" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80"><div class="video-duration">10:18</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
           <h4 class="video-title">Gestión de riesgo en trading</h4>
           <span class="video-category">Gestión de riesgo</span>
         </div>
 
-        <div class="video-card-slide" data-cat="cripto" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80"><div class="video-duration">14:26</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
+        <div class="video-card-slide" data-cat="cripto" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80"><div class="video-duration">14:26</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
           <h4 class="video-title">Introducción a las criptomonedas</h4>
           <span class="video-category">Criptomonedas</span>
         </div>
 
-        <div class="video-card-slide" data-cat="psicologia" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80"><div class="video-duration">11:03</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
+        <div class="video-card-slide" data-cat="psicologia" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80"><div class="video-duration">11:03</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
           <h4 class="video-title">Psicología y disciplina del trading</h4>
           <span class="video-category">Mentalidad</span>
         </div>
 
-        <div class="video-card-slide" data-cat="tecnico" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=600&q=80"><div class="video-duration">18:45</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
+        <div class="video-card-slide" data-cat="tecnico" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=600&q=80"><div class="video-duration">18:45</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
           <h4 class="video-title">Soportes, resistencias y estructura</h4>
           <span class="video-category">Análisis técnico</span>
         </div>
@@ -93,19 +132,25 @@
   <!-- SCRIPTS -->
   <script src="components.js"></script>
   <script>
+    const vidCards = [...document.querySelectorAll('.video-card-slide')];
+    const vidCount = document.getElementById('vidCount');
+    function updateCount(n) { vidCount.textContent = n === 1 ? 'Mostrando 1 video' : 'Mostrando ' + n + ' videos'; }
     function filterVideoCategory(cat, btn) {
       document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      const cards = document.querySelectorAll('.video-card-slide');
-      cards.forEach(card => {
-        if (cat === 'todos' || card.getAttribute('data-cat') === cat) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
+      let i = 0;
+      vidCards.forEach(card => {
+        const show = cat === 'todos' || card.getAttribute('data-cat') === cat;
+        card.style.display = show ? 'flex' : 'none';
+        if (show) { card.style.setProperty('--i', i++); card.style.animation = 'none'; void card.offsetWidth; card.style.animation = ''; }
       });
+      updateCount(i);
     }
+    vidCards.forEach((card, i) => {
+      card.style.setProperty('--i', i);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); } });
+    });
+    updateCount(vidCards.length);
   </script>
 </body>
 </html>
