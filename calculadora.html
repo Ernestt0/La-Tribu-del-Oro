@@ -200,6 +200,51 @@
           padding: 24px 20px;
         }
       }
+
+      /* ===== REDISEÑO ===== */
+      .calc-head { text-align: center; max-width: 640px; margin: 0 auto 26px; position: relative; }
+      .calc-head h1 { font-family: var(--display, 'Inter Tight'), sans-serif; font-size: clamp(30px, 5vw, 44px); font-weight: 800; letter-spacing: -.02em; color: var(--ink, #0f172a); margin: 0 0 8px; }
+      .calc-head p { color: var(--muted, #64748b); font-size: 15.5px; margin: 0; }
+      .calc-main { position: relative; }
+      .calc-main::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 420px; pointer-events: none;
+        background: radial-gradient(60% 70% at 50% 0%, rgba(197,155,39,.18), transparent 70%), radial-gradient(40% 60% at 85% 10%, rgba(23,105,154,.12), transparent 70%);
+        -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent); }
+      .calc-main > .container { position: relative; }
+      .calc-widget { background: rgba(255,255,255,.62); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(255,255,255,.9); box-shadow: 0 18px 50px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.9); }
+      .calc-num-input, .calc-select { transition: border-color .2s, box-shadow .2s, transform .2s; }
+      .calc-num-input:hover, .calc-select:hover { border-color: #cbd5e1; }
+      .calc-num-input:focus { border-color: #c59b27; box-shadow: 0 0 0 4px rgba(197,155,39,.16); }
+      .calc-select:focus { border-color: #c59b27; box-shadow: 0 0 0 4px rgba(197,155,39,.16); }
+      .risk-btn { transition: transform .15s, background .2s, color .2s, box-shadow .2s; }
+      .risk-btn:hover { transform: translateY(-1px); }
+      .risk-btn.active { background: #0f172a; color: #fff; box-shadow: 0 4px 12px rgba(15,23,42,.25); }
+      .risk-range { width: 100%; margin: 8px 0 2px; accent-color: #c59b27; cursor: pointer; }
+      .calc-result-box { background: radial-gradient(120% 90% at 0% 0%, #1b2438 0%, #0b1020 70%); border: 1px solid rgba(197,155,39,.28);
+        box-shadow: 0 18px 44px rgba(11,16,32,.3), inset 0 1px 0 rgba(255,255,255,.06); }
+      .calc-res-val { font-family: var(--display, 'Inter Tight'), sans-serif; font-variant-numeric: tabular-nums; }
+      #resLotSize { color: #e8c766; font-size: 32px; }
+      #resMoneyRisk { color: #fca5a5; font-size: 24px; }
+      #resSafeCapital { color: #fff; font-size: 20px; }
+      .calc-status { font-size: 12.5px; line-height: 1.5; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.06); color: #cbd5e1; border-left: 3px solid #64748b; }
+      .calc-status.ok { border-color: #10b981; color: #a7f3d0; }
+      .calc-status.warn { border-color: #f59e0b; color: #fde68a; }
+      .calc-status.high { border-color: #ef4444; color: #fecaca; }
+      .gauge { height: 8px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; margin-top: -6px; }
+      .gauge-fill { height: 100%; width: 0; border-radius: inherit; background: #64748b; transition: width .35s ease, background .3s; }
+      .gauge-fill[data-level="ok"] { background: #10b981; }
+      .gauge-fill[data-level="warn"] { background: #f59e0b; }
+      .gauge-fill[data-level="high"] { background: #ef4444; }
+      .gauge-labels { display: flex; justify-content: space-between; font-size: 10.5px; color: #64748b; margin-top: -12px; }
+      .calc-how { margin-top: 26px; border-top: 1px solid #e2e8f0; padding-top: 16px; font-size: 13px; color: #475569; }
+      .calc-how summary { cursor: pointer; font-weight: 700; color: #0f172a; font-size: 14px; }
+      .calc-how p { margin: 10px 0 0; line-height: 1.55; }
+      .calc-how ul { margin: 8px 0 0 18px; padding: 0; line-height: 1.6; }
+      .calc-guide-card { background: rgba(255,255,255,.62); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(255,255,255,.9); transition: transform .25s, box-shadow .25s; }
+      @media (hover:hover) { .calc-guide-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(15,23,42,.1); } }
+      @media (max-width: 900px) { .calc-widget { padding: 22px 16px; } #resLotSize { font-size: 28px; } }
+      @media (prefers-reduced-motion: reduce) { .gauge-fill { transition: none; } }
     </style>
   </head>
   <body class="v2 page">
@@ -223,7 +268,7 @@
     </section>
 
     <!-- CALCULADORA INTERACTIVA -->
-    <main class="section">
+    <main class="section calc-main">
       <div class="container">
         <div class="calc-widget">
           <div class="calc-grid">
@@ -249,7 +294,7 @@
               <!-- FILA 1 -->
               <div class="calc-input-row">
                 <div class="calc-field-group">
-                  <label>Balance de la cuenta</label>
+                  <label for="inCapital">Balance de la cuenta</label>
                   <div class="calc-input-wrapper">
                     <input
                       type="number"
@@ -257,7 +302,8 @@
                       class="calc-num-input"
                       value="2000"
                       step="100"
-                      min="50"
+                      min="1"
+                      inputmode="decimal"
                       oninput="calculatePosition()"
                     />
                     <span class="unit">USD</span>
@@ -265,7 +311,7 @@
                 </div>
 
                 <div class="calc-field-group">
-                  <label>Instrumento / Mercado</label>
+                  <label for="inAsset">Instrumento / Mercado</label>
                   <select
                     id="inAsset"
                     class="calc-select"
@@ -282,7 +328,7 @@
               <!-- FILA 2 -->
               <div class="calc-input-row">
                 <div class="calc-field-group">
-                  <label>Riesgo tolerado por trade (%)</label>
+                  <label for="inRisk">Riesgo tolerado por trade (%)</label>
                   <div class="calc-input-wrapper">
                     <input
                       type="number"
@@ -292,30 +338,32 @@
                       step="0.1"
                       min="0.1"
                       max="10"
+                      inputmode="decimal"
                       oninput="calculatePosition()"
                     />
                     <span class="unit">%</span>
                   </div>
+                  <input type="range" id="inRiskRange" class="risk-range" min="0.1" max="5" step="0.1" value="1" aria-label="Ajustar el riesgo por trade" oninput="setRiskFromRange(this.value)" />
                   <div class="risk-presets">
                     <button
                       type="button"
-                      class="risk-btn"
-                      onclick="setRiskPreset(0.5, event)"
+                      class="risk-btn" data-risk="0.5"
+                      onclick="setRiskPreset(0.5)"
                     >
                       0.5%
                     </button>
                     <button
                       type="button"
-                      class="risk-btn active"
+                      class="risk-btn active" data-risk="1"
                       id="btnPreset1"
-                      onclick="setRiskPreset(1.0, event)"
+                      onclick="setRiskPreset(1)"
                     >
                       1.0%
                     </button>
                     <button
                       type="button"
-                      class="risk-btn"
-                      onclick="setRiskPreset(2.0, event)"
+                      class="risk-btn" data-risk="2"
+                      onclick="setRiskPreset(2)"
                     >
                       2.0%
                     </button>
@@ -323,15 +371,16 @@
                 </div>
 
                 <div class="calc-field-group">
-                  <label>Distancia de Stop Loss</label>
+                  <label for="inSL">Distancia de Stop Loss</label>
                   <div class="calc-input-wrapper">
                     <input
                       type="number"
                       id="inSL"
                       class="calc-num-input"
                       value="30"
-                      step="1"
-                      min="1"
+                      step="any"
+                      min="0"
+                      inputmode="decimal"
                       oninput="calculatePosition()"
                     />
                     <span class="unit" id="unitLabel">Pips</span>
@@ -347,33 +396,47 @@
                 <div
                   class="calc-res-val"
                   id="resLotSize"
-                  style="color: #60a5fa"
+                  
                 >
                   0.07 Lotes
                 </div>
               </div>
               <div class="calc-result-item">
-                <div class="calc-res-label">Pérdida máxima monetaria</div>
+                <div class="calc-res-label">Pérdida si toca el Stop Loss</div>
                 <div
                   class="calc-res-val"
                   id="resMoneyRisk"
-                  style="color: #10b981; font-size: 24px"
+                  
                 >
                   $20.00 USD
                 </div>
               </div>
               <div class="calc-result-item">
-                <div class="calc-res-label">Capital protegido remanente</div>
+                <div class="calc-res-label">Capital restante</div>
                 <div
                   class="calc-res-val"
                   id="resSafeCapital"
-                  style="color: #ffffff; font-size: 20px"
+                  
                 >
                   $1,980.00 USD
                 </div>
               </div>
+              <div class="calc-status" id="calcStatus" role="status" aria-live="polite"></div>
+              <div class="gauge" aria-hidden="true"><div class="gauge-fill" id="riskGauge"></div></div>
+              <div class="gauge-labels" aria-hidden="true"><span>0%</span><span>Riesgo real</span><span>5%+</span></div>
             </div>
           </div>
+          <details class="calc-how">
+            <summary>¿Cómo se calcula?</summary>
+            <p><b>Lotaje = (Balance × Riesgo %) ÷ (Stop Loss × valor por punto).</b> Se redondea hacia abajo para que la pérdida nunca supere el riesgo elegido.</p>
+            <ul>
+              <li><b>Forex:</b> USD 10 por pip por lote (pares con USD como moneda cotizada, como EUR/USD o GBP/USD).</li>
+              <li><b>Oro:</b> USD 100 por cada USD 1 de movimiento por lote (100 onzas).</li>
+              <li><b>Cripto:</b> USD 1 por unidad por cada USD 1 de movimiento.</li>
+              <li><b>Índices:</b> USD 1 por punto por lote.</li>
+            </ul>
+            <p>Son valores de referencia; el tamaño del contrato puede variar según tu broker. Verifícalo antes de operar.</p>
+          </details>
         </div>
 
         <!-- GUÍAS EDUCATIVAS RÁPIDAS -->
@@ -464,56 +527,91 @@
       })();
     </script>
     <script>
-      function setRiskPreset(val, event) {
+      // Valor por punto y tamaño mínimo por instrumento (valores de referencia)
+      const ASSETS = {
+        forex:   { unit: 'Pips',   value: 10,  step: 0.01,  dec: 2, name: 'Lotes' },
+        gold:    { unit: 'USD',    value: 100, step: 0.01,  dec: 2, name: 'Lotes' },
+        crypto:  { unit: 'USD',    value: 1,   step: 0.001, dec: 3, name: 'Unidades' },
+        indices: { unit: 'Puntos', value: 1,   step: 0.01,  dec: 2, name: 'Lotes' },
+      };
+      const money = (n) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' USD';
+
+      function setRiskPreset(val) {
         document.getElementById('inRisk').value = val;
-        document
-          .querySelectorAll('.risk-btn')
-          .forEach((btn) => btn.classList.remove('active'));
-        if (event && event.target) {
-          event.target.classList.add('active');
-        }
+        calculatePosition();
+      }
+      function setRiskFromRange(val) {
+        document.getElementById('inRisk').value = val;
         calculatePosition();
       }
 
+      function computePosition(capital, riskPercent, slDist, assetKey) {
+        const cfg = ASSETS[assetKey] || ASSETS.forex;
+        if (!(capital > 0) || !(riskPercent > 0) || !(slDist > 0)) return null;
+        const intendedRisk = capital * (riskPercent / 100);
+        const raw = intendedRisk / (slDist * cfg.value);
+        // Redondeo hacia abajo: la pérdida real nunca supera el riesgo elegido
+        let lots = Math.floor(raw / cfg.step + 1e-9) * cfg.step;
+        lots = Math.round(lots * 1e6) / 1e6;
+        let belowMin = false;
+        if (lots < cfg.step) { lots = cfg.step; belowMin = true; }
+        const realLoss = lots * slDist * cfg.value;
+        return {
+          cfg, intendedRisk, lots, belowMin, realLoss,
+          realPct: (realLoss / capital) * 100,
+          safeCapital: Math.max(0, capital - realLoss),
+        };
+      }
+
       function calculatePosition() {
-        const capital =
-          parseFloat(document.getElementById('inCapital').value) || 0;
-        const riskPercent =
-          parseFloat(document.getElementById('inRisk').value) || 0;
-        const slDist = parseFloat(document.getElementById('inSL').value) || 1;
-        const asset = document.getElementById('inAsset').value;
+        const capital = parseFloat(document.getElementById('inCapital').value);
+        const riskPercent = parseFloat(document.getElementById('inRisk').value);
+        const slDist = parseFloat(document.getElementById('inSL').value);
+        const assetKey = document.getElementById('inAsset').value;
+        const cfg = ASSETS[assetKey] || ASSETS.forex;
+        const status = document.getElementById('calcStatus');
+        const gauge = document.getElementById('riskGauge');
+        const lotEl = document.getElementById('resLotSize');
+        const riskEl = document.getElementById('resMoneyRisk');
+        const safeEl = document.getElementById('resSafeCapital');
 
-        const unitLabel = document.getElementById('unitLabel');
-        if (asset === 'forex') unitLabel.innerText = 'Pips';
-        else if (asset === 'gold') unitLabel.innerText = 'Puntos';
-        else if (asset === 'crypto') unitLabel.innerText = 'USD ($)';
-        else unitLabel.innerText = 'Puntos';
+        document.getElementById('unitLabel').innerText = cfg.unit;
+        document.querySelectorAll('.risk-btn').forEach((btn) => {
+          btn.classList.toggle('active', parseFloat(btn.dataset.risk) === riskPercent);
+        });
+        const range = document.getElementById('inRiskRange');
+        if (range && riskPercent > 0) range.value = Math.min(riskPercent, 5);
 
-        const moneyAtRisk = capital * (riskPercent / 100);
-        const safeCapital = Math.max(0, capital - moneyAtRisk);
-
-        let pipValuePerLot = 10;
-        if (asset === 'gold') pipValuePerLot = 100;
-        if (asset === 'crypto' || asset === 'indices') pipValuePerLot = 1;
-
-        let lotSize = moneyAtRisk / (slDist * pipValuePerLot);
-        if (asset === 'forex' || asset === 'gold') {
-          lotSize = Math.max(0.01, Math.round(lotSize * 100) / 100);
-        } else {
-          lotSize = Math.max(0.001, Math.round(lotSize * 1000) / 1000);
+        const r = computePosition(capital, riskPercent, slDist, assetKey);
+        if (!r) {
+          lotEl.innerText = '—'; riskEl.innerText = '—'; safeEl.innerText = '—';
+          gauge.style.width = '0%'; gauge.dataset.level = '';
+          status.className = 'calc-status info';
+          status.innerText = 'Escribe un balance, un riesgo y un Stop Loss mayores a 0 para ver el resultado.';
+          return;
         }
 
-        document.getElementById('resLotSize').innerText =
-          lotSize.toFixed(2) + ' Lotes';
-        document.getElementById('resMoneyRisk').innerText =
-          '$' + moneyAtRisk.toFixed(2) + ' USD';
-        document.getElementById('resSafeCapital').innerText =
-          '$' +
-          safeCapital.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }) +
-          ' USD';
+        lotEl.innerText = r.lots.toFixed(cfg.dec) + ' ' + cfg.name;
+        riskEl.innerText = money(r.realLoss);
+        safeEl.innerText = money(r.safeCapital);
+
+        gauge.style.width = Math.min(r.realPct / 5, 1) * 100 + '%';
+        const level = r.realPct <= 1.5 ? 'ok' : r.realPct <= 3 ? 'warn' : 'high';
+        gauge.dataset.level = level;
+
+        let msg, cls = level;
+        if (r.belowMin) {
+          cls = 'high';
+          msg = 'Con el tamaño mínimo (' + cfg.step + ') pierdes ' + money(r.realLoss) + ' (' + r.realPct.toFixed(1) + '% de tu balance), más que tu riesgo de ' + money(r.intendedRisk) + '. Reduce el Stop Loss o aumenta el balance.';
+        } else if (level === 'ok') {
+          msg = 'Riesgo real: ' + r.realPct.toFixed(2) + '% de tu balance, dentro del rango habitual (0.5% a 1.5%).';
+        } else if (level === 'warn') {
+          msg = 'Riesgo real: ' + r.realPct.toFixed(2) + '%. Está por encima del rango habitual (0.5% a 1.5%).';
+        } else {
+          msg = 'Riesgo real: ' + r.realPct.toFixed(2) + '%. Es un riesgo alto para tu cuenta.';
+        }
+        status.className = 'calc-status ' + cls;
+        status.innerText = msg;
       }
 
       calculatePosition();
