@@ -62,7 +62,7 @@ class SiteHeader extends HTMLElement {
                 </a>
                 <a href="ether-fi.html" class="dd t-ether">
                   <span class="dd-ico"><img src="etherfi.png" alt="Ether.fi" style="width: 22px; height: 22px; object-fit: contain;"></span>
-                  <span class="dd-txt"><b>Ether.fi</b><small>Productos y tecnología</small></span>
+                  <span class="dd-txt"><b>Ether.fi</b><small>Guía paso a paso</small></span>
                 </a>
               </div>
             </div>
