@@ -353,3 +353,16 @@ body.page .safety-item { padding: 18px; border-radius: 18px; background: rgba(25
 }
 @keyframes cls-draw { from { stroke-dashoffset: 26; } }
 @keyframes cls-spin { to { transform: rotate(360deg); } }
+
+/* ===== Ajustes móvil (revisión con capturas reales) ===== */
+body.page :is(.btn-hero-red, .btn-hero-outline, .btn-referral, .btn-telegram, .btn-support-wa) { text-align: center; line-height: 1.25; }
+@media (max-width: 640px) {
+  /* Botones principales: uno debajo del otro, a todo el ancho y con el texto centrado */
+  body.page .hero-buttons { flex-direction: column; align-items: stretch; gap: 10px; }
+  body.page .hero-buttons > :is(a, button) { width: 100%; min-height: 52px; justify-content: center; text-align: center; }
+  /* Títulos: un poco más de aire entre letras y palabras */
+  body.page :is(h1, .hero-title, .glossary-hero-title, .help-hero-title) { letter-spacing: -0.012em; word-spacing: .05em; }
+  body.page :is(h2, .section-title) { letter-spacing: -0.01em; word-spacing: .06em; }
+  /* Botón flotante de WhatsApp más discreto para no tapar contenido */
+  .wa-container { transform: scale(.82); transform-origin: bottom right; opacity: .92; }
+}
