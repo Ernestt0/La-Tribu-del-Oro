@@ -69,19 +69,53 @@ function mountTicker(container, symbols) {
   container.appendChild(script);
 }
 
-// Dos cintas que se mueven en sentidos contrarios (se usa con <market-rows>)
+// Dos filas de píldoras de cripto en sentidos contrarios, a la misma velocidad (se usa con <market-rows>)
+// Precios en vivo desde la API pública de Binance; si no carga, se muestran los activos sin precio.
+const MK_COINS = [
+  ['BTC', 'Bitcoin', '#F7931A', '₿'], ['ETH', 'Ethereum', '#627EEA', 'Ξ'], ['SOL', 'Solana', '#9945FF', 'S'],
+  ['BNB', 'BNB', '#F3BA2F', 'B'], ['XRP', 'XRP', '#23292F', 'X'], ['ADA', 'Cardano', '#0033AD', '₳'],
+  ['DOGE', 'Dogecoin', '#C2A633', 'Ð'], ['ETHFI', 'Ether.fi', '#5B4BDB', 'e'],
+  ['AVAX', 'Avalanche', '#E84142', 'A'], ['LINK', 'Chainlink', '#2A5ADA', '⬡'], ['DOT', 'Polkadot', '#E6007A', '●'],
+  ['LTC', 'Litecoin', '#345D9D', 'Ł'], ['TRX', 'TRON', '#EB0029', 'T'], ['PAXG', 'Oro (PAXG)', '#C59B27', 'Au'],
+  ['UNI', 'Uniswap', '#FF007A', 'U'], ['TON', 'Toncoin', '#0098EA', 'T']
+];
 class MarketRows extends HTMLElement {
   connectedCallback() {
-    const half = Math.ceil(TV_SYMBOLS.length / 2);
-    const A = TV_SYMBOLS.slice(0, half);
-    const B = TV_SYMBOLS.slice(half).concat(TV_SYMBOLS.slice(0, 3));
-    this.innerHTML = `
-      <div class="mk-rows" aria-label="Precios de mercado en vivo">
-        <div class="tv-ticker-wrapper mk-row"><div class="tv-ticker-mover" id="mk-a"><div class="tradingview-widget-container__widget"></div></div></div>
-        <div class="tv-ticker-wrapper mk-row mk-reverse"><div class="tv-ticker-mover" id="mk-b"><div class="tradingview-widget-container__widget"></div></div></div>
-      </div>`;
-    mountTicker(this.querySelector('#mk-a'), A);
-    mountTicker(this.querySelector('#mk-b'), B);
+    const rows = [MK_COINS.slice(0, 8), MK_COINS.slice(8)];
+    const pill = ([s, n, col, ic]) => `<div class="mk-pill" data-sym="${s}"><span class="mk-ico" style="background:${col}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">${s}/USDT</span> <span class="mk-ch"></span></small></span></div>`;
+    this.innerHTML = '<div class="mk-rows" aria-label="Precios de criptomonedas">' + rows.map((r, i) => {
+      const set = r.map(pill).join('');
+      return `<div class="mk-line${i ? ' mk-rev' : ''}"><div class="mk-track">${set}${set.replace(/class="mk-pill"/g, 'class="mk-pill" aria-hidden="true"')}</div></div>`;
+    }).join('') + '</div>';
+    // Misma velocidad en las dos filas: duración proporcional al ancho
+    const SPEED = 50;
+    const fit = () => this.querySelectorAll('.mk-track').forEach((t) => {
+      const half = t.scrollWidth / 2;
+      t.style.setProperty('--shift', half + 'px');
+      t.style.animationDuration = (half / SPEED).toFixed(1) + 's';
+    });
+    requestAnimationFrame(fit); addEventListener('load', fit); addEventListener('resize', fit);
+    const load = async () => {
+      try {
+        const syms = JSON.stringify(MK_COINS.map((c) => c[0] + 'USDT'));
+        const r = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=' + encodeURIComponent(syms));
+        if (!r.ok) return;
+        const data = await r.json();
+        data.forEach((d) => {
+          const s = d.symbol.replace('USDT', '');
+          const p = +d.lastPrice, ch = +d.priceChangePercent;
+          const fmt = p >= 100 ? p.toLocaleString('es-CO', { maximumFractionDigits: 2 }) : p.toLocaleString('es-CO', { maximumFractionDigits: 4 });
+          this.querySelectorAll(`.mk-pill[data-sym="${s}"]`).forEach((el) => {
+            el.querySelector('.mk-px').textContent = '$' + fmt;
+            const c = el.querySelector('.mk-ch');
+            c.textContent = (ch >= 0 ? '+' : '') + ch.toFixed(2) + '%';
+            c.className = 'mk-ch ' + (ch >= 0 ? 'up' : 'down');
+          });
+        });
+        fit();
+      } catch (e) { /* sin conexión: se quedan los nombres */ }
+    };
+    load(); setInterval(load, 30000);
   }
 }
 customElements.define('market-rows', MarketRows);

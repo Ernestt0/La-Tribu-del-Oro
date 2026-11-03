@@ -134,7 +134,7 @@
   <!-- 8. MERCADOS EN VIVO: dos cintas en sentidos contrarios -->
   <section class="sec sec-markets" aria-label="Mercados en vivo">
     <div class="container">
-      <div class="sec-head center"><h2>Sigue los mercados <span class="grad">en vivo</span></h2><p>Oro, forex, índices y cripto en un solo vistazo, con datos de TradingView.</p></div>
+      <div class="sec-head center"><h2>Sigue los mercados <span class="grad">en vivo</span></h2><p>Las principales criptomonedas en un solo vistazo, con precios de Binance.</p></div>
     </div>
     <market-rows></market-rows>
   </section>
@@ -232,7 +232,7 @@
       } else {
         COMENTARIOS.forEach((c, i) => rows[i % 2].push(c));
       }
-      const CARD = 380, GAP = 16, SPEED = 40; // px por segundo, igual en las dos filas
+      const CARD = innerWidth < 640 ? 300 : 400, GAP = 20, SPEED = 45; // px por segundo, igual en las dos filas
       rows.forEach((list, r) => {
         const setW = list.length * (CARD + GAP);
         const sets = Math.max(2, Math.ceil(2800 / setW));
@@ -240,7 +240,7 @@
         row.className = 'quotes-row' + (r % 2 ? ' rev' : '');
         const track = document.createElement('div');
         track.className = 'quotes-track';
-        track.style.setProperty('--sets', sets);
+        track.style.setProperty('--shift', setW + 'px');
         track.style.animationDuration = (setW / SPEED).toFixed(1) + 's';
         track.innerHTML = Array.from({ length: sets }, (_, k) => list.map(c => card(c)).join('')).join('');
         track.querySelectorAll('.quote').forEach((q, k) => { if (k >= list.length) q.setAttribute('aria-hidden', 'true'); });
