@@ -726,3 +726,19 @@ body.v2 {
 .v2 .header.on-dark .nav-link.active, .v2 .header.on-dark .nav-dropdown-btn.active { color: #fff; background: rgba(229, 9, 20, 0.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 0 0 1px rgba(229, 9, 20, 0.45); }
 .v2 .header.on-dark .search-btn, .v2 .header.on-dark .menu-toggle { color: #fff; background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.16); }
 .v2 .header.on-dark .search-btn:hover { background: rgba(255, 255, 255, 0.18); color: #fff; }
+
+/* ---------- EMBUDO DE INICIO: videos gratis primero ---------- */
+.v2 .sec-videos { padding-top: 64px; padding-bottom: 72px; }
+.v2 .sec-videos .reel-head { align-items: flex-end; }
+.v2 .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  color: #8a6a12; background: #fbf5e3; border: 1px solid rgba(197, 155, 39, .35); }
+.v2 .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #c59b27; box-shadow: 0 0 0 4px rgba(197, 155, 39, .2); }
+.v2 .reel-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+.v2 .reel-cta span { font-size: 13.5px; color: var(--muted); }
+.v2 .hero-note { margin-top: 14px; font-size: 13.5px; color: rgba(255, 255, 255, .7); letter-spacing: .02em; }
+@media (max-width: 640px) {
+  .v2 .sec-videos { padding-top: 44px; padding-bottom: 48px; }
+  .v2 .reel-cta { flex-direction: column; align-items: stretch; text-align: center; gap: 10px; }
+  .v2 .reel-cta .btn { width: 100%; }
+  .v2 .hero-note { text-align: center; }
+}

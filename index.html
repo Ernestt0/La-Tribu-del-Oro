@@ -27,11 +27,24 @@
           <a href="videos.html" class="btn btn-red">Ver videos gratis</a>
           <a href="#presentacion" class="btn btn-white js-intro">Ver introducción</a>
         </div>
+        <p class="hero-note">Gratis · Sin tarjeta · A tu ritmo</p>
       </div>
     </div>
   </section>
 
-  <!-- 2. CONFIANZA -->
+  <!-- 2. VIDEOS GRATIS (gancho principal, justo después del banner) -->
+  <section class="sec sec-videos" id="videos-gratis">
+    <div class="container">
+      <div class="reel-head">
+        <div class="sec-head"><span class="eyebrow">100% gratis · Sin registro</span><h2>Empieza hoy con los videos gratis</h2><p>Entiende lo básico del trading y las cripto en minutos, a tu ritmo.</p></div>
+        <div class="reel-nav"><button onclick="reel(-1)" aria-label="Anterior">←</button><button onclick="reel(1)" aria-label="Siguiente">→</button></div>
+      </div>
+      <div class="reel" id="videoTrack"></div>
+      <div class="reel-cta"><a href="videos.html" class="btn btn-red">Ver todos los videos gratis</a><span>Sin tarjeta · Sin compromiso</span></div>
+    </div>
+  </section>
+
+  <!-- 3. CONFIANZA -->
   <div class="trust">
     <div class="container">
       <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3L1 9l11 6 9-4.9V17h2V9z"/></svg><div><b>Educación práctica</b><span>Sin promesas de ganancias fáciles</span></div></div>
@@ -40,7 +53,7 @@
     </div>
   </div>
 
-  <!-- 3. ¿QUÉ QUIERES HACER? -->
+  <!-- 4. ¿QUÉ QUIERES HACER? (soluciones) -->
   <section class="sec">
     <div class="container">
       <div class="sec-head">
@@ -81,27 +94,7 @@
     </div>
   </section>
 
-  <!-- 4. PRESENTACIÓN -->
-  <section class="sec" id="presentacion" style="padding-top:0">
-    <div class="container">
-      <div class="promo">
-        <div>
-          <h2>Conoce La Tribu del Oro en un video</h2>
-          <p>Quiénes somos, cómo enseñamos y qué encuentras en cada solución, antes de dar el primer paso.</p>
-          <div class="actions">
-            <button class="btn btn-white js-intro">Ver introducción</button>
-            <a href="videos.html" class="btn btn-line">Todos los videos</a>
-          </div>
-        </div>
-        <div class="screen" id="introBox" role="button" tabindex="0" aria-label="Reproducir presentación">
-          <canvas data-scene="velas" aria-hidden="true"></canvas>
-          <span class="play"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. CÓMO EMPEZAR -->
+  <!-- 5. CÓMO EMPEZAR + sesiones en vivo -->
   <section class="sec sec-tight" style="padding-top:0">
     <div class="container">
       <div class="sec-head center"><h2>Empieza en 3 pasos</h2></div>
@@ -140,7 +133,27 @@
     </div>
   </section>
 
-  <!-- 6. COMUNIDAD -->
+  <!-- 6. PRESENTACIÓN -->
+  <section class="sec" id="presentacion" style="padding-top:0">
+    <div class="container">
+      <div class="promo">
+        <div>
+          <h2>Conoce La Tribu del Oro en un video</h2>
+          <p>Quiénes somos, cómo enseñamos y qué encuentras en cada solución, antes de dar el primer paso.</p>
+          <div class="actions">
+            <button class="btn btn-white js-intro">Ver introducción</button>
+            <a href="videos.html" class="btn btn-line">Todos los videos</a>
+          </div>
+        </div>
+        <div class="screen" id="introBox" role="button" tabindex="0" aria-label="Reproducir presentación">
+          <canvas data-scene="velas" aria-hidden="true"></canvas>
+          <span class="play"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. COMUNIDAD -->
   <section class="sec" style="padding-top:0">
     <div class="container">
       <div class="sec-head"><h2>Lo que dice la comunidad</h2><p>Personas compartiendo su proceso y lo que aprendieron.</p></div>
@@ -149,17 +162,6 @@
         <figure class="quote"><blockquote>“Lo que más valoro es que no te venden humo. El mini-curso de copy trading me enseñó a revisar drawdowns antes de conectar mi capital con cualquier trader.”</blockquote><figcaption><span class="av">DR</span><span><b>Daniel Restrepo</b><small>Inversor en copy trading</small></span></figcaption></figure>
         <figure class="quote"><blockquote>“Me uní al programa IB para mi grupo de Telegram y el acompañamiento 1 a 1 para configurar los enlaces y las liquidaciones superó mis expectativas.”</blockquote><figcaption><span class="av">AP</span><span><b>Andrés Palacios</b><small>Líder de comunidad y aliado IB</small></span></figcaption></figure>
       </div>
-    </div>
-  </section>
-
-  <!-- 7. VIDEOS GRATIS -->
-  <section class="sec" style="padding-top:0">
-    <div class="container">
-      <div class="reel-head">
-        <div class="sec-head"><h2>Videos gratis para empezar hoy</h2></div>
-        <div class="reel-nav"><button onclick="reel(-1)" aria-label="Anterior">←</button><button onclick="reel(1)" aria-label="Siguiente">→</button></div>
-      </div>
-      <div class="reel" id="videoTrack"></div>
     </div>
   </section>
 
