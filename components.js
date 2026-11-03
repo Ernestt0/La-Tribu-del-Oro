@@ -129,13 +129,7 @@ class SiteHeader extends HTMLElement {
       <header class="header">
         <div class="container header-content">
           <!-- 1. LOGOTIPO COMPLETO: SÍMBOLO + LA TRIBU DEL ORO -->
-          <a href="index.html" class="brand-logo">
-            <div class="logo-symbol">
-              <div class="logo-bar-red"></div>
-              <div class="logo-bar-black"></div>
-            </div>
-            <span class="brand-text">La Tribu del <span class="brand-text-accent">Oro</span></span>
-          </a>
+          <a href="index.html" class="brand-logo brand-logo-new" aria-label="La Tribu del Oro, inicio"><img class="logo-mark" src="logo-tribu.png" alt="La Tribu del Oro" width="68" height="38"></a>
 
           <!-- 2. NAVEGACIÓN EN EL CENTRO -->
           <nav class="nav">
@@ -202,7 +196,7 @@ class SiteHeader extends HTMLElement {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             </button>
             <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" onclick="toggleMobileNav(this)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+              <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
           </div>
         </div>
@@ -359,6 +353,7 @@ function toggleMobileNav(btn) {
   if (!nav) return;
   const open = nav.classList.toggle('open');
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
   document.body.style.overflow = open ? 'hidden' : '';
 }
 
