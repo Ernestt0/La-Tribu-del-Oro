@@ -889,3 +889,4 @@ body.v2 {
   @keyframes apple-sheet { from { opacity: 0; transform: translateY(-14px) scale(.98); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
   @keyframes apple-item { from { opacity: 0; transform: translateY(-8px); } }
 }
+.v2 .slide-copy h1 .hl-red { color: #D3AC00; }
