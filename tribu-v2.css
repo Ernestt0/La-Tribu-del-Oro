@@ -840,5 +840,27 @@ body.v2 {
 .v2 .mk-txt small { color: #8b93a1; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .v2 .mk-ch.up { color: #22c55e; } .v2 .mk-ch.down { color: #ef4444; }
 @media (prefers-reduced-motion: reduce) { .v2 .mk-track { animation: none; } .v2 .mk-line { overflow-x: auto; } }
-/* Sin botón de búsqueda en el menú */
-.v2 .header .search-btn { display: none !important; }
+
+/* ===== Barra superior: buscar sin contenedor, sin botón de 3 líneas ===== */
+.v2 .header .menu-toggle { display: none !important; }
+.v2 .header .search-btn, .v2 .header.on-dark .search-btn { background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 8px; color: inherit; }
+.v2 .header .search-btn svg { width: 22px; height: 22px; }
+.v2 .header .search-btn { color: #0f172a; }
+.v2 .header.on-dark .search-btn { color: #fff; }
+.v2 .header .search-btn:hover { background: transparent !important; color: var(--red) !important; }
+
+/* ===== Animaciones al hacer clic, estilo Apple (resorte suave) ===== */
+.v2 :is(a, button, .btn, .vcard, .mk-pill, .quote, [role="button"], .cat-chip, .alphabet-btn, .help-tab-btn, .risk-btn, .faq-question) {
+  transition: transform .45s cubic-bezier(.34, 1.56, .64, 1), background-color .25s ease, color .25s ease, box-shadow .3s ease, border-color .25s ease, opacity .25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.v2 :is(.btn, button, .cat-chip, .alphabet-btn, .help-tab-btn, .risk-btn, .nav-link, .search-btn, .reel-nav button, .social-btn):active { transform: scale(.94); transition-duration: .12s; }
+.v2 :is(.vcard, .quote, .glossary-item-card, .faq-item, .path, [role="button"]):active { transform: scale(.975); transition-duration: .15s; }
+.v2 .faq-question:active { transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .v2 .dropdown-menu { transform-origin: top center; }
+  .v2 .nav-dropdown:hover .dropdown-menu, .v2 .nav-dropdown:focus-within .dropdown-menu { animation: apple-pop .45s cubic-bezier(.34, 1.56, .64, 1); }
+  .v2 .search-modal-box { animation: apple-pop .5s cubic-bezier(.34, 1.56, .64, 1); }
+  @keyframes apple-pop { from { opacity: 0; transform: scale(.92) translateY(-6px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+}
+@media (prefers-reduced-motion: reduce) { .v2 :is(a, button, .btn):active { transform: none; } }
