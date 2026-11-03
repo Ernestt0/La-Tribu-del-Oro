@@ -766,3 +766,8 @@ body.v2 {
   .v2 .sec-videos { padding-bottom: 40px; }
   .v2 .sec-videos .reel { grid-auto-columns: minmax(240px, 78%); }
 }
+
+/* Primer video: la introducción, destacado */
+.v2 .vcard-start .vthumb { box-shadow: 0 14px 30px -14px rgba(0,0,0,.8), 0 0 0 2px rgba(197,155,39,.85); }
+.v2 .start-tag { position: absolute; left: 10px; top: 10px; z-index: 2; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #1a1405; background: linear-gradient(135deg, #f0d277, #c59b27); box-shadow: 0 6px 14px -6px rgba(0,0,0,.6); }
+.v2 .vthumb .start-tag { position: absolute; }

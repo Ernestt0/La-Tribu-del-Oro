@@ -206,7 +206,9 @@
     if (src) { const v = document.createElement('video'); Object.assign(v, { src, muted: true, loop: true, playsInline: true, autoplay: true }); v.setAttribute('aria-hidden', 'true'); v.onerror = () => { v.remove(); fallback(); }; sl.prepend(v); } else fallback();
 
     // ---------- Videos gratis ----------
+    // El primero es la introducción de la marca (reemplaza INTRO_URL por el video real)
     const VIDEOS = [
+      ['Conoce La Tribu del Oro: quiénes somos y cómo aprender', 'Empieza aquí', '03:30'],
       ['¿Qué es el trading y cómo funciona?', 'Conceptos básicos', '12:34'],
       ['Análisis técnico explicado de forma sencilla', 'Análisis técnico', '15:20'],
       ['Gestión de riesgo en trading', 'Gestión de riesgo', '10:18'],
@@ -217,7 +219,7 @@
     const thumb = n => { let y = 120, p = []; for (let i = 0; i <= 20; i++) { y = Math.max(40, Math.min(170, y + Math.sin(i * .9 + n) * 16 - 3)); p.push(i * 20 + ' ' + y.toFixed(1)); } const d = 'M' + p.join(' L');
       return `<svg viewBox="0 0 400 250" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="g${n}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#DFB748" stop-opacity=".35"/><stop offset="1" stop-color="#DFB748" stop-opacity="0"/></linearGradient></defs><rect width="400" height="250" fill="#141a24"/><path d="${d} L400 250 L0 250Z" fill="url(#g${n})"/><path d="${d}" fill="none" stroke="#DFB748" stroke-width="2.5"/></svg>`; };
     const track = document.getElementById('videoTrack');
-    track.innerHTML = VIDEOS.map((v, i) => `<div class="vcard" role="button" tabindex="0" onclick="playVideo('${INTRO_URL}')" onkeydown="if(event.key==='Enter')this.click()"><div class="vthumb">${thumb(i + 1)}<span class="dur">${v[2]}</span><span class="mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span></div><h4>${v[0]}</h4><span class="cat">${v[1]}</span></div>`).join('');
+    track.innerHTML = VIDEOS.map((v, i) => `<div class="vcard${i === 0 ? ' vcard-start' : ''}" role="button" tabindex="0" onclick="playVideo('${INTRO_URL}')" onkeydown="if(event.key==='Enter')this.click()"><div class="vthumb">${thumb(i + 1)}${i === 0 ? '<span class="start-tag">Empieza aquí</span>' : ''}<span class="dur">${v[2]}</span><span class="mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span></div><h4>${v[0]}</h4><span class="cat">${v[1]}</span></div>`).join('');
     const hdr = () => document.querySelector('.header');
     addEventListener('scroll', () => { const h = hdr(); if (h) h.classList.toggle('scrolled', scrollY > 20); }, { passive: true });
     window.reel = d => { const c = track.querySelector('.vcard'); track.scrollBy({ left: d * (c.offsetWidth + 18), behavior: 'smooth' }); };
