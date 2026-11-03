@@ -900,3 +900,11 @@ body.v2 {
   .v2 :is(h1, h2, h3) span:not([class*="ico"]):not(.eyebrow):hover, .v2 .hero-title span:hover, .v2 .page-title span:hover, .v2 .slide-copy h1 .hl-red:hover { color: #E50914 !important; -webkit-text-fill-color: #E50914; }
 }
 .v2 .header:not(.on-dark) .nav-link.active { background: rgba(211,172,0,.12); box-shadow: 0 0 0 1px rgba(211,172,0,.32); }
+
+/* ===== Menú hamburguesa con fondo negro ===== */
+.v2 .mobile-nav { background: #050505 !important; }
+.v2 .mobile-nav a { color: #fff !important; border-bottom-color: rgba(255,255,255,.08) !important; }
+.v2 .mobile-nav a.sub, .v2 .mobile-nav a.sub .dd-txt b { color: rgba(255,255,255,.85) !important; }
+.v2 .mobile-nav .dd-txt small { color: rgba(255,255,255,.5) !important; }
+.v2 .mobile-nav .mobile-label { color: #D3AC00 !important; }
+.v2 .mobile-nav a:active { background: rgba(255,255,255,.06); }

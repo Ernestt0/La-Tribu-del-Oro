@@ -349,6 +349,7 @@ function toggleMobileNav(btn) {
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
   document.body.style.overflow = open ? 'hidden' : '';
+  requestAnimationFrame(() => dispatchEvent(new Event('scroll')));
 }
 
 function playVideo(url) {
