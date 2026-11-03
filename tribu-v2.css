@@ -865,3 +865,4 @@ body.v2 {
 }
 @media (prefers-reduced-motion: reduce) { .v2 :is(a, button, .btn):active { transform: none; } }
 .v2 .slide-copy h1 .hl-red { color: var(--red, #e50914); }
+.v2 .trust { border-top: 1px solid var(--line); margin-bottom: 56px; }
