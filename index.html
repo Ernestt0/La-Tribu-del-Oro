@@ -25,22 +25,20 @@
         <p>Formación práctica, herramientas y una comunidad enfocada en aprender y tomar mejores decisiones.</p>
         <div class="actions">
           <a href="videos.html" class="btn btn-red">Ver videos gratis</a>
-          <a href="#presentacion" class="btn btn-white js-intro">Ver introducción</a>
         </div>
         <p class="hero-note">Gratis · Sin tarjeta · A tu ritmo</p>
       </div>
     </div>
   </section>
 
-  <!-- 2. VIDEOS GRATIS (gancho principal, justo después del banner) -->
-  <section class="sec sec-videos" id="videos-gratis">
+  <!-- 2. VIDEOS GRATIS: continúa el banner como gancho visual (los videos son la introducción) -->
+  <section class="sec sec-videos" id="videos-gratis" aria-label="Videos gratis para empezar hoy">
     <div class="container">
       <div class="reel-head">
-        <div class="sec-head"><span class="eyebrow">100% gratis · Sin registro</span><h2>Empieza hoy con los videos gratis</h2><p>Entiende lo básico del trading y las cripto en minutos, a tu ritmo.</p></div>
-        <div class="reel-nav"><button onclick="reel(-1)" aria-label="Anterior">←</button><button onclick="reel(1)" aria-label="Siguiente">→</button></div>
+        <div class="sec-head"><span class="eyebrow">100% gratis · Sin registro</span><h2>Videos gratis para empezar hoy</h2></div>
+        <div class="reel-nav"><a href="videos.html" class="reel-all">Ver todos →</a><button onclick="reel(-1)" aria-label="Anterior">←</button><button onclick="reel(1)" aria-label="Siguiente">→</button></div>
       </div>
       <div class="reel" id="videoTrack"></div>
-      <div class="reel-cta"><a href="videos.html" class="btn btn-red">Ver todos los videos gratis</a><span>Sin tarjeta · Sin compromiso</span></div>
     </div>
   </section>
 
@@ -133,26 +131,6 @@
     </div>
   </section>
 
-  <!-- 6. PRESENTACIÓN -->
-  <section class="sec" id="presentacion" style="padding-top:0">
-    <div class="container">
-      <div class="promo">
-        <div>
-          <h2>Conoce La Tribu del Oro en un video</h2>
-          <p>Quiénes somos, cómo enseñamos y qué encuentras en cada solución, antes de dar el primer paso.</p>
-          <div class="actions">
-            <button class="btn btn-white js-intro">Ver introducción</button>
-            <a href="videos.html" class="btn btn-line">Todos los videos</a>
-          </div>
-        </div>
-        <div class="screen" id="introBox" role="button" tabindex="0" aria-label="Reproducir presentación">
-          <canvas data-scene="velas" aria-hidden="true"></canvas>
-          <span class="play"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- 7. COMUNIDAD -->
   <section class="sec" style="padding-top:0">
     <div class="container">
@@ -226,13 +204,6 @@
     const sl = hero.querySelector('.slide'), src = sl.dataset.video;
     const fallback = () => { const c = document.createElement('canvas'); c.setAttribute('aria-hidden', 'true'); sl.prepend(c); scene(c, sl.dataset.scene); };
     if (src) { const v = document.createElement('video'); Object.assign(v, { src, muted: true, loop: true, playsInline: true, autoplay: true }); v.setAttribute('aria-hidden', 'true'); v.onerror = () => { v.remove(); fallback(); }; sl.prepend(v); } else fallback();
-
-    // ---------- Presentación ----------
-    const box = document.getElementById('introBox');
-    scene(box.querySelector('canvas'), 'velas');
-    function intro() { document.getElementById('presentacion').scrollIntoView({ behavior: 'smooth', block: 'center' }); if (box.dataset.on) return; box.dataset.on = 1; box.innerHTML = `<iframe src="${INTRO_URL}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen title="Presentación La Tribu del Oro"></iframe>`; }
-    box.addEventListener('click', intro); box.addEventListener('keydown', e => { if (e.key === 'Enter') intro(); });
-    document.querySelectorAll('.js-intro').forEach(a => a.addEventListener('click', e => { e.preventDefault(); intro(); }));
 
     // ---------- Videos gratis ----------
     const VIDEOS = [
