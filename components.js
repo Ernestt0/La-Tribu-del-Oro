@@ -239,13 +239,7 @@ class SiteFooter extends HTMLElement {
         <div class="container">
           <div class="footer-grid">
             <div class="footer-brand">
-              <a href="index.html" class="brand-logo" style="margin-bottom: 14px;">
-                <div class="logo-symbol">
-                  <div class="logo-bar-red"></div>
-                  <div class="logo-bar-black" style="background:#64748B;"></div>
-                </div>
-                <span class="brand-text" style="color:#FFFFFF;">La Tribu del <span class="brand-text-accent">Oro</span></span>
-              </a>
+              <a href="index.html" class="brand-logo footer-logo" style="margin-bottom: 14px;" aria-label="La Tribu del Oro, inicio"><img src="logo-tribu-dark-bg.png" alt="La Tribu del Oro" width="120" height="48" style="height:48px;width:auto;display:block"></a>
               <p>La Tribu del Oro: Educación práctica, herramientas institucionales y comunidad para traders e inversores en activos digitales.</p>
               <div class="footer-socials">
                 <a href="#" class="social-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
