@@ -791,12 +791,27 @@ body.v2 {
 .v2 .mk-row:not(.mk-reverse) .tv-ticker-mover { animation-duration: 38s; }
 @media (prefers-reduced-motion: reduce) { .v2 .mk-rows .tv-ticker-mover { animation: none !important; } }
 
-/* ---------- Comentarios: carrusel automático ---------- */
-.v2 .quotes-marquee { overflow: hidden; margin-inline: -24px; padding: 8px 24px 12px;
+/* ---------- Comentarios: dos filas en sentidos contrarios ---------- */
+.v2 .quotes-rows { display: grid; gap: 16px; margin-inline: -24px; padding-block: 8px 12px;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-.v2 .quotes-track { display: flex; gap: 16px; width: max-content; animation: quotes-slide 55s linear infinite; }
-.v2 .quotes-track .quote { flex: 0 0 380px; }
-.v2 .quotes-marquee:hover .quotes-track, .v2 .quotes-marquee:focus-within .quotes-track { animation-play-state: paused; }
+.v2 .quotes-row { overflow: hidden; padding: 6px 24px 14px; }
+.v2 .quotes-track { display: flex; gap: 16px; width: max-content; animation: quotes-slide 60s linear infinite; }
+.v2 .quotes-row.rev .quotes-track { animation-direction: reverse; }
+.v2 .quotes-row:hover .quotes-track { animation-play-state: paused; }
+.v2 .quotes-track .quote { flex: 0 0 380px; background: #fff; box-shadow: 0 10px 30px -18px rgba(15,23,42,.25); }
+.v2 .quotes-track .quote blockquote { color: #9aa1ad; font-size: 16.5px; line-height: 1.6; }
+.v2 .quotes-track .quote blockquote b { display: inline; color: #0b0b0f; font-weight: 700; font-size: inherit; }
+.v2 .quotes-track .quote figcaption { gap: 12px; }
+.v2 .quotes-track .stars { margin-left: auto; display: inline-flex; gap: 2px; }
+.v2 .quotes-track .stars svg { width: 16px; height: 16px; fill: #f5b301; }
 @keyframes quotes-slide { to { transform: translateX(calc(-100% / var(--sets, 4))); } }
-@media (max-width: 640px) { .v2 .quotes-track .quote { flex-basis: 290px; } .v2 .quotes-marquee { margin-inline: -16px; padding-inline: 16px; } }
-@media (prefers-reduced-motion: reduce) { .v2 .quotes-track { animation: none; } .v2 .quotes-marquee { overflow-x: auto; } .v2 .quotes-track .quote[aria-hidden="true"] { display: none; } }
+@media (max-width: 640px) { .v2 .quotes-rows { margin-inline: -16px; } .v2 .quotes-row { padding-inline: 16px; } .v2 .quotes-track .quote { flex-basis: 290px; } }
+@media (prefers-reduced-motion: reduce) { .v2 .quotes-track { animation: none; } .v2 .quotes-row { overflow-x: auto; } .v2 .quotes-track .quote[aria-hidden="true"] { display: none; } }
+
+/* ---------- Cintas de mercado: misma velocidad y sin pausa al pasar el cursor ---------- */
+.v2 .mk-rows .tv-ticker-mover { animation-duration: 40s !important; animation-play-state: running !important; }
+.v2 .mk-rows .tv-ticker-wrapper:hover .tv-ticker-mover { animation-play-state: running !important; }
+.v2 .mk-rows .tv-ticker-mover { min-width: 200%; }
+
+/* Inicio sin cinta bajo el menú: la franja superior queda negra como el banner */
+.v2 site-header[no-ticker] { background: #050505; }

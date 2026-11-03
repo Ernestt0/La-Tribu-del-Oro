@@ -189,12 +189,12 @@ class SiteHeader extends HTMLElement {
         <a href="glosario.html">Glosario</a>
       </nav>
 
-      <!-- TICKER MARQUEE CON MOVIMIENTO FORZADO -->
-      <div class="tv-ticker-wrapper">
+      <!-- TICKER MARQUEE CON MOVIMIENTO FORZADO (se omite con el atributo no-ticker) -->
+      ${this.hasAttribute('no-ticker') ? '' : `<div class="tv-ticker-wrapper">
         <div class="tv-ticker-mover" id="tv-ticker-container">
           <div class="tradingview-widget-container__widget"></div>
         </div>
-      </div>
+      </div>`}
     `;
 
     // Cinta de precios en vivo (widget oficial de TradingView)

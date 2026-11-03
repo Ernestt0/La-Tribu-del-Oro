@@ -13,7 +13,7 @@
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
-  <site-header active="inicio"></site-header>
+  <site-header active="inicio" no-ticker></site-header>
 
   <!-- 1. BANNER PRINCIPAL CON UN SOLO VIDEO DE FONDO
        Para usar tu video: pon la ruta en data-video (ej. data-video="videos/hero.mp4"), de preferencia oscuro y sin sonido.
@@ -143,13 +143,7 @@
   <section class="sec" style="padding-top:72px">
     <div class="container">
       <div class="sec-head"><h2>Lo que dice la comunidad</h2><p>Personas compartiendo su proceso y lo que aprendieron.</p></div>
-      <div class="quotes-marquee" id="quotesMarquee" aria-label="Comentarios de la comunidad">
-        <div class="quotes-track" id="quotesTrack">
-        <figure class="quote"><blockquote>“Venía de quemar dos cuentas por no entender la gestión de riesgo. El enfoque claro del canal y las señales con stop loss estricto cambiaron mi disciplina operativa.”</blockquote><figcaption><span class="av">SM</span><span><b>Sofía Martínez</b><small>Miembro activo, 6 meses</small></span></figcaption></figure>
-        <figure class="quote"><blockquote>“Lo que más valoro es que no te venden humo. El mini-curso de copy trading me enseñó a revisar drawdowns antes de conectar mi capital con cualquier trader.”</blockquote><figcaption><span class="av">DR</span><span><b>Daniel Restrepo</b><small>Inversor en copy trading</small></span></figcaption></figure>
-        <figure class="quote"><blockquote>“Me uní al programa IB para mi grupo de Telegram y el acompañamiento 1 a 1 para configurar los enlaces y las liquidaciones superó mis expectativas.”</blockquote><figcaption><span class="av">AP</span><span><b>Andrés Palacios</b><small>Líder de comunidad y aliado IB</small></span></figcaption></figure>
-      </div>
-      </div>
+      <div class="quotes-rows" id="quotesRows" aria-label="Comentarios de la comunidad"></div>
     </div>
   </section>
 
@@ -216,13 +210,43 @@
     if (src) { const v = document.createElement('video'); Object.assign(v, { src, muted: true, loop: true, playsInline: true, autoplay: true }); v.setAttribute('aria-hidden', 'true'); v.onerror = () => { v.remove(); fallback(); }; sl.prepend(v); } else fallback();
 
 
-    // ---------- Comentarios en carrusel ----------
+    // ---------- Comentarios en carrusel (dos filas, sentidos contrarios) ----------
+    // Para agregar uno: copia un bloque de la lista. Las palabras entre **dobles asteriscos** salen en negro.
+    // "s" son las estrellas (1 a 5); si lo quitas, no se muestran estrellas.
+    const COMENTARIOS = [
+      { t: 'Venía de **quemar dos cuentas** por no entender la **gestión de riesgo**. El enfoque claro del canal y las señales con **stop loss estricto** cambiaron mi disciplina operativa.', n: 'Sofía Martínez', r: 'Miembro activo, 6 meses', s: 5 },
+      { t: 'Lo que más valoro es que **no te venden humo**. El mini-curso de copy trading me enseñó a **revisar drawdowns** antes de conectar mi capital con cualquier trader.', n: 'Daniel Restrepo', r: 'Inversor en copy trading', s: 5 },
+      { t: 'Me uní al programa IB para mi grupo de Telegram y el **acompañamiento 1 a 1** para configurar los enlaces y las liquidaciones **superó mis expectativas**.', n: 'Andrés Palacios', r: 'Líder de comunidad y aliado IB', s: 5 }
+    ];
     (() => {
-      const track = document.getElementById('quotesTrack');
-      if (!track) return;
-      const base = Array.from(track.children);
-      for (let c = 0; c < 3; c++) base.forEach(n => { const k = n.cloneNode(true); k.setAttribute('aria-hidden', 'true'); track.appendChild(k); });
-      track.style.setProperty('--sets', 4);
+      const host = document.getElementById('quotesRows');
+      if (!host) return;
+      const esc = t => t.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+      const star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg>';
+      const card = c => `<figure class="quote"><blockquote>${esc(c.t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')}</blockquote><figcaption><span class="av">${c.n.split(' ').map(w => w[0]).slice(0, 2).join('')}</span><span><b>${esc(c.n)}</b><small>${esc(c.r)}</small></span>${c.s ? `<span class="stars" role="img" aria-label="${c.s} de 5 estrellas">${star.repeat(c.s)}</span>` : ''}</figcaption></figure>`;
+      const rows = [[], []];
+      if (COMENTARIOS.length < 8) {
+        // Con pocos comentarios, las dos filas usan todos (la segunda en otro orden) para que no se repita una sola tarjeta
+        rows[0] = COMENTARIOS.slice();
+        rows[1] = COMENTARIOS.slice(1).concat(COMENTARIOS.slice(0, 1));
+      } else {
+        COMENTARIOS.forEach((c, i) => rows[i % 2].push(c));
+      }
+      const CARD = 380, GAP = 16, SPEED = 40; // px por segundo, igual en las dos filas
+      rows.forEach((list, r) => {
+        const setW = list.length * (CARD + GAP);
+        const sets = Math.max(2, Math.ceil(2800 / setW));
+        const row = document.createElement('div');
+        row.className = 'quotes-row' + (r % 2 ? ' rev' : '');
+        const track = document.createElement('div');
+        track.className = 'quotes-track';
+        track.style.setProperty('--sets', sets);
+        track.style.animationDuration = (setW / SPEED).toFixed(1) + 's';
+        track.innerHTML = Array.from({ length: sets }, (_, k) => list.map(c => card(c)).join('')).join('');
+        track.querySelectorAll('.quote').forEach((q, k) => { if (k >= list.length) q.setAttribute('aria-hidden', 'true'); });
+        row.appendChild(track);
+        host.appendChild(row);
+      });
     })();
 
     // ---------- Videos gratis ----------
