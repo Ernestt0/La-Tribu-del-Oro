@@ -890,3 +890,5 @@ body.v2 {
   @keyframes apple-item { from { opacity: 0; transform: translateY(-8px); } }
 }
 .v2 .slide-copy h1 .hl-red { color: #D3AC00; }
+.v2 .slide-copy h1 .hl-red { transition: color .35s ease; cursor: default; }
+.v2 .slide-copy h1 .hl-red:hover { color: #E50914; }
