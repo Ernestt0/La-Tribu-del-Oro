@@ -2,6 +2,90 @@
 // COMPONENTES GLOBALES MAESTROS (LA TRIBU DEL ORO)
 // ==========================================================================
 
+// ==========================================================================
+// CINTAS DE PRECIOS (TradingView) reutilizables
+// ==========================================================================
+const TV_SYMBOLS = [
+          { proName: 'BINANCE:BTCUSDT', title: 'Bitcoin' },
+          { proName: 'BINANCE:ETHUSDT', title: 'Ethereum' },
+          { proName: 'OANDA:XAUUSD', title: 'Oro / USD' },
+          { proName: 'FX:EURUSD', title: 'EUR / USD' },
+          { proName: 'BINANCE:SOLUSDT', title: 'Solana' },
+          { proName: 'BINANCE:ETHFIUSDT', title: 'Ether.fi' },
+          { proName: 'FOREXCOM:SPXUSD', title: 'S&P 500' },
+          { proName: 'FOREXCOM:NSXUSD', title: 'Nasdaq 100' },
+          { proName: 'BINANCE:BNBUSDT', title: 'BNB' },
+          { proName: 'FX:GBPUSD', title: 'GBP / USD' },
+          { proName: 'FX:USDJPY', title: 'USD / JPY' },
+          { proName: 'BINANCE:ADAUSDT', title: 'Cardano' },
+          { proName: 'BINANCE:XRPUSDT', title: 'XRP' },
+          { proName: 'OANDA:WTICOUSD', title: 'Petróleo WTI' },
+          { proName: 'OANDA:XAGUSD', title: 'Plata / USD' },
+        ];
+// Instantánea de referencia (28 oct 2026, 4:52 p. m.) para cuando el widget no puede cargar.
+// En el sitio publicado se ven los precios en vivo del widget oficial.
+const TV_SNAPSHOT = [
+          ['BINANCE:BTCUSDT', 'Bitcoin', '<i style="background:#F7931A">₿</i>', '81.369,85', '+460,08 (+0,57%)', 1],
+          ['BINANCE:ETHUSDT', 'Ethereum', '<i style="background:#4F5795">Ξ</i>', '2.365,09', '+14,73 (+0,63%)', 1],
+          ['OANDA:XAUUSD', 'Oro / USD', '<i style="background:#D69A00">Au</i>', '4.067,290', '+6,960 (+0,17%)', 1],
+          ['FX:EURUSD', 'EUR / USD', '<b>🇪🇺</b><b>🇺🇸</b>', '1,11536', '+0,00010 (+0,01%)', 1],
+          ['BINANCE:SOLUSDT', 'Solana', '<i style="background:linear-gradient(135deg,#9E48FF,#16FC99)">S</i>', '102,79', '+1,44 (+1,42%)', 1],
+          ['BINANCE:ETHFIUSDT', 'Ether.fi', '<i style="background:linear-gradient(135deg,#3D227A,#6565E1)">e</i>', '0,6820', '+0,0159 (+2,39%)', 1],
+          ['FOREXCOM:SPXUSD', 'S&P 500', '<i style="background:#C4162E;font-size:8px">500</i>', '7.726,1', '+0,1 (0,00%)', 1],
+          ['FOREXCOM:NSXUSD', 'Nasdaq 100', '<i style="background:#0996C7;font-size:8px">100</i>', '29.601,5', '−40,3 (−0,14%)', 0],
+          ['BINANCE:BNBUSDT', 'BNB', '<i style="background:#F3BA2F">B</i>', '758,01', '+13,07 (+1,75%)', 1],
+          ['FX:GBPUSD', 'GBP / USD', '<b>🇬🇧</b><b>🇺🇸</b>', '1,33245', '−0,00 (−0,01%)', 0],
+          ['FX:USDJPY', 'USD / JPY', '<b>🇺🇸</b><b>🇯🇵</b>', '157,770', '−0,040 (−0,03%)', 0],
+          ['BINANCE:ADAUSDT', 'Cardano', '<i style="background:#0033AD">₳</i>', '0,2070', '+0,0010 (+0,49%)', 1],
+          ['BINANCE:XRPUSDT', 'XRP', '<i style="background:#23292F">X</i>', '1,3337', '+0,00 (+0,18%)', 1],
+          ['OANDA:WTICOUSD', 'Petróleo WTI', '<i style="background:#333">🛢</i>', '103,454', '+1,722 (+1,69%)', 1],
+          ['OANDA:XAGUSD', 'Plata / USD', '<i style="background:#9AA3AD">Ag</i>', '53,96600', '−0,45100 (−0,83%)', 0]
+        ];
+
+function mountTicker(container, symbols) {
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
+  script.async = true;
+  script.innerHTML = JSON.stringify({
+    symbols,
+    showSymbolLogo: true,
+    isTransparent: true,
+    displayMode: 'regular',
+    colorTheme: 'dark',
+    locale: 'es',
+    largeChartUrl: '',
+  });
+  // Respaldo: si el widget no carga (sin internet o bloqueado) se muestran los nombres de los activos
+  const showFallback = () => {
+    if (container.querySelector('iframe') || container.querySelector('.tv-fallback')) return;
+    const keys = new Set(symbols.map((x) => x.proName));
+    const syms = TV_SNAPSHOT.filter((x) => keys.has(x[0]));
+    const row = syms.map(([pro, n, ico, px, ch, up]) => `<a class="tv-fallback-item" href="https://es.tradingview.com/symbols/${pro.replace(':', '-')}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="tv-ico">${ico}</span><span class="tv-name">${n}</span><span class="tv-px">${px}</span><span class="${up ? 'tv-up' : 'tv-down'}">${ch}</span></a>`).join('');
+    container.innerHTML = `<div class="tv-fallback">${row}${row}<a class="tv-fallback-note" href="https://es.tradingview.com/" target="_blank" rel="noopener">Precios de referencia · Ver en vivo en TradingView</a></div>`;
+  };
+  script.onerror = showFallback;
+  setTimeout(showFallback, 15000);
+  container.appendChild(script);
+}
+
+// Dos cintas que se mueven en sentidos contrarios (se usa con <market-rows>)
+class MarketRows extends HTMLElement {
+  connectedCallback() {
+    const half = Math.ceil(TV_SYMBOLS.length / 2);
+    const A = TV_SYMBOLS.slice(0, half);
+    const B = TV_SYMBOLS.slice(half).concat(TV_SYMBOLS.slice(0, 3));
+    this.innerHTML = `
+      <div class="mk-rows" aria-label="Precios de mercado en vivo">
+        <div class="tv-ticker-wrapper mk-row"><div class="tv-ticker-mover" id="mk-a"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tv-ticker-wrapper mk-row mk-reverse"><div class="tv-ticker-mover" id="mk-b"><div class="tradingview-widget-container__widget"></div></div></div>
+      </div>`;
+    mountTicker(this.querySelector('#mk-a'), A);
+    mountTicker(this.querySelector('#mk-b'), B);
+  }
+}
+customElements.define('market-rows', MarketRows);
+
 class SiteHeader extends HTMLElement {
   connectedCallback() {
     const activePage = this.getAttribute('active') || '';
@@ -113,71 +197,9 @@ class SiteHeader extends HTMLElement {
       </div>
     `;
 
-    // Cargar dinámicamente el widget oficial de TradingView Ticker Tape en tiempo real
+    // Cinta de precios en vivo (widget oficial de TradingView)
     const tvContainer = this.querySelector('#tv-ticker-container');
-    if (tvContainer) {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src =
-        'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        symbols: [
-          { proName: 'BINANCE:BTCUSDT', title: 'Bitcoin' },
-          { proName: 'BINANCE:ETHUSDT', title: 'Ethereum' },
-          { proName: 'OANDA:XAUUSD', title: 'Oro / USD' },
-          { proName: 'FX:EURUSD', title: 'EUR / USD' },
-          { proName: 'BINANCE:SOLUSDT', title: 'Solana' },
-          { proName: 'BINANCE:ETHFIUSDT', title: 'Ether.fi' },
-          { proName: 'FOREXCOM:SPXUSD', title: 'S&P 500' },
-          { proName: 'FOREXCOM:NSXUSD', title: 'Nasdaq 100' },
-          { proName: 'BINANCE:BNBUSDT', title: 'BNB' },
-          { proName: 'FX:GBPUSD', title: 'GBP / USD' },
-          { proName: 'FX:USDJPY', title: 'USD / JPY' },
-          { proName: 'BINANCE:ADAUSDT', title: 'Cardano' },
-          { proName: 'BINANCE:XRPUSDT', title: 'XRP' },
-          { proName: 'OANDA:WTICOUSD', title: 'Petróleo WTI' },
-          { proName: 'OANDA:XAGUSD', title: 'Plata / USD' },
-        ],
-        showSymbolLogo: true,
-        isTransparent: true,
-        displayMode: 'regular',
-        colorTheme: 'dark',
-        locale: 'es',
-        largeChartUrl: '',
-      });
-      // Respaldo: si el widget de TradingView no carga (sin internet o bloqueado),
-      // mostramos la cinta con los nombres de los activos, sin inventar precios.
-      const showFallback = () => {
-        if (tvContainer.querySelector('iframe') || tvContainer.querySelector('.tv-fallback')) return;
-        // Instantánea de referencia (28 oct 2026, 4:52 p. m.) para cuando el widget no puede cargar.
-        // En el sitio publicado se ven los precios en vivo del widget oficial.
-        const syms = [
-          ['BINANCE:BTCUSDT', 'Bitcoin', '<i style="background:#F7931A">₿</i>', '81.369,85', '+460,08 (+0,57%)', 1],
-          ['BINANCE:ETHUSDT', 'Ethereum', '<i style="background:#4F5795">Ξ</i>', '2.365,09', '+14,73 (+0,63%)', 1],
-          ['OANDA:XAUUSD', 'Oro / USD', '<i style="background:#D69A00">Au</i>', '4.067,290', '+6,960 (+0,17%)', 1],
-          ['FX:EURUSD', 'EUR / USD', '<b>🇪🇺</b><b>🇺🇸</b>', '1,11536', '+0,00010 (+0,01%)', 1],
-          ['BINANCE:SOLUSDT', 'Solana', '<i style="background:linear-gradient(135deg,#9E48FF,#16FC99)">S</i>', '102,79', '+1,44 (+1,42%)', 1],
-          ['BINANCE:ETHFIUSDT', 'Ether.fi', '<i style="background:linear-gradient(135deg,#3D227A,#6565E1)">e</i>', '0,6820', '+0,0159 (+2,39%)', 1],
-          ['FOREXCOM:SPXUSD', 'S&P 500', '<i style="background:#C4162E;font-size:8px">500</i>', '7.726,1', '+0,1 (0,00%)', 1],
-          ['FOREXCOM:NSXUSD', 'Nasdaq 100', '<i style="background:#0996C7;font-size:8px">100</i>', '29.601,5', '−40,3 (−0,14%)', 0],
-          ['BINANCE:BNBUSDT', 'BNB', '<i style="background:#F3BA2F">B</i>', '758,01', '+13,07 (+1,75%)', 1],
-          ['FX:GBPUSD', 'GBP / USD', '<b>🇬🇧</b><b>🇺🇸</b>', '1,33245', '−0,00 (−0,01%)', 0],
-          ['FX:USDJPY', 'USD / JPY', '<b>🇺🇸</b><b>🇯🇵</b>', '157,770', '−0,040 (−0,03%)', 0],
-          ['BINANCE:ADAUSDT', 'Cardano', '<i style="background:#0033AD">₳</i>', '0,2070', '+0,0010 (+0,49%)', 1],
-          ['BINANCE:XRPUSDT', 'XRP', '<i style="background:#23292F">X</i>', '1,3337', '+0,00 (+0,18%)', 1],
-          ['OANDA:WTICOUSD', 'Petróleo WTI', '<i style="background:#333">🛢</i>', '103,454', '+1,722 (+1,69%)', 1],
-          ['OANDA:XAGUSD', 'Plata / USD', '<i style="background:#9AA3AD">Ag</i>', '53,96600', '−0,45100 (−0,83%)', 0]
-        ];
-        const row = syms.map(([pro, n, ico, px, ch, up]) => `<a class="tv-fallback-item" href="https://es.tradingview.com/symbols/${pro.replace(':', '-')}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="tv-ico">${ico}</span><span class="tv-name">${n}</span><span class="tv-px">${px}</span><span class="${up ? 'tv-up' : 'tv-down'}">${ch}</span></a>`).join('');
-        tvContainer.innerHTML = `<div class="tv-fallback">${row}${row}<a class="tv-fallback-note" href="https://es.tradingview.com/" target="_blank" rel="noopener">Precios de referencia · Ver en vivo en TradingView</a></div>`;
-      };
-      // Solo si el script de TradingView no se pudo cargar (bloqueado o sin conexión)
-      script.onerror = showFallback;
-      // Último recurso: si a los 15 s no apareció el widget
-      setTimeout(showFallback, 15000);
-      tvContainer.appendChild(script);
-    }
+    if (tvContainer) mountTicker(tvContainer, TV_SYMBOLS);
   }
 }
 

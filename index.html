@@ -81,19 +81,8 @@
     </div>
   </section>
 
-  <!-- 5. VIDEOS GRATIS (debajo de las soluciones; el primero es la introducción) -->
-  <section class="sec sec-videos" id="videos-gratis" aria-label="Videos gratis para empezar hoy">
-    <div class="container">
-      <div class="reel-head">
-        <div class="sec-head"><span class="eyebrow">100% gratis · Sin registro</span><h2>Videos gratis para empezar hoy</h2></div>
-        <div class="reel-nav"><a href="videos.html" class="reel-all">Ver todos →</a><button onclick="reel(-1)" aria-label="Anterior">←</button><button onclick="reel(1)" aria-label="Siguiente">→</button></div>
-      </div>
-      <div class="reel" id="videoTrack"></div>
-    </div>
-  </section>
-
   <!-- 6. CÓMO EMPEZAR + sesiones en vivo -->
-  <section class="sec sec-tight" style="padding-top:64px">
+  <section class="sec sec-tight" style="padding-top:0">
     <div class="container">
       <div class="sec-head center"><h2>Empieza en 3 pasos</h2></div>
       <div class="how">
@@ -131,19 +120,40 @@
     </div>
   </section>
 
-  <!-- 7. COMUNIDAD -->
-  <section class="sec" style="padding-top:0">
+  <!-- 7. VIDEOS GRATIS (debajo de los 3 pasos; el primero es la introducción) -->
+  <section class="sec sec-videos" id="videos-gratis" aria-label="Videos gratis para empezar hoy">
+    <div class="container">
+      <div class="reel-head">
+        <div class="sec-head"><span class="eyebrow">100% gratis · Sin registro</span><h2>Videos gratis para empezar hoy</h2></div>
+        <div class="reel-nav"><a href="videos.html" class="reel-all">Ver todos →</a><button onclick="reel(-1)" aria-label="Anterior">←</button><button onclick="reel(1)" aria-label="Siguiente">→</button></div>
+      </div>
+      <div class="reel" id="videoTrack"></div>
+    </div>
+  </section>
+
+  <!-- 8. MERCADOS EN VIVO: dos cintas en sentidos contrarios -->
+  <section class="sec sec-markets" aria-label="Mercados en vivo">
+    <div class="container">
+      <div class="sec-head center"><h2>Sigue los mercados <span class="grad">en vivo</span></h2><p>Oro, forex, índices y cripto en un solo vistazo, con datos de TradingView.</p></div>
+    </div>
+    <market-rows></market-rows>
+  </section>
+
+  <!-- 9. COMUNIDAD (carrusel que avanza solo) -->
+  <section class="sec" style="padding-top:72px">
     <div class="container">
       <div class="sec-head"><h2>Lo que dice la comunidad</h2><p>Personas compartiendo su proceso y lo que aprendieron.</p></div>
-      <div class="quotes">
+      <div class="quotes-marquee" id="quotesMarquee" aria-label="Comentarios de la comunidad">
+        <div class="quotes-track" id="quotesTrack">
         <figure class="quote"><blockquote>“Venía de quemar dos cuentas por no entender la gestión de riesgo. El enfoque claro del canal y las señales con stop loss estricto cambiaron mi disciplina operativa.”</blockquote><figcaption><span class="av">SM</span><span><b>Sofía Martínez</b><small>Miembro activo, 6 meses</small></span></figcaption></figure>
         <figure class="quote"><blockquote>“Lo que más valoro es que no te venden humo. El mini-curso de copy trading me enseñó a revisar drawdowns antes de conectar mi capital con cualquier trader.”</blockquote><figcaption><span class="av">DR</span><span><b>Daniel Restrepo</b><small>Inversor en copy trading</small></span></figcaption></figure>
         <figure class="quote"><blockquote>“Me uní al programa IB para mi grupo de Telegram y el acompañamiento 1 a 1 para configurar los enlaces y las liquidaciones superó mis expectativas.”</blockquote><figcaption><span class="av">AP</span><span><b>Andrés Palacios</b><small>Líder de comunidad y aliado IB</small></span></figcaption></figure>
       </div>
+      </div>
     </div>
   </section>
 
-  <!-- 8. CTA -->
+  <!-- 10. CTA -->
   <section class="sec sec-tight" style="padding-top:0">
     <div class="container">
       <div class="cta cta-compact">
@@ -204,6 +214,16 @@
     const sl = hero.querySelector('.slide'), src = sl.dataset.video;
     const fallback = () => { const c = document.createElement('canvas'); c.setAttribute('aria-hidden', 'true'); sl.prepend(c); scene(c, sl.dataset.scene); };
     if (src) { const v = document.createElement('video'); Object.assign(v, { src, muted: true, loop: true, playsInline: true, autoplay: true }); v.setAttribute('aria-hidden', 'true'); v.onerror = () => { v.remove(); fallback(); }; sl.prepend(v); } else fallback();
+
+
+    // ---------- Comentarios en carrusel ----------
+    (() => {
+      const track = document.getElementById('quotesTrack');
+      if (!track) return;
+      const base = Array.from(track.children);
+      for (let c = 0; c < 3; c++) base.forEach(n => { const k = n.cloneNode(true); k.setAttribute('aria-hidden', 'true'); track.appendChild(k); });
+      track.style.setProperty('--sets', 4);
+    })();
 
     // ---------- Videos gratis ----------
     // El primero es la introducción de la marca (reemplaza INTRO_URL por el video real)

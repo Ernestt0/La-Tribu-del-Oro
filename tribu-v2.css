@@ -779,3 +779,24 @@ body.v2 {
 .v2 .slide-copy .actions { margin-top: 30px; }
 .v2 .sec-videos { padding-top: 72px; padding-bottom: 72px; border-top: 0; }
 @media (max-width: 640px) { .v2 .hero-slider { height: 82vh; min-height: 560px; } .v2 .sec-videos { padding-top: 48px; padding-bottom: 48px; } }
+
+/* ---------- Cintas de mercado en sentidos contrarios ---------- */
+.v2 .sec-markets { background: #050505; padding-block: 64px 72px; border-block: 1px solid #1f2937; }
+.v2 .sec-markets .sec-head h2 { color: #fff; }
+.v2 .sec-markets .sec-head h2 .grad { background: linear-gradient(135deg, #f0d277, #c59b27); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.v2 .sec-markets .sec-head p { color: rgba(255,255,255,.7); }
+.v2 .mk-rows { display: grid; gap: 14px; margin-top: 8px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.v2 .mk-rows .tv-ticker-wrapper { border: 0; background: transparent; }
+.v2 .mk-reverse .tv-ticker-mover { animation-direction: reverse; animation-duration: 42s; }
+.v2 .mk-row:not(.mk-reverse) .tv-ticker-mover { animation-duration: 38s; }
+@media (prefers-reduced-motion: reduce) { .v2 .mk-rows .tv-ticker-mover { animation: none !important; } }
+
+/* ---------- Comentarios: carrusel automático ---------- */
+.v2 .quotes-marquee { overflow: hidden; margin-inline: -24px; padding: 8px 24px 12px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.v2 .quotes-track { display: flex; gap: 16px; width: max-content; animation: quotes-slide 55s linear infinite; }
+.v2 .quotes-track .quote { flex: 0 0 380px; }
+.v2 .quotes-marquee:hover .quotes-track, .v2 .quotes-marquee:focus-within .quotes-track { animation-play-state: paused; }
+@keyframes quotes-slide { to { transform: translateX(calc(-100% / var(--sets, 4))); } }
+@media (max-width: 640px) { .v2 .quotes-track .quote { flex-basis: 290px; } .v2 .quotes-marquee { margin-inline: -16px; padding-inline: 16px; } }
+@media (prefers-reduced-motion: reduce) { .v2 .quotes-track { animation: none; } .v2 .quotes-marquee { overflow-x: auto; } .v2 .quotes-track .quote[aria-hidden="true"] { display: none; } }
