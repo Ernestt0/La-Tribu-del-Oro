@@ -6,8 +6,8 @@
    ========================================================================== */
 :root {
   html { scroll-behavior: smooth; }
-::selection { background: rgba(229, 9, 20, 0.15); color: var(--red); }
-::-moz-selection { background: rgba(229, 9, 20, 0.15); color: var(--red); }
+::selection { background: rgba(229, 9, 20, 0.15); color: var(--gold-logo, #D3AC00); }
+::-moz-selection { background: rgba(229, 9, 20, 0.15); color: var(--gold-logo, #D3AC00); }
   --ink: #0f172a;
   --text: #334155;
   --muted: #64748b;
@@ -89,7 +89,7 @@ body.v2 { background: var(--paper); color: var(--text); font-family: var(--body)
 .path .ico img { width: 36px; height: 36px; object-fit: contain; }
 .path h3 { font-size: 19px; font-weight: 700; }
 .path p { font-size: 14.5px; line-height: 1.5; color: var(--muted); }
-.path .more { margin-top: auto; font-size: 14px; font-weight: 700; color: var(--red); }
+.path .more { margin-top: auto; font-size: 14px; font-weight: 700; color: var(--gold-logo, #D3AC00); }
 
 /* Banner de presentación */
 .promo { display: grid; grid-template-columns: 1fr 1.05fr; gap: 44px; align-items: center; border-radius: 40px; padding: 52px; background: radial-gradient(100% 140% at 0% 0%, #7a1116 0%, #3d0a0d 50%, #1a0b0c 100%); color: #fff; overflow: hidden; }
@@ -110,7 +110,7 @@ body.v2 { background: var(--paper); color: var(--text); font-family: var(--body)
 .step::before { counter-increment: st; content: counter(st); position: absolute; top: -18px; left: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font: 700 15px var(--display); }
 .step h3 { font-size: 21px; font-weight: 700; margin-top: 12px; }
 .step p { margin-top: 8px; color: var(--muted); line-height: 1.6; }
-.step a { display: inline-block; margin-top: 14px; font-weight: 700; color: var(--red); }
+.step a { display: inline-block; margin-top: 14px; font-weight: 700; color: var(--gold-logo, #D3AC00); }
 .steps-wrap { background: var(--mist); border-radius: 32px; padding: 64px 52px; }
 
 /* En vivo (franja compacta) */
@@ -518,7 +518,7 @@ body.v2 {
 .v2 .how-ico svg { width: 28px; height: 28px; }
 .v2 .how-step h3 { font-size: 18px; font-weight: 800; line-height: 1.2; }
 .v2 .how-step p { margin: 8px 0 0; max-width: 28ch; font-size: 15px; line-height: 1.5; color: var(--muted); }
-.v2 .how-step a { margin-top: 10px; font-size: 14.5px; font-weight: 700; color: var(--red); }
+.v2 .how-step a { margin-top: 10px; font-size: 14.5px; font-weight: 700; color: var(--gold-logo, #D3AC00); }
 
 /* Celular: línea vertical a la izquierda */
 @media (max-width: 700px) {
@@ -891,4 +891,12 @@ body.v2 {
 }
 .v2 .slide-copy h1 .hl-red { color: #D3AC00; }
 .v2 .slide-copy h1 .hl-red { transition: color .35s ease; cursor: default; }
-.v2 .slide-copy h1 .hl-red:hover { color: #E50914; }
+.v2 .slide-copy h1 .hl-red:hover { color: var(--gold-logo, #D3AC00); }
+
+/* ===== Textos destacados en dorado del logo; al pasar el cursor, rojo ===== */
+:root { --gold-logo: #D3AC00; }
+.v2 :is(h1, h2, h3) span:not([class*="ico"]):not(.eyebrow), .v2 .hero-title span, .v2 .page-title span, .v2 .slide-copy h1 .hl-red { transition: color .35s ease; }
+@media (hover: hover) {
+  .v2 :is(h1, h2, h3) span:not([class*="ico"]):not(.eyebrow):hover, .v2 .hero-title span:hover, .v2 .page-title span:hover, .v2 .slide-copy h1 .hl-red:hover { color: #E50914 !important; -webkit-text-fill-color: #E50914; }
+}
+.v2 .header:not(.on-dark) .nav-link.active { background: rgba(211,172,0,.12); box-shadow: 0 0 0 1px rgba(211,172,0,.32); }

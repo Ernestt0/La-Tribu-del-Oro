@@ -319,12 +319,12 @@ class SiteFooter extends HTMLElement {
           </div>
           <input type="text" id="quickSearchInput" class="search-input-header" placeholder="Escribe para buscar..." onkeyup="filterSiteSearch()">
           <div class="search-results-list" id="searchResultsList">
-            <a href="curso.html" class="search-result-item"><span>Curso de Trading</span> <span style="font-size: 11px; color:#E50914;">Solución</span></a>
-            <a href="copy-trading.html" class="search-result-item"><span>Copy Trading</span> <span style="font-size: 11px; color:#E50914;">Solución</span></a>
-            <a href="senales.html" class="search-result-item"><span>Señales en vivo</span> <span style="font-size: 11px; color:#E50914;">Solución</span></a>
-            <a href="cripto.html" class="search-result-item"><span>Ecosistema Cripto</span> <span style="font-size: 11px; color:#E50914;">Solución</span></a>
-            <a href="ether-fi.html" class="search-result-item"><span>Ether.fi & Restaking</span> <span style="font-size: 11px; color:#E50914;">Solución</span></a>
-            <a href="calculadora.html" class="search-result-item"><span>Calculadora de Riesgo & Pips</span> <span style="font-size: 11px; color:#E50914;">Herramienta</span></a>
+            <a href="curso.html" class="search-result-item"><span>Curso de Trading</span> <span style="font-size: 11px; color:#D3AC00;">Solución</span></a>
+            <a href="copy-trading.html" class="search-result-item"><span>Copy Trading</span> <span style="font-size: 11px; color:#D3AC00;">Solución</span></a>
+            <a href="senales.html" class="search-result-item"><span>Señales en vivo</span> <span style="font-size: 11px; color:#D3AC00;">Solución</span></a>
+            <a href="cripto.html" class="search-result-item"><span>Ecosistema Cripto</span> <span style="font-size: 11px; color:#D3AC00;">Solución</span></a>
+            <a href="ether-fi.html" class="search-result-item"><span>Ether.fi & Restaking</span> <span style="font-size: 11px; color:#D3AC00;">Solución</span></a>
+            <a href="calculadora.html" class="search-result-item"><span>Calculadora de Riesgo & Pips</span> <span style="font-size: 11px; color:#D3AC00;">Herramienta</span></a>
             <a href="ayuda.html#faq" class="search-result-item"><span>Centro de Ayuda / Preguntas Frecuentes</span> <span style="font-size: 11px; color:#64748B;">Recurso</span></a>
             <a href="ayuda.html#terminos" class="search-result-item"><span>Términos y Condiciones</span> <span style="font-size: 11px; color:#64748B;">Legal</span></a>
             <a href="ayuda.html#riesgos" class="search-result-item"><span>Aviso Legal de Riesgos</span> <span style="font-size: 11px; color:#64748B;">Legal</span></a>
