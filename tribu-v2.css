@@ -867,8 +867,9 @@ body.v2 {
 .v2 .trust { border-top: 1px solid var(--line); margin-bottom: 56px; }
 
 /* ===== Logo oficial (blanco con transparencia, se pinta con el color del texto) ===== */
-.v2 .header .logo-mark { display: block; width: auto; height: 38px; filter: brightness(0); transition: filter .35s ease, transform .45s cubic-bezier(.34,1.56,.64,1); }
-.v2 .header.on-dark .logo-mark { filter: none; }
+.v2 .header .brand-logo-new { position: relative; display: block; width: 95px; height: 38px; }
+.v2 .header .logo-mark { position: absolute; inset: 0; width: 95px; height: 38px; transition: opacity .35s ease, transform .45s cubic-bezier(.34,1.56,.64,1); }
+.v2 .header .lm-dark { opacity: 0; } .v2 .header.on-dark .lm-dark { opacity: 1; } .v2 .header.on-dark .lm-light { opacity: 0; }
 .v2 .header .brand-logo-new:active .logo-mark { transform: scale(.92); }
 
 /* ===== Botón de 3 líneas sin contenedor, con animación de resorte ===== */

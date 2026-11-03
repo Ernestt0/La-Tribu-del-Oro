@@ -129,7 +129,7 @@ class SiteHeader extends HTMLElement {
       <header class="header">
         <div class="container header-content">
           <!-- 1. LOGOTIPO COMPLETO: SÍMBOLO + LA TRIBU DEL ORO -->
-          <a href="index.html" class="brand-logo brand-logo-new" aria-label="La Tribu del Oro, inicio"><img class="logo-mark" src="logo-tribu.png" alt="La Tribu del Oro" width="68" height="38"></a>
+          <a href="index.html" class="brand-logo brand-logo-new" aria-label="La Tribu del Oro, inicio"><img class="logo-mark lm-light" src="logo-tribu-light-bg.png" alt="La Tribu del Oro" width="95" height="38"><img class="logo-mark lm-dark" src="logo-tribu-dark-bg.png" alt="" aria-hidden="true" width="95" height="38"></a>
 
           <!-- 2. NAVEGACIÓN EN EL CENTRO -->
           <nav class="nav">
