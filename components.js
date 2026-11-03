@@ -360,3 +360,56 @@ document.addEventListener('keydown', (e) => {
     closeSearchModal();
   }
 });
+
+// ==========================================================================
+// MENÚ FLOTANTE ADAPTATIVO: cambia a oscuro/claro según el fondo que pasa detrás
+// ==========================================================================
+(function adaptiveHeader() {
+  const lum = (r, g, b) => (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  const parse = (str) => {
+    const out = [];
+    const re = /rgba?\(\s*([\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)(?:[ ,/]+([\d.]+%?))?\s*\)/g;
+    let m;
+    while ((m = re.exec(str))) {
+      let a = m[4] === undefined ? 1 : m[4].endsWith('%') ? parseFloat(m[4]) / 100 : parseFloat(m[4]);
+      out.push({ l: lum(+m[1], +m[2], +m[3]), a });
+    }
+    return out;
+  };
+  // Devuelve true (oscuro), false (claro) o null (no se puede saber en este elemento)
+  const darkness = (el) => {
+    for (let n = el; n && n.nodeType === 1; n = n.parentElement) {
+      if (n.dataset && n.dataset.nav) return n.dataset.nav === 'dark';
+      if (/^(VIDEO|CANVAS)$/.test(n.tagName)) return true;
+      const cs = getComputedStyle(n);
+      const bgi = cs.backgroundImage;
+      if (bgi && bgi !== 'none' && /gradient/.test(bgi)) {
+        const cols = parse(bgi).filter((c) => c.a > 0.5);
+        if (cols.length) return cols.reduce((s, c) => s + c.l, 0) / cols.length < 0.45;
+      }
+      const c = parse(cs.backgroundColor)[0];
+      if (c && c.a > 0.6) return c.l < 0.45;
+    }
+    return false;
+  };
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const h = document.querySelector('.header');
+    if (!h) return;
+    const r = h.getBoundingClientRect();
+    const x = Math.min(innerWidth - 2, Math.max(2, innerWidth / 2));
+    const y = r.top + r.height / 2;
+    const stack = document.elementsFromPoint(x, y).filter((e) => !h.contains(e) && e !== h && e.tagName !== 'HTML');
+    let dark = null;
+    for (const e of stack) { dark = darkness(e); if (dark !== null) break; }
+    h.classList.toggle('on-dark', !!dark);
+  };
+  const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+  addEventListener('scroll', queue, { passive: true });
+  addEventListener('resize', queue);
+  addEventListener('load', queue);
+  document.addEventListener('DOMContentLoaded', queue);
+  setTimeout(queue, 300);
+  setTimeout(queue, 1200);
+})();

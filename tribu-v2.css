@@ -704,3 +704,25 @@ body.v2 {
   .v2 .path.t-cripto:hover .coin { animation: dd-coin .7s ease; }
 }
 @keyframes path-plane { 40% { transform: translate(2px, -2px); } }
+
+/* ---------- FRANJA SUPERIOR Y MENÚ QUE SE ADAPTA AL FONDO ---------- */
+/* La franja detrás del menú flotante usa el mismo color del carrusel de cotizaciones */
+.v2 site-header { background: #111827; }
+.v2 .header { transition: background .35s ease, border-color .35s ease, box-shadow .35s ease; }
+.v2 .header .brand-text, .v2 .header .nav-link, .v2 .header .nav-dropdown-btn, .v2 .header .search-btn, .v2 .header .menu-toggle,
+.v2 .header .logo-bar-black { transition: color .35s ease, background .35s ease, border-color .35s ease; }
+
+/* Versión oscura: se activa cuando detrás del menú hay un fondo oscuro */
+.v2 .header.on-dark {
+  background: rgba(11, 15, 24, 0.62);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 34px -12px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.v2 .header.on-dark.scrolled { background: rgba(11, 15, 24, 0.78); }
+.v2 .header.on-dark .brand-text { color: #fff; }
+.v2 .header.on-dark .logo-bar-black { background: #f4f4f6; }
+.v2 .header.on-dark .nav-link, .v2 .header.on-dark .nav-dropdown-btn { color: rgba(255, 255, 255, 0.82); }
+.v2 .header.on-dark .nav-link:hover, .v2 .header.on-dark .nav-dropdown-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; box-shadow: none; }
+.v2 .header.on-dark .nav-link.active, .v2 .header.on-dark .nav-dropdown-btn.active { color: #fff; background: rgba(229, 9, 20, 0.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 0 0 1px rgba(229, 9, 20, 0.45); }
+.v2 .header.on-dark .search-btn, .v2 .header.on-dark .menu-toggle { color: #fff; background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.16); }
+.v2 .header.on-dark .search-btn:hover { background: rgba(255, 255, 255, 0.18); color: #fff; }
