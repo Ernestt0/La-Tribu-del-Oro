@@ -981,3 +981,7 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 .v2 .cf-opt:active { transform: scale(.94) !important; }
 /* "cripto": las velas crecen hacia abajo para no chocar con la línea de arriba */
 .v2 .slide-copy h1 .hl-red ~ .hl-red .cd { bottom: auto; top: calc(22% + var(--o)); transform-origin: 50% 0; }
+/* Sesiones en vivo arriba, justo bajo el banner */
+.v2 .sec-live { padding-top: 28px; }
+.v2 .sec-live .live-strip { margin-top: 0; }
+@media (max-width: 640px) { .v2 .sec-live { padding-top: 20px; } }
