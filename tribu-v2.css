@@ -908,3 +908,12 @@ body.v2 {
 .v2 .mobile-nav .dd-txt small { color: rgba(255,255,255,.5) !important; }
 .v2 .mobile-nav .mobile-label { color: #D3AC00 !important; }
 .v2 .mobile-nav a:active { background: rgba(255,255,255,.06); }
+
+/* Icono de cuenta en la barra, sin contenedor */
+.v2 .header .account-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: #0f172a; }
+.v2 .header.on-dark .account-btn { color: #fff; }
+.v2 .header .account-btn svg { width: 22px; height: 22px; }
+.v2 .header .account-btn:hover { color: var(--red); }
+.v2 .header .account-btn.logged { position: relative; }
+.v2 .header .account-btn.logged::after { content: ""; position: absolute; right: 8px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 2px #fff; }
+.v2 .header .account-btn:active { transform: scale(.92); }

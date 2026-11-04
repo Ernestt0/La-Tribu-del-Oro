@@ -195,6 +195,7 @@ class SiteHeader extends HTMLElement {
             <button class="search-btn" title="Buscar en el sitio" onclick="openSearchModal()">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             </button>
+            <a href="login.html" class="account-btn" aria-label="Iniciar sesión" title="Iniciar sesión"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></a>
             <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" onclick="toggleMobileNav(this)">
               <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
@@ -463,16 +464,33 @@ document.addEventListener('keydown', (e) => {
 
 
 // ==========================================================================
-// ACCESO A VIDEOS: pide registro antes de reproducir (solo experiencia de usuario;
-// la protección real de los videos necesita un servidor o una plataforma de cursos)
+// CUENTAS: carga la configuración y el módulo de sesión en todas las páginas
+// ==========================================================================
+(function loadAuth() {
+  if (window.tribuAuth) return;
+  const add = (src) => new Promise((r) => { const s = document.createElement('script'); s.src = src; s.onload = r; s.onerror = r; document.head.appendChild(s); });
+  window.tribuAuthLoaded = add('supabase-config.js').then(() => add('auth.js')).then(() => {
+    const paint = () => document.querySelectorAll('.account-btn').forEach((a) => {
+      const u = window.tribuAuth && tribuAuth.user;
+      a.setAttribute('aria-label', u ? 'Mi cuenta' : 'Iniciar sesión');
+      a.title = u ? 'Mi cuenta' : 'Iniciar sesión';
+      a.classList.toggle('logged', !!u);
+    });
+    if (window.tribuAuth && tribuAuth.configured) { tribuAuth.ready.then(paint); tribuAuth.onChange(paint); }
+  });
+})();
+
+// ==========================================================================
+// ACCESO A VIDEOS: pide iniciar sesión antes de reproducir.
+// Nota: esto controla la experiencia; la protección total de los videos requiere alojarlos de forma privada.
 // ==========================================================================
 (function videoGate() {
-  const registered = () => { try { return !!localStorage.getItem('tribu_registro'); } catch (_) { return false; } };
   const isVideoTrigger = (el) => el && el.closest && el.closest('[onclick*="playVideo"], [onclick*="playGlossaryVideo"], .hero-video-box, .vcard, .video-card-slide, .play-btn, .hero-play-btn');
   document.addEventListener('click', (e) => {
-    if (registered() || /registro\.html$/.test(location.pathname)) return;
-    const t = isVideoTrigger(e.target);
-    if (!t) return;
+    const A = window.tribuAuth;
+    if (!A || !A.configured) return;            // sin configurar: el sitio funciona como antes
+    if (A.user) return;                          // con sesión: se reproduce normal
+    if (!isVideoTrigger(e.target)) return;
     e.preventDefault(); e.stopImmediatePropagation();
     const page = (location.pathname.split('/').pop() || 'index.html');
     location.href = 'registro.html?next=' + encodeURIComponent(page);

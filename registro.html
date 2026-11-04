@@ -57,7 +57,7 @@
         <div class="reg-card">
           <form id="regForm" novalidate>
             <h2>Regístrate gratis</h2>
-            <p class="sub">Solo te pedimos lo necesario para darte acceso.</p>
+            <p class="sub">¿Ya tienes cuenta? <a href="login.html" style="color:#8a6a00;font-weight:700">Inicia sesión</a></p>
             <div class="fld"><label for="rNombre">Nombre completo</label><input id="rNombre" name="nombre" autocomplete="name" required /><span class="err">Escribe tu nombre.</span></div>
             <div class="fld"><label for="rCorreo">Correo electrónico</label><input id="rCorreo" name="correo" type="email" autocomplete="email" required /><span class="err">Escribe un correo válido.</span></div>
             <div class="row2">
@@ -65,6 +65,10 @@
                 <select id="rPais" name="pais" required><option value="">Selecciona</option><option>Colombia</option><option>México</option><option>Perú</option><option>Chile</option><option>Argentina</option><option>Ecuador</option><option>Venezuela</option><option>España</option><option>Estados Unidos</option><option>Otro</option></select>
                 <span class="err">Selecciona tu país.</span></div>
               <div class="fld"><label for="rWhats">WhatsApp</label><input id="rWhats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="+57 300 000 0000" required /><span class="err">Escribe tu número con indicativo.</span></div>
+            </div>
+            <div class="row2">
+              <div class="fld"><label for="rPass">Contraseña</label><input id="rPass" name="password" type="password" autocomplete="new-password" minlength="8" required /><span class="err">Mínimo 8 caracteres, con letras y números.</span></div>
+              <div class="fld"><label for="rPass2">Repite la contraseña</label><input id="rPass2" type="password" autocomplete="new-password" required /><span class="err">Las contraseñas no coinciden.</span></div>
             </div>
             <div class="fld"><label for="rInteres">¿Qué te interesa más?</label>
               <select id="rInteres" name="interes"><option value="">Selecciona (opcional)</option><option>Aprender trading desde cero</option><option>Señales</option><option>Copy trading</option><option>Criptomonedas</option><option>Ether.fi</option><option>Programa IB</option></select></div>
@@ -75,12 +79,12 @@
             <label class="chk" id="chkEdadWrap"><input type="checkbox" id="chkEdad" name="mayor_edad" /> <span>Confirmo que soy mayor de 18 años. <b>(Obligatorio)</b></span></label>
 
             <button type="submit" class="reg-btn" id="regBtn">Crear mi cuenta gratis</button>
-            <p class="reg-msg" id="regMsg">No pudimos completar el registro. Intenta de nuevo en unos minutos.</p>
+            <p class="reg-msg" id="regMsg"></p>
             <p class="reg-note">Tus datos están protegidos. No los vendemos ni los compartimos con terceros para fines propios de ellos.</p>
           </form>
           <div class="reg-ok" id="regOk">
             <h2>¡Bienvenido a la tribu! 🎉</h2>
-            <p class="sub">Tu cuenta está lista. Ya puedes ver los videos gratis.</p>
+            <p class="sub" id="regOkTxt">Tu cuenta está lista. Ya puedes ver los videos gratis.</p>
             <a class="reg-btn" style="display:grid;place-items:center;text-decoration:none" id="regNext" href="videos.html">Ver los videos gratis</a>
           </div>
         </div>
@@ -89,46 +93,44 @@
     <site-footer></site-footer>
     <script src="components.js"></script>
     <script>
-      // ===== CONFIGURACIÓN: dónde se guardan los registros =====
-      // Pega aquí la URL del servicio que recibirá los datos (Google Apps Script, Supabase, Formspree, tu servidor...).
-      // Mientras esté vacía, el registro solo funciona en este navegador y NO se guarda en ninguna base de datos.
-      const REGISTRO_ENDPOINT = '';
       const POLITICA_VERSION = '2026-11-03';
-
       const $ = (id) => document.getElementById(id);
       const next = new URLSearchParams(location.search).get('next');
-      if (next && /^[\w\-]+\.html(#[\w\-]*)?$/.test(next)) $('regNext').href = next;
-
+      const safeNext = next && /^[\w\-]+\.html(#[\w\-]*)?$/.test(next) ? next : 'videos.html';
+      $('regNext').href = safeNext;
       const mark = (el, bad) => el.closest('.fld, .chk').classList.toggle('bad', bad);
+      const msg = (t) => { $('regMsg').textContent = t; $('regMsg').style.display = t ? 'block' : 'none'; };
+
       $('regForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const nombre = $('rNombre').value.trim(), correo = $('rCorreo').value.trim(), pais = $('rPais').value, whats = $('rWhats').value.trim();
+        e.preventDefault(); msg('');
+        const nombre = $('rNombre').value.trim(), correo = $('rCorreo').value.trim().toLowerCase(), pais = $('rPais').value, whats = $('rWhats').value.trim(), pass = $('rPass').value;
         let ok = true;
         const chk = (el, cond) => { mark(el, !cond); if (!cond) ok = false; };
         chk($('rNombre'), nombre.length >= 3);
         chk($('rCorreo'), /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo));
         chk($('rPais'), !!pais);
         chk($('rWhats'), whats.replace(/\D/g, '').length >= 8);
+        chk($('rPass'), pass.length >= 8 && /[A-Za-z]/.test(pass) && /\d/.test(pass));
+        chk($('rPass2'), $('rPass2').value === pass && pass.length > 0);
         chk($('chkDatos'), $('chkDatos').checked);
         chk($('chkEdad'), $('chkEdad').checked);
         if (!ok) { document.querySelector('.bad')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        if (!window.tribuAuth || !tribuAuth.configured) { msg('El sistema de cuentas aún se está configurando. Vuelve a intentarlo pronto.'); return; }
 
-        // Registro de la autorización: qué aceptó, cuándo y con qué versión de la política (prueba del consentimiento)
-        const data = {
-          nombre, correo, pais, whatsapp: whats, interes: $('rInteres').value,
-          autoriza_datos: true, autoriza_marketing: $('chkMarketing').checked, mayor_edad: true,
-          politica_version: POLITICA_VERSION, fecha: new Date().toISOString(), pagina: location.href,
-        };
-        $('regBtn').disabled = true; $('regMsg').style.display = 'none';
+        // Prueba del consentimiento: qué aceptó, cuándo y con qué versión de la política
+        const datos = { nombre, pais, whatsapp: whats, interes: $('rInteres').value, autoriza_datos: true,
+          autoriza_marketing: $('chkMarketing').checked, mayor_edad: true, politica_version: POLITICA_VERSION, fecha_autorizacion: new Date().toISOString() };
+        $('regBtn').disabled = true;
         try {
-          if (REGISTRO_ENDPOINT) {
-            const r = await fetch(REGISTRO_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) });
-            if (!r.ok) throw new Error('fallo');
-          }
-          try { localStorage.setItem('tribu_registro', JSON.stringify({ nombre, correo, fecha: data.fecha })); } catch (_) {}
+          const { data, error } = await tribuAuth.signUp(correo, pass, datos);
+          if (error) throw error;
           $('regForm').style.display = 'none'; $('regOk').style.display = 'block';
-        } catch (_) {
-          $('regMsg').style.display = 'block';
+          if (!data.session) {
+            $('regOkTxt').textContent = 'Te enviamos un correo a ' + correo + '. Ábrelo y confirma tu cuenta para entrar.';
+            $('regNext').textContent = 'Ir a iniciar sesión'; $('regNext').href = 'login.html?next=' + encodeURIComponent(safeNext);
+          }
+        } catch (err) {
+          msg(/registered|already/i.test(err.message || '') ? 'Ese correo ya tiene una cuenta. Inicia sesión.' : 'No pudimos crear la cuenta. Revisa tus datos e intenta de nuevo.');
         } finally { $('regBtn').disabled = false; }
       });
       document.querySelectorAll('#regForm input, #regForm select').forEach((el) => el.addEventListener('input', () => mark(el, false)));

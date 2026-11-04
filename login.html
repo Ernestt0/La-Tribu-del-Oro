@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Iniciar sesión - La Tribu del Oro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="tribu-v2.css" />
+    <link rel="stylesheet" href="tribu-pages.css" />
+    <style>
+      .reg-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 56px 0 80px; }
+      .reg-copy h1 { font-size: clamp(34px, 4.4vw, 52px); line-height: 1.05; margin: 12px 0 16px; }
+      .reg-copy h1 span { color: #D3AC00; }
+      .reg-copy p { color: var(--muted); font-size: 17px; line-height: 1.6; }
+      .reg-list { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; }
+      .reg-list li { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; color: var(--ink); }
+      .reg-list li::before { content: "✓"; flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: rgba(211,172,0,.15); color: #8a6a00; font-size: 13px; }
+      .reg-card { background: rgba(255,255,255,.72); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 32px; box-shadow: 0 20px 50px -24px rgba(15,23,42,.3); }
+      .reg-card h2 { font-size: 22px; margin: 0 0 4px; } .reg-card .sub { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+      .fld { display: grid; gap: 6px; margin-bottom: 14px; }
+      .fld label { font-size: 13px; font-weight: 600; color: #334155; }
+      .fld input, .fld select { width: 100%; padding: 13px 14px; border-radius: 12px; border: 1.5px solid #e2e8f0; background: #fff; font: inherit; font-size: 15px; color: #0f172a; outline: none; transition: border-color .2s, box-shadow .2s; }
+      .fld input:focus, .fld select:focus { border-color: #D3AC00; box-shadow: 0 0 0 4px rgba(211,172,0,.16); }
+      .fld .err { display: none; font-size: 12.5px; color: #c40811; }
+      .fld.bad input, .fld.bad select { border-color: #ef4444; } .fld.bad .err { display: block; }
+      .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .chk { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #475569; line-height: 1.5; margin: 10px 0; }
+      .chk input { flex: none; width: 18px; height: 18px; margin-top: 2px; accent-color: #D3AC00; }
+      .chk a { color: #8a6a00; font-weight: 600; text-decoration: underline; }
+      .chk.bad { color: #c40811; }
+      .reg-btn { width: 100%; margin-top: 10px; min-height: 52px; border-radius: 999px; border: 0; background: #E50914; color: #fff; font: 700 16px/1 inherit; cursor: pointer; box-shadow: 0 12px 26px -12px rgba(229,9,20,.7); }
+      .reg-btn:disabled { opacity: .6; cursor: wait; }
+      .reg-note { font-size: 12px; color: #94a3b8; text-align: center; margin-top: 12px; }
+      .reg-ok { display: none; text-align: center; padding: 20px 0; } .reg-ok h2 { font-size: 24px; }
+      .reg-msg { display: none; margin-top: 10px; font-size: 13px; color: #c40811; text-align: center; }
+      @media (max-width: 900px) { .reg-wrap { grid-template-columns: 1fr; gap: 28px; padding-top: 32px; } .row2 { grid-template-columns: 1fr; } .reg-card { padding: 24px 18px; } }
+    </style>
+  </head>
+  <body class="v2 page">
+    <site-header></site-header>
+    <main class="container">
+      <div class="reg-wrap" style="grid-template-columns:1fr;max-width:460px;margin:0 auto">
+        <div class="reg-card">
+          <form id="logForm" novalidate>
+            <h2>Inicia sesión</h2>
+            <p class="sub">¿No tienes cuenta? <a href="registro.html" id="toReg" style="color:#8a6a00;font-weight:700">Regístrate gratis</a></p>
+            <div class="fld"><label for="lCorreo">Correo electrónico</label><input id="lCorreo" type="email" autocomplete="email" required /><span class="err">Escribe tu correo.</span></div>
+            <div class="fld"><label for="lPass">Contraseña</label><input id="lPass" type="password" autocomplete="current-password" required /><span class="err">Escribe tu contraseña.</span></div>
+            <button class="reg-btn" id="logBtn" type="submit">Entrar</button>
+            <p class="reg-msg" id="logMsg"></p>
+            <p class="reg-note"><a href="#" id="forgot" style="color:#8a6a00;font-weight:600">¿Olvidaste tu contraseña?</a></p>
+          </form>
+          <div class="reg-ok" id="logged">
+            <h2>Hola, <span id="whoName"></span> 👋</h2>
+            <p class="sub" id="whoMail"></p>
+            <a class="reg-btn" style="display:grid;place-items:center;text-decoration:none" href="videos.html" id="goNext">Ver los videos gratis</a>
+            <p class="reg-note"><a href="#" id="logout" style="color:#64748b;font-weight:600">Cerrar sesión</a></p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <site-footer></site-footer>
+    <script src="components.js"></script>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const next = new URLSearchParams(location.search).get('next');
+      const safeNext = next && /^[\w\-]+\.html(#[\w\-]*)?$/.test(next) ? next : 'videos.html';
+      $('goNext').href = safeNext; $('toReg').href = 'registro.html?next=' + encodeURIComponent(safeNext);
+      const msg = (t, good) => { const m = $('logMsg'); m.textContent = t; m.style.display = t ? 'block' : 'none'; m.style.color = good ? '#15803d' : ''; };
+      const show = (u) => {
+        const on = !!u; $('logForm').style.display = on ? 'none' : ''; $('logged').style.display = on ? 'block' : 'none';
+        if (on) { $('whoName').textContent = (u.user_metadata && u.user_metadata.nombre || '').split(' ')[0] || 'de nuevo'; $('whoMail').textContent = u.email; }
+      };
+      if (window.tribuAuth && tribuAuth.configured) tribuAuth.ready.then(() => { show(tribuAuth.user); if (tribuAuth.user && next) location.href = safeNext; });
+      $('logForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); msg('');
+        const correo = $('lCorreo').value.trim().toLowerCase(), pass = $('lPass').value;
+        if (!correo || !pass) { msg('Escribe tu correo y tu contraseña.'); return; }
+        if (!window.tribuAuth || !tribuAuth.configured) { msg('El sistema de cuentas aún se está configurando.'); return; }
+        $('logBtn').disabled = true;
+        const { data, error } = await tribuAuth.signIn(correo, pass);
+        $('logBtn').disabled = false;
+        if (error) { msg(/confirm/i.test(error.message) ? 'Primero confirma tu cuenta desde el correo que te enviamos.' : 'Correo o contraseña incorrectos.'); return; }
+        location.href = safeNext;
+      });
+      $('forgot').addEventListener('click', async (e) => {
+        e.preventDefault();
+        const correo = $('lCorreo').value.trim().toLowerCase();
+        if (!correo) { msg('Escribe tu correo arriba y vuelve a tocar "¿Olvidaste tu contraseña?".'); return; }
+        if (!window.tribuAuth || !tribuAuth.configured) { msg('El sistema de cuentas aún se está configurando.'); return; }
+        await tribuAuth.resetPassword(correo);
+        msg('Si ese correo tiene cuenta, te enviamos un enlace para crear una nueva contraseña.', true);
+      });
+      $('logout').addEventListener('click', async (e) => { e.preventDefault(); await tribuAuth.signOut(); show(null); });
+    </script>
+  </body>
+</html>
