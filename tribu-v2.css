@@ -1299,3 +1299,13 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
   .v2 .sec-live .live-strip .btn { padding: 0 14px !important; }
 }
 @media (max-width: 700px) { .v2 .sec-live .live-strip .live-dot { display: none; } .v2 .sec-live .live-strip p { margin-left: 0 !important; } }
+/* Avatar animado: cabeza que se mueve, parpadeo, cejas y sonrisa */
+.v2 .live-host svg g { transform-box: fill-box; }
+.v2 .live-host .av-head { transform-origin: 50% 90%; animation: av-head 6s ease-in-out infinite; }
+.v2 .live-host .av-eyes { transform-origin: 50% 50%; animation: av-blink 4.5s infinite; }
+.v2 .live-host .av-brows { transform-origin: 50% 50%; animation: av-brows 6s ease-in-out infinite; }
+.v2 .live-host .av-mouth { transform-origin: 50% 20%; animation: av-smile 6s ease-in-out infinite; }
+@keyframes av-head { 0%, 100% { transform: rotate(0) translateY(0); } 20% { transform: rotate(-6deg) translateY(-.5px); } 40% { transform: rotate(4deg); } 60% { transform: rotate(-2deg) translateY(-1px); } 80% { transform: rotate(2deg); } }
+@keyframes av-blink { 0%, 44%, 48%, 92%, 96%, 100% { transform: scaleY(1); } 46%, 94% { transform: scaleY(.1); } }
+@keyframes av-brows { 0%, 15%, 35%, 100% { transform: translateY(0); } 22%, 28% { transform: translateY(-1.4px); } }
+@keyframes av-smile { 0%, 15%, 40%, 100% { transform: scale(1); } 22%, 33% { transform: scale(1.25, 1.35); } }
