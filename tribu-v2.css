@@ -1205,3 +1205,7 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
 .v2 .mk-txt small { color: rgba(11,11,15,.72) !important; }
 .v2 .mk-ch.up { color: #0b5d26 !important; } .v2 .mk-ch.down { color: #8f0d0d !important; }
 .v2 .mk-ico { box-shadow: 0 0 0 2px rgba(11,11,15,.18); }
+/* Espacio para que el efecto de crecer al pasar el cursor no se corte */
+.v2 .mk-line { padding-block: 10px; margin-block: -10px; }
+.v2 .mk-track { padding-left: 6px; }
+.v2 .sec-videos .reel { padding: 12px 6px 16px; margin: -12px -6px -16px; }
