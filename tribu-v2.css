@@ -1235,3 +1235,7 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
   .v2 .mk-compact .mk-txt b { font-size: 12.5px; } .v2 .mk-compact .mk-txt small { font-size: 11.5px; }
 }
 .v2 site-header { background: #050505 !important; }
+/* La máscara de desvanecido recortaba el borde superior al subir: se amplía su área */
+.v2 .mk-rows { padding-block: 10px; margin-block: -10px; }
+.v2 .mk-bar .mk-rows { padding-block: 6px; margin-block: -6px; }
+.v2 .quotes-rows { padding-block: 14px; }
