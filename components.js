@@ -71,51 +71,61 @@ function mountTicker(container, symbols) {
 
 // Dos filas de píldoras de cripto en sentidos contrarios, a la misma velocidad (se usa con <market-rows>)
 // Precios en vivo desde la API pública de Binance; si no carga, se muestran los activos sin precio.
+// Top 10 cripto (sin stablecoins) y principales pares de forex
 const MK_COINS = [
-  ['BTC', 'Bitcoin', '#F7931A', '₿'], ['ETH', 'Ethereum', '#627EEA', 'Ξ'], ['SOL', 'Solana', '#9945FF', 'S'],
-  ['BNB', 'BNB', '#F3BA2F', 'B'], ['XRP', 'XRP', '#23292F', 'X'], ['ADA', 'Cardano', '#0033AD', '₳'],
-  ['DOGE', 'Dogecoin', '#C2A633', 'Ð'], ['ETHFI', 'Ether.fi', '#5B4BDB', 'e'],
-  ['AVAX', 'Avalanche', '#E84142', 'A'], ['LINK', 'Chainlink', '#2A5ADA', '⬡'], ['DOT', 'Polkadot', '#E6007A', '●'],
-  ['LTC', 'Litecoin', '#345D9D', 'Ł'], ['TRX', 'TRON', '#EB0029', 'T'], ['PAXG', 'Oro (PAXG)', '#C59B27', 'Au'],
-  ['UNI', 'Uniswap', '#FF007A', 'U'], ['TON', 'Toncoin', '#0098EA', 'T']
+  ['BTC', 'Bitcoin', '#F7931A', '₿'], ['ETH', 'Ethereum', '#627EEA', 'Ξ'], ['XRP', 'XRP', '#23292F', 'X'],
+  ['BNB', 'BNB', '#F3BA2F', 'B'], ['SOL', 'Solana', '#9945FF', 'S'], ['DOGE', 'Dogecoin', '#C2A633', 'Ð'],
+  ['ADA', 'Cardano', '#0033AD', '₳'], ['TRX', 'TRON', '#EB0029', 'T'], ['LINK', 'Chainlink', '#2A5ADA', '⬡'], ['AVAX', 'Avalanche', '#E84142', 'A']
+];
+const MK_FX = [
+  ['EURUSD', 'EUR/USD', '🇪🇺', 'EUR', 'USD'], ['GBPUSD', 'GBP/USD', '🇬🇧', 'GBP', 'USD'], ['USDJPY', 'USD/JPY', '🇯🇵', 'USD', 'JPY'],
+  ['USDCHF', 'USD/CHF', '🇨🇭', 'USD', 'CHF'], ['AUDUSD', 'AUD/USD', '🇦🇺', 'AUD', 'USD'], ['USDCAD', 'USD/CAD', '🇨🇦', 'USD', 'CAD'],
+  ['NZDUSD', 'NZD/USD', '🇳🇿', 'NZD', 'USD'], ['EURGBP', 'EUR/GBP', '🇪🇺', 'EUR', 'GBP'], ['EURJPY', 'EUR/JPY', '🇪🇺', 'EUR', 'JPY'], ['XAUUSD', 'Oro/USD', 'Au', 'XAU', 'USD']
 ];
 class MarketRows extends HTMLElement {
   connectedCallback() {
-    const rows = [MK_COINS.slice(0, 8), MK_COINS.slice(8)];
-    const pill = ([s, n, col, ic]) => `<a class="mk-pill" data-sym="${s}" href="https://es.tradingview.com/symbols/${s === 'PAXG' ? 'XAUUSD' : s + 'USDT'}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico" style="background:${col}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">${s}/USDT</span> <span class="mk-ch"></span></small></span></a>`;
-    this.innerHTML = '<div class="mk-rows" aria-label="Precios de criptomonedas">' + rows.map((r, i) => {
-      const set = r.map(pill).join('');
-      return `<div class="mk-line${i ? ' mk-rev' : ''}"><div class="mk-track">${set}${set.replace(/class="mk-pill"/g, 'class="mk-pill" aria-hidden="true"')}</div></div>`;
-    }).join('') + '</div>';
-    // Misma velocidad en las dos filas: duración proporcional al ancho
-    const SPEED = 50;
-    const fit = () => this.querySelectorAll('.mk-track').forEach((t) => {
-      const half = t.scrollWidth / 2;
-      t.style.setProperty('--shift', half + 'px');
-      t.style.animationDuration = (half / SPEED).toFixed(1) + 's';
-    });
+    const cpill = ([s, n, col, ic]) => `<a class="mk-pill" data-sym="${s}" href="https://es.tradingview.com/symbols/${s}USDT/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico" style="background:${col}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">${s}/USDT</span> <span class="mk-ch"></span></small></span></a>`;
+    const fpill = ([s, n, ic]) => `<a class="mk-pill" data-fx="${s}" href="https://es.tradingview.com/symbols/${s === 'XAUUSD' ? 'OANDA-XAUUSD' : 'FX-' + s}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico mk-flag" style="background:${s === 'XAUUSD' ? '#D3AC00' : '#1f2430'}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">Forex</span> <span class="mk-ch"></span></small></span></a>`;
+    const line = (set, rev) => `<div class="mk-line${rev ? ' mk-rev' : ''}"><div class="mk-track">${set}${set.replace(/class="mk-pill"/g, 'class="mk-pill" aria-hidden="true" tabindex="-1"')}</div></div>`;
+    this.innerHTML = '<div class="mk-rows" aria-label="Precios de mercado">' + line(MK_COINS.map(cpill).join(''), false) + line(MK_FX.map(fpill).join(''), true) + '</div>';
+    const SPEED = 45;
+    const fit = () => this.querySelectorAll('.mk-track').forEach((t) => { const half = t.scrollWidth / 2; t.style.setProperty('--shift', half + 'px'); t.style.animationDuration = (half / SPEED).toFixed(1) + 's'; });
     requestAnimationFrame(fit); addEventListener('load', fit); addEventListener('resize', fit);
-    const load = async () => {
+    const fmt = (p) => p.toLocaleString('es-CO', { maximumFractionDigits: p >= 100 ? 2 : p >= 1 ? 4 : 5 });
+    const setPill = (sel, price, ch) => this.querySelectorAll(sel).forEach((el) => {
+      el.querySelector('.mk-px').textContent = price;
+      const c = el.querySelector('.mk-ch');
+      if (ch == null) { c.textContent = ''; return; }
+      c.textContent = (ch >= 0 ? '+' : '') + ch.toFixed(2) + '%'; c.className = 'mk-ch ' + (ch >= 0 ? 'up' : 'down');
+    });
+    const loadCrypto = async () => {
       try {
-        const syms = JSON.stringify(MK_COINS.map((c) => c[0] + 'USDT'));
-        const r = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=' + encodeURIComponent(syms));
-        if (!r.ok) return;
-        const data = await r.json();
-        data.forEach((d) => {
-          const s = d.symbol.replace('USDT', '');
-          const p = +d.lastPrice, ch = +d.priceChangePercent;
-          const fmt = p >= 100 ? p.toLocaleString('es-CO', { maximumFractionDigits: 2 }) : p.toLocaleString('es-CO', { maximumFractionDigits: 4 });
-          this.querySelectorAll(`.mk-pill[data-sym="${s}"]`).forEach((el) => {
-            el.querySelector('.mk-px').textContent = '$' + fmt;
-            const c = el.querySelector('.mk-ch');
-            c.textContent = (ch >= 0 ? '+' : '') + ch.toFixed(2) + '%';
-            c.className = 'mk-ch ' + (ch >= 0 ? 'up' : 'down');
-          });
+        const syms = JSON.stringify(MK_COINS.map((c) => c[0] + 'USDT').concat(['PAXGUSDT']));
+        const r = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=' + encodeURIComponent(syms)); if (!r.ok) return;
+        (await r.json()).forEach((d) => {
+          const s = d.symbol.replace('USDT', ''), p = +d.lastPrice, ch = +d.priceChangePercent;
+          if (s === 'PAXG') setPill('.mk-pill[data-fx="XAUUSD"]', fmt(p), ch);
+          else setPill(`.mk-pill[data-sym="${s}"]`, '$' + fmt(p), ch);
         });
-        fit();
-      } catch (e) { /* sin conexión: se quedan los nombres */ }
+      } catch (e) {}
     };
-    load(); setInterval(load, 30000);
+    // Forex: tipos de referencia del Banco Central Europeo (se actualizan una vez al día)
+    const loadFx = async () => {
+      try {
+        const [now, prev] = await Promise.all([
+          fetch('https://api.frankfurter.app/latest?from=USD').then((r) => r.json()),
+          fetch('https://api.frankfurter.app/' + new Date(Date.now() - 4 * 864e5).toISOString().slice(0, 10) + '..?from=USD').then((r) => r.json()),
+        ]);
+        const days = Object.keys(prev.rates || {}).sort(); const before = days.length > 1 ? prev.rates[days[days.length - 2]] : null;
+        const rate = (R, a, b) => { const u = (x) => (x === 'USD' ? 1 : R[x]); return u(b) / u(a); };
+        MK_FX.forEach(([s, , , a, b]) => {
+          if (s === 'XAUUSD') return;
+          const p = rate(now.rates, a, b), q = before ? rate(before, a, b) : null;
+          setPill(`.mk-pill[data-fx="${s}"]`, fmt(p), q ? ((p - q) / q) * 100 : null);
+        });
+      } catch (e) {}
+    };
+    loadCrypto(); loadFx(); setInterval(loadCrypto, 30000);
   }
 }
 customElements.define('market-rows', MarketRows);

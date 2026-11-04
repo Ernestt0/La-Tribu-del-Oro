@@ -1137,3 +1137,30 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
   .v2 .sec-live .live-strip h3 { font-size: 16.5px; align-items: center; } .v2 .sec-live .live-strip .live-dot { margin-top: 0; }
 }
 @media (max-width: 700px) { .v2 .hero-slider { min-height: calc(100svh - 189px); } }
+
+/* ===== RESPONSIVE GLOBAL ===== */
+html, body { overflow-x: hidden; }
+img, svg, video, iframe { max-width: 100%; }
+.v2 .mk-flag { font-size: 22px; }
+@media (max-width: 700px) {
+  .v2 .sec-markets { padding-block: 48px 52px; }
+  .v2 .sec-markets .sec-head h2 { font-size: clamp(30px, 9vw, 40px); }
+  .v2 .sec-markets .sec-head p { font-size: 15px; }
+  .v2 .mk-rows { gap: 12px; }
+  .v2 .mk-track { gap: 12px; padding-right: 12px; }
+  .v2 .mk-pill { width: 168px; padding: 7px 14px 7px 7px; gap: 10px; }
+  .v2 .mk-ico { width: 38px; height: 38px; font-size: 15px; }
+  .v2 .mk-flag { font-size: 18px; }
+  .v2 .mk-txt b { font-size: 14px; }
+  .v2 .mk-txt small { font-size: 11.5px; }
+  .v2 .sec-head h2 { font-size: clamp(28px, 8.4vw, 40px); }
+  .v2 .sec { padding-block: 56px; }
+}
+@media (min-width: 701px) and (max-width: 1024px) {
+  .v2 .mk-pill { width: 190px; }
+  .v2 .how-wrap-full { min-height: auto; padding-block: 72px; }
+}
+/* Comentarios: sin desborde en tablet */
+.v2 .quotes-rows { margin-inline: 0 !important; }
+.v2 .quotes-row { padding-inline: 0 !important; }
+section:has(> .container > .quotes-rows) { overflow: hidden; }
