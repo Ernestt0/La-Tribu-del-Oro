@@ -1282,3 +1282,5 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
 .v2 .mk-logo img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .v2 .mk-logo.ok { background: transparent !important; box-shadow: none; }
 .v2 .mk-logo.ok .mk-fb { display: none; }
+.v2 .mk-svg { background: transparent !important; padding: 0; overflow: hidden; box-shadow: none !important; }
+.v2 .mk-svg svg { display: block; width: 100%; height: 100%; }
