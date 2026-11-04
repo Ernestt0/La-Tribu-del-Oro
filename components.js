@@ -207,12 +207,12 @@ class SiteHeader extends HTMLElement {
       <nav class="mobile-nav" id="mobileNav" aria-label="Menú principal">
         <a href="index.html">Inicio</a>
         <a href="videos.html">Videos</a>
-        <span class="mobile-label">Soluciones</span>
-        <a class="sub dd t-curso" href="curso.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="#e5b909"/><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" fill="#e5b909" opacity=".75"/></svg></span>Curso</a>
+        <button type="button" class="m-group-btn" aria-expanded="false" onclick="toggleMobileGroup(this)">Soluciones<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="m-group"><div class="m-group-in"><a class="sub dd t-curso" href="curso.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="#e5b909"/><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" fill="#e5b909" opacity=".75"/></svg></span>Curso</a>
         <a class="sub dd t-copy" href="copy-trading.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="13" height="13" rx="3" fill="#cfc083" opacity=".85"/><rect x="9" y="8" width="13" height="13" rx="3" fill="#a7995f"/><path d="M13 12h5m-2.5-2.5L18 12l-2.5 2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>Copy Trading</a>
         <a class="sub dd t-senales" href="senales.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#d9b422"/><path class="plane" d="M5.4 11.9l11.7-4.5c.5-.2 1 .1.8.7l-2 9.4c-.1.6-.5.7-1 .4l-2.9-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.3-4.8c.2-.2 0-.3-.3-.1l-6.6 4.1-2.8-.9c-.6-.2-.6-.6.1-.8z" fill="#fff"/></svg></span>Señales</a>
         <a class="sub dd t-cripto" href="cripto.html"><span class="dd-ico"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#f7cb1a"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="18" fill="#fff">₿</text></svg></span>Cripto</a>
-        <a class="sub dd t-ether" href="ether-fi.html"><span class="dd-ico"><img src="etherfi.png" alt="Ether.fi" style="width: 22px; height: 22px; object-fit: contain;"></span>Ether.fi</a>
+        <a class="sub dd t-ether" href="ether-fi.html"><span class="dd-ico"><img src="etherfi.png" alt="Ether.fi" style="width: 22px; height: 22px; object-fit: contain;"></span>Ether.fi</a></div></div>
         <a href="programa-ib.html">Programa IB</a>
         <a href="calculadora.html">Calculadora</a>
         <a href="glosario.html">Glosario</a>
@@ -344,6 +344,12 @@ customElements.define('site-header', SiteHeader);
 customElements.define('site-footer', SiteFooter);
 
 // FUNCIONES GLOBALES
+function toggleMobileGroup(btn) {
+  const open = btn.getAttribute('aria-expanded') !== 'true';
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.nextElementSibling.classList.toggle('open', open);
+}
+
 function toggleMobileNav(btn) {
   const nav = document.getElementById('mobileNav');
   if (!nav) return;
