@@ -1167,3 +1167,15 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
 /* "en vivo" del título de mercados: rojo y late como el punto de sesiones */
 .v2 .sec-markets .sec-head h2 .grad { color: #E50914 !important; -webkit-text-fill-color: #E50914 !important; animation: live-blink 2s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .v2 .sec-markets .sec-head h2 .grad { animation: none; } }
+/* Banner: nada se vuelve rojo; solo la animación de velas */
+.v2 .slide-copy h1 span, .v2 .slide-copy h1 span:hover { color: inherit !important; -webkit-text-fill-color: currentColor !important; }
+.v2 .slide-copy h1 .hl-red, .v2 .slide-copy h1 .hl-red:hover { color: #D3AC00 !important; -webkit-text-fill-color: #D3AC00 !important; }
+.v2 .slide-copy h1 .hl-red .ch { color: #D3AC00; -webkit-text-fill-color: #D3AC00; }
+/* Animación automática (celular y pantallas táctiles) */
+@media (prefers-reduced-motion: no-preference) {
+  .v2 .slide-copy h1 .hl-red.auto .ch { color: rgba(211,172,0,.14) !important; -webkit-text-fill-color: rgba(211,172,0,.14) !important; }
+  .v2 .slide-copy h1 .hl-red.auto .cd { transform: scaleY(1); opacity: 1; }
+  @media (hover: hover) { .v2 .slide-copy h1 .hl-red:hover .ch { color: rgba(211,172,0,.14) !important; -webkit-text-fill-color: rgba(211,172,0,.14) !important; } }
+}
+#hero h1 span:not(.hl-red):not(.ch):not(.cd), #hero h1 span:not(.hl-red):not(.ch):not(.cd):hover { color: #fff !important; -webkit-text-fill-color: #fff !important; }
+#hero h1 .hl-red:hover { color: #D3AC00 !important; -webkit-text-fill-color: #D3AC00 !important; }

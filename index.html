@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611032154" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611032154" />
+  <link rel="stylesheet" href="styles.css?v=202611032157" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611032157" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -171,7 +171,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611032154"></script>
+  <script src="components.js?v=202611032157"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -244,6 +244,22 @@
       document.getElementById('liveTitle').textContent = on ? 'En vivo ahora' : (innerWidth < 700 ? 'Sesiones en vivo' : 'Sesiones en vivo de lunes a viernes');
       document.getElementById('liveSub').textContent = on ? (innerWidth < 700 ? 'Oro, forex e índices · ¡Entra ya!' : 'Oro, forex e índices con gestión de riesgo. ¡Entra ya!') : (innerWidth < 700 ? '8:00 AM (NY) · Sin sesión ahora' : '8:00 AM, hora de Nueva York · Sin sesión ahora');
       setTimeout(liveStatus, 60000);
+    })();
+
+
+    // Celular / táctil: las velas aparecen solas, una palabra tras otra, y se repite
+    (() => {
+      if (matchMedia('(hover: hover)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const words = [...document.querySelectorAll('.slide-copy h1 .hl-red')];
+      if (!words.length) return;
+      let i = 0;
+      const step = () => {
+        const w = words[i % words.length];
+        w.classList.add('auto');
+        setTimeout(() => w.classList.remove('auto'), 1800);
+        i++;
+      };
+      setTimeout(() => { step(); setInterval(step, 3200); }, 1500);
     })();
 
     // ---------- Comentarios en carrusel (dos filas, sentidos contrarios) ----------
