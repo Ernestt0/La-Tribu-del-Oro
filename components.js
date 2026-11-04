@@ -475,7 +475,7 @@ document.addEventListener('keydown', (e) => {
 (function loadAuth() {
   if (window.tribuAuth) return;
   const add = (src) => new Promise((r) => { const s = document.createElement('script'); s.src = src; s.onload = r; s.onerror = r; document.head.appendChild(s); });
-  window.tribuAuthLoaded = add('supabase-config.js').then(() => add('auth.js')).then(() => {
+  window.tribuAuthLoaded = add('supabase-config.js?v=202611032032').then(() => add('auth.js?v=202611032032')).then(() => {
     const paint = () => document.querySelectorAll('.account-btn').forEach((a) => {
       const u = window.tribuAuth && tribuAuth.user;
       a.setAttribute('aria-label', u ? 'Mi cuenta' : 'Iniciar sesión');
