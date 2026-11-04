@@ -1015,3 +1015,4 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 .v2 .header .search-btn, .v2 .header .menu-toggle, .v2 .header .account-btn,
 .v2 .header.on-dark .search-btn, .v2 .header.on-dark .menu-toggle { background: transparent !important; border: 0 !important; box-shadow: none !important; }
 .v2 .header .search-btn, .v2 .header .menu-toggle, .v2 .header .account-btn { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+.v2 .sec-live { position: relative; z-index: 3; padding-top: 18px; overflow: visible; } .v2 .sec-live .container { overflow: visible; }
