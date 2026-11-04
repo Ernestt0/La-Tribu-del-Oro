@@ -189,7 +189,7 @@ class SiteHeader extends HTMLElement {
                   <span class="dd-txt"><b>Cripto</b><small>Explicado fácil</small></span>
                 </a>
                 <a href="ether-fi.html" class="dd t-ether">
-                  <span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 21 7.5 12 12.5 3 7.5z" fill="#D3AC00"/><path d="M3 12l9 5 9-5" fill="none" stroke="#D3AC00" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/><path d="M3 16.5l9 5 9-5" fill="none" stroke="#D3AC00" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/></svg></span>
+                  <span class="dd-ico"><img src="etherfi.png" alt="" width="24" height="24" style="width:24px;height:24px;object-fit:contain"></span>
                   <span class="dd-txt"><b>Ether.fi</b><small>Guía paso a paso</small></span>
                 </a>
               </div>
@@ -228,7 +228,7 @@ class SiteHeader extends HTMLElement {
         <a class="sub dd t-copy" href="copy-trading.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="13" height="13" rx="3" fill="#cfc083" opacity=".85"/><rect x="9" y="8" width="13" height="13" rx="3" fill="#a7995f"/><path d="M13 12h5m-2.5-2.5L18 12l-2.5 2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>Copy Trading</a>
         <a class="sub dd t-senales" href="senales.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#229ED9"/><path class="plane" d="M5.4 11.9l11.7-4.5c.5-.2 1 .1.8.7l-2 9.4c-.1.6-.5.7-1 .4l-2.9-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.3-4.8c.2-.2 0-.3-.3-.1l-6.6 4.1-2.8-.9c-.6-.2-.6-.6.1-.8z" fill="#fff"/></svg></span>Señales</a>
         <a class="sub dd t-cripto" href="cripto.html"><span class="dd-ico"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#F7931A"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="18" fill="#fff">₿</text></svg></span>Cripto</a>
-        <a class="sub dd t-ether" href="ether-fi.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 21 7.5 12 12.5 3 7.5z" fill="#D3AC00"/><path d="M3 12l9 5 9-5" fill="none" stroke="#D3AC00" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/><path d="M3 16.5l9 5 9-5" fill="none" stroke="#D3AC00" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/></svg></span>Ether.fi</a></div></div>
+        <a class="sub dd t-ether" href="ether-fi.html"><span class="dd-ico"><img src="etherfi.png" alt="" width="24" height="24" style="width:24px;height:24px;object-fit:contain"></span>Ether.fi</a></div></div>
         <a href="programa-ib.html">Programa IB</a>
         <a href="calculadora.html">Calculadora</a>
         <a href="glosario.html">Glosario</a>
