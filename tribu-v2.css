@@ -1210,3 +1210,8 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
 .v2 .mk-txt b { color: #fff !important; }
 .v2 .mk-txt small { color: #8b93a1 !important; }
 .v2 .mk-ch.up { color: #22c55e !important; } .v2 .mk-ch.down { color: #ef4444 !important; }
+/* Hover sin recortes: solo se recorta en horizontal, nunca arriba ni abajo */
+.v2 .mk-line { overflow: visible !important; overflow-x: clip !important; overflow-y: visible !important; padding-block: 0; margin-block: 0; }
+.v2 .mk-pill:hover { transform: translateY(-3px) !important; border-color: rgba(211,172,0,.55) !important; }
+.v2 .sec-videos .reel { overflow-y: visible; }
+.v2 .sec-videos .vcard:hover .vthumb { transform: translateY(-4px); }
