@@ -82,7 +82,7 @@ const MK_COINS = [
 class MarketRows extends HTMLElement {
   connectedCallback() {
     const rows = [MK_COINS.slice(0, 8), MK_COINS.slice(8)];
-    const pill = ([s, n, col, ic]) => `<div class="mk-pill" data-sym="${s}"><span class="mk-ico" style="background:${col}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">${s}/USDT</span> <span class="mk-ch"></span></small></span></div>`;
+    const pill = ([s, n, col, ic]) => `<a class="mk-pill" data-sym="${s}" href="https://es.tradingview.com/symbols/${s === 'PAXG' ? 'XAUUSD' : s + 'USDT'}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico" style="background:${col}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">${s}/USDT</span> <span class="mk-ch"></span></small></span></a>`;
     this.innerHTML = '<div class="mk-rows" aria-label="Precios de criptomonedas">' + rows.map((r, i) => {
       const set = r.map(pill).join('');
       return `<div class="mk-line${i ? ' mk-rev' : ''}"><div class="mk-track">${set}${set.replace(/class="mk-pill"/g, 'class="mk-pill" aria-hidden="true"')}</div></div>`;
