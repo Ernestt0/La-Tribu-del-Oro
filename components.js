@@ -73,7 +73,7 @@ function mountTicker(container, symbols) {
 // Precios en vivo desde la API pública de Binance; si no carga, se muestran los activos sin precio.
 // Top 10 cripto (sin stablecoins) y principales pares de forex
 const MK_COINS = [
-  ['BTC', 'Bitcoin', '#F7931A', '₿'], ['ETH', 'Ethereum', '#627EEA', 'Ξ'], ['XRP', 'XRP', '#23292F', 'X'],
+  ['BTC', 'Bitcoin', '#F7931A', '₿'], ['ETH', 'Ethereum', '#627EEA', '<svg viewBox="0 0 24 24" width="58%" height="58%" aria-hidden="true"><path fill="#fff" d="M12 2 5.8 12.3 12 16l6.2-3.7z"/><path fill="#fff" opacity=".6" d="M12 17.2 5.8 13.5 12 22l6.2-8.5z"/><path fill="#c9d1f7" d="M12 2v14l6.2-3.7z"/></svg>'], ['XRP', 'XRP', '#23292F', 'X'],
   ['BNB', 'BNB', '#F3BA2F', 'B'], ['SOL', 'Solana', '#9945FF', 'S'], ['DOGE', 'Dogecoin', '#C2A633', 'Ð'],
   ['ADA', 'Cardano', '#0033AD', '₳'], ['TRX', 'TRON', '#EB0029', 'T'], ['LINK', 'Chainlink', '#2A5ADA', '⬡'], ['AVAX', 'Avalanche', '#E84142', 'A']
 ];
@@ -85,7 +85,7 @@ const MK_FX = [
 class MarketRows extends HTMLElement {
   connectedCallback() {
     const cpill = ([s, n, col, ic]) => `<a class="mk-pill" data-sym="${s}" href="https://es.tradingview.com/symbols/${s}USDT/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico" style="background:${col}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">${s}/USDT</span> <span class="mk-ch"></span></small></span></a>`;
-    const fpill = ([s, n, ic]) => `<a class="mk-pill" data-fx="${s}" href="https://es.tradingview.com/symbols/${s === 'XAUUSD' ? 'OANDA-XAUUSD' : 'FX-' + s}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico mk-flag" style="background:${s === 'XAUUSD' ? '#D3AC00' : '#1f2430'}">${ic.length === 2 ? `<img src="https://flagcdn.com/w80/${ic}.png" alt="" loading="lazy">` : ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">Forex</span> <span class="mk-ch"></span></small></span></a>`;
+    const fpill = ([s, n, ic]) => `<a class="mk-pill" data-fx="${s}" href="https://es.tradingview.com/symbols/${s === 'XAUUSD' ? 'OANDA-XAUUSD' : 'FX-' + s}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico mk-flag" style="background:${s === 'XAUUSD' ? '#D3AC00' : '#1f2430'}">${s === 'XAUUSD' ? '<svg viewBox="0 0 24 24" width="62%" height="62%" aria-hidden="true"><path fill="#fff6c8" d="M7 6h10l2 5H5z"/><path fill="#fff" d="M3.5 13h7.5l1.5 5H2z" opacity=".95"/><path fill="#fff" d="M13 13h7.5l1.5 5h-10.5z" opacity=".85"/></svg>' : `<img src="https://flagcdn.com/w80/${ic}.png" alt="" loading="lazy">`}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">Forex</span> <span class="mk-ch"></span></small></span></a>`;
     const line = (set, rev) => `<div class="mk-line${rev ? ' mk-rev' : ''}"><div class="mk-track">${set}${set.replace(/class="mk-pill"/g, 'class="mk-pill" aria-hidden="true" tabindex="-1"')}</div></div>`;
     const compact = this.hasAttribute('compact');
     if (compact) {
