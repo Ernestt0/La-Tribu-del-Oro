@@ -521,3 +521,9 @@ document.addEventListener('keydown', (e) => {
     location.href = 'registro.html?next=' + encodeURIComponent(page);
   }, true);
 })();
+
+// Cápsula del menú: invisible arriba del todo, aparece al bajar
+(function headerCapsule() {
+  const upd = () => { const h = document.querySelector('.header'); if (h) h.classList.toggle('scrolled', scrollY > 20); };
+  addEventListener('scroll', upd, { passive: true }); addEventListener('load', upd); setTimeout(upd, 50);
+})();
