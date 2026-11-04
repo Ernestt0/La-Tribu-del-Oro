@@ -22,7 +22,7 @@
     <div class="slide on" data-video="" data-scene="velas">
       <div class="slide-copy">
         <h1>Domina el <span class="hl-red">trading</span> y las <span class="hl-red">cripto</span>, paso a paso</h1>
-        <p>Videos gratis, herramientas claras y una comunidad que te acompaña para que operes con criterio, no con suerte.</p>
+        <p>Videos prácticos, herramientas claras y una comunidad que te acompaña para que operes con criterio, no con suerte.</p>
         <div class="actions">
           <a href="videos.html" class="btn btn-red">Empieza ahora</a>
         </div>
@@ -80,7 +80,7 @@
           <li class="how-step">
             <span class="how-node" aria-hidden="true">1</span>
             <span class="how-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path class="ic ic-play" d="M10.5 8.6v4.8l4-2.4z"/><path class="ic ic-bar" d="M7 16.2h10" pathLength="1"/></svg></span>
-            <h3>Mira los videos gratis</h3>
+            <h3>Mira los videos</h3>
             <p>Entiende lo básico del trading y las cripto sin costo.</p>
             <a href="videos.html">Ir a los videos</a>
           </li>
@@ -110,11 +110,11 @@
     </div>
   </section>
 
-  <!-- 7. VIDEOS GRATIS (debajo de los 3 pasos; el primero es la introducción) -->
-  <section class="sec sec-videos" id="videos-gratis" aria-label="Videos gratis para empezar hoy">
+  <!-- 7. VIDEOS (debajo de los 3 pasos; el primero es la introducción) -->
+  <section class="sec sec-videos" id="videos-gratis" aria-label="Videos para empezar hoy">
     <div class="container">
       <div class="reel-head">
-        <div class="sec-head"><span class="eyebrow">100% gratis · Sin registro</span><h2>Videos gratis para empezar hoy</h2></div>
+        <div class="sec-head"><span class="eyebrow">Empieza aquí</span><h2>Videos para empezar hoy</h2></div>
         <div class="reel-nav"><a href="videos.html" class="reel-all">Ver todos →</a><button onclick="reel(-1)" aria-label="Anterior">←</button><button onclick="reel(1)" aria-label="Siguiente">→</button></div>
       </div>
       <div class="reel" id="videoTrack"></div>
@@ -151,11 +151,11 @@
     <div class="container">
       <div class="cta cta-compact">
         <div class="cta-text">
-          <h2>Tu primer paso es gratis</h2>
+          <h2>Tu primer paso empieza hoy</h2>
           <p>Mira los videos, entiende el mercado y avanza con la comunidad a tu ritmo.</p>
         </div>
         <div class="actions">
-          <a href="videos.html" class="btn btn-red">Ver videos gratis</a>
+          <a href="videos.html" class="btn btn-red">Ver los videos</a>
           <a href="ayuda.html" class="btn btn-line">Contáctanos</a>
         </div>
       </div>
@@ -208,6 +208,19 @@
     const fallback = () => { const c = document.createElement('canvas'); c.setAttribute('aria-hidden', 'true'); sl.prepend(c); scene(c, sl.dataset.scene); };
     if (src) { const v = document.createElement('video'); Object.assign(v, { src, muted: true, loop: true, playsInline: true, autoplay: true }); v.setAttribute('aria-hidden', 'true'); v.onerror = () => { v.remove(); fallback(); }; sl.prepend(v); } else fallback();
 
+
+
+    // ---------- Banner: las palabras destacadas se convierten en velas al pasar el cursor ----------
+    document.querySelectorAll('.slide-copy h1 .hl-red').forEach((w) => {
+      const txt = w.textContent; w.setAttribute('aria-label', txt);
+      let seed = txt.length * 7;
+      const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+      w.innerHTML = [...txt].map((ch, i) => {
+        const up = rnd() > 0.35, h = (0.35 + rnd() * 0.45).toFixed(2), o = (rnd() * 0.25).toFixed(2);
+        const c = up ? '#D3AC00' : '#ffffff';
+        return `<span class="ch" aria-hidden="true" style="--i:${i}">${ch}<i class="cd" style="--h:${h}em;--o:${o}em;--c:${c}"></i></span>`;
+      }).join('');
+    });
 
     // ---------- Comentarios en carrusel (dos filas, sentidos contrarios) ----------
     // Para agregar uno: copia un bloque de la lista. Las palabras entre **dobles asteriscos** salen en negro.

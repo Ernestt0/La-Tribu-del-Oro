@@ -928,3 +928,16 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 @media (hover: hover) {
   .v2 :is(h1, h2, h3) span:not([class*="ico"]):not(.eyebrow):hover, .v2 .hero-title span:hover, .v2 .page-title span:hover, .v2 .slide-copy h1 .hl-red:hover { color: #E50914 !important; -webkit-text-fill-color: #E50914; }
 }
+
+/* ===== Banner: "trading" y "cripto" siguen dorados y al pasar el cursor se convierten en velas ===== */
+@media (hover: hover) { .v2 .slide-copy h1 .hl-red:hover { color: #D3AC00 !important; -webkit-text-fill-color: #D3AC00 !important; } }
+.v2 .slide-copy h1 .hl-red { display: inline-block; white-space: nowrap; cursor: default; }
+.v2 .hl-red .ch { position: relative; display: inline-block; transition: color .3s ease, -webkit-text-fill-color .3s ease; transition-delay: calc(var(--i) * 28ms); }
+.v2 .hl-red .cd { position: absolute; left: 50%; bottom: calc(18% + var(--o)); width: .26em; height: var(--h); margin-left: -.13em; border-radius: 2px;
+  background: var(--c); box-shadow: 0 0 18px -2px var(--c); transform: scaleY(0); transform-origin: 50% 100%; opacity: 0; pointer-events: none;
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1), opacity .2s ease; transition-delay: calc(var(--i) * 40ms); }
+.v2 .hl-red .cd::before { content: ""; position: absolute; left: 50%; top: -22%; bottom: -22%; width: 2px; margin-left: -1px; background: var(--c); border-radius: 1px; z-index: -1; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .v2 .slide-copy h1 .hl-red:hover .ch { color: rgba(211,172,0,.14) !important; -webkit-text-fill-color: rgba(211,172,0,.14) !important; }
+  .v2 .slide-copy h1 .hl-red:hover .cd { transform: scaleY(1); opacity: 1; }
+}

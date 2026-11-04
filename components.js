@@ -138,7 +138,7 @@ class SiteHeader extends HTMLElement {
             }">Inicio</a>
             <a href="videos.html" class="nav-link ${
               activePage === 'videos' ? 'active' : ''
-            }">Videos gratis</a>
+            }">Videos</a>
             
             <div class="nav-dropdown">
               <button class="nav-dropdown-btn ${
@@ -206,7 +206,7 @@ class SiteHeader extends HTMLElement {
       <!-- MENÚ MÓVIL -->
       <nav class="mobile-nav" id="mobileNav" aria-label="Menú principal">
         <a href="index.html">Inicio</a>
-        <a href="videos.html">Videos gratis</a>
+        <a href="videos.html">Videos</a>
         <span class="mobile-label">Soluciones</span>
         <a class="sub dd t-curso" href="curso.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="#e5b909"/><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" fill="#e5b909" opacity=".75"/></svg></span>Curso</a>
         <a class="sub dd t-copy" href="copy-trading.html"><span class="dd-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="13" height="13" rx="3" fill="#cfc083" opacity=".85"/><rect x="9" y="8" width="13" height="13" rx="3" fill="#a7995f"/><path d="M13 12h5m-2.5-2.5L18 12l-2.5 2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>Copy Trading</a>
@@ -253,7 +253,7 @@ class SiteFooter extends HTMLElement {
               <h4 class="footer-col-title">Navegación</h4>
               <ul class="footer-links">
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="videos.html">Videos gratis</a></li>
+                <li><a href="videos.html">Videos</a></li>
                 <li><a href="programa-ib.html">Programa IB</a></li>
                 <li><a href="calculadora.html">Calculadora</a></li>
                 <li><a href="glosario.html">Glosario</a></li>
@@ -330,7 +330,7 @@ class SiteFooter extends HTMLElement {
             <a href="ayuda.html#faq" class="search-result-item"><span>Centro de Ayuda / Preguntas Frecuentes</span> <span style="font-size: 11px; color:#64748B;">Recurso</span></a>
             <a href="ayuda.html#terminos" class="search-result-item"><span>Términos y Condiciones</span> <span style="font-size: 11px; color:#64748B;">Legal</span></a>
             <a href="ayuda.html#riesgos" class="search-result-item"><span>Aviso Legal de Riesgos</span> <span style="font-size: 11px; color:#64748B;">Legal</span></a>
-            <a href="videos.html" class="search-result-item"><span>Videos educativos gratis</span> <span style="font-size: 11px; color:#64748B;">Contenido</span></a>
+            <a href="videos.html" class="search-result-item"><span>Videos educativos</span> <span style="font-size: 11px; color:#64748B;">Contenido</span></a>
             <a href="programa-ib.html" class="search-result-item"><span>Programa de Aliados IB</span> <span style="font-size: 11px; color:#64748B;">Alianza</span></a>
             <a href="glosario.html" class="search-result-item"><span>Glosario de términos</span> <span style="font-size: 11px; color:#64748B;">Diccionario</span></a>
           </div>
