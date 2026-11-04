@@ -1309,3 +1309,8 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
 @keyframes av-blink { 0%, 44%, 48%, 92%, 96%, 100% { transform: scaleY(1); } 46%, 94% { transform: scaleY(.1); } }
 @keyframes av-brows { 0%, 15%, 35%, 100% { transform: translateY(0); } 22%, 28% { transform: translateY(-1.4px); } }
 @keyframes av-smile { 0%, 15%, 40%, 100% { transform: scale(1); } 22%, 33% { transform: scale(1.25, 1.35); } }
+/* Avatar sobrio: solo un leve movimiento de cabeza y parpadeo natural */
+.v2 .live-host .av-head { animation: av-nod 7s ease-in-out infinite !important; transform-origin: 50% 100%; }
+.v2 .live-host .av-eyes { animation: av-blink 5s infinite !important; }
+.v2 .live-wave { display: none; }
+@keyframes av-nod { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-2.5deg); } 60% { transform: rotate(1.5deg); } }
