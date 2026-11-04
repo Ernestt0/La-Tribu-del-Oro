@@ -1021,3 +1021,19 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 .v2 .bento-media .ico, .v2 .path .ico { background: none !important; box-shadow: none !important; border: 0 !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 .v2 .bento-media .ico svg { width: 34px; height: 34px; }
 .v2 .bento-media .ico, .v2 .path .ico { background-image: none !important; }
+
+/* ===== Burbuja: alterna entre WhatsApp y Telegram ===== */
+.v2 .contact-fab .cf-main { animation: cf-bg 6s ease-in-out infinite; overflow: hidden; }
+.v2 .contact-fab .cf-main svg.cf-chat { width: 28px; height: 28px; }
+.v2 .contact-fab .cf-i-wa { animation: cf-swap-a 6s cubic-bezier(.34,1.56,.64,1) infinite; }
+.v2 .contact-fab .cf-i-tg { animation: cf-swap-b 6s cubic-bezier(.34,1.56,.64,1) infinite; }
+@keyframes cf-bg { 0%, 42% { background: #25d366; } 50%, 92% { background: #229ed9; } 100% { background: #25d366; } }
+@keyframes cf-swap-a { 0%, 42% { opacity: 1; transform: none; } 50%, 92% { opacity: 0; transform: translateY(-120%) rotate(-25deg) scale(.6); } 100% { opacity: 1; transform: none; } }
+@keyframes cf-swap-b { 0%, 42% { opacity: 0; transform: translateY(120%) rotate(25deg) scale(.6); } 50%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(120%) rotate(25deg) scale(.6); } }
+/* Abierta: se detiene y muestra la X sobre fondo oscuro */
+.v2 .contact-fab.open .cf-main { animation: none; background: #0b0b0f !important; }
+.v2 .contact-fab.open .cf-chat { animation: none !important; opacity: 0 !important; transform: scale(.5) !important; }
+@media (prefers-reduced-motion: reduce) { .v2 .contact-fab .cf-main, .v2 .contact-fab .cf-i-wa, .v2 .contact-fab .cf-i-tg { animation: none; } .v2 .contact-fab .cf-i-tg { opacity: 0; } }
+.v2 .contact-fab .cf-main { background: transparent !important; animation: none; isolation: isolate; }
+.v2 .contact-fab .cf-main::before { content: ""; position: absolute; inset: 0; border-radius: 50%; z-index: -1; animation: cf-bg 6s ease-in-out infinite; }
+.v2 .contact-fab.open .cf-main::before { animation: none; background: #0b0b0f; }
