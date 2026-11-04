@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611041842" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611041842" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611041842" />
+    <link rel="stylesheet" href="styles.css?v=202611041850" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611041850" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611041850" />
     <style>
       /* HERO PROGRAMA IB */
       .ib-hero {
@@ -198,6 +198,7 @@
         background: radial-gradient(42% 62% at 90% 6%, rgba(223,183,72,.3), transparent 70%), radial-gradient(36% 52% at 3% 96%, rgba(229, 185, 9,.12), transparent 70%); }
       body.page .ib-tag { color: #8a6a12; border-color: rgba(197,155,39,.45); }
       body.page .ib-hero .hero-title span { background: linear-gradient(90deg, #8a6a12, #c59b27 50%, #e5b909); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      body.page .ib-hero .hero-video-box { position: relative; } body.page .ib-hero .hero-video-box img { object-fit: cover; }
       body.page .ib-hero .hero-video-box { box-shadow: 0 30px 60px -28px rgba(138,106,18,.55); border-color: rgba(223,183,72,.5); }
       body.page .ib-hero .cls-pills { margin-top: 24px; }
       body.page .ib-hero .cls-pills li { border-color: rgba(197,155,39,.35); color: #8a6a12; }
@@ -279,11 +280,12 @@
           </div>
           <div
             class="hero-video-box"
-            onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
+            id="ibMainVideo"
+            role="button" tabindex="0" aria-label="Reproducir: Programa IB"
           >
             <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
-              alt="Alianzas y programa IB"
+              src="https://i.ytimg.com/vi/5LJ2r2_rPcI/hqdefault.jpg"
+              alt="Video del Programa IB de La Tribu del Oro"
             />
             <div class="hero-play-btn">
               <svg viewBox="0 0 24 24">
@@ -606,8 +608,16 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611041842"></script>
+    <script src="components.js?v=202611041850"></script>
     <script>
+      // Video principal del Programa IB: se reproduce dentro del mismo recuadro
+      (() => {
+        const box = document.getElementById('ibMainVideo');
+        const go = () => { if (box.dataset.on) return; box.dataset.on = 1;
+          box.innerHTML = '<iframe src="https://www.youtube.com/embed/5LJ2r2_rPcI?autoplay=1&rel=0&playsinline=1" title="Programa IB" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>'; };
+        box.addEventListener('click', go); box.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+      })();
+
       // DATOS DE LOS VIDEOS DEL PROGRAMA IB
       const ibVideos = [
         {
