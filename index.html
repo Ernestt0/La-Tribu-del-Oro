@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611032113" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611032113" />
+  <link rel="stylesheet" href="styles.css?v=202611032115" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611032115" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -171,7 +171,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611032113"></script>
+  <script src="components.js?v=202611032115"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -218,13 +218,15 @@
 
 
     // ---------- Banner: las palabras destacadas se convierten en velas al pasar el cursor ----------
-    document.querySelectorAll('.slide-copy h1 .hl-red').forEach((w) => {
+    document.querySelectorAll('.slide-copy h1 .hl-red').forEach((w, wi) => {
       const txt = w.textContent; w.setAttribute('aria-label', txt);
-      let seed = txt.length * 7;
+      let seed = 11 + wi * 31;
       const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+      const COL = ['#D3AC00', '#ffffff', '#D3AC00', '#D3AC00', '#ffffff', '#ffffff', '#D3AC00', '#ffffff'];
       w.innerHTML = [...txt].map((ch, i) => {
-        const up = rnd() > 0.35, h = (0.35 + rnd() * 0.45).toFixed(2), o = (rnd() * 0.25).toFixed(2);
-        const c = up ? '#D3AC00' : '#ffffff';
+        // La segunda palabra crece hacia abajo: velas más cortas para no tocar el texto de abajo
+        const h = (wi ? 0.22 + rnd() * 0.26 : 0.35 + rnd() * 0.45).toFixed(2), o = (rnd() * (wi ? 0.1 : 0.25)).toFixed(2);
+        const c = COL[(i + wi * 3) % COL.length];
         return `<span class="ch" aria-hidden="true" style="--i:${i}">${ch}<i class="cd" style="--h:${h}em;--o:${o}em;--c:${c}"></i></span>`;
       }).join('');
     });
