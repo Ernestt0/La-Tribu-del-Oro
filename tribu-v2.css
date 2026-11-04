@@ -1131,3 +1131,9 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 }
 @media (max-width: 700px) { .v2 .hero-slider { min-height: calc(100svh - 140px); } }
 @media (max-width: 700px) { .v2 .hero-slider { min-height: calc(100svh - 225px); } }
+@media (max-width: 700px) {
+  .v2 .sec-live .live-strip h3, .v2 .sec-live .live-strip p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .v2 .sec-live .live-strip h3 > span:last-child { overflow: hidden; text-overflow: ellipsis; }
+  .v2 .sec-live .live-strip h3 { font-size: 16.5px; align-items: center; } .v2 .sec-live .live-strip .live-dot { margin-top: 0; }
+}
+@media (max-width: 700px) { .v2 .hero-slider { min-height: calc(100svh - 189px); } }
