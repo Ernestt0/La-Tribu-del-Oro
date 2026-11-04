@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611041852" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611041852" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611041852" />
+    <link rel="stylesheet" href="styles.css?v=202611041857" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611041857" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611041857" />
     <style>
       /* HERO PROGRAMA IB */
       .ib-hero {
@@ -236,11 +236,6 @@
       .ib-apply .ib-form-box { margin: 0 !important; max-width: none; }
       @media (max-width: 900px) { .ib-apply { grid-template-columns: 1fr; gap: 28px; margin-top: 48px; } }
 
-      /* Video IB: trae franjas negras grabadas (imagen ~1:1 al centro) → recuadro cuadrado que las recorta */
-      body.page .ib-hero #ibMainVideo { aspect-ratio: 1 / 1; width: min(460px, 100%); margin-inline: auto; overflow: hidden; padding: 0; }
-      body.page .ib-hero #ibMainVideo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.34); }
-      body.page .ib-hero #ibMainVideo iframe { left: 50% !important; width: 177.78% !important; transform: translateX(-50%); }
-      body.page .ib-hero .hero-video-wrapper { max-width: 520px; margin-inline: auto; }
     </style>
   </head>
   <body class="v2 page">
@@ -614,13 +609,13 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611041852"></script>
+    <script src="components.js?v=202611041857"></script>
     <script>
       // Video principal del Programa IB: se reproduce dentro del mismo recuadro
       (() => {
         const box = document.getElementById('ibMainVideo');
         const go = () => { if (box.dataset.on) return; box.dataset.on = 1;
-          box.innerHTML = '<iframe src="https://www.youtube.com/embed/5LJ2r2_rPcI?autoplay=1&rel=0&playsinline=1" title="Programa IB" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;top:0;bottom:0;left:50%;width:177.78%;height:100%;transform:translateX(-50%);border:0;max-width:none"></iframe>'; };
+          box.innerHTML = '<iframe src="https://www.youtube.com/embed/5LJ2r2_rPcI?autoplay=1&rel=0&playsinline=1" title="Programa IB" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>'; };
         box.addEventListener('click', go); box.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
       })();
 

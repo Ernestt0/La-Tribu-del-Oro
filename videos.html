@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611041852">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611041852">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611041852">
+  <link rel="stylesheet" href="styles.css?v=202611041857">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611041857">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611041857">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -116,9 +116,9 @@
 
     /* El video "horizontal" trae bordes negros grabados (imagen ~1:1 al centro): se recorta para mostrar solo la imagen */
     @media (min-width: 701px) {
-      .vx-hero-grid { grid-template-columns: auto 1fr !important; }
-      .vx-player { aspect-ratio: 1 / 1 !important; width: min(460px, 42vw) !important; justify-self: center; overflow: hidden; }
-      .vx-player .vx-frame { left: 50% !important; width: 177.78% !important; height: 100%; transform: translateX(-50%) !important; background-size: cover; }
+      .vx-hero-grid { grid-template-columns: 1.35fr 1fr !important; }
+      .vx-player { aspect-ratio: 16 / 9 !important; width: 100% !important; overflow: hidden; }
+      .vx-player .vx-frame { left: 0 !important; width: 100% !important; height: 100%; transform: none !important; background-size: cover; }
     }
     /* Celular: el video vertical llena exactamente el recuadro 9:16 */
     @media (max-width: 700px) { .vx-player { overflow: hidden; } .vx-player .vx-frame { inset: 0; width: 100% !important; height: 100% !important; aspect-ratio: auto; } }
@@ -168,7 +168,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611041852"></script>
+  <script src="components.js?v=202611041857"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
