@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611041626" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611041626" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611041626" />
+    <link rel="stylesheet" href="styles.css?v=202611041656" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611041656" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611041656" />
     <style>
       /* HERO PROGRAMA IB */
       .ib-hero {
@@ -222,6 +222,18 @@
       }
       @media (prefers-reduced-motion: no-preference) { .ib-field.filled::after { animation: pg-in .25s ease backwards; } }
       @media (max-width: 700px) { .ib-steps { grid-template-columns: 1fr; } .ib-steps li { flex-direction: row; text-align: left; } body.page .ib-form-box { padding: 26px 20px; } }
+
+      /* ===== Pasos al lado del formulario ===== */
+      .ib-apply { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; max-width: 1100px; margin: 64px auto 0; }
+      .ib-apply-tag { display: inline-block; padding: 5px 12px; border-radius: 999px; background: #fbf5e3; color: #8a6a00; font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+      .ib-apply-side h2 { font-size: clamp(26px, 3vw, 36px); line-height: 1.1; margin: 14px 0 26px; }
+      .ib-apply .ib-steps { max-width: none; margin: 0; grid-template-columns: 1fr; gap: 14px; }
+      .ib-apply .ib-steps li { flex-direction: row; align-items: center; text-align: left; gap: 16px; padding: 20px 22px; }
+      .ib-apply .ib-steps li .ib-n { flex: none; width: 44px; height: 44px; font-size: 18px; }
+      .ib-apply .ib-steps b { font-size: 17px; margin-bottom: 4px; }
+      .ib-apply .ib-steps span:not(.ib-n) { font-size: 14.5px; }
+      .ib-apply .ib-form-box { margin: 0 !important; max-width: none; }
+      @media (max-width: 900px) { .ib-apply { grid-template-columns: 1fr; gap: 28px; margin-top: 48px; } }
     </style>
   </head>
   <body class="v2 page">
@@ -507,11 +519,16 @@
         </div>
 
         <!-- FORMULARIO DE POSTULACIÓN -->
-        <ol class="ib-steps" aria-label="Cómo funciona la asesoría">
+        <div class="ib-apply">
+          <div class="ib-apply-side">
+            <span class="ib-apply-tag">Así funciona</span>
+            <h2>De tu solicitud a tu enlace en 3 pasos</h2>
+            <ol class="ib-steps" aria-label="Cómo funciona la asesoría">
           <li><span class="ib-n">1</span><div><b>Completa tus datos</b><span>Nombre, WhatsApp y tu comunidad.</span></div></li>
           <li><span class="ib-n">2</span><div><b>Te escribimos por WhatsApp</b><span>En menos de 24 horas hábiles.</span></div></li>
           <li><span class="ib-n">3</span><div><b>Configuras tu enlace</b><span>Un gestor te acompaña en el proceso.</span></div></li>
         </ol>
+          </div>
         <div class="ib-form-box" id="contacto-ib">
           <h3
             style="
@@ -581,6 +598,7 @@
             </button>
           </form>
         </div>
+        </div>
       </div>
     </section>
 
@@ -588,7 +606,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611041626"></script>
+    <script src="components.js?v=202611041656"></script>
     <script>
       // DATOS DE LOS VIDEOS DEL PROGRAMA IB
       const ibVideos = [
