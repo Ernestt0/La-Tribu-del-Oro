@@ -954,3 +954,8 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 .v2 .mobile-nav .m-group.open .m-group-in a:nth-child(2) { transition-delay: .04s } .v2 .mobile-nav .m-group.open .m-group-in a:nth-child(3) { transition-delay: .08s }
 .v2 .mobile-nav .m-group.open .m-group-in a:nth-child(4) { transition-delay: .12s } .v2 .mobile-nav .m-group.open .m-group-in a:nth-child(5) { transition-delay: .16s }
 .v2 .mobile-nav .m-group-btn { font-family: inherit; font-size: 17px; font-weight: 600; }
+
+/* Íconos de Soluciones: solo vector, sin fondo */
+.v2 .dd .dd-ico, .v2 .mobile-nav a.sub.dd .dd-ico { background: none !important; box-shadow: none !important; border: 0 !important; width: 28px; height: 28px; border-radius: 0; }
+.v2 .dd .dd-ico svg { width: 24px; height: 24px; }
+.v2 .dropdown-menu a.dd:hover .dd-ico { box-shadow: none !important; transform: scale(1.12); }
