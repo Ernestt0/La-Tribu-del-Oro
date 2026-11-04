@@ -30,7 +30,7 @@
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color:#D3AC00;
-        background: #fee2e2;
+        background: #fef8e2;
         padding: 4px 12px;
         border-radius: 20px;
         margin-bottom: 16px;
@@ -38,7 +38,7 @@
 
       /* BOTÓN DE REFERIDO DESTACADO */
       .btn-referral {
-        background: #e50914;
+        background: #e5b909;
         color: #ffffff;
         font-size: 15px;
         font-weight: 700;
@@ -48,12 +48,12 @@
         align-items: center;
         gap: 10px;
         transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-        box-shadow: 0 4px 16px rgba(229, 9, 20, 0.35);
+        box-shadow: 0 4px 16px rgba(229, 185, 9, 0.35);
       }
       .btn-referral:hover {
-        background: #c40811;
+        background: #c49e08;
         transform: translateY(-2px);
-        box-shadow: 0 6px 22px rgba(229, 9, 20, 0.45);
+        box-shadow: 0 6px 22px rgba(229, 185, 9, 0.45);
       }
 
       /* SECCIÓN DE VIDEOS EXPLICATIVOS */
@@ -87,7 +87,7 @@
       .video-info-box {
         background: #ffffff;
         padding: 24px;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #f0ede2;
         border-top: none;
         border-radius: 0 0 18px 18px;
       }
@@ -104,26 +104,26 @@
         gap: 14px;
         padding: 18px 20px;
         background: #ffffff;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #f0ede2;
         border-radius: 14px;
         cursor: pointer;
         text-align: left;
         transition: all 0.2s ease;
       }
       .video-tab-btn:hover {
-        background: #f8fafc;
-        border-color: #cbd5e1;
+        background: #fcfbf8;
+        border-color: #e1ddcb;
       }
       .video-tab-btn.active {
-        background: #fff1f2;
-        border-color: #e50914;
-        box-shadow: 0 4px 14px rgba(229, 9, 20, 0.08);
+        background: #fffcf1;
+        border-color: #e5b909;
+        box-shadow: 0 4px 14px rgba(229, 185, 9, 0.08);
       }
       .tab-icon-box {
         width: 36px;
         height: 36px;
         border-radius: 10px;
-        background: #f1f5f9;
+        background: #f9f7f1;
         color: #0f172a;
         display: flex;
         align-items: center;
@@ -133,7 +133,7 @@
         font-size: 13px;
       }
       .video-tab-btn.active .tab-icon-box {
-        background: #e50914;
+        background: #e5b909;
         color: #ffffff;
       }
 
@@ -146,7 +146,7 @@
       }
       .step-card {
         background: #ffffff;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #f0ede2;
         border-radius: 16px;
         padding: 28px 22px;
         position: relative;
@@ -179,51 +179,51 @@
       }
 
       /* ===== Identidad Ether.fi: paleta morada del logo ===== */
-      body.page { --efi: #655fa7; --efi-d: #52498f; --efi-l: #8a83cf; }
+      body.page { --efi: #a7995f; --efi-d: #8f8149; --efi-l: #cfc083; }
       body.page .efi-hero { position: relative; isolation: isolate; overflow: hidden; }
       body.page .efi-hero::before {
         content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
         background:
-          radial-gradient(42% 62% at 88% 8%, rgba(101,95,167,.24), transparent 70%),
-          radial-gradient(36% 52% at 4% 92%, rgba(138,131,207,.18), transparent 70%);
+          radial-gradient(42% 62% at 88% 8%, rgba(167, 153, 95,.24), transparent 70%),
+          radial-gradient(36% 52% at 4% 92%, rgba(207, 192, 131,.18), transparent 70%);
       }
-      body.page .efi-tag { color: var(--efi-d); border-color: rgba(101,95,167,.35); }
-      body.page .efi-hero .hero-title span { background: linear-gradient(90deg, #52498f, #8a83cf 55%, #52498f); -webkit-background-clip: text; background-clip: text; color: transparent; }
-      body.page .efi-hero .hero-video-box { box-shadow: 0 30px 60px -28px rgba(82,73,143,.6); border-color: rgba(168,162,235,.5); }
+      body.page .efi-tag { color: var(--efi-d); border-color: rgba(167, 153, 95,.35); }
+      body.page .efi-hero .hero-title span { background: linear-gradient(90deg, #8f8149, #cfc083 55%, #8f8149); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      body.page .efi-hero .hero-video-box { box-shadow: 0 30px 60px -28px rgba(143, 129, 73,.6); border-color: rgba(235, 220, 162,.5); }
       .efi-pillars { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; padding: 0; }
       .efi-pillars li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--efi-d);
-        background: rgba(255,255,255,.65); border: 1px solid rgba(101,95,167,.25); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 1px 0 #fff; }
+        background: rgba(255,255,255,.65); border: 1px solid rgba(167, 153, 95,.25); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 1px 0 #fff; }
       .efi-pillars svg { width: 18px; height: 18px; color: var(--efi); }
 
       .efi-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
       .efi-why-card { padding: 24px; border-radius: 24px; background: rgba(255,255,255,.62); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
-        border: 1px solid rgba(255,255,255,.85); box-shadow: 0 14px 34px -22px rgba(82,73,143,.45), inset 0 1px 0 rgba(255,255,255,.9); transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease; }
+        border: 1px solid rgba(255,255,255,.85); box-shadow: 0 14px 34px -22px rgba(143, 129, 73,.45), inset 0 1px 0 rgba(255,255,255,.9); transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease; }
       .efi-why-card h3 { font-size: 17px; font-weight: 800; margin: 16px 0 6px; }
       .efi-why-card p { font-size: 14px; color: #64748b; line-height: 1.6; }
       .efi-ico { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; color: var(--efi-d);
-        background: linear-gradient(160deg, rgba(237,235,251,.95), rgba(101,95,167,.22)); transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease; }
+        background: linear-gradient(160deg, rgba(251, 248, 235,.95), rgba(167, 153, 95,.22)); transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease; }
       .efi-ico svg { width: 30px; height: 30px; overflow: visible; }
       .efi-ico svg * { transform-box: fill-box; transform-origin: center; }
 
       /* Pasos con línea guía y tarjetas moradas */
       body.page .steps-grid { position: relative; }
-      body.page .steps-grid::before { content: ''; position: absolute; top: 54px; left: 16%; right: 16%; border-top: 2px dashed rgba(101,95,167,.35); }
+      body.page .steps-grid::before { content: ''; position: absolute; top: 54px; left: 16%; right: 16%; border-top: 2px dashed rgba(167, 153, 95,.35); }
       body.page .step-card { z-index: 1; padding: 24px 22px; border-radius: 24px; }
       body.page .step-card .efi-ico { display: grid; margin-bottom: 14px; }
-      body.page .step-number { display: table; padding: 3px 11px; border-radius: 999px; background: rgba(101,95,167,.12); color: var(--efi-d); letter-spacing: .03em; text-transform: none; font-size: 12.5px; margin-bottom: 10px; }
+      body.page .step-number { display: table; padding: 3px 11px; border-radius: 999px; background: rgba(167, 153, 95,.12); color: var(--efi-d); letter-spacing: .03em; text-transform: none; font-size: 12.5px; margin-bottom: 10px; }
 
       /* Banner final en morado profundo, igual que la marca */
       body.page .referral-banner { position: relative; isolation: isolate; overflow: hidden;
-        background: radial-gradient(100% 140% at 0% 0%, #4a4390 0%, #2a2552 50%, #14122b 100%) !important; border: 1px solid rgba(168,162,235,.4);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 30px 60px -30px rgba(82,73,143,.75); }
-      body.page .referral-banner::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 80% at 90% 0%, rgba(168,162,235,.28), transparent 65%); pointer-events: none; }
+        background: radial-gradient(100% 140% at 0% 0%, #908143 0%, #2a2552 50%, #14122b 100%) !important; border: 1px solid rgba(235, 220, 162,.4);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 30px 60px -30px rgba(143, 129, 73,.75); }
+      body.page .referral-banner::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 80% at 90% 0%, rgba(235, 220, 162,.28), transparent 65%); pointer-events: none; }
       body.page .referral-banner p { color: rgba(255,255,255,.78) !important; }
       body.page .referral-banner .btn-referral { background: rgba(255,255,255,.16); color: #fff; border-color: rgba(255,255,255,.5); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
       body.page .referral-banner .btn-referral:hover { background: rgba(255,255,255,.26); color: #fff; }
 
       @media (hover: hover) {
-        .efi-why-card:hover { transform: translateY(-4px); box-shadow: 0 24px 44px -22px rgba(82,73,143,.5), inset 0 1px 0 #fff; }
-        .efi-why-card:hover .efi-ico, body.page .step-card:hover .efi-ico { transform: scale(1.1) rotate(-4deg); box-shadow: 0 10px 20px -10px rgba(82,73,143,.6); }
+        .efi-why-card:hover { transform: translateY(-4px); box-shadow: 0 24px 44px -22px rgba(143, 129, 73,.5), inset 0 1px 0 #fff; }
+        .efi-why-card:hover .efi-ico, body.page .step-card:hover .efi-ico { transform: scale(1.1) rotate(-4deg); box-shadow: 0 10px 20px -10px rgba(143, 129, 73,.6); }
         .efi-pillars li { transition: transform .2s ease; } .efi-pillars li:hover { transform: scale(1.05); }
       }
       @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -438,8 +438,8 @@
             <!-- CAJA CON LINK DIRECTO -->
             <div
               style="
-                background: #f8fafc;
-                border: 1px solid #e2e8f0;
+                background: #fcfbf8;
+                border: 1px solid #f0ede2;
                 border-radius: 14px;
                 padding: 20px;
                 text-align: center;

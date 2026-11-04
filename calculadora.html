@@ -24,7 +24,7 @@
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color:#D3AC00;
-        background: #fee2e2;
+        background: #fef8e2;
         padding: 4px 12px;
         border-radius: 20px;
         margin-bottom: 14px;
@@ -33,7 +33,7 @@
       /* CONTENEDOR PRINCIPAL Y RETÍCULA EN DOS COLUMNAS */
       .calc-widget {
         background: #ffffff;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #f0ede2;
         border-radius: 20px;
         padding: 38px 42px;
         margin: 10px auto 50px;
@@ -84,7 +84,7 @@
       .calc-num-input {
         width: 100%;
         padding: 11px 48px 11px 14px;
-        border: 1.5px solid #e2e8f0;
+        border: 1.5px solid #f0ede2;
         border-radius: 10px;
         font-size: 15px;
         font-weight: 600;
@@ -95,13 +95,13 @@
         transition: border-color 0.2s, box-shadow 0.2s;
       }
       .calc-num-input:focus {
-        border-color: #e50914;
-        box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1);
+        border-color: #e5b909;
+        box-shadow: 0 0 0 3px rgba(229, 185, 9, 0.1);
       }
       .calc-select {
         width: 100%;
         padding: 11px 14px;
-        border: 1.5px solid #e2e8f0;
+        border: 1.5px solid #f0ede2;
         border-radius: 10px;
         font-size: 14.5px;
         font-weight: 600;
@@ -112,7 +112,7 @@
         cursor: pointer;
       }
       .calc-select:focus {
-        border-color: #e50914;
+        border-color: #e5b909;
       }
       .risk-presets {
         display: flex;
@@ -123,7 +123,7 @@
         flex: 1;
         padding: 6px 10px;
         border-radius: 6px;
-        background: #f1f5f9;
+        background: #f9f7f1;
         font-size: 12px;
         font-weight: 700;
         color: #475569;
@@ -132,11 +132,11 @@
         transition: all 0.15s;
       }
       .risk-btn:hover {
-        background: #e2e8f0;
+        background: #f0ede2;
         color: #0f172a;
       }
       .risk-btn.active {
-        background: #e50914;
+        background: #e5b909;
         color: #ffffff;
       }
 
@@ -185,7 +185,7 @@
       }
       .calc-guide-card {
         background: #ffffff;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #f0ede2;
         border-radius: 16px;
         padding: 24px;
       }
@@ -207,13 +207,13 @@
       .calc-head p { color: var(--muted, #64748b); font-size: 15.5px; margin: 0; }
       .calc-main { position: relative; }
       .calc-main::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 420px; pointer-events: none;
-        background: radial-gradient(60% 70% at 50% 0%, rgba(197,155,39,.18), transparent 70%), radial-gradient(40% 60% at 85% 10%, rgba(23,105,154,.12), transparent 70%);
+        background: radial-gradient(60% 70% at 50% 0%, rgba(197,155,39,.18), transparent 70%), radial-gradient(40% 60% at 85% 10%, rgba(154, 128, 23,.12), transparent 70%);
         -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent); }
       .calc-main > .container { position: relative; }
       .calc-widget { background: rgba(255,255,255,.62); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
         border: 1px solid rgba(255,255,255,.9); box-shadow: 0 18px 50px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.9); }
       .calc-num-input, .calc-select { transition: border-color .2s, box-shadow .2s, transform .2s; }
-      .calc-num-input:hover, .calc-select:hover { border-color: #cbd5e1; }
+      .calc-num-input:hover, .calc-select:hover { border-color: #e1ddcb; }
       .calc-num-input:focus { border-color: #c59b27; box-shadow: 0 0 0 4px rgba(197,155,39,.16); }
       .calc-select:focus { border-color: #c59b27; box-shadow: 0 0 0 4px rgba(197,155,39,.16); }
       .risk-btn { transition: transform .15s, background .2s, color .2s, box-shadow .2s; }
@@ -224,19 +224,19 @@
         box-shadow: 0 18px 44px rgba(11,16,32,.3), inset 0 1px 0 rgba(255,255,255,.06); }
       .calc-res-val { font-family: var(--display, 'Inter Tight'), sans-serif; font-variant-numeric: tabular-nums; }
       #resLotSize { color: #e8c766; font-size: 32px; }
-      #resMoneyRisk { color: #fca5a5; font-size: 24px; }
+      #resMoneyRisk { color: #fceba5; font-size: 24px; }
       #resSafeCapital { color: #fff; font-size: 20px; }
-      .calc-status { font-size: 12.5px; line-height: 1.5; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.06); color: #cbd5e1; border-left: 3px solid #64748b; }
+      .calc-status { font-size: 12.5px; line-height: 1.5; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.06); color: #e1ddcb; border-left: 3px solid #64748b; }
       .calc-status.ok { border-color: #10b981; color: #a7f3d0; }
       .calc-status.warn { border-color: #f59e0b; color: #fde68a; }
-      .calc-status.high { border-color: #ef4444; color: #fecaca; }
+      .calc-status.high { border-color: #ef4444; color: #fef3ca; }
       .gauge { height: 8px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; margin-top: -6px; }
       .gauge-fill { height: 100%; width: 0; border-radius: inherit; background: #64748b; transition: width .35s ease, background .3s; }
       .gauge-fill[data-level="ok"] { background: #10b981; }
       .gauge-fill[data-level="warn"] { background: #f59e0b; }
       .gauge-fill[data-level="high"] { background: #ef4444; }
       .gauge-labels { display: flex; justify-content: space-between; font-size: 10.5px; color: #64748b; margin-top: -12px; }
-      .calc-how { margin-top: 26px; border-top: 1px solid #e2e8f0; padding-top: 16px; font-size: 13px; color: #475569; }
+      .calc-how { margin-top: 26px; border-top: 1px solid #f0ede2; padding-top: 16px; font-size: 13px; color: #475569; }
       .calc-how summary { cursor: pointer; font-weight: 700; color: #0f172a; font-size: 14px; }
       .calc-how p { margin: 10px 0 0; line-height: 1.55; }
       .calc-how ul { margin: 8px 0 0 18px; padding: 0; line-height: 1.6; }

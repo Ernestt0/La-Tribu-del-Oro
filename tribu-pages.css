@@ -37,7 +37,7 @@ body.page .ib-tag, body.page .calc-tag, body.page .glossary-intro-badge, body.pa
 body.page .video-label-badge {
   background: rgba(255, 255, 255, 0.6);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  border: 1px solid rgba(229, 9, 20, 0.25);
+  border: 1px solid rgba(229, 185, 9, 0.25);
   color: var(--gold-logo, #D3AC00);
   border-radius: 999px;
   box-shadow: inset 0 1px 0 #fff;
@@ -47,14 +47,14 @@ body.page .video-label-badge {
 body.page .btn-hero-red, body.page .btn-referral {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 48px; padding: 0 24px; border-radius: 999px; font-weight: 700;
-  background: rgba(229, 9, 20, 0.1);
-  border: 1px solid rgba(229, 9, 20, 0.45);
+  background: rgba(229, 185, 9, 0.1);
+  border: 1px solid rgba(229, 185, 9, 0.45);
   color: var(--red);
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 8px 22px -16px rgba(229, 9, 20, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 8px 22px -16px rgba(229, 185, 9, 0.55);
   transition: background .2s, transform .2s, box-shadow .2s;
 }
-body.page .btn-hero-red:hover, body.page .btn-referral:hover { background: rgba(229, 9, 20, 0.17); transform: translateY(-1px); color: var(--red); }
+body.page .btn-hero-red:hover, body.page .btn-referral:hover { background: rgba(229, 185, 9, 0.17); transform: translateY(-1px); color: var(--red); }
 body.page .btn-hero-outline {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 48px; padding: 0 24px; border-radius: 999px; font-weight: 700;
@@ -69,7 +69,7 @@ body.page .btn-telegram, body.page .btn-support-wa {
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 8px 22px -14px rgba(0, 0, 0, 0.35);
 }
-body.page .btn-telegram { background: rgba(34, 158, 217, 0.85); border: 1px solid rgba(160, 220, 250, 0.7); }
+body.page .btn-telegram { background: rgba(217, 180, 34, 0.85); border: 1px solid rgba(250, 232, 160, 0.7); }
 body.page .btn-support-wa { background: rgba(37, 211, 102, 0.85); border: 1px solid rgba(190, 255, 215, 0.7); }
 
 /* ---------- Tarjetas de vidrio ---------- */
@@ -96,7 +96,7 @@ body.page .benefit-card:hover, body.page .glossary-item-card:hover, body.page .c
   transform: translateY(-3px);
 }
 body.page .playlist-header, body.page .glossary-badge-cat, body.page .telegram-bubble-body,
-body.page .lesson-num, body.page .tab-icon-box { background: rgba(248, 250, 252, 0.6); }
+body.page .lesson-num, body.page .tab-icon-box { background: rgba(252, 251, 248, 0.6); }
 body.page .lesson-item { background: transparent; }
 body.page .lesson-item:hover { background: rgba(255, 255, 255, 0.6); }
 
@@ -104,23 +104,23 @@ body.page .lesson-item:hover { background: rgba(255, 255, 255, 0.6); }
 body.page .alphabet-btn, body.page .help-tab-btn, body.page .filter-chip { border-radius: 999px; color: var(--ink); }
 body.page .alphabet-btn.active, body.page .help-tab-btn.active, body.page .filter-chip.active,
 body.page .video-tab-btn.active {
-  background: rgba(229, 9, 20, 0.1);
-  border-color: rgba(229, 9, 20, 0.45);
+  background: rgba(229, 185, 9, 0.1);
+  border-color: rgba(229, 185, 9, 0.45);
   color: var(--red);
 }
-body.page .letter-title { background: rgba(229, 9, 20, 0.1); color: var(--gold-logo, #D3AC00); border: 1px solid rgba(229, 9, 20, 0.3); }
-body.page .letter-line { background: linear-gradient(90deg, rgba(229, 9, 20, .35), rgba(223, 183, 72, .25) 50%, transparent); }
+body.page .letter-title { background: rgba(229, 185, 9, 0.1); color: var(--gold-logo, #D3AC00); border: 1px solid rgba(229, 185, 9, 0.3); }
+body.page .letter-line { background: linear-gradient(90deg, rgba(229, 185, 9, .35), rgba(223, 183, 72, .25) 50%, transparent); }
 
 /* Campos de formulario y calculadora */
 body.page .ib-input, body.page .calc-num-input, body.page .calc-select, body.page input[type="text"], body.page input[type="search"] {
   background: rgba(255, 255, 255, 0.75);
-  border: 1px solid #e2e8f0;
+  border: 1px solid #f0ede2;
   border-radius: 12px;
 }
 body.page .ib-input:focus, body.page .calc-num-input:focus, body.page .calc-select:focus,
 body.page input[type="text"]:focus, body.page input[type="search"]:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(223, 183, 72, 0.25); }
-body.page .risk-btn { border-radius: 999px; background: rgba(255, 255, 255, 0.6); border: 1px solid #e2e8f0; }
-body.page .risk-btn.active { background: rgba(229, 9, 20, 0.1); border-color: rgba(229, 9, 20, 0.45); color: var(--red); }
+body.page .risk-btn { border-radius: 999px; background: rgba(255, 255, 255, 0.6); border: 1px solid #f0ede2; }
+body.page .risk-btn.active { background: rgba(229, 185, 9, 0.1); border-color: rgba(229, 185, 9, 0.45); color: var(--red); }
 
 /* ---------- Videos: marcos oscuros con borde de vidrio ---------- */
 body.page .hero-video-box, body.page .player-container, body.page .video-frame-box, body.page .video-thumb {
@@ -139,7 +139,7 @@ body.page .hero-play-btn svg, body.page .video-play-mini svg { fill: var(--red) 
 /* ---------- Banners oscuros: mismo rojo profundo del inicio ---------- */
 body.page .cta-banner, body.page .referral-banner, body.page .ib-cta-banner, body.page .support-box {
   background: radial-gradient(100% 140% at 0% 0%, #7a1116 0%, #3d0a0d 50%, #1a0b0c 100%) !important;
-  border: 1px solid rgba(255, 140, 145, 0.35);
+  border: 1px solid rgba(252, 230, 143, 0.35);
   border-radius: 32px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 30px 60px -30px rgba(122, 17, 22, 0.7);
 }
@@ -147,7 +147,7 @@ body.page .cta-banner h2, body.page .referral-banner h2, body.page .ib-cta-banne
 body.page .cta-banner h3, body.page .referral-banner h3, body.page .ib-cta-banner h3 { color: #fff; }
 body.page .cta-banner .btn-hero-red, body.page .referral-banner .btn-hero-red, body.page .referral-banner .btn-referral,
 body.page .ib-cta-banner .btn-hero-red {
-  background: rgba(229, 9, 20, 0.28); color: #fff; border-color: rgba(255, 110, 118, 0.7);
+  background: rgba(229, 185, 9, 0.28); color: #fff; border-color: rgba(251, 224, 114, 0.7);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 /* Resultado de la calculadora: panel oscuro de vidrio con cifras en oro */
@@ -160,7 +160,7 @@ body.page .calc-result-box {
 body.page .calc-res-val { color: var(--gold-l) !important; font-family: var(--display); font-variant-numeric: tabular-nums; }
 
 /* Aviso de riesgo legal */
-body.page .risk-alert-box { background: rgba(254, 242, 242, 0.7); border-radius: 16px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+body.page .risk-alert-box { background: rgba(254, 252, 242, 0.7); border-radius: 16px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 
 /* Ocultar líneas divisorias viejas: el espacio y el vidrio ya separan */
 body.page .divider-base { opacity: .5; }
@@ -198,13 +198,13 @@ body.page .section-header { margin-bottom: 28px; }
 body.page .solution-logo-box { width: 52px; height: 52px; border-radius: 16px; }
 body.page .features-grid > :nth-child(3n+1) .solution-logo-box,
 body.page .benefits-grid > :nth-child(3n+1) .solution-logo-box,
-body.page .calc-guide-grid > :nth-child(3n+1) .solution-logo-box { background: linear-gradient(160deg, rgba(254,226,226,.9), rgba(229,9,20,.14)) !important; color: var(--gold-logo, #D3AC00) !important; }
+body.page .calc-guide-grid > :nth-child(3n+1) .solution-logo-box { background: linear-gradient(160deg, rgba(254, 248, 226,.9), rgba(229, 185, 9,.14)) !important; color: var(--gold-logo, #D3AC00) !important; }
 body.page .features-grid > :nth-child(3n+2) .solution-logo-box,
 body.page .benefits-grid > :nth-child(3n+2) .solution-logo-box,
-body.page .calc-guide-grid > :nth-child(3n+2) .solution-logo-box { background: linear-gradient(160deg, rgba(224,242,254,.9), rgba(34,158,217,.16)) !important; color: #17699a !important; }
+body.page .calc-guide-grid > :nth-child(3n+2) .solution-logo-box { background: linear-gradient(160deg, rgba(254, 248, 224,.9), rgba(217, 180, 34,.16)) !important; color: #9a8017 !important; }
 body.page .features-grid > :nth-child(3n) .solution-logo-box,
 body.page .benefits-grid > :nth-child(3n) .solution-logo-box,
-body.page .calc-guide-grid > :nth-child(3n) .solution-logo-box { background: linear-gradient(160deg, rgba(237,235,251,.95), rgba(101,95,167,.2)) !important; color: #52498f !important; }
+body.page .calc-guide-grid > :nth-child(3n) .solution-logo-box { background: linear-gradient(160deg, rgba(251, 248, 235,.95), rgba(167, 153, 95,.2)) !important; color: #8f8149 !important; }
 body.page .solution-logo-box { transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease; }
 body.page .tab-icon-box { transition: transform .25s ease, background-color .2s ease; }
 
@@ -242,7 +242,7 @@ body.page .faq-item { transition: border-color .2s ease, box-shadow .25s ease, t
 }
 
 /* ---------- Anillo del botón de play al pasar el cursor ---------- */
-body.page .hero-play-btn::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid rgba(229,9,20,.55); opacity: 0; pointer-events: none; }
+body.page .hero-play-btn::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid rgba(229, 185, 9,.55); opacity: 0; pointer-events: none; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   body.page .hero-video-box:hover .hero-play-btn::after, body.page .video-frame-box:hover .hero-play-btn::after { animation: pg-ring 1.3s ease-out infinite; }
 }
@@ -278,8 +278,8 @@ body.page .hero-play-btn::after { content: ''; position: absolute; inset: -3px; 
 /* ---------- Íconos de las tarjetas: versión rellena a dos tonos, cada uno con su gesto al pasar el cursor ---------- */
 body.page .solution-logo-box svg { width: 34px; height: 34px; overflow: visible; }
 body.page .solution-logo-box svg * { transform-box: fill-box; transform-origin: center; }
-body.page .tab-icon-box { background: rgba(241,245,249,.9); }
-body.page .video-tab-btn.active .tab-icon-box { background: rgba(229,9,20,.12); color: var(--red); }
+body.page .tab-icon-box { background: rgba(249, 247, 241,.9); }
+body.page .video-tab-btn.active .tab-icon-box { background: rgba(229, 185, 9,.12); color: var(--red); }
 body.page .ic-bars rect { transform-origin: bottom center; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   body.page :is(.feature-card, .benefit-card, .calc-guide-card):hover .ic-shield { animation: pg-shake .5s ease; }
@@ -308,21 +308,21 @@ body.page .ic-bars rect { transform-origin: bottom center; }
    ========================================================================== */
 body.page .classroom-header { position: relative; isolation: isolate; overflow: hidden; }
 body.page .classroom-header::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
-  background: radial-gradient(42% 70% at 90% 0%, var(--acc-glow, rgba(229,9,20,.14)), transparent 70%), radial-gradient(36% 60% at 2% 100%, var(--acc-glow2, rgba(223,183,72,.2)), transparent 70%); }
-body.page .classroom-tag { color: var(--acc-d, var(--red)); border-color: color-mix(in srgb, var(--acc, #e50914) 35%, transparent); }
-body.page .classroom-header .hero-title span { background: linear-gradient(90deg, var(--acc-d, #e50914), var(--acc, #e50914) 55%, var(--acc-d, #e50914)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  background: radial-gradient(42% 70% at 90% 0%, var(--acc-glow, rgba(229, 185, 9,.14)), transparent 70%), radial-gradient(36% 60% at 2% 100%, var(--acc-glow2, rgba(223,183,72,.2)), transparent 70%); }
+body.page .classroom-tag { color: var(--acc-d, var(--red)); border-color: color-mix(in srgb, var(--acc, #e5b909) 35%, transparent); }
+body.page .classroom-header .hero-title span { background: linear-gradient(90deg, var(--acc-d, #e5b909), var(--acc, #e5b909) 55%, var(--acc-d, #e5b909)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .cls-pills { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; }
-.cls-pills li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--acc-d, #c40811);
-  background: rgba(255,255,255,.65); border: 1px solid color-mix(in srgb, var(--acc, #e50914) 28%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 1px 0 #fff; transition: transform .2s ease; }
-.cls-pills svg { width: 18px; height: 18px; color: var(--acc, #e50914); }
+.cls-pills li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--acc-d, #c49e08);
+  background: rgba(255,255,255,.65); border: 1px solid color-mix(in srgb, var(--acc, #e5b909) 28%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 1px 0 #fff; transition: transform .2s ease; }
+.cls-pills svg { width: 18px; height: 18px; color: var(--acc, #e5b909); }
 body.page .player-container { box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--acc, #0f172a) 55%, transparent); border-color: color-mix(in srgb, var(--acc, #fff) 35%, white); }
-body.page .current-lesson-badge { display: inline-block; padding: 3px 12px; border-radius: 999px; background: color-mix(in srgb, var(--acc, #e50914) 12%, white); color: var(--acc-d, #c40811); letter-spacing: .03em; }
+body.page .current-lesson-badge { display: inline-block; padding: 3px 12px; border-radius: 999px; background: color-mix(in srgb, var(--acc, #e5b909) 12%, white); color: var(--acc-d, #c49e08); letter-spacing: .03em; }
 
 /* Barra de progreso del temario y clases vistas */
 .pl-progress { margin-top: 12px; height: 6px; border-radius: 6px; background: rgba(15,23,42,.08); overflow: hidden; --p: 25%; }
-.pl-progress i { display: block; height: 100%; width: var(--p); border-radius: 6px; background: linear-gradient(90deg, var(--acc, #e50914), var(--acc-d, #c40811)); transition: width .5s cubic-bezier(.2,.8,.2,1); }
-body.page .lesson-item.done .lesson-num { background: color-mix(in srgb, var(--acc, #e50914) 16%, white); color: transparent; position: relative; }
-body.page .lesson-item.done .lesson-num::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 9px; border: solid var(--acc-d, #c40811); border-width: 0 2.2px 2.2px 0; transform: translate(-50%, -62%) rotate(45deg); }
+.pl-progress i { display: block; height: 100%; width: var(--p); border-radius: 6px; background: linear-gradient(90deg, var(--acc, #e5b909), var(--acc-d, #c49e08)); transition: width .5s cubic-bezier(.2,.8,.2,1); }
+body.page .lesson-item.done .lesson-num { background: color-mix(in srgb, var(--acc, #e5b909) 16%, white); color: transparent; position: relative; }
+body.page .lesson-item.done .lesson-num::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 9px; border: solid var(--acc-d, #c49e08); border-width: 0 2.2px 2.2px 0; transform: translate(-50%, -62%) rotate(45deg); }
 body.page .lesson-item.active { box-shadow: inset 4px 0 0 var(--red); }
 
 /* Tarjeta de ayuda (antes con estilos en línea) */
@@ -337,10 +337,10 @@ body.page .safety-item { padding: 18px; border-radius: 18px; background: rgba(25
 .cls-ico { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; margin-bottom: 4px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
 .cls-ico svg { width: 26px; height: 26px; overflow: visible; }
 .cls-ico svg * { transform-box: fill-box; transform-origin: center; }
-.safety-item[data-tone="blue"] .cls-ico { background: linear-gradient(160deg, rgba(224,242,254,.95), rgba(34,158,217,.2)); color: #17699a; }
-.safety-item[data-tone="red"] .cls-ico { background: linear-gradient(160deg, rgba(254,226,226,.95), rgba(229,9,20,.16)); color: var(--gold-logo, #D3AC00); }
-.safety-item[data-tone="purple"] .cls-ico { background: linear-gradient(160deg, rgba(237,235,251,.95), rgba(101,95,167,.22)); color: #52498f; }
-.safety-item[data-tone="orange"] .cls-ico { background: linear-gradient(160deg, rgba(255,238,220,.95), rgba(247,147,26,.24)); color: #c4720a; }
+.safety-item[data-tone="blue"] .cls-ico { background: linear-gradient(160deg, rgba(254, 248, 224,.95), rgba(217, 180, 34,.2)); color: #9a8017; }
+.safety-item[data-tone="red"] .cls-ico { background: linear-gradient(160deg, rgba(254, 248, 226,.95), rgba(229, 185, 9,.16)); color: var(--gold-logo, #D3AC00); }
+.safety-item[data-tone="purple"] .cls-ico { background: linear-gradient(160deg, rgba(251, 248, 235,.95), rgba(167, 153, 95,.22)); color: #8f8149; }
+.safety-item[data-tone="orange"] .cls-ico { background: linear-gradient(160deg, rgba(254, 247, 221,.95), rgba(247, 203, 26,.24)); color: #c49f0a; }
 @media (hover: hover) {
   body.page .safety-item:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -20px rgba(15,23,42,.4); }
   body.page .safety-item:hover .cls-ico { transform: scale(1.1) rotate(-4deg); }
