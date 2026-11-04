@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611041820" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611041820" />
+  <link rel="stylesheet" href="styles.css?v=202611041838" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611041838" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -201,11 +201,11 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611041820"></script>
+  <script src="components.js?v=202611041838"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const INTRO_URL = 'https://www.youtube.com/embed/ihig8jGWOfo'; // video "Conoce La Tribu del Oro"
+    const INTRO_URL = matchMedia('(max-width: 700px)').matches ? 'https://www.youtube.com/embed/ihig8jGWOfo' : 'https://www.youtube.com/embed/EEfSUZXo1TM'; // video "Conoce La Tribu del Oro"
     const DEMO_URL = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // reemplazar por los videos reales
 
     // ---------- Escenas animadas de respaldo (si no hay video) ----------
