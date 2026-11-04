@@ -1198,3 +1198,10 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
 .v2 .sec-videos .vthumb { box-shadow: 0 16px 30px -16px rgba(0,0,0,.6) !important; }
 .v2 .sec-videos .vcard-start .vthumb { box-shadow: 0 16px 30px -16px rgba(0,0,0,.6), 0 0 0 2px #0b0b0f !important; }
 .v2 .sec-videos .start-tag { background: #0b0b0f !important; color: #D3AC00 !important; }
+/* Píldoras de mercado doradas (combinan con la sección de videos) */
+.v2 .mk-pill { background: #D3AC00 !important; border: 1px solid rgba(255,255,255,.18) !important; box-shadow: 0 10px 24px -14px rgba(211,172,0,.6) !important; }
+.v2 .mk-pill:hover { background: #e2bd14 !important; }
+.v2 .mk-txt b { color: #0b0b0f !important; }
+.v2 .mk-txt small { color: rgba(11,11,15,.72) !important; }
+.v2 .mk-ch.up { color: #0b5d26 !important; } .v2 .mk-ch.down { color: #8f0d0d !important; }
+.v2 .mk-ico { box-shadow: 0 0 0 2px rgba(11,11,15,.18); }
