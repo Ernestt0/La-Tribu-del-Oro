@@ -78,14 +78,14 @@ const MK_COINS = [
   ['ADA', 'Cardano', '#0033AD', '₳'], ['TRX', 'TRON', '#EB0029', 'T'], ['LINK', 'Chainlink', '#2A5ADA', '⬡'], ['AVAX', 'Avalanche', '#E84142', 'A']
 ];
 const MK_FX = [
-  ['EURUSD', 'EUR/USD', '🇪🇺', 'EUR', 'USD'], ['GBPUSD', 'GBP/USD', '🇬🇧', 'GBP', 'USD'], ['USDJPY', 'USD/JPY', '🇯🇵', 'USD', 'JPY'],
-  ['USDCHF', 'USD/CHF', '🇨🇭', 'USD', 'CHF'], ['AUDUSD', 'AUD/USD', '🇦🇺', 'AUD', 'USD'], ['USDCAD', 'USD/CAD', '🇨🇦', 'USD', 'CAD'],
-  ['NZDUSD', 'NZD/USD', '🇳🇿', 'NZD', 'USD'], ['EURGBP', 'EUR/GBP', '🇪🇺', 'EUR', 'GBP'], ['EURJPY', 'EUR/JPY', '🇪🇺', 'EUR', 'JPY'], ['XAUUSD', 'Oro/USD', 'Au', 'XAU', 'USD']
+  ['EURUSD', 'EUR/USD', 'eu', 'EUR', 'USD'], ['GBPUSD', 'GBP/USD', 'gb', 'GBP', 'USD'], ['USDJPY', 'USD/JPY', 'jp', 'USD', 'JPY'],
+  ['USDCHF', 'USD/CHF', 'ch', 'USD', 'CHF'], ['AUDUSD', 'AUD/USD', 'au', 'AUD', 'USD'], ['USDCAD', 'USD/CAD', 'ca', 'USD', 'CAD'],
+  ['NZDUSD', 'NZD/USD', 'nz', 'NZD', 'USD'], ['EURGBP', 'EUR/GBP', 'eu', 'EUR', 'GBP'], ['EURJPY', 'EUR/JPY', 'eu', 'EUR', 'JPY'], ['XAUUSD', 'Oro/USD', 'Au', 'XAU', 'USD']
 ];
 class MarketRows extends HTMLElement {
   connectedCallback() {
     const cpill = ([s, n, col, ic]) => `<a class="mk-pill" data-sym="${s}" href="https://es.tradingview.com/symbols/${s}USDT/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico" style="background:${col}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">${s}/USDT</span> <span class="mk-ch"></span></small></span></a>`;
-    const fpill = ([s, n, ic]) => `<a class="mk-pill" data-fx="${s}" href="https://es.tradingview.com/symbols/${s === 'XAUUSD' ? 'OANDA-XAUUSD' : 'FX-' + s}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico mk-flag" style="background:${s === 'XAUUSD' ? '#D3AC00' : '#1f2430'}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">Forex</span> <span class="mk-ch"></span></small></span></a>`;
+    const fpill = ([s, n, ic]) => `<a class="mk-pill" data-fx="${s}" href="https://es.tradingview.com/symbols/${s === 'XAUUSD' ? 'OANDA-XAUUSD' : 'FX-' + s}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico mk-flag" style="background:${s === 'XAUUSD' ? '#D3AC00' : '#1f2430'}">${ic.length === 2 ? `<img src="https://flagcdn.com/w80/${ic}.png" alt="" loading="lazy">` : ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">Forex</span> <span class="mk-ch"></span></small></span></a>`;
     const line = (set, rev) => `<div class="mk-line${rev ? ' mk-rev' : ''}"><div class="mk-track">${set}${set.replace(/class="mk-pill"/g, 'class="mk-pill" aria-hidden="true" tabindex="-1"')}</div></div>`;
     this.innerHTML = '<div class="mk-rows" aria-label="Precios de mercado">' + line(MK_COINS.map(cpill).join(''), false) + line(MK_FX.map(fpill).join(''), true) + '</div>';
     const SPEED = 45;
