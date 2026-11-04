@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Videos - Comunidad de Trading & Cripto</title>
+  <title>Videos · Comunidad de Trading & Cripto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
@@ -11,146 +11,207 @@
   <link rel="stylesheet" href="tribu-v2.css?v=202611032225">
   <link rel="stylesheet" href="tribu-pages.css?v=202611032225">
   <style>
-    /* Videos gratis: mismo lenguaje del inicio (vidrio, chips de color, movimiento breve) */
-    body.page .page-header { padding: 56px 0 8px; }
-    body.page .page-title { font-size: clamp(32px, 4.4vw, 48px); font-weight: 800; margin-bottom: 8px; }
-    body.page .category-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-    body.page .filter-chip { padding: 9px 18px; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
-    body.page .filter-chip:focus-visible, body.page .video-card-slide:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
-    body.page .vid-count { margin-top: 16px; font-size: 13.5px; color: var(--muted); }
-    body.page main.section { padding-top: 24px; }
-    body.page .video-grid-expanded { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 8px; }
+    body.page { background: #fff; }
+    /* ===== Video principal: Quiénes somos ===== */
+    .vx-hero { background: #050505; color: #fff; padding: 40px 0 56px; }
+    .vx-hero-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: center; }
+    .vx-player { position: relative; aspect-ratio: 16/9; border-radius: 22px; overflow: hidden; background: #111; cursor: pointer;
+      box-shadow: 0 30px 60px -30px rgba(211,172,0,.45), 0 0 0 1px rgba(211,172,0,.35); }
+    .vx-player svg.bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .vx-player .play { position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: #D3AC00; display: grid; place-items: center;
+      box-shadow: 0 0 0 0 rgba(211,172,0,.5); animation: vx-ring 2s ease-out infinite; transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+    .vx-player .play svg { width: 30px; height: 30px; fill: #0b0b0f; margin-left: 5px; }
+    .vx-player:hover .play { transform: scale(1.1); }
+    .vx-player .tag { position: absolute; left: 16px; top: 16px; padding: 5px 12px; border-radius: 999px; background: #D3AC00; color: #0b0b0f; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+    .vx-player .dur { position: absolute; right: 14px; bottom: 14px; padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.65); font-size: 12.5px; font-weight: 700; }
+    @keyframes vx-ring { 0% { box-shadow: 0 0 0 0 rgba(211,172,0,.55); } 80%, 100% { box-shadow: 0 0 0 26px rgba(211,172,0,0); } }
+    .vx-copy .eyebrow { margin-bottom: 14px; }
+    body.page .vx-copy h1 { color: #fff !important; font-size: clamp(32px, 4vw, 52px); line-height: 1.05; margin: 0 0 14px; }
+    body.page .vx-copy h1 span { color: #D3AC00 !important; }
+    .vx-copy p { color: rgba(255,255,255,.72); font-size: 17px; line-height: 1.6; margin: 0 0 22px; max-width: 44ch; }
+    .vx-points { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 10px; }
+    .vx-points li { display: flex; gap: 10px; align-items: center; color: #fff; font-weight: 600; font-size: 15px; }
+    .vx-points li::before { content: "✓"; width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; background: rgba(211,172,0,.18); color: #D3AC00; font-size: 12px; }
+    .vx-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .vx-actions .btn-line { color: #fff; border-color: rgba(255,255,255,.3); }
 
-    /* Tarjeta */
-    body.page .video-card-slide { flex: initial; padding: 10px 10px 14px; border-radius: 24px; outline-offset: 3px; }
-    body.page .video-card-slide .video-thumb { border-radius: 16px; margin-bottom: 14px; border-color: rgba(255,255,255,.7); box-shadow: 0 14px 28px -20px rgba(15,23,42,.6); }
-    body.page .video-card-slide .video-title { padding: 0 6px; font-family: var(--display); font-size: 17px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; margin-bottom: 10px; transition: color .2s ease; }
-    body.page .video-duration { background: rgba(15,23,42,.62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 3px 9px; }
-    body.page .video-card-slide .video-category { align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; margin: auto 6px 0; padding: 4px 11px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--c, var(--ink)); background: var(--bg, rgba(249, 247, 241,.9)); }
-    body.page .video-card-slide .video-category::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-    body.page .video-card-slide[data-cat="basicos"] { --c: #8a6a12; --bg: var(--gold-soft, #fbf5e3); }
-    body.page .video-card-slide[data-cat="tecnico"] { --c: #9a8017; --bg: rgba(254, 248, 224,.95); }
-    body.page .video-card-slide[data-cat="riesgo"] { --c: #c49e08; --bg: rgba(254, 248, 226,.9); }
-    body.page .video-card-slide[data-cat="cripto"] { --c: #a88808; --bg: rgba(254, 244, 205,.95); }
-    body.page .video-card-slide[data-cat="psicologia"] { --c: #8f8149; --bg: rgba(248, 243, 225,.95); }
-    body.page .video-play-mini::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(229, 185, 9,.55); opacity: 0; pointer-events: none; }
+    /* ===== Navegación de colecciones ===== */
+    .vx-nav { position: sticky; top: 86px; z-index: 5; background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid #eef0f3; }
+    .vx-nav .container { display: flex; gap: 8px; overflow-x: auto; padding-block: 12px; scrollbar-width: none; }
+    .vx-nav .container::-webkit-scrollbar { display: none; }
+    .vx-nav a { flex: none; padding: 8px 16px; border-radius: 999px; font-size: 13.5px; font-weight: 700; color: #334155; background: #f4f5f7; white-space: nowrap; transition: background .2s, color .2s, transform .45s cubic-bezier(.34,1.56,.64,1); }
+    .vx-nav a:hover, .vx-nav a.on { background: #0b0b0f; color: #fff; }
+    .vx-nav a:active { transform: scale(.94); }
 
-    @media (hover: hover) {
-      body.page .filter-chip:hover { transform: scale(1.05); }
-      body.page .video-card-slide:hover .video-title { color: var(--red); }
-    }
-    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-      body.page .video-card-slide:hover .video-play-mini::after { animation: vid-ring 1.3s ease-out infinite; }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      body.page .video-card-slide { animation: vid-in .5s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: calc(var(--i, 0) * 60ms); }
-      body.page .page-title, body.page .page-header .section-subtitle, body.page .category-filters { animation: vid-in .6s cubic-bezier(.2,.8,.2,1) backwards; }
-      body.page .page-header .section-subtitle { animation-delay: .08s; }
-      body.page .category-filters { animation-delay: .16s; }
-    }
-    @keyframes vid-in { from { opacity: 0; transform: translateY(14px); } }
-    @keyframes vid-ring { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.7); } }
+    /* ===== Colecciones ===== */
+    .vx-col { padding: 44px 0 8px; scroll-margin-top: 150px; }
+    .vx-col-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .vx-col-head h2 { font-size: clamp(22px, 2.6vw, 30px); margin: 0; }
+    .vx-col-head p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+    .vx-col-head .n { flex: none; font-size: 13px; font-weight: 700; color: #8a6a00; background: #fbf5e3; padding: 5px 12px; border-radius: 999px; }
+    .vx-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, calc((100% - 54px) / 4)); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 4px 16px; margin: -8px -4px 0; scrollbar-width: none; }
+    .vx-row::-webkit-scrollbar { display: none; }
+    .vx-card { scroll-snap-align: start; cursor: pointer; min-width: 0; }
+    .vx-thumb { position: relative; aspect-ratio: 16/10; border-radius: 16px; overflow: hidden; background: #141a24; transition: transform .45s cubic-bezier(.34,1.56,.64,1), box-shadow .3s; box-shadow: 0 14px 28px -20px rgba(15,23,42,.6); }
+    .vx-thumb svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .vx-thumb .mini { position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: rgba(255,255,255,.9); display: grid; place-items: center; transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+    .vx-thumb .mini svg { position: static; width: 16px; height: 16px; fill: #0b0b0f; margin-left: 3px; }
+    .vx-thumb .dur { position: absolute; right: 10px; bottom: 10px; font-size: 12px; font-weight: 700; color: #fff; background: rgba(0,0,0,.65); padding: 3px 8px; border-radius: 999px; }
+    .vx-thumb .lvl { position: absolute; left: 10px; top: 10px; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #0b0b0f; background: #D3AC00; padding: 3px 9px; border-radius: 999px; }
+    .vx-card h3 { margin: 12px 2px 4px; font-size: 16px; line-height: 1.3; }
+    .vx-card span.meta { margin: 0 2px; font-size: 13px; color: var(--muted); }
+    @media (hover: hover) { .vx-card:hover .vx-thumb { transform: translateY(-4px); box-shadow: 0 22px 36px -18px rgba(15,23,42,.6); } .vx-card:hover .mini { transform: scale(1.12); } }
+    .vx-card:active .vx-thumb { transform: scale(.97); }
 
-    @media (max-width: 900px) { body.page .video-grid-expanded { grid-template-columns: repeat(2, 1fr); } }
+    /* ===== Bloques de venta entre colecciones ===== */
+    .vx-offer { margin: 40px 0 8px; border-radius: 24px; padding: 30px 34px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .vx-offer h3 { margin: 0 0 6px; font-size: clamp(20px, 2.4vw, 26px); }
+    .vx-offer p { margin: 0; font-size: 15px; line-height: 1.5; }
+    .vx-offer.dark { background: #050505; color: #fff; border: 1px solid rgba(211,172,0,.35); }
+    .vx-offer.dark h3 { color: #fff; } .vx-offer.dark p { color: rgba(255,255,255,.7); }
+    .vx-offer.gold { background: #D3AC00; } .vx-offer.gold h3 { color: #0b0b0f; } .vx-offer.gold p { color: rgba(11,11,15,.75); }
+    .vx-offer.gold .btn { background: #0b0b0f !important; color: #fff !important; box-shadow: none !important; }
+    .vx-offer .btn { flex: none; }
+    .vx-end { padding: 48px 0 72px; }
+
+    @media (max-width: 1024px) { .vx-row { grid-auto-columns: minmax(240px, calc((100% - 36px) / 3)); } }
+    @media (max-width: 900px) {
+      .vx-hero-grid { grid-template-columns: 1fr; gap: 26px; }
+      .vx-hero { padding: 24px 0 40px; }
+      .vx-row { grid-auto-columns: minmax(220px, 46%); }
+    }
     @media (max-width: 600px) {
-      body.page .page-header { padding: 32px 0 4px; }
-      body.page .video-grid-expanded { grid-template-columns: 1fr; gap: 16px; }
-      body.page .category-filters { flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding: 4px 16px 8px; scroll-snap-type: x proximity; scrollbar-width: none; }
-      body.page .category-filters::-webkit-scrollbar { display: none; }
-      body.page .filter-chip { flex: 0 0 auto; scroll-snap-align: start; white-space: nowrap; }
+      .vx-nav { top: 76px; }
+      .vx-row { grid-auto-columns: 78%; gap: 14px; }
+      .vx-player .play { width: 66px; height: 66px; margin: -33px 0 0 -33px; }
+      .vx-copy p { font-size: 15.5px; }
+      .vx-actions .btn { flex: 1 1 100%; }
+      .vx-offer { flex-direction: column; align-items: stretch; padding: 24px 20px; text-align: left; }
+      .vx-offer .btn { width: 100%; }
+      .vx-col { padding-top: 34px; }
     }
+    @media (prefers-reduced-motion: reduce) { .vx-player .play { animation: none; } }
   </style>
 </head>
 <body class="v2 page">
-
-  <!-- HEADER MAESTRO AUTOMÁTICO (MARCA VIDEOS COMO ACTIVO) -->
   <site-header active="videos"></site-header>
 
-  <!-- CONTENIDO DE LA PÁGINA -->
-  <section class="page-header">
-    <div class="container">
-      <h1 class="page-title">Biblioteca de <span>Videos</span></h1>
-      <p class="section-subtitle">Contenido educativo y directo al punto sin complicaciones.</p>
-      
-      <div class="category-filters">
-        <button class="filter-chip active" onclick="filterVideoCategory('todos', this)">Todos los videos</button>
-        <button class="filter-chip" onclick="filterVideoCategory('basicos', this)">Conceptos básicos</button>
-        <button class="filter-chip" onclick="filterVideoCategory('tecnico', this)">Análisis técnico</button>
-        <button class="filter-chip" onclick="filterVideoCategory('riesgo', this)">Gestión de riesgo</button>
-        <button class="filter-chip" onclick="filterVideoCategory('cripto', this)">Criptomonedas</button>
-        <button class="filter-chip" onclick="filterVideoCategory('psicologia', this)">Psicología</button>
+  <!-- 1. VIDEO PRINCIPAL: QUIÉNES SOMOS -->
+  <section class="vx-hero">
+    <div class="container vx-hero-grid">
+      <div class="vx-player" id="vxMain" role="button" tabindex="0" aria-label="Reproducir: Quiénes somos">
+        <svg class="bg" viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="vg0" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#D3AC00" stop-opacity=".45"/><stop offset="1" stop-color="#D3AC00" stop-opacity="0"/></linearGradient></defs><rect width="400" height="225" fill="#0d1117"/><path d="M0 170 L40 150 L80 160 L120 120 L160 130 L200 90 L240 100 L280 60 L320 75 L360 40 L400 50 L400 225 L0 225Z" fill="url(#vg0)"/><path d="M0 170 L40 150 L80 160 L120 120 L160 130 L200 90 L240 100 L280 60 L320 75 L360 40 L400 50" fill="none" stroke="#D3AC00" stroke-width="2.5"/></svg>
+        <span class="tag">Empieza aquí</span>
+        <span class="play"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span>
+        <span class="dur" id="vxMainDur">03:30</span>
       </div>
-      <p class="vid-count" id="vidCount" aria-live="polite"></p>
+      <div class="vx-copy">
+        <span class="eyebrow">Quiénes somos</span>
+        <h1>Conoce <span>La Tribu del Oro</span> en 3 minutos</h1>
+        <p>Quiénes somos, cómo enseñamos y qué vas a lograr con nosotros. El mejor punto de partida antes de ver el resto de los videos.</p>
+        <ul class="vx-points">
+          <li>Educación práctica, sin promesas de ganancias fáciles</li>
+          <li>Gestión de riesgo en cada operación</li>
+          <li>Comunidad y sesiones en vivo de lunes a viernes</li>
+        </ul>
+        <div class="vx-actions">
+          <button class="btn btn-red" type="button" onclick="document.getElementById('vxMain').click()">Ver quiénes somos</button>
+          <a class="btn btn-line" href="#empieza">Ver colecciones</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <main class="section">
-    <div class="container">
-      <div class="video-grid-expanded">
-        <div class="video-card-slide" data-cat="basicos" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80"><div class="video-duration">12:34</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
-          <h4 class="video-title">¿Qué es el trading y cómo funciona?</h4>
-          <span class="video-category">Conceptos básicos</span>
-        </div>
+  <!-- 2. NAVEGACIÓN DE COLECCIONES -->
+  <nav class="vx-nav" aria-label="Colecciones de videos"><div class="container" id="vxNav"></div></nav>
 
-        <div class="video-card-slide" data-cat="tecnico" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=600&q=80"><div class="video-duration">15:20</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
-          <h4 class="video-title">Análisis técnico explicado de forma sencilla</h4>
-          <span class="video-category">Análisis técnico</span>
-        </div>
+  <!-- 3. COLECCIONES (se generan desde la lista VX_COLECCIONES) -->
+  <main class="container" id="vxCols"></main>
 
-        <div class="video-card-slide" data-cat="riesgo" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80"><div class="video-duration">10:18</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
-          <h4 class="video-title">Gestión de riesgo en trading</h4>
-          <span class="video-category">Gestión de riesgo</span>
-        </div>
-
-        <div class="video-card-slide" data-cat="cripto" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80"><div class="video-duration">14:26</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
-          <h4 class="video-title">Introducción a las criptomonedas</h4>
-          <span class="video-category">Criptomonedas</span>
-        </div>
-
-        <div class="video-card-slide" data-cat="psicologia" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80"><div class="video-duration">11:03</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
-          <h4 class="video-title">Psicología y disciplina del trading</h4>
-          <span class="video-category">Mentalidad</span>
-        </div>
-
-        <div class="video-card-slide" data-cat="tecnico" role="button" tabindex="0" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
-          <div class="video-thumb"><img alt="" loading="lazy" src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=600&q=80"><div class="video-duration">18:45</div><div class="video-play-mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div></div>
-          <h4 class="video-title">Soportes, resistencias y estructura</h4>
-          <span class="video-category">Análisis técnico</span>
-        </div>
-      </div>
+  <section class="vx-end"><div class="container">
+    <div class="vx-offer gold">
+      <div><h3>¿Listo para ir en serio?</h3><p>Pasa de los videos sueltos a una ruta completa con acompañamiento y comunidad.</p></div>
+      <a class="btn" href="curso.html">Ver el curso completo</a>
     </div>
-  </main>
+  </div></section>
 
-  <!-- FOOTER MAESTRO AUTOMÁTICO -->
   <site-footer></site-footer>
 
-  <!-- SCRIPTS -->
   <script src="components.js?v=202611032225"></script>
   <script>
-    const vidCards = [...document.querySelectorAll('.video-card-slide')];
-    const vidCount = document.getElementById('vidCount');
-    function updateCount(n) { vidCount.textContent = n === 1 ? 'Mostrando 1 video' : 'Mostrando ' + n + ' videos'; }
-    function filterVideoCategory(cat, btn) {
-      document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      let i = 0;
-      vidCards.forEach(card => {
-        const show = cat === 'todos' || card.getAttribute('data-cat') === cat;
-        card.style.display = show ? 'flex' : 'none';
-        if (show) { card.style.setProperty('--i', i++); card.style.animation = 'none'; void card.offsetWidth; card.style.animation = ''; }
-      });
-      updateCount(i);
-    }
-    vidCards.forEach((card, i) => {
-      card.style.setProperty('--i', i);
-      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); } });
-    });
-    updateCount(vidCards.length);
+    // ==========================================================================
+    // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
+    // [ título, duración, nivel (opcional), enlace de YouTube (embed) ]
+    // ==========================================================================
+    const VX_PRINCIPAL = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // ← video "Quiénes somos"
+    const DEMO = 'https://www.youtube.com/embed/dQw4w9WgXcQ';          // ← reemplazar por los reales
+    const VX_COLECCIONES = [
+      { id: 'empieza', titulo: 'Empieza desde cero', desc: 'La ruta recomendada si es tu primera vez en los mercados.', videos: [
+        ['¿Qué es el trading y cómo funciona?', '12:34', 'Paso 1', DEMO],
+        ['Cómo se mueve el precio: oferta y demanda', '09:40', 'Paso 2', DEMO],
+        ['Tipos de mercados: forex, índices, oro y cripto', '11:15', 'Paso 3', DEMO],
+        ['Tu primera operación en cuenta demo', '14:05', 'Paso 4', DEMO],
+      ]},
+      { id: 'consejos', titulo: 'Consejos rápidos', desc: 'Ideas cortas que puedes aplicar hoy mismo.', videos: [
+        ['3 errores que queman cuentas', '04:20', '', DEMO],
+        ['Cuándo NO operar', '03:45', '', DEMO],
+        ['Cómo elegir un broker confiable', '05:10', '', DEMO],
+        ['La regla del 1% explicada en 3 minutos', '03:05', '', DEMO],
+      ]},
+      { id: 'tutoriales', titulo: 'Tutoriales paso a paso', desc: 'Herramientas y plataformas explicadas en pantalla.', videos: [
+        ['Cómo usar TradingView desde cero', '16:30', '', DEMO],
+        ['Configura MetaTrader 5 en minutos', '13:20', '', DEMO],
+        ['Calcula tu lotaje con la calculadora', '06:45', '', DEMO],
+        ['Cómo crear una wallet segura', '10:10', '', DEMO],
+      ]},
+      { id: 'riesgo', titulo: 'Gestión de riesgo', desc: 'La habilidad que separa al trader que dura del que no.', videos: [
+        ['Gestión de riesgo en trading', '10:18', '', DEMO],
+        ['Stop loss y take profit bien puestos', '08:50', '', DEMO],
+        ['Relación riesgo/beneficio en la práctica', '09:30', '', DEMO],
+      ]},
+      { id: 'tecnico', titulo: 'Análisis técnico', desc: 'Lee el gráfico con estructura, sin adivinar.', videos: [
+        ['Análisis técnico explicado de forma sencilla', '15:20', '', DEMO],
+        ['Soportes, resistencias y estructura', '18:45', '', DEMO],
+        ['Velas japonesas: lo que realmente importa', '12:10', '', DEMO],
+      ]},
+      { id: 'cripto', titulo: 'Criptomonedas', desc: 'Bitcoin, Ethereum y cómo proteger tus activos.', videos: [
+        ['Introducción a las criptomonedas', '14:26', '', DEMO],
+        ['Bitcoin y la escasez digital', '12:15', '', DEMO],
+        ['Autocustodia: tus llaves, tus monedas', '11:30', '', DEMO],
+      ]},
+      { id: 'mentalidad', titulo: 'Mentalidad', desc: 'Disciplina y control emocional para operar con calma.', videos: [
+        ['Psicología y disciplina del trading', '11:03', '', DEMO],
+        ['Cómo manejar una racha de pérdidas', '07:40', '', DEMO],
+        ['Tu rutina de trading diaria', '06:55', '', DEMO],
+      ]},
+    ];
+    // Bloques de venta que aparecen después de ciertas colecciones
+    const VX_OFERTAS = {
+      consejos: { cls: 'dark', t: 'Aprende en vivo con la comunidad', p: 'Sesiones de lunes a viernes a las 8:00 AM (hora de Nueva York). Pregunta y opera con criterio.', b: 'Unirme al canal', h: 'senales.html' },
+      riesgo: { cls: 'gold', t: 'Calcula tu riesgo antes de cada operación', p: 'Usa la calculadora de lotaje y nunca arriesgues más de lo que decidiste.', b: 'Abrir la calculadora', h: 'calculadora.html' },
+    };
+
+    const thumb = (n) => { let y = 120, p = []; for (let i = 0; i <= 20; i++) { y = Math.max(40, Math.min(170, y + Math.sin(i * .9 + n) * 16 - 3)); p.push(i * 20 + ' ' + y.toFixed(1)); } const d = 'M' + p.join(' L');
+      return `<svg viewBox="0 0 400 250" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="t${n}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#D3AC00" stop-opacity=".35"/><stop offset="1" stop-color="#D3AC00" stop-opacity="0"/></linearGradient></defs><rect width="400" height="250" fill="#141a24"/><path d="${d} L400 250 L0 250Z" fill="url(#t${n})"/><path d="${d}" fill="none" stroke="#D3AC00" stroke-width="2.5"/></svg>`; };
+    const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    let k = 0;
+    document.getElementById('vxNav').innerHTML = VX_COLECCIONES.map((c) => `<a href="#${c.id}">${esc(c.titulo)}</a>`).join('');
+    document.getElementById('vxCols').innerHTML = VX_COLECCIONES.map((c) => {
+      const cards = c.videos.map(([t, d, lvl, url]) => `<div class="vx-card" role="button" tabindex="0" data-url="${esc(url)}" aria-label="Reproducir: ${esc(t)}"><div class="vx-thumb">${thumb(++k)}${lvl ? `<span class="lvl">${esc(lvl)}</span>` : ''}<span class="dur">${esc(d)}</span><span class="mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span></div><h3>${esc(t)}</h3><span class="meta">${esc(c.titulo)}</span></div>`).join('');
+      const o = VX_OFERTAS[c.id];
+      const offer = o ? `<div class="vx-offer ${o.cls}"><div><h3>${o.t}</h3><p>${o.p}</p></div><a class="btn btn-red" href="${o.h}">${o.b}</a></div>` : '';
+      return `<section class="vx-col" id="${c.id}"><div class="vx-col-head"><div><h2>${esc(c.titulo)}</h2><p>${esc(c.desc)}</p></div><span class="n">${c.videos.length} videos</span></div><div class="vx-row">${cards}</div></section>${offer}`;
+    }).join('');
+
+    const play = (url) => (window.playVideo ? playVideo(url + (url.includes('?') ? '&' : '?') + 'autoplay=1') : open(url, '_blank'));
+    document.getElementById('vxMain').addEventListener('click', () => play(VX_PRINCIPAL));
+    document.querySelectorAll('.vx-card').forEach((c) => c.addEventListener('click', () => play(c.dataset.url)));
+    document.querySelectorAll('.vx-card, #vxMain').forEach((c) => c.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }));
+
+    // Resalta la colección visible en la barra
+    const links = [...document.querySelectorAll('#vxNav a')];
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('.vx-col').forEach((s) => io.observe(s));
   </script>
 </body>
 </html>
