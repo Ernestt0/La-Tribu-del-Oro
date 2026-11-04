@@ -1256,3 +1256,7 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
   }
   @keyframes coin-flip-now { from { transform: rotateY(0); } 60% { transform: rotateY(540deg) scale(1.08); filter: brightness(1.3); } to { transform: rotateY(720deg); } }
 }
+/* Botón del canal en vivo con ícono de Telegram */
+.v2 .btn-tg { display: inline-flex; align-items: center; gap: 8px; }
+.v2 .btn-tg .tg-ico { width: 18px; height: 18px; flex: none; }
+@media (max-width: 700px) { .v2 .btn-tg { gap: 6px; } .v2 .btn-tg .tg-ico { width: 16px; height: 16px; } }
