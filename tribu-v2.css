@@ -959,3 +959,25 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 .v2 .dd .dd-ico, .v2 .mobile-nav a.sub.dd .dd-ico { background: none !important; box-shadow: none !important; border: 0 !important; width: 28px; height: 28px; border-radius: 0; }
 .v2 .dd .dd-ico svg { width: 24px; height: 24px; }
 .v2 .dropdown-menu a.dd:hover .dd-ico { box-shadow: none !important; transform: scale(1.12); }
+
+/* ===== Burbuja de contacto: WhatsApp o Telegram ===== */
+.v2 .contact-fab .cf-main { position: relative; border: 0; cursor: pointer; }
+.v2 .contact-fab .cf-main svg { position: absolute; transition: transform .45s cubic-bezier(.34,1.56,.64,1), opacity .2s ease; }
+.v2 .contact-fab .cf-x { opacity: 0; transform: rotate(-90deg) scale(.6); }
+.v2 .contact-fab.open .cf-chat { opacity: 0; transform: rotate(90deg) scale(.6); }
+.v2 .contact-fab.open .cf-x { opacity: 1; transform: none; }
+.v2 .contact-fab.open .wa-popup-bubble { opacity: 0 !important; pointer-events: none; }
+.v2 .cf-options { position: absolute; right: 0; bottom: calc(100% + 12px); display: flex; flex-direction: column; align-items: flex-end; gap: 10px; pointer-events: none; }
+.v2 .cf-opt { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 999px; background: #fff; color: #0b0b0f; font-weight: 700; font-size: 14.5px; white-space: nowrap;
+  box-shadow: 0 12px 28px -12px rgba(15,23,42,.45); opacity: 0; transform: translateY(14px) scale(.85); transform-origin: right bottom;
+  transition: opacity .2s ease, transform .5s cubic-bezier(.34,1.56,.64,1); }
+.v2 .cf-ico { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: #fff; }
+.v2 .cf-ico svg { width: 19px; height: 19px; }
+.v2 .cf-wa .cf-ico { background: #25d366; }
+.v2 .cf-tg .cf-ico { background: #229ed9; }
+.v2 .contact-fab.open .cf-options { pointer-events: auto; }
+.v2 .contact-fab.open .cf-opt { opacity: 1; transform: none; }
+.v2 .contact-fab.open .cf-opt:nth-child(1) { transition-delay: .06s; }
+.v2 .cf-opt:active { transform: scale(.94) !important; }
+/* "cripto": las velas crecen hacia abajo para no chocar con la línea de arriba */
+.v2 .slide-copy h1 .hl-red ~ .hl-red .cd { bottom: auto; top: calc(22% + var(--o)); transform-origin: 50% 0; }
