@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611032149" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611032149" />
+  <link rel="stylesheet" href="styles.css?v=202611032150" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611032150" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -171,7 +171,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611032149"></script>
+  <script src="components.js?v=202611032150"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -241,7 +241,7 @@
       const mins = now.getHours() * 60 + now.getMinutes(), dia = now.getDay();
       const on = LIVE.dias.includes(dia) && mins >= LIVE.inicio && mins < LIVE.fin;
       strip.classList.toggle('is-live', on); strip.classList.toggle('is-off', !on);
-      document.getElementById('liveTitle').textContent = on ? 'En vivo ahora' : (innerWidth < 700 ? 'Sesiones en vivo L-V' : 'Sesiones en vivo de lunes a viernes');
+      document.getElementById('liveTitle').textContent = on ? 'En vivo ahora' : (innerWidth < 700 ? 'Sesiones en vivo' : 'Sesiones en vivo de lunes a viernes');
       document.getElementById('liveSub').textContent = on ? (innerWidth < 700 ? 'Oro, forex e índices · ¡Entra ya!' : 'Oro, forex e índices con gestión de riesgo. ¡Entra ya!') : (innerWidth < 700 ? '8:00 AM (NY) · Sin sesión ahora' : '8:00 AM, hora de Nueva York · Sin sesión ahora');
       setTimeout(liveStatus, 60000);
     })();
