@@ -7,15 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611041746">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611041746">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611041746">
+  <link rel="stylesheet" href="styles.css?v=202611041811">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611041811">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611041811">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
     .vx-hero { background: #050505; color: #fff; padding: 40px 0 56px; }
-    .vx-hero-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: center; }
-    .vx-player { position: relative; aspect-ratio: 16/9; border-radius: 22px; overflow: hidden; background: #111; cursor: pointer;
+    .vx-hero-grid { display: grid; grid-template-columns: auto 1fr; gap: 44px; align-items: center; }
+    .vx-player { position: relative; aspect-ratio: 9/16; width: min(340px, 80vw); justify-self: center; border-radius: 22px; overflow: hidden; background: #111; cursor: pointer;
       box-shadow: 0 30px 60px -30px rgba(211,172,0,.45), 0 0 0 1px rgba(211,172,0,.35); }
     .vx-player svg.bg { position: absolute; inset: 0; width: 100%; height: 100%; }
     .vx-player .play { position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: #D3AC00; display: grid; place-items: center;
@@ -82,6 +82,7 @@
     }
     @media (max-width: 600px) {
       .vx-nav { top: 76px; }
+      .vx-player { width: min(260px, 66vw); }
       .vx-row { grid-auto-columns: 78%; gap: 14px; }
       .vx-player .play { width: 66px; height: 66px; margin: -33px 0 0 -33px; }
       .vx-copy p { font-size: 15.5px; }
@@ -103,11 +104,11 @@
         <svg class="bg" viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="vg0" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#D3AC00" stop-opacity=".45"/><stop offset="1" stop-color="#D3AC00" stop-opacity="0"/></linearGradient></defs><rect width="400" height="225" fill="#0d1117"/><path d="M0 170 L40 150 L80 160 L120 120 L160 130 L200 90 L240 100 L280 60 L320 75 L360 40 L400 50 L400 225 L0 225Z" fill="url(#vg0)"/><path d="M0 170 L40 150 L80 160 L120 120 L160 130 L200 90 L240 100 L280 60 L320 75 L360 40 L400 50" fill="none" stroke="#D3AC00" stroke-width="2.5"/></svg>
         <span class="tag">Empieza aquí</span>
         <span class="play"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span>
-        <span class="dur" id="vxMainDur">03:30</span>
+        <span class="dur" id="vxMainDur">01:05</span>
       </div>
       <div class="vx-copy">
         <span class="eyebrow">Quiénes somos</span>
-        <h1>Conoce <span>La Tribu del Oro</span> en 3 minutos</h1>
+        <h1>Conoce <span>La Tribu del Oro</span> en 1 minuto</h1>
         <p>Quiénes somos, cómo enseñamos y qué vas a lograr con nosotros. El mejor punto de partida antes de ver el resto de los videos.</p>
         <ul class="vx-points">
           <li>Educación práctica, sin promesas de ganancias fáciles</li>
@@ -137,7 +138,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611041746"></script>
+  <script src="components.js?v=202611041811"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
@@ -204,7 +205,11 @@
     }).join('');
 
     const play = (url) => (window.playVideo ? playVideo(url + (url.includes('?') ? '&' : '?') + 'autoplay=1') : open(url, '_blank'));
-    document.getElementById('vxMain').addEventListener('click', () => play(VX_PRINCIPAL));
+    document.getElementById('vxMain').addEventListener('click', function () {
+      // Video vertical: se reproduce dentro del mismo reproductor 9:16
+      if (this.dataset.on) return; this.dataset.on = 1;
+      this.innerHTML = '<iframe src="' + VX_PRINCIPAL + '?autoplay=1&rel=0&playsinline=1" title="Conoce La Tribu del Oro" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>';
+    });
     document.querySelectorAll('.vx-card').forEach((c) => c.addEventListener('click', () => play(c.dataset.url)));
     document.querySelectorAll('.vx-card, #vxMain').forEach((c) => c.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }));
 
