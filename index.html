@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611032100" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611032100" />
+  <link rel="stylesheet" href="styles.css?v=202611032105" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611032105" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -35,8 +35,8 @@
     <div class="container">
       <div class="live-strip">
           <div>
-            <h3><span class="live-dot"></span>Sesiones en vivo de lunes a viernes</h3>
-            <p>8:00 AM (EST) · Oro, forex e índices con gestión de riesgo.</p>
+            <h3><span class="live-dot" id="liveDot"></span><span id="liveTitle">Sesiones en vivo de lunes a viernes</span></h3>
+            <p><span id="liveSub">8:00 AM (hora de Nueva York) · Oro, forex e índices con gestión de riesgo.</span></p>
           </div>
           <a href="https://t.me/" target="_blank" rel="noopener" class="btn btn-red">Unirme al canal en vivo</a>
         </div>
@@ -171,7 +171,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611032100"></script>
+  <script src="components.js?v=202611032105"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -228,6 +228,21 @@
         return `<span class="ch" aria-hidden="true" style="--i:${i}">${ch}<i class="cd" style="--h:${h}em;--o:${o}em;--c:${c}"></i></span>`;
       }).join('');
     });
+
+
+    // ---------- Sesiones en vivo: verde si hay sesión ahora, rojo si no ----------
+    // Horario de la sesión (hora de Nueva York). Cambia estos valores si cambia el horario.
+    const LIVE = { dias: [1, 2, 3, 4, 5], inicio: 8 * 60, fin: 10 * 60 };
+    (function liveStatus() {
+      const strip = document.querySelector('.sec-live .live-strip'); if (!strip) return;
+      const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+      const mins = now.getHours() * 60 + now.getMinutes(), dia = now.getDay();
+      const on = LIVE.dias.includes(dia) && mins >= LIVE.inicio && mins < LIVE.fin;
+      strip.classList.toggle('is-live', on); strip.classList.toggle('is-off', !on);
+      document.getElementById('liveTitle').textContent = on ? 'En vivo ahora' : 'Sesiones en vivo de lunes a viernes';
+      document.getElementById('liveSub').textContent = on ? 'Oro, forex e índices con gestión de riesgo. ¡Entra ya!' : '8:00 AM (hora de Nueva York) · Ahora no hay sesión activa.';
+      setTimeout(liveStatus, 60000);
+    })();
 
     // ---------- Comentarios en carrusel (dos filas, sentidos contrarios) ----------
     // Para agregar uno: copia un bloque de la lista. Las palabras entre **dobles asteriscos** salen en negro.

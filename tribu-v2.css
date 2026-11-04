@@ -985,3 +985,21 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 .v2 .sec-live { padding-top: 28px; }
 .v2 .sec-live .live-strip { margin-top: 0; }
 @media (max-width: 640px) { .v2 .sec-live { padding-top: 20px; } }
+
+/* ===== Primera pantalla totalmente negra en computador + sesiones en vivo flotando ===== */
+.v2 .sec-live { background: #050505; padding: 0 0 56px; }
+@media (min-width: 900px) {
+  .v2 .hero-slider { height: calc(100vh - 86px - 150px); min-height: 480px; }
+  .v2 .sec-live { padding-bottom: 64px; }
+}
+.v2 .sec-live .live-strip { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  border: 1.5px solid #D3AC00 !important; box-shadow: none; animation: live-pulse 2s ease-in-out infinite; }
+.v2 .sec-live .live-strip h3 { color: #fff; }
+.v2 .sec-live .live-strip p { color: rgba(255,255,255,.65); }
+@keyframes live-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(211,172,0,.45), 0 0 24px -6px rgba(211,172,0,.35); } 50% { box-shadow: 0 0 0 8px rgba(211,172,0,0), 0 0 34px -4px rgba(211,172,0,.55); } }
+/* Punto: verde si hay sesión, rojo si no */
+.v2 .sec-live .live-strip.is-live .live-dot { background: #22c55e !important; }
+.v2 .sec-live .live-strip.is-live .live-dot::before, .v2 .sec-live .live-strip.is-live .live-dot::after { border-color: #22c55e !important; background: rgba(34,197,94,.35) !important; }
+.v2 .sec-live .live-strip.is-off .live-dot { background: #ef4444 !important; }
+.v2 .sec-live .live-strip.is-off .live-dot::before, .v2 .sec-live .live-strip.is-off .live-dot::after { border-color: #ef4444 !important; background: rgba(239,68,68,.35) !important; }
+@media (prefers-reduced-motion: reduce) { .v2 .sec-live .live-strip { animation: none; } }
