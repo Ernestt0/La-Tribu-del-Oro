@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611041015" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611041015" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611041015" />
+    <link rel="stylesheet" href="styles.css?v=202611041541" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611041541" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611041541" />
     <style>
       /* HERO DE LA PÁGINA */
       .calc-page-hero {
@@ -245,6 +245,28 @@
       @media (hover:hover) { .calc-guide-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(15,23,42,.1); } }
       @media (max-width: 900px) { .calc-widget { padding: 22px 16px; } #resLotSize { font-size: 28px; } }
       @media (prefers-reduced-motion: reduce) { .gauge-fill { transition: none; } }
+
+      /* ===== Mejoras de claridad ===== */
+      .tip { position: relative; display: inline-grid; place-items: center; width: 17px; height: 17px; margin-left: 4px; border-radius: 50%; background: #efe7c8; color: #6b5300; font: 700 11px/1 Georgia, serif; cursor: help; vertical-align: 1px; }
+      .tip-box { position: absolute; left: 50%; bottom: calc(100% + 8px); z-index: 20; width: 240px; max-width: 70vw; transform: translateX(-50%) translateY(4px); padding: 10px 12px; border-radius: 12px; background: #0b0b0f; color: #fff;
+        font: 500 12.5px/1.45 Inter, sans-serif; opacity: 0; pointer-events: none; transition: opacity .2s, transform .35s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 14px 30px -12px rgba(0,0,0,.5); }
+      .tip:hover .tip-box, .tip:focus .tip-box { opacity: 1; transform: translateX(-50%); }
+      .ex-btn { border: 0; background: none; padding: 0; color: #8a6a00; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+      .ex-note { color: #D3AC00; }
+      .calc-plain { font-size: 15px; line-height: 1.55; color: #e5e7eb; padding: 14px 16px; border-radius: 14px; background: rgba(255,255,255,.06); }
+      .calc-plain b { color: #fff; }
+      .risk-meter-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: 8px; }
+      .risk-meter-top b { font-size: 15px; text-transform: none; letter-spacing: 0; }
+      .rw-ok { color: #22c55e; } .rw-warn { color: #f59e0b; } .rw-high { color: #ef4444; }
+      .risk-meter .gauge { height: 12px; margin-top: 0; background: linear-gradient(90deg, rgba(34,197,94,.25), rgba(245,158,11,.25) 50%, rgba(239,68,68,.25)); }
+      .risk-meter .gauge-labels { margin-top: 6px; font-size: 11px; }
+      .calc-next { max-width: 980px; margin: 0 auto 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 32px; border-radius: 24px; background: #050505; color: #fff; border: 1px solid rgba(211,172,0,.35); }
+      .calc-next .calc-tag { background: rgba(211,172,0,.15) !important; color: #D3AC00 !important; border: 1px solid rgba(211,172,0,.4) !important; }
+      .calc-next h2 { color: #fff !important; font-size: clamp(20px, 2.4vw, 26px); margin: 8px 0 6px; }
+      .calc-next p { color: rgba(255,255,255,.7); margin: 0; font-size: 15px; }
+      .calc-next-actions { display: flex; flex-direction: column; gap: 10px; flex: none; }
+      .calc-next-actions .btn-line { color: #fff; border-color: rgba(255,255,255,.3); }
+      @media (max-width: 760px) { .calc-next { flex-direction: column; align-items: stretch; padding: 22px 18px; } .calc-next-actions .btn { width: 100%; } .tip-box { left: auto; right: -10px; transform: translateY(4px); } .tip:hover .tip-box, .tip:focus .tip-box { transform: none; } }
     </style>
   </head>
   <body class="v2 page">
@@ -254,15 +276,13 @@
     <!-- HERO DE LA CALCULADORA -->
     <section class="calc-page-hero">
       <div class="container">
-        <span class="calc-tag">Herramienta Institucional</span>
-        <h1 class="hero-title" style="font-size: 40px; margin-bottom: 10px">
-          Calculadora de Riesgo &<br />
-          <span>Tamaño de Posición (Lotaje)</span>
+        <span class="calc-tag">Calculadora de lotaje</span>
+        <h1 class="hero-title" style="font-size: clamp(32px, 4.6vw, 48px); margin-bottom: 10px">
+          ¿Cuánto puedo arriesgar<br />
+          <span>en cada operación?</span>
         </h1>
         <p class="section-subtitle" style="max-width: 680px">
-          Nunca entres al mercado sin saber exactamente cuánto dinero estás
-          arriesgando. Escribe tu capital y distancia de Stop Loss para obtener
-          el lotaje exacto sugerido.
+          Escribe cuánto dinero tienes, cuánto aceptas perder y dónde cerrarías si el precio va en tu contra. Te decimos el tamaño exacto de tu operación, en palabras simples.
         </p>
       </div>
     </section>
@@ -283,18 +303,17 @@
                     margin-bottom: 4px;
                   "
                 >
-                  Parámetros de tu Orden
+                  Tus datos
                 </h3>
                 <p style="font-size: 13px; color: #64748b">
-                  Ajusta los valores con tu teclado o selecciona los accesos
-                  rápidos.
+                  Completa los 4 datos o toca <button type="button" class="ex-btn" onclick="loadExample()">Ver un ejemplo</button>
                 </p>
               </div>
 
               <!-- FILA 1 -->
               <div class="calc-input-row">
                 <div class="calc-field-group">
-                  <label for="inCapital">Balance de la cuenta</label>
+                  <label for="inCapital">¿Cuánto dinero tienes en tu cuenta? <span class="tip" tabindex="0" aria-label="El total que tienes depositado en tu broker, en dólares.">i<span class="tip-box" role="tooltip">El total que tienes depositado en tu broker, en dólares.</span></span></label>
                   <div class="calc-input-wrapper">
                     <input
                       type="number"
@@ -311,7 +330,7 @@
                 </div>
 
                 <div class="calc-field-group">
-                  <label for="inAsset">Instrumento / Mercado</label>
+                  <label for="inAsset">¿Qué vas a operar? <span class="tip" tabindex="0" aria-label="El mercado de tu operación. Cada uno mueve el dinero de forma distinta.">i<span class="tip-box" role="tooltip">El mercado de tu operación. Cada uno mueve el dinero de forma distinta.</span></span></label>
                   <select
                     id="inAsset"
                     class="calc-select"
@@ -328,7 +347,7 @@
               <!-- FILA 2 -->
               <div class="calc-input-row">
                 <div class="calc-field-group">
-                  <label for="inRisk">Riesgo tolerado por trade (%)</label>
+                  <label for="inRisk">¿Qué % aceptas perder si sale mal? <span class="tip" tabindex="0" aria-label="Lo recomendado es entre 0.5% y 1% de tu cuenta por operación. Así una mala racha no te saca del juego.">i<span class="tip-box" role="tooltip">Lo recomendado es entre 0.5% y 1% de tu cuenta por operación. Así una mala racha no te saca del juego.</span></span></label>
                   <div class="calc-input-wrapper">
                     <input
                       type="number"
@@ -371,7 +390,7 @@
                 </div>
 
                 <div class="calc-field-group">
-                  <label for="inSL">Distancia de Stop Loss</label>
+                  <label for="inSL">¿A cuántos puntos pones tu Stop Loss? <span class="tip" tabindex="0" aria-label="El Stop Loss es el punto donde la operación se cierra sola si el precio va en tu contra. Pon la distancia desde tu entrada hasta ese punto.">i<span class="tip-box" role="tooltip">El Stop Loss es el punto donde la operación se cierra sola si el precio va en tu contra. Pon la distancia desde tu entrada hasta ese punto.</span></span></label>
                   <div class="calc-input-wrapper">
                     <input
                       type="number"
@@ -392,7 +411,7 @@
             <!-- COLUMNA DERECHA: TARJETA OSCURA DE RESULTADOS -->
             <div class="calc-result-box">
               <div class="calc-result-item">
-                <div class="calc-res-label">Lotaje sugerido a operar</div>
+                <div class="calc-res-label">Abre tu operación con</div>
                 <div
                   class="calc-res-val"
                   id="resLotSize"
@@ -402,7 +421,7 @@
                 </div>
               </div>
               <div class="calc-result-item">
-                <div class="calc-res-label">Pérdida si toca el Stop Loss</div>
+                <div class="calc-res-label">Si sale mal, pierdes como máximo</div>
                 <div
                   class="calc-res-val"
                   id="resMoneyRisk"
@@ -412,7 +431,7 @@
                 </div>
               </div>
               <div class="calc-result-item">
-                <div class="calc-res-label">Capital restante</div>
+                <div class="calc-res-label">Y tu cuenta queda en</div>
                 <div
                   class="calc-res-val"
                   id="resSafeCapital"
@@ -421,9 +440,13 @@
                   $1,980.00 USD
                 </div>
               </div>
+              <div class="calc-plain" id="calcPlain"></div>
+              <div class="risk-meter">
+                <div class="risk-meter-top"><span>Nivel de riesgo</span><b id="riskWord">—</b></div>
+                <div class="gauge" aria-hidden="true"><div class="gauge-fill" id="riskGauge"></div></div>
+                <div class="gauge-labels" aria-hidden="true"><span>Seguro</span><span>Cuidado</span><span>Peligroso</span></div>
+              </div>
               <div class="calc-status" id="calcStatus" role="status" aria-live="polite"></div>
-              <div class="gauge" aria-hidden="true"><div class="gauge-fill" id="riskGauge"></div></div>
-              <div class="gauge-labels" aria-hidden="true"><span>0%</span><span>Riesgo real</span><span>5%+</span></div>
             </div>
           </div>
           <details class="calc-how">
@@ -440,6 +463,18 @@
         </div>
 
         <!-- GUÍAS EDUCATIVAS RÁPIDAS -->
+        <div class="calc-next">
+          <div class="calc-next-copy">
+            <span class="calc-tag">Siguiente paso</span>
+            <h2>¿No sabes dónde poner tu Stop Loss?</h2>
+            <p>Es la duda número uno al empezar. Te lo explicamos con ejemplos reales en un video corto.</p>
+          </div>
+          <div class="calc-next-actions">
+            <a class="btn btn-red" href="videos.html#riesgo">Ver el video de gestión de riesgo</a>
+            <a class="btn btn-line" href="curso.html">Conocer el curso completo</a>
+          </div>
+        </div>
+
         <div class="calc-guide-grid">
           <div class="calc-guide-card">
             <div class="solution-logo-box">
@@ -509,7 +544,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611041015"></script>
+    <script src="components.js?v=202611041541"></script>
     <script>
       // Las cifras del resultado dan un pequeño pulso cuando cambian
       (() => {
@@ -614,6 +649,28 @@
         status.innerText = msg;
       }
 
+      function loadExample() {
+        document.getElementById('inCapital').value = 500;
+        document.getElementById('inAsset').value = 'gold';
+        document.getElementById('inRisk').value = 1;
+        document.getElementById('inSL').value = 5;
+        calculatePosition();
+        const p = document.getElementById('calcPlain');
+        p.insertAdjacentHTML('afterbegin', '<b class="ex-note">Ejemplo:</b> cuenta de $500 operando oro, arriesgando 1% con el Stop Loss a 5 dólares del precio de entrada. ');
+        document.querySelector('.calc-result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      // Traduce el resultado a palabras simples
+      const _calc = calculatePosition;
+      calculatePosition = function () {
+        _calc();
+        const capital = parseFloat(document.getElementById('inCapital').value);
+        const r = computePosition(capital, parseFloat(document.getElementById('inRisk').value), parseFloat(document.getElementById('inSL').value), document.getElementById('inAsset').value);
+        const plain = document.getElementById('calcPlain'), word = document.getElementById('riskWord');
+        if (!r) { plain.textContent = 'Completa los datos para ver tu resultado explicado.'; word.textContent = '—'; word.className = ''; return; }
+        const lvl = r.realPct <= 1.5 ? 'ok' : r.realPct <= 3 ? 'warn' : 'high';
+        word.textContent = { ok: 'Seguro', warn: 'Cuidado', high: 'Peligroso' }[lvl]; word.className = 'rw-' + lvl;
+        plain.innerHTML = 'Si el precio llega a tu Stop Loss, pierdes <b>' + money(r.realLoss) + '</b> (' + r.realPct.toFixed(1) + '% de tu cuenta) y te quedan <b>' + money(r.safeCapital) + '</b>.';
+      };
       calculatePosition();
     </script>
   </body>

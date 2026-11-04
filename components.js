@@ -118,11 +118,10 @@ class MarketRows extends HTMLElement {
     // Forex: tipos de referencia del Banco Central Europeo (se actualizan una vez al día)
     const loadFx = async () => {
       try {
-        const [now, prev] = await Promise.all([
-          fetch('https://api.frankfurter.app/latest?from=USD').then((r) => r.json()),
-          fetch('https://api.frankfurter.app/' + new Date(Date.now() - 4 * 864e5).toISOString().slice(0, 10) + '..?from=USD').then((r) => r.json()),
-        ]);
-        const days = Object.keys(prev.rates || {}).sort(); const before = days.length > 1 ? prev.rates[days[days.length - 2]] : null;
+        const get = async (path) => { for (const h of ['https://api.frankfurter.dev/v1/', 'https://api.frankfurter.app/']) { try { const r = await fetch(h + path); if (r.ok) return await r.json(); } catch (e) {} } return null; };
+        const [now, prev] = await Promise.all([get('latest?from=USD'), get(new Date(Date.now() - 6 * 864e5).toISOString().slice(0, 10) + '..?from=USD')]);
+        if (!now) return;
+        const days = Object.keys((prev && prev.rates) || {}).sort(); const before = days.length > 1 ? prev.rates[days[days.length - 2]] : null;
         const rate = (R, a, b) => { const u = (x) => (x === 'USD' ? 1 : R[x]); return u(b) / u(a); };
         MK_FX.forEach(([s, , , a, b]) => {
           if (s === 'XAUUSD') return;
