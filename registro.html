@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Regístrate gratis - La Tribu del Oro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="tribu-v2.css" />
+    <link rel="stylesheet" href="tribu-pages.css" />
+    <style>
+      .reg-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 56px 0 80px; }
+      .reg-copy h1 { font-size: clamp(34px, 4.4vw, 52px); line-height: 1.05; margin: 12px 0 16px; }
+      .reg-copy h1 span { color: #D3AC00; }
+      .reg-copy p { color: var(--muted); font-size: 17px; line-height: 1.6; }
+      .reg-list { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; }
+      .reg-list li { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; color: var(--ink); }
+      .reg-list li::before { content: "✓"; flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: rgba(211,172,0,.15); color: #8a6a00; font-size: 13px; }
+      .reg-card { background: rgba(255,255,255,.72); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 32px; box-shadow: 0 20px 50px -24px rgba(15,23,42,.3); }
+      .reg-card h2 { font-size: 22px; margin: 0 0 4px; } .reg-card .sub { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+      .fld { display: grid; gap: 6px; margin-bottom: 14px; }
+      .fld label { font-size: 13px; font-weight: 600; color: #334155; }
+      .fld input, .fld select { width: 100%; padding: 13px 14px; border-radius: 12px; border: 1.5px solid #e2e8f0; background: #fff; font: inherit; font-size: 15px; color: #0f172a; outline: none; transition: border-color .2s, box-shadow .2s; }
+      .fld input:focus, .fld select:focus { border-color: #D3AC00; box-shadow: 0 0 0 4px rgba(211,172,0,.16); }
+      .fld .err { display: none; font-size: 12.5px; color: #c40811; }
+      .fld.bad input, .fld.bad select { border-color: #ef4444; } .fld.bad .err { display: block; }
+      .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .chk { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #475569; line-height: 1.5; margin: 10px 0; }
+      .chk input { flex: none; width: 18px; height: 18px; margin-top: 2px; accent-color: #D3AC00; }
+      .chk a { color: #8a6a00; font-weight: 600; text-decoration: underline; }
+      .chk.bad { color: #c40811; }
+      .reg-btn { width: 100%; margin-top: 10px; min-height: 52px; border-radius: 999px; border: 0; background: #E50914; color: #fff; font: 700 16px/1 inherit; cursor: pointer; box-shadow: 0 12px 26px -12px rgba(229,9,20,.7); }
+      .reg-btn:disabled { opacity: .6; cursor: wait; }
+      .reg-note { font-size: 12px; color: #94a3b8; text-align: center; margin-top: 12px; }
+      .reg-ok { display: none; text-align: center; padding: 20px 0; } .reg-ok h2 { font-size: 24px; }
+      .reg-msg { display: none; margin-top: 10px; font-size: 13px; color: #c40811; text-align: center; }
+      @media (max-width: 900px) { .reg-wrap { grid-template-columns: 1fr; gap: 28px; padding-top: 32px; } .row2 { grid-template-columns: 1fr; } .reg-card { padding: 24px 18px; } }
+    </style>
+  </head>
+  <body class="v2 page">
+    <site-header></site-header>
+    <main class="container">
+      <div class="reg-wrap">
+        <div class="reg-copy">
+          <span class="eyebrow">100% gratis</span>
+          <h1>Crea tu cuenta y accede a los <span>videos gratis</span></h1>
+          <p>Regístrate en menos de un minuto para ver el contenido gratuito de La Tribu del Oro y recibir las novedades de la comunidad.</p>
+          <ul class="reg-list">
+            <li>Videos para empezar desde cero</li>
+            <li>Guías de gestión de riesgo y herramientas</li>
+            <li>Avisos de sesiones en vivo y nuevos contenidos</li>
+          </ul>
+        </div>
+
+        <div class="reg-card">
+          <form id="regForm" novalidate>
+            <h2>Regístrate gratis</h2>
+            <p class="sub">Solo te pedimos lo necesario para darte acceso.</p>
+            <div class="fld"><label for="rNombre">Nombre completo</label><input id="rNombre" name="nombre" autocomplete="name" required /><span class="err">Escribe tu nombre.</span></div>
+            <div class="fld"><label for="rCorreo">Correo electrónico</label><input id="rCorreo" name="correo" type="email" autocomplete="email" required /><span class="err">Escribe un correo válido.</span></div>
+            <div class="row2">
+              <div class="fld"><label for="rPais">País</label>
+                <select id="rPais" name="pais" required><option value="">Selecciona</option><option>Colombia</option><option>México</option><option>Perú</option><option>Chile</option><option>Argentina</option><option>Ecuador</option><option>Venezuela</option><option>España</option><option>Estados Unidos</option><option>Otro</option></select>
+                <span class="err">Selecciona tu país.</span></div>
+              <div class="fld"><label for="rWhats">WhatsApp</label><input id="rWhats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="+57 300 000 0000" required /><span class="err">Escribe tu número con indicativo.</span></div>
+            </div>
+            <div class="fld"><label for="rInteres">¿Qué te interesa más?</label>
+              <select id="rInteres" name="interes"><option value="">Selecciona (opcional)</option><option>Aprender trading desde cero</option><option>Señales</option><option>Copy trading</option><option>Criptomonedas</option><option>Ether.fi</option><option>Programa IB</option></select></div>
+
+            <!-- AUTORIZACIONES (Ley 1581 de 2012). Las casillas NUNCA deben venir marcadas. -->
+            <label class="chk" id="chkDatosWrap"><input type="checkbox" id="chkDatos" name="autoriza_datos" /> <span>Autorizo de manera previa, expresa e informada a La Tribu del Oro para tratar mis datos personales con el fin de crear mi cuenta, darme acceso al contenido y gestionar mi relación como usuario, según la <a href="politica-datos.html" target="_blank">Política de Tratamiento de Datos</a>. <b>(Obligatorio)</b></span></label>
+            <label class="chk"><input type="checkbox" id="chkMarketing" name="autoriza_marketing" /> <span>Acepto recibir por correo y WhatsApp información comercial, ofertas de cursos y novedades. Puedo darme de baja cuando quiera. (Opcional)</span></label>
+            <label class="chk" id="chkEdadWrap"><input type="checkbox" id="chkEdad" name="mayor_edad" /> <span>Confirmo que soy mayor de 18 años. <b>(Obligatorio)</b></span></label>
+
+            <button type="submit" class="reg-btn" id="regBtn">Crear mi cuenta gratis</button>
+            <p class="reg-msg" id="regMsg">No pudimos completar el registro. Intenta de nuevo en unos minutos.</p>
+            <p class="reg-note">Tus datos están protegidos. No los vendemos ni los compartimos con terceros para fines propios de ellos.</p>
+          </form>
+          <div class="reg-ok" id="regOk">
+            <h2>¡Bienvenido a la tribu! 🎉</h2>
+            <p class="sub">Tu cuenta está lista. Ya puedes ver los videos gratis.</p>
+            <a class="reg-btn" style="display:grid;place-items:center;text-decoration:none" id="regNext" href="videos.html">Ver los videos gratis</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <site-footer></site-footer>
+    <script src="components.js"></script>
+    <script>
+      // ===== CONFIGURACIÓN: dónde se guardan los registros =====
+      // Pega aquí la URL del servicio que recibirá los datos (Google Apps Script, Supabase, Formspree, tu servidor...).
+      // Mientras esté vacía, el registro solo funciona en este navegador y NO se guarda en ninguna base de datos.
+      const REGISTRO_ENDPOINT = '';
+      const POLITICA_VERSION = '2026-11-03';
+
+      const $ = (id) => document.getElementById(id);
+      const next = new URLSearchParams(location.search).get('next');
+      if (next && /^[\w\-]+\.html(#[\w\-]*)?$/.test(next)) $('regNext').href = next;
+
+      const mark = (el, bad) => el.closest('.fld, .chk').classList.toggle('bad', bad);
+      $('regForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const nombre = $('rNombre').value.trim(), correo = $('rCorreo').value.trim(), pais = $('rPais').value, whats = $('rWhats').value.trim();
+        let ok = true;
+        const chk = (el, cond) => { mark(el, !cond); if (!cond) ok = false; };
+        chk($('rNombre'), nombre.length >= 3);
+        chk($('rCorreo'), /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo));
+        chk($('rPais'), !!pais);
+        chk($('rWhats'), whats.replace(/\D/g, '').length >= 8);
+        chk($('chkDatos'), $('chkDatos').checked);
+        chk($('chkEdad'), $('chkEdad').checked);
+        if (!ok) { document.querySelector('.bad')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+
+        // Registro de la autorización: qué aceptó, cuándo y con qué versión de la política (prueba del consentimiento)
+        const data = {
+          nombre, correo, pais, whatsapp: whats, interes: $('rInteres').value,
+          autoriza_datos: true, autoriza_marketing: $('chkMarketing').checked, mayor_edad: true,
+          politica_version: POLITICA_VERSION, fecha: new Date().toISOString(), pagina: location.href,
+        };
+        $('regBtn').disabled = true; $('regMsg').style.display = 'none';
+        try {
+          if (REGISTRO_ENDPOINT) {
+            const r = await fetch(REGISTRO_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) });
+            if (!r.ok) throw new Error('fallo');
+          }
+          try { localStorage.setItem('tribu_registro', JSON.stringify({ nombre, correo, fecha: data.fecha })); } catch (_) {}
+          $('regForm').style.display = 'none'; $('regOk').style.display = 'block';
+        } catch (_) {
+          $('regMsg').style.display = 'block';
+        } finally { $('regBtn').disabled = false; }
+      });
+      document.querySelectorAll('#regForm input, #regForm select').forEach((el) => el.addEventListener('input', () => mark(el, false)));
+    </script>
+  </body>
+</html>

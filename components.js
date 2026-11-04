@@ -277,6 +277,7 @@ class SiteFooter extends HTMLElement {
                 <li><a href="ayuda.html#faq">Centro de ayuda</a></li>
                 <li><a href="ayuda.html#terminos">Términos y condiciones</a></li>
                 <li><a href="ayuda.html#riesgos">Aviso de riesgos</a></li>
+                <li><a href="politica-datos.html">Política de datos</a></li>
               </ul>
             </div>
           </div>
@@ -458,4 +459,22 @@ document.addEventListener('keydown', (e) => {
   document.addEventListener('DOMContentLoaded', queue);
   setTimeout(queue, 300);
   setTimeout(queue, 1200);
+})();
+
+
+// ==========================================================================
+// ACCESO A VIDEOS: pide registro antes de reproducir (solo experiencia de usuario;
+// la protección real de los videos necesita un servidor o una plataforma de cursos)
+// ==========================================================================
+(function videoGate() {
+  const registered = () => { try { return !!localStorage.getItem('tribu_registro'); } catch (_) { return false; } };
+  const isVideoTrigger = (el) => el && el.closest && el.closest('[onclick*="playVideo"], [onclick*="playGlossaryVideo"], .hero-video-box, .vcard, .video-card-slide, .play-btn, .hero-play-btn');
+  document.addEventListener('click', (e) => {
+    if (registered() || /registro\.html$/.test(location.pathname)) return;
+    const t = isVideoTrigger(e.target);
+    if (!t) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    const page = (location.pathname.split('/').pop() || 'index.html');
+    location.href = 'registro.html?next=' + encodeURIComponent(page);
+  }, true);
 })();
