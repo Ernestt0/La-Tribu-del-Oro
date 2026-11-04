@@ -1215,3 +1215,23 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
 .v2 .mk-pill:hover { transform: translateY(-3px) !important; border-color: rgba(211,172,0,.55) !important; }
 .v2 .sec-videos .reel { overflow-y: visible; }
 .v2 .sec-videos .vcard:hover .vthumb { transform: translateY(-4px); }
+
+/* ===== Cinta de mercados compacta en las páginas internas (mismo diseño que el inicio) ===== */
+.v2 .mk-bar { background: #050505; border-bottom: 1px solid #1f2937; padding: 8px 0; overflow: hidden; }
+.v2 .mk-compact { gap: 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.v2 .mk-compact .mk-track { gap: 10px; padding-right: 10px; }
+.v2 .mk-compact .mk-pill { width: auto; min-width: 0; padding: 5px 14px 5px 5px; gap: 9px; }
+.v2 .mk-compact .mk-ico { width: 30px; height: 30px; font-size: 13px; }
+.v2 .mk-compact .mk-flag { font-size: 15px; }
+.v2 .mk-compact .mk-txt { flex-direction: row; align-items: baseline; gap: 8px; white-space: nowrap; }
+.v2 .mk-compact .mk-txt b { font-size: 13.5px; }
+.v2 .mk-compact .mk-txt small { font-size: 12.5px; overflow: visible; }
+.v2 .mk-compact .mk-pill:hover { transform: translateY(-2px) !important; }
+@media (max-width: 700px) {
+  .v2 .mk-bar { padding: 6px 0; }
+  .v2 .mk-compact .mk-track { gap: 8px; }
+  .v2 .mk-compact .mk-pill { padding: 4px 11px 4px 4px; gap: 7px; }
+  .v2 .mk-compact .mk-ico { width: 26px; height: 26px; font-size: 11.5px; }
+  .v2 .mk-compact .mk-txt b { font-size: 12.5px; } .v2 .mk-compact .mk-txt small { font-size: 11.5px; }
+}
+.v2 site-header { background: #050505 !important; }

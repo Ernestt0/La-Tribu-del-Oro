@@ -87,7 +87,13 @@ class MarketRows extends HTMLElement {
     const cpill = ([s, n, col, ic]) => `<a class="mk-pill" data-sym="${s}" href="https://es.tradingview.com/symbols/${s}USDT/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico" style="background:${col}">${ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">${s}/USDT</span> <span class="mk-ch"></span></small></span></a>`;
     const fpill = ([s, n, ic]) => `<a class="mk-pill" data-fx="${s}" href="https://es.tradingview.com/symbols/${s === 'XAUUSD' ? 'OANDA-XAUUSD' : 'FX-' + s}/" target="_blank" rel="noopener" title="Ver ${n} en TradingView"><span class="mk-ico mk-flag" style="background:${s === 'XAUUSD' ? '#D3AC00' : '#1f2430'}">${ic.length === 2 ? `<img src="https://flagcdn.com/w80/${ic}.png" alt="" loading="lazy">` : ic}</span><span class="mk-txt"><b>${n}</b><small><span class="mk-px">Forex</span> <span class="mk-ch"></span></small></span></a>`;
     const line = (set, rev) => `<div class="mk-line${rev ? ' mk-rev' : ''}"><div class="mk-track">${set}${set.replace(/class="mk-pill"/g, 'class="mk-pill" aria-hidden="true" tabindex="-1"')}</div></div>`;
-    this.innerHTML = '<div class="mk-rows" aria-label="Precios de mercado">' + line(MK_COINS.map(cpill).join(''), false) + line(MK_FX.map(fpill).join(''), true) + '</div>';
+    const compact = this.hasAttribute('compact');
+    if (compact) {
+      const mix = []; MK_COINS.forEach((x, i) => { mix.push(cpill(x)); if (MK_FX[i]) mix.push(fpill(MK_FX[i])); });
+      this.innerHTML = '<div class="mk-rows mk-compact" aria-label="Precios de mercado">' + line(mix.join(''), false) + '</div>';
+    } else {
+      this.innerHTML = '<div class="mk-rows" aria-label="Precios de mercado">' + line(MK_COINS.map(cpill).join(''), false) + line(MK_FX.map(fpill).join(''), true) + '</div>';
+    }
     const SPEED = 45;
     const fit = () => this.querySelectorAll('.mk-track').forEach((t) => { const half = t.scrollWidth / 2; t.style.setProperty('--shift', half + 'px'); t.style.animationDuration = (half / SPEED).toFixed(1) + 's'; });
     requestAnimationFrame(fit); addEventListener('load', fit); addEventListener('resize', fit);
@@ -229,16 +235,12 @@ class SiteHeader extends HTMLElement {
       </nav>
 
       <!-- TICKER MARQUEE CON MOVIMIENTO FORZADO (se omite con el atributo no-ticker) -->
-      ${this.hasAttribute('no-ticker') ? '' : `<div class="tv-ticker-wrapper">
-        <div class="tv-ticker-mover" id="tv-ticker-container">
-          <div class="tradingview-widget-container__widget"></div>
-        </div>
-      </div>`}
+      ${this.hasAttribute('no-ticker') ? '' : '<div class="mk-bar"><market-rows compact></market-rows></div>'}
     `;
 
     // Cinta de precios en vivo (widget oficial de TradingView)
     const tvContainer = this.querySelector('#tv-ticker-container');
-    if (tvContainer) mountTicker(tvContainer, TV_SYMBOLS);
+    if (tvContainer) mountTicker(tvContainer, TV_SYMBOLS); // (sin uso: la cinta ahora es <market-rows compact>)
   }
 }
 
