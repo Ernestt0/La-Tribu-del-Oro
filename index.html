@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611041611" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611041611" />
+  <link rel="stylesheet" href="styles.css?v=202611041626" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611041626" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -34,6 +34,19 @@
   <section class="sec-live" aria-label="Sesiones en vivo">
     <div class="container">
       <div class="live-strip">
+          <div class="live-host" aria-hidden="true">
+            <!-- Para usar la foto real: guarda presentador.jpg en la carpeta del sitio y cambia el SVG por <img src="presentador.jpg" alt=""> -->
+            <svg viewBox="0 0 64 64"><defs><linearGradient id="hbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0D277"/><stop offset="1" stop-color="#B8901A"/></linearGradient></defs>
+              <circle cx="32" cy="32" r="32" fill="url(#hbg)"/>
+              <path d="M12 64c1-12 9-18 20-18s19 6 20 18z" fill="#0b0b0f"/>
+              <path d="M27 44h10v6c-2 2-8 2-10 0z" fill="#e8b48a"/>
+              <ellipse cx="32" cy="31" rx="11" ry="13" fill="#f1c39b"/>
+              <path d="M20.5 29c-1-9 5-15 12-15s13 5 11.5 15c-2-5-6-7-11.5-7s-10 2-12 7z" fill="#3a2a1d"/>
+              <circle cx="27.5" cy="31.5" r="1.6" fill="#2b2b2b"/><circle cx="36.5" cy="31.5" r="1.6" fill="#2b2b2b"/>
+              <path d="M28 37.5c2 2 6 2 8 0" stroke="#9b5a3c" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            </svg>
+            <span class="live-wave">👋</span>
+          </div>
           <div>
             <h3><span class="live-dot" id="liveDot"></span><span id="liveTitle">Sesiones en vivo de lunes a viernes</span></h3>
             <p><span id="liveSub">8:00 AM, hora de Nueva York · Oro, forex e índices</span></p>
@@ -171,7 +184,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611041611"></script>
+  <script src="components.js?v=202611041626"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -242,7 +255,7 @@
       const on = LIVE.dias.includes(dia) && mins >= LIVE.inicio && mins < LIVE.fin;
       strip.classList.toggle('is-live', on); strip.classList.toggle('is-off', !on);
       document.getElementById('liveTitle').textContent = on ? 'En vivo ahora' : (innerWidth < 700 ? 'Sesiones en vivo' : 'Sesiones en vivo de lunes a viernes');
-      document.getElementById('liveSub').textContent = on ? (innerWidth < 700 ? 'Oro, forex e índices · ¡Entra ya!' : 'Oro, forex e índices con gestión de riesgo. ¡Entra ya!') : (innerWidth < 700 ? '8:00 AM (NY) · Sin sesión ahora' : '8:00 AM, hora de Nueva York · Sin sesión ahora');
+      document.getElementById('liveSub').textContent = on ? (innerWidth < 700 ? 'Oro, forex e índices · ¡Entra ya!' : 'Oro, forex e índices con gestión de riesgo. ¡Entra ya!') : (innerWidth < 700 ? '8 AM (NY) · Sin sesión' : '8:00 AM, hora de Nueva York · Sin sesión ahora');
       setTimeout(liveStatus, 60000);
     })();
 
