@@ -1164,3 +1164,6 @@ img, svg, video, iframe { max-width: 100%; }
 .v2 .quotes-rows { margin-inline: 0 !important; }
 .v2 .quotes-row { padding-inline: 0 !important; }
 section:has(> .container > .quotes-rows) { overflow: hidden; }
+/* "en vivo" del título de mercados: rojo y late como el punto de sesiones */
+.v2 .sec-markets .sec-head h2 .grad { color: #E50914 !important; -webkit-text-fill-color: #E50914 !important; animation: live-blink 2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .v2 .sec-markets .sec-head h2 .grad { animation: none; } }
