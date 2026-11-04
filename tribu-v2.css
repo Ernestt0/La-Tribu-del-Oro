@@ -1116,3 +1116,10 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 }
 .v2 .lv-short { display: none; }
 @media (max-width: 700px) { .v2 .lv-long { display: none; } .v2 .lv-short { display: inline; } .v2 .sec-live .live-strip .btn { max-width: none; padding: 0 20px; white-space: nowrap; } }
+/* Píldoras de divisas transparentes sobre el dorado */
+.v2 .mk-pill { background: transparent !important; border: 1.5px solid rgba(11,11,15,.85) !important; box-shadow: none !important; }
+.v2 .mk-txt b { color: #0b0b0f !important; }
+.v2 .mk-txt small { color: rgba(11,11,15,.7) !important; }
+.v2 .mk-ch.up { color: #0f6b2f !important; } .v2 .mk-ch.down { color: #9b1010 !important; }
+.v2 .mk-pill:hover { background: rgba(11,11,15,.08) !important; box-shadow: none !important; }
+.v2 .sec-markets .sec-head { margin-bottom: 28px; }
