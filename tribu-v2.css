@@ -1454,24 +1454,19 @@ svg .ta-l { transform: translateY(8px); }
   .ta-tile { padding: 2cqh 2cqw; }
 }
 
-/* ===== Inicio: "Comienza" de las tarjetas como botón que late ===== */
-.v2 .path .more { position: relative; display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; margin-top: auto; padding: 9px 16px 9px 18px; border-radius: 999px;
-  background: #D3AC00; color: #0b0b0f !important; font-size: 14px; font-weight: 800; line-height: 1; box-shadow: 0 10px 22px -12px rgba(211,172,0,.9); }
-.v2 .path .more::after { content: "→"; display: inline-block; font-weight: 800; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
-.v2 .path .more::before { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 0 rgba(211,172,0,.55); pointer-events: none; }
+/* ===== Inicio: "Comienza" de las tarjetas hace un mini zoom y titila, sin cambiar su estilo ===== */
+.v2 .path .more { display: inline-block; transform-origin: left center; }
 @media (prefers-reduced-motion: no-preference) {
-  .v2 .path .more::before { animation: more-ping 2.2s cubic-bezier(.2,.8,.2,1) infinite; }
-  .v2 .path .more::after { animation: more-nudge 2.2s ease-in-out infinite; }
-  .v2 .path:nth-child(2) .more::before, .v2 .path:nth-child(2) .more::after { animation-delay: .25s; }
-  .v2 .path:nth-child(3) .more::before, .v2 .path:nth-child(3) .more::after { animation-delay: .5s; }
-  .v2 .path:nth-child(4) .more::before, .v2 .path:nth-child(4) .more::after { animation-delay: .75s; }
-  .v2 .path:nth-child(5) .more::before, .v2 .path:nth-child(5) .more::after { animation-delay: 1s; }
+  .v2 .path .more { animation: more-beat 2.4s cubic-bezier(.34,1.56,.64,1) infinite; }
+  .v2 .path:nth-child(2) .more { animation-delay: .3s; }
+  .v2 .path:nth-child(3) .more { animation-delay: .6s; }
+  .v2 .path:nth-child(4) .more { animation-delay: .9s; }
+  .v2 .path:nth-child(5) .more { animation-delay: 1.2s; }
+  .v2 .path:hover .more { animation-play-state: paused; }
 }
-@keyframes more-ping { 0% { box-shadow: 0 0 0 0 rgba(211,172,0,.55); } 70%, 100% { box-shadow: 0 0 0 12px rgba(211,172,0,0); } }
-@keyframes more-nudge { 0%, 60%, 100% { transform: none; } 75% { transform: translateX(4px); } }
-@media (hover: hover) {
-  .v2:not(.page) .path:hover .more { color: #0b0b0f !important; background: #e2bd14; transform: scale(1.05); }
-  .v2 .path:hover .more::after { transform: translateX(4px); animation: none; }
+@keyframes more-beat {
+  0%, 40%, 100% { transform: scale(1); opacity: 1; }
+  12% { transform: scale(1.1); opacity: 1; }
+  24% { transform: scale(1); opacity: .35; }
+  32% { opacity: 1; }
 }
-.v2 .path:active .more { transform: scale(.96); }
-@media (max-width: 600px) { .v2 .path .more { padding: 8px 14px 8px 16px; font-size: 13.5px; } }
