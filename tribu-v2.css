@@ -1457,7 +1457,7 @@ svg .ta-l { transform: translateY(8px); }
 /* ===== Inicio: "Comienza" de las tarjetas hace un mini zoom con borde y titila, sin cambiar su estilo ===== */
 .v2 .path .more { display: inline-block; transform-origin: left center; padding: 4px 10px; margin: auto -10px -4px; border-radius: 999px; box-shadow: 0 0 0 1.5px rgba(211,172,0,0); }
 @media (prefers-reduced-motion: no-preference) {
-  .v2 .path .more { animation: more-beat 2s cubic-bezier(.34,1.56,.64,1) infinite; }
+  .v2 .path .more { animation: more-beat 2s ease-in-out infinite; }
   .v2 .path:nth-child(2) .more { animation-delay: .2s; }
   .v2 .path:nth-child(3) .more { animation-delay: .4s; }
   .v2 .path:nth-child(4) .more { animation-delay: .6s; }
@@ -1465,8 +1465,9 @@ svg .ta-l { transform: translateY(8px); }
   .v2 .path:hover .more { animation-play-state: paused; }
 }
 @keyframes more-beat {
-  0%, 45%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 1.5px rgba(211,172,0,0); }
-  14% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 1.5px rgba(211,172,0,.9); }
-  28% { transform: scale(1); opacity: .35; box-shadow: 0 0 0 1.5px rgba(211,172,0,.2); }
-  36% { opacity: 1; box-shadow: 0 0 0 1.5px rgba(211,172,0,0); }
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 1.5px rgba(211,172,0,0); }
+  22%, 52% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 0 1.5px rgba(211,172,0,.85); }
+  74% { transform: scale(1); opacity: .55; box-shadow: 0 0 0 1.5px rgba(211,172,0,0); }
+  88% { opacity: 1; }
+}
 }
