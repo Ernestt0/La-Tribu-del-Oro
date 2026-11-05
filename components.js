@@ -534,3 +534,18 @@ document.addEventListener('keydown', (e) => {
   const upd = () => { const h = document.querySelector('.header'); if (h) h.classList.toggle('scrolled', scrollY > 20); };
   addEventListener('scroll', upd, { passive: true }); addEventListener('load', upd); setTimeout(upd, 50);
 })();
+
+// ==========================================================================
+// REPRODUCTOR PROPIO: <div class="own-player"><video>…</video><button class="op-play">…</button></div>
+// ==========================================================================
+function initOwnPlayers() {
+  document.querySelectorAll('.own-player').forEach((box) => {
+    if (box.dataset.ready) return; box.dataset.ready = 1;
+    const vid = box.querySelector('video'), btn = box.querySelector('.op-play');
+    const start = () => { box.classList.add('playing'); vid.controls = true; vid.play(); };
+    if (btn) btn.addEventListener('click', (e) => { e.stopPropagation(); start(); });
+    vid.addEventListener('click', () => { if (!box.classList.contains('playing')) start(); });
+    vid.addEventListener('ended', () => { box.classList.remove('playing'); vid.controls = false; vid.load(); });
+  });
+}
+document.addEventListener('DOMContentLoaded', initOwnPlayers);

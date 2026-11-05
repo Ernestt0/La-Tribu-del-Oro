@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611042019">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611042019">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611042019">
+  <link rel="stylesheet" href="styles.css?v=202611042028">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611042028">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611042028">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -348,9 +348,43 @@
     .bt-head h1 .t-coin { display: inline-block; vertical-align: -.08em; margin-right: .06em; background: #0b0b0f !important; box-shadow: 0 0 0 .06em #fff, 0 12px 26px -10px rgba(0,0,0,.55) !important; }
     @media (max-width: 960px) { .bt-cta { min-height: 150px; overflow: visible !important; } }
     @media (min-width: 961px) { .bt-head { max-width: none; } .bt-head h1 .t-brand { white-space: nowrap !important; } .bt-head h1 { font-size: clamp(44px, 5.4vw, 80px) !important; } }
+    /* Sin bordes blancos en la moneda ni sombra en el texto */
+    .bt-head h1 .t-coin { box-shadow: 0 10px 22px -10px rgba(0,0,0,.45) !important; }
+    .bt-head h1 .t-brand > span, .bt-head h1 .w { text-shadow: none !important; }
+    .vx-bento-hero .vx-own .coin-play { box-shadow: none !important; }
+    .vx-bento-hero .vx-own .coin-play img { filter: drop-shadow(0 12px 24px rgba(0,0,0,.5)) !important; }
+    /* Columna derecha: filas compactas con más información + barra de acción */
+    .bt-side { display: grid; grid-template-rows: 1fr 1fr 1fr auto; gap: 10px; grid-row: 1 / span 2; min-height: 0; }
+    .bt-row { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 18px; background: #fff; box-shadow: 0 16px 34px -26px rgba(60,40,0,.55); transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+    .bt-row b { display: block; font-size: 16px; color: #0f172a; } .bt-row span:not(.bi) { display: block; font-size: 13.5px; color: #64748b; line-height: 1.35; margin-top: 2px; }
+    .bt-row .bi { flex: none; }
+    @media (hover: hover) { .bt-row:hover { transform: translateX(6px); } }
+    .bt-go { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 14px 22px; border-radius: 999px; background: #0b0b0f; color: #fff; font-weight: 800; font-size: 15px; text-decoration: none; transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+    .bt-go i { width: 40px; height: 40px; border-radius: 50%; background: #D3AC00; color: #0b0b0f; display: grid; place-items: center; font-style: normal; font-size: 18px; transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+    @media (hover: hover) { .bt-go:hover i { transform: translateX(4px); } }
+    .bt-go:active { transform: scale(.97); }
+    @media (prefers-reduced-motion: no-preference) { .bt-row { animation: bt-in .7s cubic-bezier(.2,.8,.2,1) backwards; } .bt-row:nth-child(2) { animation-delay: .08s } .bt-row:nth-child(3) { animation-delay: .16s } .bt-go { animation: bt-in .7s cubic-bezier(.2,.8,.2,1) .24s backwards; } }
+    @media (max-width: 1100px) { .bt-row { padding: 10px 14px; } .bt-row b { font-size: 14.5px; } .bt-row span:not(.bi) { font-size: 12.5px; } }
+    @media (max-width: 960px) { .bt-side { grid-row: auto; grid-template-rows: none; } }
+    @media (min-width: 961px) { .bt-video { grid-column: 1; grid-row: 1 / span 2; } .bt-side { grid-column: 2; grid-row: 1 / span 2; } }
+    /* ===== Intro: la moneda abre la página ===== */
+    .vx-intro { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: radial-gradient(circle at 50% 45%, #F0D277, #D3AC00 55%, #a88700); clip-path: circle(150% at 50% 50%); transition: clip-path .9s cubic-bezier(.7,0,.2,1); }
+    .vx-intro img { width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, #0b0b0f 62%, transparent 63%); filter: drop-shadow(0 24px 40px rgba(0,0,0,.45)); animation: vi-coin 1.3s cubic-bezier(.45,.05,.25,1) both; }
+    .vx-intro b { position: absolute; top: calc(50% + 100px); font: 800 clamp(20px, 3vw, 30px)/1 var(--display, 'Inter Tight'), sans-serif; color: #0b0b0f; letter-spacing: -.02em; animation: vi-txt .8s .45s cubic-bezier(.2,.8,.2,1) both; }
+    .vx-intro.out { clip-path: circle(0% at 50% 45%); }
+    @keyframes vi-coin { 0% { transform: scale(.2) rotateY(0); opacity: 0; } 35% { opacity: 1; } 100% { transform: scale(1) rotateY(720deg); } }
+    @keyframes vi-txt { from { opacity: 0; transform: translateY(12px); } }
   </style>
 </head>
 <body class="v2 page">
+  <div class="vx-intro" id="vxIntro" aria-hidden="true"><img src="logo-coin.png" alt=""><b>La Tribu del Oro</b></div>
+  <script>
+    (() => { const el = document.getElementById("vxIntro"); let seen = false; try { seen = sessionStorage.getItem("vxIntro") === "1"; sessionStorage.setItem("vxIntro", "1"); } catch (e) {}
+      if (seen || matchMedia("(prefers-reduced-motion: reduce)").matches) { el.remove(); return; }
+      document.documentElement.style.overflow = "hidden";
+      setTimeout(() => el.classList.add("out"), 1500);
+      setTimeout(() => { el.remove(); document.documentElement.style.overflow = ""; }, 2450); })();
+  </script>
   <site-header active="videos"></site-header>
 
   <!-- 1. VIDEO PRINCIPAL: QUIÉNES SOMOS -->
@@ -373,20 +407,12 @@
 
 
 
-        <div class="bt bt-learn">
-          <span class="bt-label">En este video</span>
-          <ul>
-            <li><span class="bi">01</span>Nuestra forma de enseñar</li>
-            <li><span class="bi">02</span>Cómo gestionamos el riesgo</li>
-            <li><span class="bi">03</span>Qué encuentras en la comunidad</li>
-          </ul>
+        <div class="bt-side">
+          <div class="bt-row"><span class="bi">01</span><div><b>Quiénes somos</b><span>Una comunidad que aprende trading con criterio</span></div></div>
+          <div class="bt-row"><span class="bi">02</span><div><b>Cómo enseñamos</b><span>Videos, sesiones en vivo y herramientas</span></div></div>
+          <div class="bt-row"><span class="bi">03</span><div><b>Qué vas a lograr</b><span>Operar con gestión de riesgo y disciplina</span></div></div>
+          <a class="bt-go" href="#empieza"><span>Explora las 7 colecciones</span><i aria-hidden="true">→</i></a>
         </div>
-
-        <a class="bt bt-cta" href="#empieza">
-          <span class="bt-label">Siguiente paso</span>
-          <b>Explora las colecciones</b>
-          <span class="bt-arrow" aria-hidden="true">→</span>
-        </a>
       </div>
     </div>
   </section>
@@ -406,7 +432,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611042019"></script>
+  <script src="components.js?v=202611042028"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
