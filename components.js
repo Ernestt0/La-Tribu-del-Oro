@@ -777,7 +777,7 @@ const TA = (() => {
     <g class="ta-l ta-l1"><circle cx="320" cy="${Y(320).toFixed(1)}" r="9" fill="#fff"/><text x="320" y="${(Y(320) - 20).toFixed(1)}" class="ta-tx" text-anchor="middle">Euforia</text></g>
     <g class="ta-l ta-l2"><circle cx="440" cy="${Y(440).toFixed(1)}" r="9" fill="#ef4444"/><text x="456" y="${(Y(440) + 6).toFixed(1)}" class="ta-tx r">Pánico</text></g></svg>`; };
   const T = { chart, list, flow, bars, tiles, candle, wave };
-  function mount(el, key) {
+  function mount(el, key, ms = 3600) {
     const sc = TA_SCENES[key]; if (!el || !sc) return;
     if (el._ta) clearInterval(el._ta);
     el.innerHTML = `<div class="ta" data-t="${sc.t}"><div class="ta-glow" aria-hidden="true"></div><span class="ta-title">${esc(sc.title)}</span><div class="ta-stage">${T[sc.t](sc)}</div>
@@ -793,7 +793,7 @@ const TA = (() => {
     };
     if (reduce) { s = 2; set(); return; }
     set();
-    el._ta = setInterval(() => { if (!el.isConnected) return clearInterval(el._ta); s = (s + 1) % 3; set(); }, 3600);
+    el._ta = setInterval(() => { if (!el.isConnected) return clearInterval(el._ta); s = (s + 1) % 3; set(); }, ms);
   }
   function unmount(el) { if (el && el._ta) { clearInterval(el._ta); el._ta = null; } if (el) el.innerHTML = ''; }
   return { mount, unmount };
