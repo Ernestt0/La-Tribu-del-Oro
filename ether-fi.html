@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611042058" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611042058" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611042058" />
+    <link rel="stylesheet" href="styles.css?v=202611042101" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611042101" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611042101" />
     <style>
       /* HERO DE ETHER.FI */
       .efi-hero {
@@ -276,6 +276,97 @@
         .efi-ov-list p { font-size: 13.5px; }
       }
       @media (max-width: 600px) { .efi-ov { border-radius: 20px; } .efi-ov-text { padding: 20px 18px 22px; } .efi-ov-text h2 { font-size: 28px; } }
+
+      /* ===== Guía gráfica paso a paso ===== */
+      .eg { display: grid; grid-template-columns: .9fr 1.1fr; gap: 36px; align-items: center; margin-top: 36px; }
+      .eg-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+      .eg-step { position: relative; width: 100%; display: flex; gap: 14px; align-items: flex-start; text-align: left; padding: 16px 18px; border: 1px solid #ece7d6; border-radius: 18px; background: #fff; cursor: pointer; overflow: hidden;
+        transition: background .3s, border-color .3s, transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .3s; font: inherit; }
+      .eg-step b { display: block; font-size: 15.5px; color: #0f172a; } .eg-step small { display: block; margin-top: 3px; font-size: 13px; color: #64748b; line-height: 1.45; }
+      .eg-n { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #f5f1e3; color: #0b0b0f; font-weight: 800; font-size: 14px; transition: background .3s, color .3s; }
+      .eg-step.on { background: #0b0b0f; border-color: #0b0b0f; transform: translateX(6px); box-shadow: 0 20px 40px -24px rgba(0,0,0,.6); }
+      .eg-step.on b { color: #fff; } .eg-step.on small { color: rgba(255,255,255,.65); } .eg-step.on .eg-n, .eg-step.done .eg-n { background: #D3AC00; }
+      .eg-bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: #D3AC00; transform: scaleX(0); transform-origin: 0 50%; }
+      .eg.auto .eg-step.on .eg-bar { animation: eg-bar var(--dur) linear forwards; }
+      @keyframes eg-bar { to { transform: scaleX(1); } }
+      @media (hover: hover) { .eg-step:not(.on):hover { border-color: #D3AC00; transform: translateX(3px); } }
+
+      .eg-screen { position: relative; border-radius: 26px; background: #0b0b0f; color: #fff; overflow: hidden; box-shadow: 0 50px 100px -50px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.04) inset; }
+      .eg-top { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #15151b; font-size: 12.5px; }
+      .eg-dots { display: flex; gap: 6px; } .eg-dots i { width: 10px; height: 10px; border-radius: 50%; background: #3a3a44; } .eg-dots i:first-child { background: #D3AC00; }
+      .eg-url { flex: 1; text-align: center; padding: 5px 12px; border-radius: 999px; background: #0b0b0f; color: rgba(255,255,255,.6); }
+      .eg-tagi { padding: 3px 9px; border-radius: 999px; background: rgba(211,172,0,.16); color: #D3AC00; font-weight: 700; font-size: 11px; }
+      .eg-body { position: relative; min-height: 400px; }
+      .eg-pane { position: absolute; inset: 0; padding: 28px 30px; display: flex; flex-direction: column; justify-content: center; gap: 12px; opacity: 0; visibility: hidden; }
+      .eg-pane.on { opacity: 1; visibility: visible; animation: eg-in .6s cubic-bezier(.2,.8,.2,1); }
+      @keyframes eg-in { from { opacity: 0; transform: translateY(18px) scale(.98); } }
+      .eg-h { margin: 0 0 6px; font-size: 20px; font-weight: 800; color: #fff; }
+      .eg-list { display: flex; flex-direction: column; gap: 8px; }
+      .eg-w { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: 14px; background: #17171e; font-weight: 700; font-size: 15px; }
+      .eg-w em { margin-left: auto; font-style: normal; font-size: 11.5px; color: #D3AC00; font-weight: 700; }
+      .eg-wi { width: 30px; height: 30px; border-radius: 9px; background: var(--w); opacity: .9; }
+      .eg-ok { display: flex; align-items: center; gap: 8px; padding: 11px 14px; border-radius: 12px; background: rgba(34,197,94,.12); color: #4ade80; font-size: 14px; font-weight: 700; opacity: 0; }
+      .eg-ok svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+      .eg-field { padding: 14px 16px; border-radius: 16px; background: #17171e; } .eg-field.soft { background: #121218; }
+      .eg-field small { color: rgba(255,255,255,.5); font-size: 12.5px; }
+      .eg-amt { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+      .eg-type { display: inline-block; overflow: hidden; white-space: nowrap; border-right: 2px solid #D3AC00; }
+      .eg-coin { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; border-radius: 999px; background: #24242d; font-size: 14px; font-weight: 700; color: #c7cbe0; }
+      .eg-coin svg { width: 18px; height: 18px; } .eg-coin.gold { color: #D3AC00; background: rgba(211,172,0,.14); }
+      .eg-arrow { align-self: center; margin: -6px 0; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: #24242d; color: #D3AC00; font-weight: 800; }
+      .eg-btn { margin-top: 6px; padding: 14px; border-radius: 14px; background: #D3AC00; color: #0b0b0f; text-align: center; font-weight: 800; font-size: 15px; }
+      .eg-modal { padding: 22px; border-radius: 20px; background: #17171e; box-shadow: 0 30px 60px -30px rgba(0,0,0,.8); display: flex; flex-direction: column; gap: 10px; }
+      .eg-row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; color: rgba(255,255,255,.6); padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.06); }
+      .eg-row b { color: #fff; text-align: right; }
+      .eg-sent { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; font-weight: 700; color: #D3AC00; opacity: 0; }
+      .eg-spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(211,172,0,.3); border-top-color: #D3AC00; animation: eg-rot .8s linear infinite; }
+      @keyframes eg-rot { to { transform: rotate(360deg); } }
+      .eg-bal { display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 18px; background: linear-gradient(135deg, rgba(211,172,0,.22), rgba(211,172,0,.04)); }
+      .eg-coin.big { padding: 10px; border-radius: 14px; } .eg-coin.big svg { width: 28px; height: 28px; }
+      .eg-bal small { display: block; color: rgba(255,255,255,.55); font-size: 12.5px; } .eg-bal b { font-size: 30px; font-weight: 800; }
+      .eg-live { margin-left: auto; display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; color: #4ade80; }
+      .eg-live i { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: live-blink 1.6s ease-in-out infinite; }
+      .eg-grow { display: flex; align-items: flex-end; gap: 8px; height: 86px; padding: 0 4px; }
+      .eg-grow i { flex: 1; border-radius: 6px 6px 3px 3px; background: linear-gradient(#D3AC00, rgba(211,172,0,.25)); height: calc(28% + var(--d) * 11%); transform-origin: 50% 100%; }
+      .eg-uses { display: flex; flex-wrap: wrap; gap: 8px; } .eg-uses span { padding: 7px 12px; border-radius: 999px; background: #17171e; font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,.8); }
+      .eg-cursor { position: absolute; z-index: 3; width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.9); box-shadow: 0 0 0 6px rgba(255,255,255,.18); opacity: 0; pointer-events: none; }
+      @media (prefers-reduced-motion: no-preference) {
+        .eg-pane.on .eg-cursor { animation: eg-cur 2.4s cubic-bezier(.4,0,.2,1) .3s forwards; }
+        .eg-pane.on .c0 { --x0: 80%; --y0: 85%; --x1: 30%; --y1: 34%; }
+        .eg-pane.on .c1 { --x0: 85%; --y0: 30%; --x1: 50%; --y1: 82%; }
+        .eg-pane.on .c2 { --x0: 85%; --y0: 30%; --x1: 50%; --y1: 72%; }
+        .eg-pane[data-p="0"].on .eg-w.hot { animation: eg-press .4s ease 1.9s both; }
+        .eg-pane[data-p="0"].on .eg-ok { animation: eg-show .5s cubic-bezier(.34,1.56,.64,1) 2.3s forwards; }
+        .eg-pane[data-p="1"].on .eg-type { animation: eg-typing 1.1s steps(4) .4s both, eg-caret .8s step-end infinite; }
+        .eg-pane[data-p="1"].on .eg-btn { animation: eg-press .4s ease 2.5s both; }
+        .eg-pane[data-p="2"].on .eg-btn { animation: eg-press .4s ease 2.5s both; }
+        .eg-pane[data-p="2"].on .eg-sent { animation: eg-show .5s ease 2.9s forwards; }
+        .eg-pane[data-p="3"].on .eg-grow i { animation: eg-bars .9s cubic-bezier(.34,1.56,.64,1) both; animation-delay: calc(.2s + var(--d) * 90ms); }
+        .eg-pane[data-p="3"].on .eg-uses span { animation: eg-in .5s cubic-bezier(.2,.8,.2,1) both; }
+        .eg-pane[data-p="3"].on .eg-uses span:nth-child(2) { animation-delay: .9s; } .eg-pane[data-p="3"].on .eg-uses span:nth-child(3) { animation-delay: 1.1s; } .eg-pane[data-p="3"].on .eg-uses span:nth-child(1) { animation-delay: .7s; }
+      }
+      @media (prefers-reduced-motion: reduce) { .eg-ok, .eg-sent { opacity: 1; } }
+      @keyframes eg-cur { 0% { opacity: 0; left: var(--x0); top: var(--y0); } 15% { opacity: 1; } 70% { left: var(--x1); top: var(--y1); transform: scale(1); } 80% { transform: scale(.7); } 90% { transform: scale(1); opacity: 1; } 100% { left: var(--x1); top: var(--y1); opacity: 0; } }
+      @keyframes eg-press { 50% { transform: scale(.96); filter: brightness(1.15); } }
+      @keyframes eg-show { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: none; } }
+      @keyframes eg-typing { from { max-width: 0; } to { max-width: 4ch; } }
+      @keyframes eg-caret { 50% { border-color: transparent; } }
+      @keyframes eg-bars { from { transform: scaleY(0); } }
+      .eg-cta { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 28px; padding: 18px 22px; border-radius: 18px; background: #fbf7e8; }
+      .eg-cta p { margin: 0; font-size: 14px; color: #475569; }
+      .eg-cta .btn-referral { flex: none; }
+      @media (max-width: 960px) {
+        .eg { grid-template-columns: 1fr; gap: 20px; }
+        .eg-screen { order: -1; }
+        .eg-step.on { transform: none; }
+        .eg-cta { flex-direction: column; align-items: stretch; text-align: center; }
+      }
+      @media (max-width: 600px) {
+        .eg-body { min-height: 360px; } .eg-pane { padding: 20px 18px; }
+        .eg-amt, .eg-bal b { font-size: 24px; }
+        .eg-step { padding: 13px 14px; } .eg-step small { font-size: 12.5px; }
+        .eg-live { display: none; }
+      }
     </style>
   </head>
   <body class="v2 page">
@@ -328,145 +419,72 @@
       </div>
     </section>
 
-    <!-- SECCIÓN DE VIDEOS EXPLICATIVOS INTERACTIVOS -->
-    <section class="section" id="tutoriales">
+    <!-- APRENDE A USAR ETHER.FI: GUÍA GRÁFICA INTERACTIVA -->
+    <section class="section efi-guide" id="tutoriales">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Aprende a utilizar Ether.fi paso a paso</h2>
-          <p class="section-subtitle">
-            Explicaciones directas para entender la tecnología y realizar tu
-            primer depósito sin errores.
-          </p>
+          <p class="section-subtitle">Así se ve el proceso, de principio a fin. Toca cada paso para verlo en pantalla.</p>
         </div>
 
-        <div class="video-switch-grid">
-          <!-- REPRODUCTOR DINÁMICO -->
-          <div>
-            <div class="video-frame-box">
-              <div class="video-frame-aspect">
-                <iframe
-                  id="efiVideoIframe"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  allow="autoplay; encrypted-media"
-                  allowfullscreen
-                ></iframe>
+        <div class="eg">
+          <ol class="eg-steps" role="tablist" aria-label="Pasos para usar Ether.fi">
+            <li><button type="button" role="tab" class="eg-step on" data-s="0" aria-selected="true"><span class="eg-n">1</span><span><b>Conecta tu wallet</b><small>Entra a la web oficial y vincula tu billetera.</small></span><i class="eg-bar"></i></button></li>
+            <li><button type="button" role="tab" class="eg-step" data-s="1" aria-selected="false"><span class="eg-n">2</span><span><b>Elige cuánto ETH depositar</b><small>Escribe el monto y revisa cuánto eETH recibirás.</small></span><i class="eg-bar"></i></button></li>
+            <li><button type="button" role="tab" class="eg-step" data-s="2" aria-selected="false"><span class="eg-n">3</span><span><b>Confirma en tu wallet</b><small>Revisa la comisión de red (gas) y firma.</small></span><i class="eg-bar"></i></button></li>
+            <li><button type="button" role="tab" class="eg-step" data-s="3" aria-selected="false"><span class="eg-n">4</span><span><b>Recibe eETH y úsalo</b><small>Tu eETH acumula recompensas y puedes usarlo en DeFi.</small></span><i class="eg-bar"></i></button></li>
+          </ol>
+
+          <div class="eg-screen" aria-live="polite">
+            <div class="eg-top"><span class="eg-dots"><i></i><i></i><i></i></span><span class="eg-url">ether.fi</span><span class="eg-tagi">Ilustración</span></div>
+            <div class="eg-body">
+
+              <div class="eg-pane on" data-p="0">
+                <p class="eg-h">Conectar billetera</p>
+                <div class="eg-list">
+                  <div class="eg-w hot"><span class="eg-wi" style="--w:#f6851b"></span>MetaMask<em>Detectada</em></div>
+                  <div class="eg-w"><span class="eg-wi" style="--w:#3b99fc"></span>WalletConnect</div>
+                  <div class="eg-w"><span class="eg-wi" style="--w:#7c6cf2"></span>Rabby</div>
+                </div>
+                <div class="eg-ok"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" /></svg>Wallet conectada · 0x7a…3f9</div>
+                <span class="eg-cursor c0" aria-hidden="true"></span>
               </div>
-              <div class="video-info-box">
-                <span
-                  style="
-                    font-size: 11px;
-                    font-weight: 700;
-                    color:#D3AC00;
-                    text-transform: uppercase;
-                  "
-                  id="efiVideoBadge"
-                  >Video 1</span
-                >
-                <h3
-                  style="
-                    font-size: 19px;
-                    font-weight: 800;
-                    color: #0f172a;
-                    margin: 4px 0 8px;
-                  "
-                  id="efiVideoTitle"
-                >
-                  ¿Cómo funciona el restaking líquido y qué es el token eETH?
-                </h3>
-                <p
-                  style="font-size: 13.5px; color: #64748b; line-height: 1.6"
-                  id="efiVideoDesc"
-                >
-                  Al depositar ETH en Ether.fi recibes eETH en proporción 1:1.
-                  Tu saldo crece automáticamente con las recompensas de la red
-                  Ethereum y puedes usar ese eETH en protocolos DeFi sin
-                  bloquear tu capital.
-                </p>
+
+              <div class="eg-pane" data-p="1">
+                <p class="eg-h">Depositar</p>
+                <div class="eg-field"><small>Depositas</small><div class="eg-amt"><span class="eg-type">1.00</span><span class="eg-coin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l6 9.6-6 3.5-6-3.5z" fill="currentColor"/><path d="M12 16.8l6-3.5-6 8.2-6-8.2z" fill="currentColor" opacity=".7"/></svg>ETH</span></div></div>
+                <div class="eg-arrow" aria-hidden="true">↓</div>
+                <div class="eg-field soft"><small>Recibes</small><div class="eg-amt"><span>≈ 1.00</span><span class="eg-coin gold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l6 9.6-6 3.5-6-3.5z" fill="currentColor"/><path d="M12 16.8l6-3.5-6 8.2-6-8.2z" fill="currentColor" opacity=".7"/></svg>eETH</span></div></div>
+                <div class="eg-btn">Depositar</div>
+                <span class="eg-cursor c1" aria-hidden="true"></span>
               </div>
+
+              <div class="eg-pane" data-p="2">
+                <div class="eg-modal">
+                  <p class="eg-h">Confirmar transacción</p>
+                  <div class="eg-row"><span>Monto</span><b>1.00 ETH</b></div>
+                  <div class="eg-row"><span>Comisión de red (gas)</span><b>Varía según la red</b></div>
+                  <div class="eg-row"><span>Recibes</span><b>≈ 1.00 eETH</b></div>
+                  <div class="eg-btn">Confirmar</div>
+                  <div class="eg-sent"><span class="eg-spin"></span>Transacción enviada</div>
+                </div>
+                <span class="eg-cursor c2" aria-hidden="true"></span>
+              </div>
+
+              <div class="eg-pane" data-p="3">
+                <p class="eg-h">Tu saldo</p>
+                <div class="eg-bal"><span class="eg-coin gold big"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l6 9.6-6 3.5-6-3.5z" fill="currentColor"/><path d="M12 16.8l6-3.5-6 8.2-6-8.2z" fill="currentColor" opacity=".7"/></svg></span><div><small>eETH</small><b>1.00</b></div><span class="eg-live"><i></i>Acumulando recompensas</span></div>
+                <div class="eg-grow" aria-hidden="true"><i style="--d:0"></i><i style="--d:1"></i><i style="--d:2"></i><i style="--d:3"></i><i style="--d:4"></i><i style="--d:5"></i><i style="--d:6"></i></div>
+                <div class="eg-uses"><span>Validación de Ethereum</span><span>Restaking (EigenLayer)</span><span>Úsalo en DeFi</span></div>
+              </div>
+
             </div>
           </div>
+        </div>
 
-          <!-- LISTA DE VIDEOS DISPONIBLES -->
-          <div class="video-tabs-list">
-            <div class="video-tab-btn active" onclick="switchEfiVideo(0)">
-              <div class="tab-icon-box">1</div>
-              <div>
-                <div
-                  style="font-size: 14.5px; font-weight: 700; color: #0f172a"
-                >
-                  ¿Qué es Ether.fi y el token eETH?
-                </div>
-                <div style="font-size: 12px; color: #64748b; margin-top: 2px">
-                  ⏱ 08:30 min • Conceptos clave y arquitectura
-                </div>
-              </div>
-            </div>
-
-            <div class="video-tab-btn" onclick="switchEfiVideo(1)">
-              <div class="tab-icon-box">2</div>
-              <div>
-                <div
-                  style="font-size: 14.5px; font-weight: 700; color: #0f172a"
-                >
-                  Ventajas frente al staking tradicional
-                </div>
-                <div style="font-size: 12px; color: #64748b; margin-top: 2px">
-                  ⏱ 10:15 min • No custodia y recompensas dobles
-                </div>
-              </div>
-            </div>
-
-            <div class="video-tab-btn" onclick="switchEfiVideo(2)">
-              <div class="tab-icon-box">3</div>
-              <div>
-                <div
-                  style="font-size: 14.5px; font-weight: 700; color: #0f172a"
-                >
-                  Tutorial: Cómo depositar paso a paso
-                </div>
-                <div style="font-size: 12px; color: #64748b; margin-top: 2px">
-                  ⏱ 07:45 min • Conexión de wallet y confirmación
-                </div>
-              </div>
-            </div>
-
-            <!-- CAJA CON LINK DIRECTO -->
-            <div
-              style="
-                background: #fcfbf8;
-                border: 1px solid #f0ede2;
-                border-radius: 14px;
-                padding: 20px;
-                text-align: center;
-                margin-top: 10px;
-              "
-            >
-              <p
-                style="
-                  font-size: 13px;
-                  color: #475569;
-                  margin-bottom: 12px;
-                  font-weight: 500;
-                "
-              >
-                Usa nuestro enlace oficial para acceder a los beneficios y
-                puntos de fidelidad del protocolo:
-              </p>
-              <a
-                href="https://ether.fi/"
-                target="_blank"
-                class="btn-referral"
-                style="
-                  width: 100%;
-                  justify-content: center;
-                  font-size: 14px;
-                  padding: 12px;
-                "
-              >
-                Ir a la web de Ether.fi
-              </a>
-            </div>
-          </div>
+        <div class="eg-cta">
+          <p>Los montos son solo un ejemplo. Usa siempre el enlace oficial y verifica la dirección antes de firmar.</p>
+          <a href="https://ether.fi/" target="_blank" rel="noopener" class="btn-referral">Ir a la web de Ether.fi</a>
         </div>
       </div>
     </section>
@@ -603,48 +621,25 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611042058"></script>
+    <script src="components.js?v=202611042101"></script>
     <script>
-      // DATOS DE LOS VIDEOS DE ETHER.FI
-      const efiVideos = [
-        {
-          badge: 'Video 1 de 3',
-          title: '¿Cómo funciona el restaking líquido y qué es el token eETH?',
-          desc: 'Al depositar ETH en Ether.fi recibes eETH en proporción 1:1. Tu saldo crece automáticamente con las recompensas de la red Ethereum y puedes usar ese eETH en protocolos DeFi sin bloquear tu capital.',
-          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-        },
-        {
-          badge: 'Video 2 de 3',
-          title: 'Ventajas de la no custodia frente al staking centralizado',
-          desc: 'Explicamos por qué ceder tus fondos a un exchange tradicional es peligroso y cómo Ether.fi te permite conservar la propiedad de las llaves del validador con integración nativa en EigenLayer.',
-          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-        },
-        {
-          badge: 'Video 3 de 3',
-          title: 'Tutorial práctico: Cómo depositar tu primer ETH paso a paso',
-          desc: 'Demostración completa en pantalla: desde cómo conectar MetaMask y revisar las comisiones de gas hasta confirmar el depósito y ver reflejado tu balance de eETH en tu billetera.',
-          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-        },
-      ];
-
-      function switchEfiVideo(index) {
-        const data = efiVideos[index];
-        if (!data) return;
-
-        document.getElementById('efiVideoIframe').src = data.url;
-        document.getElementById('efiVideoBadge').innerText = data.badge;
-        document.getElementById('efiVideoTitle').innerText = data.title;
-        document.getElementById('efiVideoDesc').innerText = data.desc;
-
-        const buttons = document.querySelectorAll('.video-tab-btn');
-        buttons.forEach((btn, idx) => {
-          if (idx === index) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
-        });
-      }
+      // Guía gráfica: cambia de paso sola cada pocos segundos; al tocar un paso se detiene en él
+      (() => {
+        const root = document.querySelector('.eg'); if (!root) return;
+        const steps = [...root.querySelectorAll('.eg-step')], panes = [...root.querySelectorAll('.eg-pane')];
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, DUR = 5200;
+        let cur = 0, timer = null, auto = !reduce;
+        const show = (i) => {
+          cur = (i + steps.length) % steps.length;
+          steps.forEach((b, k) => { b.classList.toggle('on', k === cur); b.setAttribute('aria-selected', k === cur); b.classList.toggle('done', k < cur); });
+          panes.forEach((p, k) => { p.classList.remove('on'); if (k === cur) { void p.offsetWidth; p.classList.add('on'); } });
+          root.style.setProperty('--dur', DUR + 'ms'); root.classList.toggle('auto', auto);
+          clearTimeout(timer); if (auto) timer = setTimeout(() => show(cur + 1), DUR);
+        };
+        steps.forEach((b, k) => b.addEventListener('click', () => { auto = false; show(k); }));
+        const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { show(cur); io.disconnect(); } }, { threshold: .35 });
+        io.observe(root);
+      })();
     </script>
   </body>
 </html>
