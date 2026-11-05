@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611041857">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611041857">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611041857">
+  <link rel="stylesheet" href="styles.css?v=202611041915">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611041915">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611041915">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -122,6 +122,14 @@
     }
     /* Celular: el video vertical llena exactamente el recuadro 9:16 */
     @media (max-width: 700px) { .vx-player { overflow: hidden; } .vx-player .vx-frame { inset: 0; width: 100% !important; height: 100% !important; aspect-ratio: auto; } }
+
+    /* Reproductor propio (video alojado en el sitio, cuadrado 1:1, sin franjas ni título) */
+    .vx-player.vx-own { aspect-ratio: 1 / 1 !important; width: min(480px, 100%) !important; justify-self: center; height: auto !important; overflow: hidden; background: #000; }
+    .vx-own video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .vx-own .play { border: 0; cursor: pointer; }
+    .vx-own.playing .play, .vx-own.playing .tag, .vx-own.playing .dur { opacity: 0; pointer-events: none; transition: opacity .25s; }
+    @media (min-width: 701px) { .vx-hero-grid { grid-template-columns: minmax(0, 480px) 1fr !important; } .vx-player.vx-own { width: 100% !important; } }
+    @media (max-width: 700px) { .vx-player.vx-own { width: 100% !important; height: auto !important; } }
   </style>
 </head>
 <body class="v2 page">
@@ -130,10 +138,10 @@
   <!-- 1. VIDEO PRINCIPAL: QUIÉNES SOMOS -->
   <section class="vx-hero">
     <div class="container vx-hero-grid">
-      <div class="vx-player" id="vxMain" role="button" tabindex="0" aria-label="Reproducir: Quiénes somos">
-        <span class="vx-frame" id="vxFrame"></span>
+      <div class="vx-player vx-own" id="vxMain">
+        <video id="vxVideo" src="media/quienes-somos.mp4" poster="media/quienes-somos.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
         <span class="tag">Empieza aquí</span>
-        <span class="play"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span>
+        <button class="play" type="button" aria-label="Reproducir: Quiénes somos"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></button>
         <span class="dur" id="vxMainDur">01:04</span>
       </div>
       <div class="vx-copy">
@@ -146,7 +154,7 @@
           <li>Comunidad y sesiones en vivo de lunes a viernes</li>
         </ul>
         <div class="vx-actions">
-          <button class="btn btn-red" type="button" onclick="document.getElementById('vxMain').click()">Ver quiénes somos</button>
+          <button class="btn btn-red" type="button" >Ver quiénes somos</button>
           <a class="btn btn-line" href="#empieza">Ver colecciones</a>
         </div>
       </div>
@@ -168,7 +176,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611041857"></script>
+  <script src="components.js?v=202611041915"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
@@ -238,15 +246,16 @@
     }).join('');
 
     const play = (url) => (window.playVideo ? playVideo(url + (url.includes('?') ? '&' : '?') + 'autoplay=1') : open(url, '_blank'));
-    document.getElementById('vxFrame').style.backgroundImage = 'url(https://i.ytimg.com/vi/' + (isPhone() ? 'ihig8jGWOfo' : 'EEfSUZXo1TM') + '/hqdefault.jpg)';
-    document.getElementById('vxMain').addEventListener('click', function () {
-      // Video vertical: se reproduce dentro del mismo reproductor 9:16
-      if (this.dataset.on) return; this.dataset.on = 1;
-      this.querySelectorAll('.play, .tag, .dur').forEach((el) => el.remove());
-      document.getElementById('vxFrame').innerHTML = '<iframe src="' + (isPhone() ? VX_PRINCIPAL_V : VX_PRINCIPAL_H) + '?autoplay=1&rel=0&playsinline=1" title="Conoce La Tribu del Oro" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
-    });
+    (() => {
+      const box = document.getElementById('vxMain'), vid = document.getElementById('vxVideo');
+      const start = () => { box.classList.add('playing'); vid.controls = true; vid.play(); };
+      box.querySelector('.play').addEventListener('click', (e) => { e.stopPropagation(); start(); });
+      vid.addEventListener('click', () => { if (!box.classList.contains('playing')) start(); });
+      vid.addEventListener('ended', () => { box.classList.remove('playing'); vid.controls = false; vid.load(); });
+      document.querySelectorAll('.vx-actions .btn-red').forEach((b) => b.onclick = () => { box.scrollIntoView({ behavior: 'smooth', block: 'center' }); start(); });
+    })();
     document.querySelectorAll('.vx-card').forEach((c) => c.addEventListener('click', () => play(c.dataset.url)));
-    document.querySelectorAll('.vx-card, #vxMain').forEach((c) => c.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }));
+    document.querySelectorAll('.vx-card').forEach((c) => c.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }));
 
     // Resalta la colección visible en la barra
     const links = [...document.querySelectorAll('#vxNav a')];

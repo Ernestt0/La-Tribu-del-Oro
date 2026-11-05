@@ -379,11 +379,21 @@ function toggleMobileNav(btn) {
 function playVideo(url) {
   const modal = document.getElementById('videoModal');
   const iframe = document.getElementById('videoIframe');
-  if (iframe) iframe.src = url;
+  let own = document.getElementById('videoOwn');
+  if (/\.mp4(\?|$)/.test(url)) {
+    if (!own && iframe) { own = document.createElement('video'); own.id = 'videoOwn'; own.controls = true; own.playsInline = true; own.setAttribute('controlslist', 'nodownload');
+      own.style.cssText = 'width:100%;height:100%;max-height:80vh;object-fit:contain;background:#000;display:block'; iframe.after(own); }
+    if (iframe) iframe.style.display = 'none';
+    own.style.display = 'block'; own.src = url; own.play();
+  } else {
+    if (own) { own.pause(); own.style.display = 'none'; }
+    if (iframe) { iframe.style.display = ''; iframe.src = url; }
+  }
   if (modal) modal.style.display = 'flex';
 }
 
 function closeVideoModal() {
+  const ov = document.getElementById('videoOwn'); if (ov) { ov.pause(); ov.removeAttribute('src'); ov.load(); }
   const modal = document.getElementById('videoModal');
   const iframe = document.getElementById('videoIframe');
   if (iframe) iframe.src = '';

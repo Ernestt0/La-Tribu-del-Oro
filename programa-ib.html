@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611041857" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611041857" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611041857" />
+    <link rel="stylesheet" href="styles.css?v=202611041915" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611041915" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611041915" />
     <style>
       /* HERO PROGRAMA IB */
       .ib-hero {
@@ -236,6 +236,13 @@
       .ib-apply .ib-form-box { margin: 0 !important; max-width: none; }
       @media (max-width: 900px) { .ib-apply { grid-template-columns: 1fr; gap: 28px; margin-top: 48px; } }
 
+
+      body.page .ib-hero .ib-own { position: relative; aspect-ratio: 1 / 1; width: min(460px, 100%); margin-inline: auto; overflow: hidden; background: #000; cursor: pointer; }
+      body.page .ib-hero .ib-own video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      body.page .ib-hero .ib-own video { z-index: 0; }
+      body.page .ib-hero .ib-own .hero-play-btn { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 0; cursor: pointer; z-index: 3; }
+      body.page .ib-hero .ib-own.playing .hero-play-btn { opacity: 0; pointer-events: none; }
+      body.page .ib-hero .hero-video-wrapper { max-width: 500px; margin-inline: auto; }
     </style>
   </head>
   <body class="v2 page">
@@ -279,20 +286,9 @@
             <span class="video-label-badge">Presentación</span>
             <h3 class="video-header-title">¿Qué es ser IB y por qué unirte?</h3>
           </div>
-          <div
-            class="hero-video-box"
-            id="ibMainVideo"
-            role="button" tabindex="0" aria-label="Reproducir: Programa IB"
-          >
-            <img
-              src="https://i.ytimg.com/vi/5LJ2r2_rPcI/hqdefault.jpg"
-              alt="Video del Programa IB de La Tribu del Oro"
-            />
-            <div class="hero-play-btn">
-              <svg viewBox="0 0 24 24">
-                <polygon points="6 4 20 12 6 20 6 4" />
-              </svg>
-            </div>
+          <div class="hero-video-box ib-own" id="ibMainVideo">
+            <video id="ibVideo" src="media/programa-ib.mp4" poster="media/programa-ib.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+            <button class="hero-play-btn" type="button" aria-label="Reproducir: Programa IB"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4" /></svg></button>
           </div>
         </div>
       </div>
@@ -609,14 +605,15 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611041857"></script>
+    <script src="components.js?v=202611041915"></script>
     <script>
-      // Video principal del Programa IB: se reproduce dentro del mismo recuadro
+      // Video principal del Programa IB (alojado en el sitio)
       (() => {
-        const box = document.getElementById('ibMainVideo');
-        const go = () => { if (box.dataset.on) return; box.dataset.on = 1;
-          box.innerHTML = '<iframe src="https://www.youtube.com/embed/5LJ2r2_rPcI?autoplay=1&rel=0&playsinline=1" title="Programa IB" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>'; };
-        box.addEventListener('click', go); box.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+        const box = document.getElementById('ibMainVideo'), vid = document.getElementById('ibVideo');
+        const start = () => { box.classList.add('playing'); vid.controls = true; vid.play(); };
+        box.querySelector('.hero-play-btn').addEventListener('click', (e) => { e.stopPropagation(); start(); });
+        vid.addEventListener('click', () => { if (!box.classList.contains('playing')) start(); });
+        vid.addEventListener('ended', () => { box.classList.remove('playing'); vid.controls = false; vid.load(); });
       })();
 
       // DATOS DE LOS VIDEOS DEL PROGRAMA IB
