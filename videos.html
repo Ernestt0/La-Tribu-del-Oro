@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611042036">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611042036">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611042036">
+  <link rel="stylesheet" href="styles.css?v=202611042038">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611042038">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611042038">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -376,6 +376,18 @@
     .vi-shine { position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%); background-size: 250% 100%; animation: vi-shine 1.3s ease-out both; mix-blend-mode: soft-light; }
     .vx-intro b { position: absolute; left: 0; right: 0; top: calc(45% + min(240px, 46vw) / 2 + 26px); text-align: center; font: 800 clamp(20px, 3vw, 30px)/1 var(--display, 'Inter Tight'), sans-serif; color: #0b0b0f; letter-spacing: -.02em; animation: vi-txt .7s .4s cubic-bezier(.2,.8,.2,1) both; transition: opacity .25s; }
     .vx-intro.zoom b { opacity: 0; }
+    /* Resplandor de moneda real: halo dorado que respira, brillo metálico y destello */
+    .vi-glow { position: absolute; left: 50%; top: 45%; width: min(520px, 100vw); aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle, rgba(255,246,200,.85) 0%, rgba(255,226,120,.45) 28%, rgba(255,214,90,0) 62%); filter: blur(6px); animation: vi-glow 1.4s ease-out both; }
+    .vi-coinwrap { z-index: 1; filter: drop-shadow(0 30px 40px rgba(80,55,0,.45)) drop-shadow(0 0 28px rgba(255,236,150,.9)) !important; }
+    .vi-shine { mix-blend-mode: overlay !important; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.9) 48%, rgba(255,250,220,.6) 52%, transparent 70%) !important; background-size: 260% 100% !important; animation: vi-shine 1.3s ease-out both, vi-shine2 1s 1.3s ease-in-out both !important; }
+    .vi-glint { position: absolute; top: 14%; right: 18%; width: 34%; aspect-ratio: 1; pointer-events: none; opacity: 0;
+      background: radial-gradient(circle, #fff 0 6%, transparent 7%), linear-gradient(90deg, transparent 46%, rgba(255,255,255,.95) 50%, transparent 54%), linear-gradient(0deg, transparent 46%, rgba(255,255,255,.95) 50%, transparent 54%);
+      -webkit-mask: radial-gradient(circle, #000 20%, transparent 70%); mask: radial-gradient(circle, #000 20%, transparent 70%); animation: vi-glint .7s 1.05s ease-out both; }
+    .vx-intro.zoom .vi-glow { opacity: 0 !important; animation: none; }
+    @keyframes vi-glow { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.4); } 60% { opacity: 1; } 100% { opacity: .9; transform: translate(-50%, -50%) scale(1); } }
+    @keyframes vi-shine2 { from { background-position: 120% 0; } to { background-position: -40% 0; } }
+    @keyframes vi-glint { 0% { opacity: 0; transform: scale(.2) rotate(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: scale(1.2) rotate(45deg); } }
     @keyframes vi-spin { 0% { transform: scale(.4) rotateY(-720deg); opacity: 0; } 25% { opacity: 1; } 100% { transform: scale(1) rotateY(0); } }
     @keyframes vi-shine { from { background-position: 120% 0; } to { background-position: -40% 0; } }
     @keyframes vi-txt { from { opacity: 0; transform: translateY(12px); } }
@@ -396,8 +408,7 @@
 <body class="v2 page">
   <div class="vx-intro" id="vxIntro" aria-hidden="true">
     <div class="vi-cover" id="viCover"></div>
-    <div class="vi-coinwrap" id="viCoinWrap"><img class="vi-coin-img" id="viCoin" src="logo-coin.png" alt=""><span class="vi-shine"></span></div>
-    <b>La Tribu del Oro</b>
+    <div class="vi-coinwrap" id="viCoinWrap"><img class="vi-coin-img" id="viCoin" src="logo-coin.png" alt=""><span class="vi-shine"></span><span class="vi-glint"></span></div><span class="vi-glow" aria-hidden="true"></span>
   </div>
   <script>
     (() => {
@@ -480,7 +491,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611042036"></script>
+  <script src="components.js?v=202611042038"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
