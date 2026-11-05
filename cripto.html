@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611042105" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611042105" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611042105" />
+    <link rel="stylesheet" href="styles.css?v=202611042119" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611042119" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611042119" />
     <style>
       /* ENCABEZADO DEL CURSO CRIPTO */
       .classroom-header {
@@ -261,12 +261,7 @@
           <div>
             <div class="player-container">
               <div class="player-video-box">
-                <iframe
-                  id="mainPlayerIframe"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  allow="autoplay; encrypted-media"
-                  allowfullscreen
-                ></iframe>
+                <div class="ta-host" id="lessonAnim" aria-label="Animación de la clase"></div>
               </div>
               <div class="player-meta">
                 <span class="current-lesson-badge" id="lessonBadge"
@@ -290,7 +285,7 @@
             <div class="playlist-card">
               <div class="playlist-header">
                 <h3>Temario del Mini-Curso</h3>
-                <span>4 clases prácticas • 52 minutos en total</span>
+                <span>4 clases prácticas • animadas</span>
                 <div class="pl-progress" role="progressbar" aria-label="Progreso del mini-curso" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1"><i></i></div>
               </div>
 
@@ -303,7 +298,7 @@
                       ¿Qué es Bitcoin y la escasez digital?
                     </div>
                     <div class="lesson-duration">
-                      ⏱ 12:15 min • Fundamentos monetarios
+                      Animación • Fundamentos monetarios
                     </div>
                   </div>
                 </div>
@@ -316,7 +311,7 @@
                       Ethereum, Smart Contracts y Finanzas DeFi
                     </div>
                     <div class="lesson-duration">
-                      ⏱ 15:40 min • Tecnología programable
+                      Animación • Tecnología programable
                     </div>
                   </div>
                 </div>
@@ -329,7 +324,7 @@
                       Stablecoins, Wallets y Autocustodia segura
                     </div>
                     <div class="lesson-duration">
-                      ⏱ 11:30 min • Almacenamiento y claves
+                      Animación • Almacenamiento y claves
                     </div>
                   </div>
                 </div>
@@ -342,7 +337,7 @@
                       Ciclos de mercado, Halving y psicología
                     </div>
                     <div class="lesson-duration">
-                      ⏱ 13:10 min • Visión a largo plazo
+                      Animación • Visión a largo plazo
                     </div>
                   </div>
                 </div>
@@ -419,7 +414,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611042105"></script>
+    <script src="components.js?v=202611042119"></script>
     <script>
       // DATOS DE LAS LECCIONES DE CRIPTO
       const lessonsData = [
@@ -427,25 +422,25 @@
           badge: 'Clase 1 de 4',
           title: '¿Qué es Bitcoin y por qué representa escasez digital?',
           desc: 'Explicamos el origen de Bitcoin, la tecnología blockchain como libro contable inmutable y la regla de emisión estricta de 21 millones de unidades que lo convierte en un activo resistente a la inflación y a la censura.',
-          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          anim: 'cr1',
         },
         {
           badge: 'Clase 2 de 4',
           title: 'Ethereum, Smart Contracts y el ecosistema DeFi',
           desc: 'Cómo Ethereum expandió la tecnología blockchain permitiendo crear aplicaciones descentralizadas, protocolos de préstamos y contratos autoejecutables sin bancos tradicionales.',
-          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          anim: 'cr2',
         },
         {
           badge: 'Clase 3 de 4',
           title: 'Stablecoins, Wallets y Autocustodia segura',
           desc: 'Diferencias clave entre exchanges centralizados (CEX) y billeteras no custodiales (como MetaMask o Ledger). Aprende qué son USDT y USDC y cómo transferir valor de forma eficiente.',
-          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          anim: 'cr3',
         },
         {
           badge: 'Clase 4 de 4',
           title: 'Ciclos de mercado, Halving de Bitcoin y psicología',
           desc: 'El impacto del halving cada 4 años, cómo identificar fases de acumulación y distribución, y cómo evitar comprar en euforia o vender en pánico.',
-          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          anim: 'cr4',
         },
       ];
 
@@ -455,7 +450,7 @@
         if (!data) return;
 
         // Actualizar reproductor e información
-        document.getElementById('mainPlayerIframe').src = data.videoUrl;
+        TA.mount(document.getElementById('lessonAnim'), data.anim);
         document.getElementById('lessonBadge').innerText = data.badge;
         document.getElementById('lessonTitle').innerText = data.title;
         document.getElementById('lessonDesc').innerText = data.desc;
@@ -486,6 +481,7 @@
         it.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); it.click(); } });
       });
       markProgress(0);
+      document.addEventListener('DOMContentLoaded', () => TA.mount(document.getElementById('lessonAnim'), lessonsData[0].anim));
     </script>
   </body>
 </html>

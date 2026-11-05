@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611042105" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611042105" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611042105" />
+    <link rel="stylesheet" href="styles.css?v=202611042119" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611042119" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611042119" />
     <style>
       /* HERO PROGRAMA IB */
       .ib-hero {
@@ -310,7 +310,7 @@
               >Quiero ser Aliado IB</a
             >
             <a href="#videos-ib" class="btn-hero-outline"
-              >Ver videos explicativos</a
+              >Ver cómo funciona</a
             >
           </div>
           <ul class="cls-pills" aria-label="Lo esencial del programa">
@@ -346,7 +346,7 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
-            Serie de videos: Todo sobre el modelo IB
+            Todo sobre el modelo IB, en 3 partes
           </h2>
           <p class="section-subtitle">
             Conoce al detalle las ventajas, la estructura de ingresos y el
@@ -359,12 +359,7 @@
           <div>
             <div class="video-frame-box">
               <div class="video-frame-aspect">
-                <iframe
-                  id="ibVideoIframe"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  allow="autoplay; encrypted-media"
-                  allowfullscreen
-                ></iframe>
+                <div class="ta-host" id="ibAnim" aria-label="Animación del programa IB"></div>
               </div>
               <div class="video-info-box">
                 <span
@@ -375,7 +370,7 @@
                     text-transform: uppercase;
                   "
                   id="ibVideoBadge"
-                  >Video 1</span
+                  >Parte 1 de 3</span
                 >
                 <h3
                   style="
@@ -412,7 +407,7 @@
                   ¿Qué es un IB y cómo se generan ingresos?
                 </div>
                 <div style="font-size: 12px; color: #64748b; margin-top: 2px">
-                  ⏱ 09:20 min • Modelo de rebates transparente
+                  Animación • Modelo de rebates transparente
                 </div>
               </div>
             </div>
@@ -426,7 +421,7 @@
                   Beneficios, herramientas y soporte VIP
                 </div>
                 <div style="font-size: 12px; color: #64748b; margin-top: 2px">
-                  ⏱ 11:45 min • Material educativo y asesor 1 a 1
+                  Animación • Material educativo y asesor 1 a 1
                 </div>
               </div>
             </div>
@@ -440,7 +435,7 @@
                   Paso a paso: Cómo te ayudamos a arrancar
                 </div>
                 <div style="font-size: 12px; color: #64748b; margin-top: 2px">
-                  ⏱ 08:15 min • Configuración de panel y seguimiento
+                  Animación • Configuración de panel y seguimiento
                 </div>
               </div>
             </div>
@@ -652,7 +647,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611042105"></script>
+    <script src="components.js?v=202611042119"></script>
     <script>
       // Video principal del Programa IB (alojado en el sitio)
       (() => {
@@ -676,24 +671,24 @@
       // DATOS DE LOS VIDEOS DEL PROGRAMA IB
       const ibVideos = [
         {
-          badge: 'Video 1 de 3',
+          badge: 'Parte 1 de 3',
           title: '¿Cómo funciona el modelo de Introducing Broker (IB)?',
           desc: 'Explicamos cómo un broker regulado retribuye al aliado por cada lote transaccionado en su comunidad (rebates), permitiendo generar un flujo de ingresos constante sin cobrarle nada directamente a tus miembros.',
-          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          anim: 'ib1',
         },
         {
-          badge: 'Video 2 de 3',
+          badge: 'Parte 2 de 3',
           title:
             'Beneficios exclusivos, material formativo y soporte institucional',
           desc: 'Descubre todo el ecosistema que ponemos a tu disposición: materiales gráficos, webinars educativos para tu audiencia y canal de comunicación prioritario con la mesa de operaciones.',
-          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          anim: 'ib2',
         },
         {
-          badge: 'Video 3 de 3',
+          badge: 'Parte 3 de 3',
           title:
             'Paso a paso: Cómo te guiamos desde el registro hasta el lanzamiento',
           desc: 'Te mostramos cómo te acompañamos a abrir tu cuenta IB, cómo obtener tus enlaces de seguimiento personalizados y cómo verificar las métricas en tu panel de control.',
-          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          anim: 'ib3',
         },
       ];
 
@@ -708,7 +703,7 @@
         const data = ibVideos[index];
         if (!data) return;
 
-        document.getElementById('ibVideoIframe').src = data.url;
+        TA.mount(document.getElementById('ibAnim'), data.anim);
         document.getElementById('ibVideoBadge').innerText = data.badge;
         document.getElementById('ibVideoTitle').innerText = data.title;
         document.getElementById('ibVideoDesc').innerText = data.desc;
@@ -722,6 +717,7 @@
           }
         });
       }
+      document.addEventListener('DOMContentLoaded', () => TA.mount(document.getElementById('ibAnim'), ibVideos[0].anim));
     </script>
   </body>
 </html>

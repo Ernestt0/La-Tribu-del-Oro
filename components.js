@@ -604,3 +604,216 @@ function initKeywords() {
   }
 }
 window.addEventListener('load', () => setTimeout(initKeywords, 60));
+
+// =====================================================================
+// ANIMACIONES EXPLICATIVAS (reemplazan los videos que aún no existen)
+// Cada escena tiene 3 pasos que se construyen uno tras otro y se repiten.
+// Uso: TA.mount(elemento, 'clave')  ·  playVideo('anim:clave') abre la escena en el modal.
+// =====================================================================
+const TA_ICO = {
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.8-6 7.5-6s6.7 2 7.5 6z"/>',
+  copy: '<rect x="3.5" y="7" width="11" height="13" rx="2.5" opacity=".5"/><rect x="9.5" y="3.5" width="11" height="13" rx="2.5"/>',
+  shield: '<path d="M12 2.5l8 3v6.2c0 4.7-3.2 8.2-8 9.8-4.8-1.6-8-5.1-8-9.8V5.5z"/>',
+  coin: '<circle cx="12" cy="12" r="9.5"/><path d="M12 6.5v11M15 9c-.6-1-1.7-1.5-3-1.5-1.7 0-3 .9-3 2.2 0 3.2 6 1.7 6 4.8 0 1.3-1.3 2.3-3 2.3-1.4 0-2.6-.6-3.2-1.6" fill="none" style="stroke:var(--in)" stroke-width="1.8" stroke-linecap="round"/>',
+  chain: '<rect x="2.5" y="8" width="8" height="8" rx="2"/><rect x="13.5" y="8" width="8" height="8" rx="2"/><rect x="9" y="11" width="6" height="2" rx="1"/>',
+  wallet: '<rect x="3" y="5.5" width="18" height="14.5" rx="3.5"/><rect x="13.5" y="11" width="7.5" height="4.6" rx="2.3" style="fill:var(--in)"/>',
+  contract: '<path d="M6 2.5h8l4.5 4.5v14.5H6z"/><path d="M9 11h6M9 14.5h6M9 18h4" style="stroke:var(--in)" stroke-width="1.6" stroke-linecap="round"/>',
+  people: '<circle cx="8" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.7" opacity=".7"/><path d="M2.5 19.5c.6-3.3 2.8-5 5.5-5s4.9 1.7 5.5 5z"/><path d="M12.5 19.5c.4-2.7 2-4.2 4-4.2s3.6 1.5 4 4.2z" opacity=".7"/>',
+  chart: '<rect x="3.5" y="12" width="4.5" height="8.5" rx="1.5" opacity=".55"/><rect x="9.8" y="7" width="4.5" height="13.5" rx="1.5" opacity=".8"/><rect x="16" y="3" width="4.5" height="17.5" rx="1.5"/>',
+  key: '<circle cx="8" cy="12" r="5"/><path d="M12 11h9v3h-2v2.5h-3V14h-4z"/><circle cx="8" cy="12" r="1.8" style="fill:var(--in)"/>',
+  lock: '<rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="2.2"/>',
+  clock: '<circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.6 2.2" fill="none" style="stroke:var(--in)" stroke-width="2" stroke-linecap="round"/>',
+  news: '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 12.5h10M7 16h6" style="stroke:var(--in)" stroke-width="1.7" stroke-linecap="round"/>',
+  broker: '<path d="M3 9.5L12 4l9 5.5z"/><rect x="5" y="11" width="2.6" height="7"/><rect x="10.7" y="11" width="2.6" height="7"/><rect x="16.4" y="11" width="2.6" height="7"/><rect x="3" y="19" width="18" height="2" rx="1"/>',
+  calc: '<rect x="4.5" y="2.5" width="15" height="19" rx="3"/><rect x="7" y="5" width="10" height="4" rx="1" style="fill:var(--in)"/><circle cx="8.5" cy="13" r="1.2" style="fill:var(--in)"/><circle cx="12" cy="13" r="1.2" style="fill:var(--in)"/><circle cx="15.5" cy="13" r="1.2" style="fill:var(--in)"/><circle cx="8.5" cy="17" r="1.2" style="fill:var(--in)"/><circle cx="12" cy="17" r="1.2" style="fill:var(--in)"/><circle cx="15.5" cy="17" r="1.2" style="fill:var(--in)"/>',
+  download: '<path d="M12 3v11m-4.5-4.5L12 14l4.5-4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="17" width="16" height="4" rx="2"/>',
+  link: '<path d="M10 14l4-4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M8.5 11.5l-2 2a3.5 3.5 0 0 0 5 5l2-2M15.5 12.5l2-2a3.5 3.5 0 0 0-5-5l-2 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
+  swap: '<path d="M5 8h12l-3-3M19 16H7l3 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
+  bank: '<circle cx="12" cy="12" r="9.5"/><path d="M8 15.5h8M9 9.5v5M12 9.5v5M15 9.5v5M7.5 9h9L12 6.5z" style="stroke:var(--in)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>',
+};
+const TA_SCENES = {
+  // ---------- Empieza desde cero ----------
+  trading: { t: 'chart', title: '¿Qué es el trading?', shape: 'up', L: [[], [{ o: 'buy', i: 6 }], [{ o: 'sell', i: 21 }, { o: 'gain', a: 6, b: 21 }]],
+    cap: ['El precio de un activo sube y baja durante todo el día.', 'Compras cuando tu análisis dice que puede subir…', '…y vendes más arriba. Esa diferencia es tu resultado.'] },
+  oferta: { t: 'chart', title: 'Oferta y demanda', shape: 'updown', L: [[], [{ o: 'note', i: 7, up: 1, txt: 'Más compradores', c: 'g' }], [{ o: 'note', i: 19, up: 0, txt: 'Más vendedores', c: 'w' }]],
+    cap: ['El precio se mueve por la fuerza de quienes compran y venden.', 'Si hay más compradores que vendedores, el precio sube.', 'Si dominan los vendedores, el precio baja.'] },
+  mercados: { t: 'tiles', title: 'Tipos de mercados', items: [['€ $', 'Forex', 'Pares de divisas'], ['▲▼', 'Índices', 'Grupos de empresas'], ['Au', 'Oro', 'El refugio clásico'], ['₿', 'Cripto', 'Bitcoin, Ethereum…']],
+    cap: ['Forex e índices: los mercados más operados del mundo.', 'El oro: un activo de refugio que se mueve con fuerza.', 'Cripto: abierto 24/7 y con mucha volatilidad.'] },
+  demo: { t: 'chart', title: 'Tu primera operación', shape: 'up', L: [[{ o: 'entry', i: 9 }], [{ o: 'sl', i: 9, d: -.12 }, { o: 'tp', i: 9, d: .24 }], [{ o: 'ticket', l: ['Cuenta demo', 'Comprar · 0.01 lote', 'Dinero ficticio'] }]],
+    cap: ['Eliges un punto de entrada en el gráfico.', 'Antes de entrar defines tu Stop Loss y tu Take Profit.', 'Practicas en cuenta demo: dinero ficticio, aprendizaje real.'] },
+  // ---------- Consejos rápidos ----------
+  errores: { t: 'list', title: '3 errores que queman cuentas', mark: 'x', items: [['Operar sin Stop Loss', 'Una sola operación puede llevarse la cuenta.'], ['Arriesgar demasiado', 'Lotes grandes para un saldo pequeño.'], ['Querer recuperar rápido', 'Operar con rabia después de perder.']],
+    cap: ['Error 1: entrar sin un límite de pérdida.', 'Error 2: un tamaño de lote que tu cuenta no aguanta.', 'Error 3: la venganza contra el mercado.'] },
+  noopera: { t: 'list', title: 'Cuándo NO operar', mark: 'x', items: [['Antes de noticias fuertes', 'El precio puede saltar sin aviso.'], ['Cansado o con emociones', 'Decides peor y te saltas el plan.'], ['Sin un plan claro', 'Si no sabes por qué entras, no entres.']],
+    cap: ['Las noticias de alto impacto mueven el precio de golpe.', 'Tu estado de ánimo también es parte de la operación.', 'Sin plan, cada operación es una apuesta.'] },
+  broker: { t: 'list', title: 'Elige un broker confiable', mark: 'ok', items: [['Regulado', 'Supervisado por una entidad reconocida.'], ['Retiros claros', 'Sabes cómo y cuándo recibes tu dinero.'], ['Costos transparentes', 'Spreads y comisiones a la vista.']],
+    cap: ['Primero: que esté regulado.', 'Segundo: que retirar sea simple y claro.', 'Tercero: que los costos no sean una sorpresa.'] },
+  uno: { t: 'bars', title: 'La regla del 1%', items: [['Tu cuenta', 1, 'Ejemplo: $1.000', 'g'], ['Riesgo por operación', .06, '1% = $10', 'r'], ['Tras 5 pérdidas seguidas', .95, 'Aún tienes ~95%', 'w']],
+    cap: ['Parte de tu saldo total.', 'En cada operación arriesgas como máximo el 1%.', 'Así una mala racha no te saca del juego.'] },
+  // ---------- Tutoriales ----------
+  tradingview: { t: 'chart', title: 'TradingView desde cero', shape: 'range', L: [[], [{ o: 'band', a: .3, b: .38, txt: 'Zona marcada', c: 'g' }], [{ o: 'ma' }]],
+    cap: ['Abres el gráfico del activo que quieres estudiar.', 'Marcas zonas importantes con las herramientas de dibujo.', 'Agregas indicadores solo si te ayudan a decidir.'] },
+  mt5: { t: 'flow', title: 'MetaTrader 5', items: [['download', 'Descarga', 'La plataforma oficial'], ['link', 'Conecta', 'Tu cuenta del broker'], ['chart', 'Opera', 'Abre y gestiona órdenes']],
+    cap: ['Descarga MetaTrader 5 desde la web de tu broker.', 'Inicia sesión con los datos de tu cuenta.', 'Abre órdenes con Stop Loss y Take Profit desde el gráfico.'] },
+  calc: { t: 'flow', title: 'Calcula tu lotaje', items: [['coin', 'Riesgo en $', 'Cuánto aceptas perder'], ['chart', 'Distancia del stop', 'En pips o puntos'], ['calc', 'Tamaño de lote', 'Lo da la calculadora']],
+    cap: ['Decide cuánto dinero estás dispuesto a arriesgar.', 'Mide la distancia entre tu entrada y tu Stop Loss.', 'La calculadora te dice el lote exacto.'] },
+  wallet: { t: 'flow', title: 'Crea una wallet segura', items: [['wallet', 'Crea la wallet', 'Desde la app oficial'], ['contract', '12 palabras', 'Anótalas en papel'], ['lock', 'Nunca las compartas', 'Ni con soporte']],
+    cap: ['Descarga la wallet solo desde su sitio oficial.', 'Escribe tu frase de recuperación en papel, sin fotos.', 'Quien tenga esas palabras tiene tu dinero.'] },
+  // ---------- Gestión de riesgo ----------
+  riesgo: { t: 'list', title: 'Gestión de riesgo', mark: 'ok', items: [['Define el riesgo antes', 'Sabes cuánto puedes perder.'], ['Siempre con Stop Loss', 'Tu seguro en cada operación.'], ['Lote acorde a tu cuenta', 'Nunca más de lo que planeaste.']],
+    cap: ['La pérdida máxima se decide antes de entrar.', 'El Stop Loss la hace cumplir sin emociones.', 'El tamaño de lote une las dos cosas.'] },
+  sltp: { t: 'chart', title: 'Stop Loss y Take Profit', shape: 'up', L: [[{ o: 'entry', i: 9 }], [{ o: 'sl', i: 9, d: -.12 }], [{ o: 'tp', i: 9, d: .24 }]],
+    cap: ['Primero eliges tu punto de entrada.', 'El Stop Loss va donde tu idea deja de ser válida.', 'El Take Profit, donde tomas la ganancia planeada.'] },
+  rr: { t: 'bars', title: 'Riesgo / beneficio', items: [['Arriesgas', .33, '1', 'r'], ['Buscas ganar', .66, '2', 'g'], ['Resultado', .5, 'Ganas más de lo que pierdes', 'w']],
+    cap: ['Lo que pones en riesgo en una operación…', '…frente a lo que buscas ganar: aquí, el doble.', 'Con 1:2 no necesitas acertar siempre.'] },
+  // ---------- Análisis técnico ----------
+  tecnico: { t: 'chart', title: 'Análisis técnico', shape: 'range', L: [[], [{ o: 'band', a: .22, b: .3, txt: 'Soporte', c: 'g' }, { o: 'band', a: .66, b: .74, txt: 'Resistencia', c: 'w' }], [{ o: 'ma' }]],
+    cap: ['El gráfico muestra la historia del precio.', 'Las zonas donde rebota te dicen dónde reacciona.', 'Con estructura decides, sin adivinar.'] },
+  soportes: { t: 'chart', title: 'Soportes y resistencias', shape: 'range', L: [[], [{ o: 'band', a: .22, b: .3, txt: 'Soporte', c: 'g' }], [{ o: 'band', a: .66, b: .74, txt: 'Resistencia', c: 'w' }]],
+    cap: ['El precio no se mueve al azar: rebota en zonas.', 'Soporte: donde los compradores lo frenan al bajar.', 'Resistencia: donde los vendedores lo frenan al subir.'] },
+  velas: { t: 'candle', title: 'Velas japonesas', cap: ['Cada vela resume el precio en un periodo.', 'Las mechas marcan el máximo y el mínimo.', 'El cuerpo va de la apertura al cierre.'] },
+  // ---------- Criptomonedas ----------
+  cripto: { t: 'flow', title: 'Criptomonedas', items: [['chain', 'Blockchain', 'Un registro público'], ['coin', 'Bitcoin', 'Dinero digital escaso'], ['contract', 'Ethereum', 'Contratos y DeFi']],
+    cap: ['La blockchain guarda cada movimiento a la vista de todos.', 'Bitcoin fue la primera criptomoneda.', 'Ethereum permite crear aplicaciones financieras sin bancos.'] },
+  bitcoin: { t: 'bars', title: 'Bitcoin y la escasez', items: [['Límite máximo', 1, '21 millones', 'g'], ['Ya emitidos', .95, 'Casi todos', 'w'], ['Halving', .5, 'Cada ~4 años', 'g']],
+    cap: ['Nunca existirán más de 21 millones de bitcoin.', 'La mayoría ya está en circulación.', 'Cada ~4 años se reduce a la mitad la nueva emisión.'] },
+  autocustodia: { t: 'flow', title: 'Autocustodia', items: [['broker', 'Exchange', 'Ellos guardan tus llaves'], ['wallet', 'Tu wallet', 'Tú guardas tus llaves'], ['key', 'Tus llaves', 'Tus monedas']],
+    cap: ['En un exchange, un tercero custodia tus fondos.', 'Con tu propia wallet, el control es tuyo.', 'Tus llaves, tus monedas: y también tu responsabilidad.'] },
+  // ---------- Mentalidad ----------
+  mente: { t: 'list', title: 'Psicología y disciplina', mark: 'ok', items: [['Sigue tu plan', 'No tus emociones del momento.'], ['Acepta pérdidas pequeñas', 'Son parte del proceso.'], ['Registra cada operación', 'Lo que se mide, mejora.']],
+    cap: ['La disciplina vale más que cualquier indicador.', 'Perder poco es parte de ganar con el tiempo.', 'Tu diario de trading es tu mejor profesor.'] },
+  racha: { t: 'list', title: 'Una racha de pérdidas', mark: 'num', items: [['Reduce el tamaño', 'Baja tu lote mientras recuperas confianza.'], ['Haz una pausa', 'Revisa qué cambió en el mercado.'], ['Vuelve con tu plan', 'Sin prisa por recuperar.']],
+    cap: ['Primero: protege lo que queda.', 'Segundo: aléjate y analiza con calma.', 'Tercero: regresa con reglas, no con ansiedad.'] },
+  rutina: { t: 'flow', title: 'Tu rutina diaria', items: [['news', 'Noticias', 'Qué mueve hoy el mercado'], ['chart', 'Tus zonas', 'Marca niveles clave'], ['clock', 'Espera', 'Entra solo con tu plan']],
+    cap: ['Empieza revisando el calendario de noticias.', 'Marca tus zonas antes de que abra la sesión.', 'Luego espera: el mejor trade suele requerir paciencia.'] },
+  // ---------- Copy trading ----------
+  copy1: { t: 'flow', title: 'Cómo funciona la copia', items: [['user', 'El trader opera', 'Un perfil que tú elegiste'], ['copy', 'Se copia', 'En proporción a tu saldo'], ['shield', 'Tu cuenta', 'El dinero sigue en tu broker']],
+    cap: ['El proveedor de estrategia abre una operación.', 'Tu cuenta la copia ajustando el tamaño a tu saldo.', 'Tus fondos nunca salen de tu propio broker.'] },
+  copy2: { t: 'chart', title: 'Audita al trader', shape: 'equity', L: [[], [{ o: 'dd' }], [{ o: 'note', i: 23, up: 1, txt: 'Consistencia', c: 'g' }]],
+    cap: ['Revisa la curva de resultados de varios meses.', 'Mira su peor caída (drawdown): ¿la soportarías?', 'Busca consistencia, no un solo mes espectacular.'] },
+  copy3: { t: 'chart', title: 'Stop de emergencia', shape: 'equityDown', L: [[], [{ o: 'floor', v: .3 }], [{ o: 'note', i: 22, up: 0, txt: 'Se desconecta', c: 'r' }]],
+    cap: ['Tu cuenta sigue los resultados del trader.', 'Defines una pérdida máxima para tu cuenta.', 'Si se toca, la copia se detiene automáticamente.'] },
+  copy4: { t: 'list', title: 'Vinculación paso a paso', mark: 'num', items: [['Crea tu cuenta de inversor', 'En tu broker regulado.'], ['Elige un proveedor', 'Revisado con criterio.'], ['Asigna capital y verifica', 'Que copie y cierre igual.']],
+    cap: ['Abres tu cuenta de inversor.', 'Seleccionas al proveedor que auditaste.', 'Asignas el capital y compruebas que todo se sincronice.'] },
+  // ---------- Cripto (mini-curso) ----------
+  cr1: { t: 'bars', title: 'Bitcoin: escasez digital', items: [['Límite máximo', 1, '21 millones', 'g'], ['Ya emitidos', .95, 'Casi todos', 'w'], ['Nueva emisión', .3, 'Cada vez menor', 'g']],
+    cap: ['Bitcoin tiene un límite fijo de 21 millones.', 'Cada bloque queda en un registro que no se puede alterar.', 'Su emisión decrece con el tiempo: por eso es escaso.'] },
+  cr2: { t: 'flow', title: 'Ethereum y DeFi', items: [['contract', 'Smart contract', 'Reglas en código'], ['bank', 'Préstamos', 'Sin un banco en medio'], ['swap', 'Intercambios', 'De un token a otro']],
+    cap: ['Un smart contract se ejecuta solo, según su código.', 'Con ellos existen préstamos sin intermediarios.', 'Y plataformas para intercambiar tokens directamente.'] },
+  cr3: { t: 'tiles', title: 'Stablecoins y wallets', items: [['CEX', 'Exchange', 'Custodia de terceros'], ['🔑', 'Wallet propia', 'Tú tienes las llaves'], ['$1', 'USDT', 'Atada al dólar'], ['$1', 'USDC', 'Atada al dólar']],
+    cap: ['Exchange o wallet propia: ¿quién guarda tus llaves?', 'Las stablecoins buscan valer siempre 1 dólar.', 'Sirven para mover valor rápido y sin volatilidad.'] },
+  cr4: { t: 'wave', title: 'Ciclos de mercado', cap: ['Acumulación: el precio está bajo y casi nadie mira.', 'Euforia: todos compran… y suele ser tarde.', 'Pánico: todos venden… y suele ser tarde también.'] },
+  // ---------- Programa IB ----------
+  ib1: { t: 'flow', title: 'Modelo IB', items: [['people', 'Tu comunidad', 'Opera en un broker regulado'], ['broker', 'El broker', 'Paga un rebate por lote'], ['coin', 'Tú', 'Recibes tus comisiones']],
+    cap: ['Las personas de tu comunidad operan en su cuenta.', 'Por cada lote, el broker paga un rebate.', 'Tú recibes esas comisiones sin cobrarle nada a tus miembros.'] },
+  ib2: { t: 'list', title: 'Beneficios del aliado', mark: 'ok', items: [['Material para tu comunidad', 'Gráficos y contenido educativo.'], ['Webinars educativos', 'Para formar a tu audiencia.'], ['Soporte prioritario', 'Comunicación directa con el equipo.']],
+    cap: ['Recibes material listo para compartir.', 'Formación para que tu comunidad opere con criterio.', 'Y un canal directo cuando lo necesites.'] },
+  ib3: { t: 'flow', title: 'Del registro al lanzamiento', items: [['user', 'Registro', 'Abrimos tu cuenta IB'], ['link', 'Tu enlace', 'Seguimiento personalizado'], ['chart', 'Tu panel', 'Revisas tus métricas']],
+    cap: ['Te acompañamos a abrir tu cuenta IB.', 'Recibes tus enlaces de seguimiento.', 'Y verificas tus métricas en tu panel.'] },
+};
+
+const TA = (() => {
+  const W = 640, H = 360, X0 = 54, X1 = 586, N = 26;
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const ico = (k) => `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${TA_ICO[k] || TA_ICO.chart}</svg>`;
+  const col = (c) => (c === 'g' ? '#D3AC00' : c === 'r' ? '#ef4444' : '#ffffff');
+  function series(shape) {
+    let s = 17; const r = () => ((s = (s * 9301 + 49297) % 233280) / 233280) - .5;
+    const f = {
+      up: (i) => .22 + i / N * .5 + Math.sin(i * .9) * .05,
+      updown: (i) => (i < 13 ? .25 + i / 13 * .5 : .75 - (i - 13) / 13 * .45) + Math.sin(i * 1.3) * .03,
+      range: (i) => .48 + Math.sin(i * .62) * .2,
+      equity: (i) => .25 + i / N * .5 - (i > 11 && i < 16 ? (i - 11) * .045 - (i > 13 ? (i - 13) * .09 : 0) : 0),
+      equityDown: (i) => .72 - i / N * .4 + Math.sin(i * .8) * .03,
+    }[shape] || ((i) => .5);
+    const out = []; let prev = f(0);
+    for (let i = 0; i < N; i++) { const c = Math.min(.88, Math.max(.1, f(i) + r() * .05)); out.push([prev, c]); prev = c; }
+    return out;
+  }
+  const xi = (i) => X0 + (i + .5) * (X1 - X0) / N, yv = (v) => 300 - v * 230;
+  function chart(sc) {
+    const data = series(sc.shape), line = /equity/.test(sc.shape), cw = (X1 - X0) / N * .56;
+    let base = '';
+    if (line) {
+      const pts = data.map((d, i) => `${xi(i).toFixed(1)},${yv(d[1]).toFixed(1)}`).join(' ');
+      base = `<polygon class="ta-area" points="${xi(0)},300 ${pts} ${xi(N - 1)},300"/><polyline class="ta-line" points="${pts}" pathLength="1"/>`;
+    } else {
+      base = data.map(([o, c], i) => { const up = c >= o, top = yv(Math.max(o, c)), bot = yv(Math.min(o, c)), x = xi(i);
+        return `<g class="ta-cd" style="--d:${i}"><line x1="${x}" x2="${x}" y1="${top - 9}" y2="${bot + 9}" stroke="${up ? '#D3AC00' : '#e5e7eb'}" stroke-width="2"/><rect x="${x - cw / 2}" y="${top}" width="${cw}" height="${Math.max(3, bot - top)}" rx="2" fill="${up ? '#D3AC00' : '#e5e7eb'}"/></g>`; }).join('');
+    }
+    const ov = (o) => {
+      const v = (i) => data[Math.max(0, Math.min(N - 1, i))][1];
+      switch (o.o) {
+        case 'buy': { const x = xi(o.i), y = yv(Math.min(...data[o.i])) + 26; return `<path d="M${x} ${y - 14}l10 14h-20z" fill="#D3AC00"/><text x="${x}" y="${y + 20}" class="ta-tx g" text-anchor="middle">Compra</text>`; }
+        case 'sell': { const x = xi(o.i), y = yv(Math.max(...data[o.i])) - 26; return `<path d="M${x} ${y + 14}l10 -14h-20z" fill="#fff"/><text x="${x}" y="${y - 10}" class="ta-tx" text-anchor="middle">Venta</text>`; }
+        case 'gain': { const y1 = yv(v(o.b)), y2 = yv(v(o.a)), x = xi(o.b) + 22; return `<rect x="${xi(o.a)}" y="${y1}" width="${xi(o.b) - xi(o.a)}" height="${y2 - y1}" fill="rgba(211,172,0,.12)" stroke="rgba(211,172,0,.5)" stroke-dasharray="4 5"/><text x="${Math.min(x, 600)}" y="${(y1 + y2) / 2}" class="ta-tx g" text-anchor="end">Tu resultado</text>`; }
+        case 'entry': case 'sl': case 'tp': {
+          const val = v(o.i) + (o.d || 0), y = yv(val), c = o.o === 'sl' ? '#ef4444' : o.o === 'tp' ? '#D3AC00' : '#ffffff', t = { entry: 'Entrada', sl: 'Stop Loss', tp: 'Take Profit' }[o.o];
+          return `<line x1="${xi(o.i)}" x2="${X1}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="2" stroke-dasharray="7 6" class="ta-draw"/><rect x="${X1 - 104}" y="${y - 24}" width="104" height="20" rx="10" fill="${c}"/><text x="${X1 - 52}" y="${y - 10}" class="ta-tx k" text-anchor="middle">${t}</text>`; }
+        case 'band': { const y1 = yv(o.b), y2 = yv(o.a), c = col(o.c); return `<rect x="${X0}" y="${y1}" width="${X1 - X0}" height="${y2 - y1}" fill="${c}" opacity=".16" class="ta-grow-x"/><line x1="${X0}" x2="${X1}" y1="${(y1 + y2) / 2}" y2="${(y1 + y2) / 2}" stroke="${c}" stroke-width="1.5" opacity=".6"/><text x="${X0 + 6}" y="${y1 - 7}" class="ta-tx ${o.c === 'g' ? 'g' : ''}">${o.txt}</text>`; }
+        case 'ma': { let acc = [], pts = data.map((d, i) => { acc.push(d[1]); if (acc.length > 5) acc.shift(); return `${xi(i).toFixed(1)},${yv(acc.reduce((a, b) => a + b) / acc.length).toFixed(1)}`; }).join(' ');
+          return `<polyline points="${pts}" fill="none" stroke="#D3AC00" stroke-width="3" stroke-linecap="round" pathLength="1" class="ta-path"/><text x="${X1}" y="72" class="ta-tx g" text-anchor="end">Indicador</text>`; }
+        case 'note': { const x = xi(o.i), y = o.up ? yv(Math.max(...data[o.i])) - 34 : yv(Math.min(...data[o.i])) + 46, c = col(o.c), w = o.txt.length * 8.6 + 26, bx = Math.max(X0, Math.min(X1 - w, x - w / 2));
+          return `<rect x="${bx}" y="${y - 18}" width="${w}" height="28" rx="14" fill="${c}"/><text x="${bx + w / 2}" y="${y + 1}" class="ta-tx k" text-anchor="middle">${esc(o.txt)}</text>`; }
+        case 'ticket': return `<g transform="translate(${X1 - 210} 58)"><rect width="210" height="104" rx="16" fill="#17171e" stroke="rgba(255,255,255,.12)"/>${o.l.map((t, k) => `<text x="18" y="${32 + k * 28}" class="ta-tx ${k === 0 ? 'g' : k === 2 ? 'm' : ''}">${esc(t)}</text>`).join('')}</g>`;
+        case 'dd': { const hi = Math.max(...data.slice(0, 13).map((d) => d[1])), lo = Math.min(...data.slice(10, 18).map((d) => d[1])); return `<rect x="${xi(10)}" y="${yv(hi)}" width="${xi(17) - xi(10)}" height="${yv(lo) - yv(hi)}" fill="rgba(239,68,68,.16)" stroke="#ef4444" stroke-dasharray="4 5"/><text x="${xi(13.5)}" y="${yv(lo) + 22}" class="ta-tx r" text-anchor="middle">Drawdown</text>`; }
+        case 'floor': { const y = yv(o.v); return `<line x1="${X0}" x2="${X1}" y1="${y}" y2="${y}" stroke="#ef4444" stroke-width="2.5" class="ta-draw"/><text x="${X0 + 6}" y="${y + 22}" class="ta-tx r">Límite de pérdida</text>`; }
+      }
+      return '';
+    };
+    const grid = [90, 150, 210, 270].map((y) => `<line x1="${X0}" x2="${X1}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,.05)"/>`).join('');
+    return `<svg class="ta-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${grid}<g class="ta-l ta-l0 on">${base}${sc.L[0].map(ov).join('')}</g>${sc.L.slice(1).map((l, k) => `<g class="ta-l ta-l${k + 1}">${l.map(ov).join('')}</g>`).join('')}</svg>`;
+  }
+  const list = (sc) => `<div class="ta-list">${sc.items.map(([t, d], i) => `<div class="ta-l ta-l${i} ta-it"><span class="ta-mk ${sc.mark}">${sc.mark === 'x' ? '✕' : sc.mark === 'num' ? i + 1 : '✓'}</span><div><b>${esc(t)}</b><small>${esc(d)}</small></div></div>`).join('')}</div>`;
+  const flow = (sc) => `<div class="ta-flow">${sc.items.map(([k, t, d], i) => `${i ? `<span class="ta-l ta-l${i} ta-con"><i></i></span>` : ''}<div class="ta-l ta-l${i} ta-node"><span class="ta-ic">${ico(k)}</span><b>${esc(t)}</b><small>${esc(d)}</small></div>`).join('')}</div>`;
+  const bars = (sc) => `<div class="ta-bars">${sc.items.map(([l, v, t, c], i) => `<div class="ta-l ta-l${i} ta-bar"><span class="lb">${esc(l)}</span><span class="tr"><i style="--v:${v};--c:${col(c)}"></i></span><b style="color:${col(c)}">${esc(t)}</b></div>`).join('')}</div>`;
+  const tiles = (sc) => `<div class="ta-tiles">${sc.items.map(([s, l, d], i) => `<div class="ta-l ta-l${Math.max(0, i - 1)} ta-tile"><span class="sy">${esc(s)}</span><b>${esc(l)}</b><small>${esc(d)}</small></div>`).join('')}</div>`;
+  const candle = () => `<svg class="ta-svg" viewBox="0 0 ${W} ${H}" aria-hidden="true"><g class="ta-l ta-l0 on"><line x1="260" x2="260" y1="60" y2="300" stroke="#D3AC00" stroke-width="5"/><rect x="215" y="110" width="90" height="140" rx="8" fill="#D3AC00"/><line x1="420" x2="420" y1="100" y2="290" stroke="#e5e7eb" stroke-width="4"/><rect x="390" y="140" width="60" height="100" rx="6" fill="#e5e7eb"/><text x="260" y="330" class="ta-tx g" text-anchor="middle">Alcista</text><text x="420" y="330" class="ta-tx" text-anchor="middle">Bajista</text></g>
+    <g class="ta-l ta-l1"><line x1="270" x2="330" y1="60" y2="60" stroke="#fff" stroke-dasharray="4 4"/><text x="336" y="65" class="ta-tx">Máximo</text><line x1="270" x2="330" y1="300" y2="300" stroke="#fff" stroke-dasharray="4 4"/><text x="336" y="305" class="ta-tx">Mínimo</text></g>
+    <g class="ta-l ta-l2"><line x1="150" x2="210" y1="250" y2="250" stroke="#D3AC00" stroke-dasharray="4 4"/><text x="144" y="255" class="ta-tx g" text-anchor="end">Apertura</text><line x1="150" x2="210" y1="110" y2="110" stroke="#D3AC00" stroke-dasharray="4 4"/><text x="144" y="115" class="ta-tx g" text-anchor="end">Cierre</text></g></svg>`;
+  const wave = () => { const Y = (x) => 178 - 92 * Math.sin((x - 40) / 560 * Math.PI * 2 - Math.PI / 2) * -1 * -1, p = [];
+    for (let x = 40; x <= 600; x += 8) p.push(`${x},${Y(x).toFixed(1)}`);
+    return `<svg class="ta-svg" viewBox="0 0 ${W} ${H}" aria-hidden="true"><g class="ta-l ta-l0 on"><polyline points="${p.join(' ')}" fill="none" stroke="#D3AC00" stroke-width="4" stroke-linecap="round" pathLength="1" class="ta-path"/><circle cx="56" cy="${Y(56).toFixed(1)}" r="9" fill="#D3AC00"/><text x="72" y="${(Y(56) + 6).toFixed(1)}" class="ta-tx g">Acumulación</text></g>
+    <g class="ta-l ta-l1"><circle cx="320" cy="${Y(320).toFixed(1)}" r="9" fill="#fff"/><text x="320" y="${(Y(320) - 20).toFixed(1)}" class="ta-tx" text-anchor="middle">Euforia</text></g>
+    <g class="ta-l ta-l2"><circle cx="440" cy="${Y(440).toFixed(1)}" r="9" fill="#ef4444"/><text x="456" y="${(Y(440) + 6).toFixed(1)}" class="ta-tx r">Pánico</text></g></svg>`; };
+  const T = { chart, list, flow, bars, tiles, candle, wave };
+  function mount(el, key) {
+    const sc = TA_SCENES[key]; if (!el || !sc) return;
+    if (el._ta) clearInterval(el._ta);
+    el.innerHTML = `<div class="ta" data-t="${sc.t}"><div class="ta-glow" aria-hidden="true"></div><span class="ta-title">${esc(sc.title)}</span><div class="ta-stage">${T[sc.t](sc)}</div>
+      <div class="ta-cap" aria-live="polite"><span class="ta-dots">${sc.cap.map(() => '<i></i>').join('')}</span><p></p></div><span class="ta-badge">Animación</span></div>`;
+    const root = el.firstChild, p = root.querySelector('.ta-cap p'), dots = [...root.querySelectorAll('.ta-dots i')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let s = 0;
+    const set = () => {
+      root.querySelectorAll('.ta-l').forEach((g) => { const n = +g.getAttribute('class').match(/ta-l(\d)/)[1]; g.classList.toggle('on', n <= s); });
+      if (s === 0) { root.classList.remove('ta-go'); void root.offsetWidth; root.classList.add('ta-go'); }
+      p.classList.remove('in'); void p.offsetWidth; p.textContent = sc.cap[s]; p.classList.add('in');
+      dots.forEach((d, k) => d.classList.toggle('on', k <= s));
+    };
+    if (reduce) { s = 2; set(); return; }
+    set();
+    el._ta = setInterval(() => { if (!el.isConnected) return clearInterval(el._ta); s = (s + 1) % 3; set(); }, 3600);
+  }
+  function unmount(el) { if (el && el._ta) { clearInterval(el._ta); el._ta = null; } if (el) el.innerHTML = ''; }
+  return { mount, unmount };
+})();
+
+// El modal de video también muestra animaciones: playVideo('anim:clave')
+(() => {
+  const base = playVideo, baseClose = closeVideoModal;
+  playVideo = function (url) {
+    const iframe = document.getElementById('videoIframe'); let host = document.getElementById('videoAnim');
+    if (String(url).startsWith('anim:')) {
+      const own = document.getElementById('videoOwn'); if (own) { own.pause(); own.style.display = 'none'; }
+      if (iframe) { iframe.src = ''; iframe.style.display = 'none'; }
+      if (!host && iframe) { host = document.createElement('div'); host.id = 'videoAnim'; host.className = 'ta-host'; iframe.after(host); }
+      host.style.display = 'block'; TA.mount(host, url.slice(5));
+      const modal = document.getElementById('videoModal'); if (modal) modal.style.display = 'flex';
+      return;
+    }
+    if (host) { TA.unmount(host); host.style.display = 'none'; }
+    base(url);
+  };
+  closeVideoModal = function () { const host = document.getElementById('videoAnim'); if (host) { TA.unmount(host); host.style.display = 'none'; } baseClose(); };
+})();
