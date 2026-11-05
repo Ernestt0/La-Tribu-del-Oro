@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611042014">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611042014">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611042014">
+  <link rel="stylesheet" href="styles.css?v=202611042017">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611042017">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611042017">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -318,6 +318,12 @@
     @media (max-width: 960px) { .bt-learn li:nth-child(3) { display: flex; } }
     .bt-title { padding: 26px 34px !important; } .bt-kicker { margin-bottom: 10px; } .bt-title h1 { margin-bottom: 10px !important; } .bt-title p { font-size: 15px; line-height: 1.5; }
     @media (max-width: 960px) { .bt-grid { grid-template-rows: auto !important; } .bt-title, .bt-learn, .bt-cta { overflow: visible; } }
+    /* Título con la moneda de la marca que gira */
+    .bt-title h1 .t-brand { white-space: nowrap; display: inline-flex; align-items: center; gap: .18em; vertical-align: bottom; }
+    .bt-title h1 .t-coin { width: .92em; height: .92em; border-radius: 50%; background: radial-gradient(circle, #0b0b0f 62%, transparent 63%); flex: none; transform-style: preserve-3d; }
+    @media (prefers-reduced-motion: no-preference) { .bt-title h1 .t-coin { animation: coin-flip 6s cubic-bezier(.45,.05,.25,1) 2.5s infinite; } }
+    @media (max-width: 600px) { .bt-title h1 .t-brand { white-space: normal; } }
+    @media (min-width: 961px) { .bt-title h1 { font-size: clamp(30px, 3vw, 44px) !important; } .bt-title p { font-size: 14.5px !important; } }
   </style>
 </head>
 <body class="v2 page">
@@ -338,7 +344,7 @@
 
         <div class="bt bt-title">
           <span class="bt-kicker">Quiénes somos</span>
-          <h1>Conoce <span>La Tribu del Oro</span> en 1 minuto</h1>
+          <h1>Conoce <span class="t-brand"><img class="t-coin" src="logo-coin.png" alt="" width="64" height="64"><span>La Tribu del Oro</span></span> en 1 minuto</h1>
           <p>Quiénes somos, cómo enseñamos y qué vas a lograr con nosotros. El mejor punto de partida antes de ver el resto de los videos.</p>
         </div>
 
@@ -375,7 +381,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611042014"></script>
+  <script src="components.js?v=202611042017"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
