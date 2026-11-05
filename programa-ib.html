@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611042046" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611042046" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611042046" />
+    <link rel="stylesheet" href="styles.css?v=202611042054" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611042054" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611042054" />
     <style>
       /* HERO PROGRAMA IB */
       .ib-hero {
@@ -243,6 +243,46 @@
       body.page .ib-hero .ib-own .hero-play-btn { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 0; cursor: pointer; z-index: 3; }
       body.page .ib-hero .ib-own.playing .hero-play-btn { opacity: 0; pointer-events: none; }
       body.page .ib-hero .hero-video-wrapper { max-width: 500px; margin-inline: auto; }
+      /* Video IB: sin bordes, aura dorada, fichas flotantes e inclinación 3D */
+      body.page .ib-hero .ib-own { aspect-ratio: 9 / 8 !important; border: 0 !important; background: transparent !important; position: relative; z-index: 1; }
+      body.page .ib-hero .ib-own video { object-fit: cover; }
+      .ib-stage { position: relative; }
+      .ib-tilt { position: relative; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2,.8,.2,1); will-change: transform; }
+      .ib-aura { position: absolute; inset: -8% -8% -8% -8%; z-index: 0; border-radius: 36px; pointer-events: none; opacity: .9;
+        background: radial-gradient(closest-side, rgba(211,172,0,.6) 55%, rgba(211,172,0,0)); filter: blur(18px); }
+      .ib-chip { position: absolute; z-index: 4; display: inline-flex; align-items: center; gap: 9px; padding: 9px 14px 9px 9px; border-radius: 999px; background: rgba(255,255,255,.92);
+        -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 18px 34px -16px rgba(0,0,0,.45); font-size: 13.5px; color: #475569; white-space: nowrap; transition: opacity .3s; }
+      .ib-chip svg { width: 26px; height: 26px; flex: none; } .ib-chip b { color: #0b0b0f; }
+      .ib-chip.k1 { top: 12%; left: -38px; } .ib-chip.k2 { top: 46%; right: -34px; } .ib-chip.k3 { bottom: 8%; left: -20px; }
+      .ib-stage:has(.playing) .ib-chip { opacity: 0; pointer-events: none; }
+      .ib-stage:has(.playing) .ib-aura { opacity: .35; }
+      @media (prefers-reduced-motion: no-preference) {
+        .ib-aura { animation: ib-aura 4.5s ease-in-out infinite; }
+        .ib-chip { animation: ib-bob 5s ease-in-out infinite; } .ib-chip.k2 { animation-delay: -1.7s; } .ib-chip.k3 { animation-delay: -3.3s; }
+        .ib-stage > * { animation: bt-in .9s cubic-bezier(.2,.8,.2,1) backwards; } .ib-tilt { animation-delay: .12s; }
+      }
+      @keyframes ib-aura { 50% { transform: translate(-3%, 3%) scale(1.06); opacity: .6; } }
+      @keyframes ib-bob { 50% { transform: translateY(-8px); } }
+      @keyframes bt-in { from { opacity: 0; transform: translateY(24px) scale(.97); } }
+      @media (max-width: 1240px) { .ib-chip.k1 { left: -14px; } .ib-chip.k2 { right: -12px; } .ib-chip.k3 { left: -8px; } }
+      @media (max-width: 900px) {
+        .ib-tilt { display: flex; flex-direction: column; gap: 10px; }
+        .ib-chip { position: static; align-self: flex-start; animation: none !important; }
+        .ib-tilt .hero-video-box { margin-bottom: 8px; }
+        .ib-aura { inset: -4% -6% auto -6%; aspect-ratio: 9 / 8; }
+      }
+      /* Video IB más grande */
+      body.page .ib-hero-grid { grid-template-columns: 1fr 1fr; gap: 56px; }
+      body.page .ib-hero .hero-video-wrapper { max-width: 600px; width: 100%; }
+      body.page .ib-hero .ib-own { width: 100%; border-radius: 28px; box-shadow: 0 50px 100px -50px rgba(0,0,0,.6); }
+      body.page .ib-hero .hero-play-btn.ib-coin { width: 112px; height: 112px; padding: 0; border-radius: 50%; background: none !important; box-shadow: none; animation: op-ring 2s ease-out infinite; }
+      body.page .ib-hero .ib-coin img { width: 100%; height: 100%; display: block; border-radius: 50%; background: radial-gradient(circle, #0b0b0f 62%, transparent 63%); filter: drop-shadow(0 12px 24px rgba(0,0,0,.5)); }
+      @media (prefers-reduced-motion: no-preference) { body.page .ib-hero .ib-coin img { animation: coin-flip 6s cubic-bezier(.45,.05,.25,1) 1s infinite; } }
+      .ib-dur { position: absolute; right: 14px; bottom: 14px; z-index: 2; padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.65); color: #fff; font-size: 12px; font-weight: 700; transition: opacity .25s; }
+      body.page .ib-hero .ib-own.playing .ib-dur { opacity: 0; }
+      @media (max-width: 1100px) { body.page .ib-hero-grid { gap: 36px; } }
+      @media (max-width: 900px) { body.page .ib-hero-grid { grid-template-columns: 1fr; } body.page .ib-hero .hero-video-wrapper { max-width: 560px; margin-inline: auto; } }
+      @media (max-width: 600px) { body.page .ib-hero .ib-own { border-radius: 20px; } body.page .ib-hero .hero-play-btn.ib-coin { width: 80px; height: 80px; } }
     </style>
   </head>
   <body class="v2 page">
@@ -281,14 +321,21 @@
         </div>
 
         <!-- VIDEO DE PRESENTACIÓN IB -->
-        <div class="hero-video-wrapper">
+        <div class="hero-video-wrapper ib-stage">
           <div class="hero-video-header">
             <span class="video-label-badge">Presentación</span>
             <h3 class="video-header-title">¿Qué es ser IB y por qué unirte?</h3>
           </div>
-          <div class="hero-video-box ib-own" id="ibMainVideo">
-            <video id="ibVideo" src="media/programa-ib.mp4" poster="media/programa-ib.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
-            <button class="hero-play-btn" type="button" aria-label="Reproducir: Programa IB"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4" /></svg></button>
+          <div class="ib-tilt">
+            <span class="ib-aura" aria-hidden="true"></span>
+            <div class="hero-video-box ib-own" id="ibMainVideo">
+              <video id="ibVideo" src="media/programa-ib.mp4" poster="media/programa-ib.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+              <button class="hero-play-btn ib-coin" type="button" aria-label="Reproducir: Programa IB"><img src="logo-coin.png" alt="" width="112" height="112"></button>
+              <span class="ib-dur">Presentación · 1 min</span>
+            </div>
+            <span class="ib-chip k1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="#D3AC00"/><path d="M12 6.5v11M15 9c-.6-1-1.7-1.5-3-1.5-1.7 0-3 .9-3 2.2 0 3.2 6 1.7 6 4.8 0 1.3-1.3 2.3-3 2.3-1.4 0-2.6-.6-3.2-1.6" stroke="#0b0b0f" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg><span><b>Monetiza</b> tu comunidad</span></span>
+            <span class="ib-chip k2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="#0b0b0f"/><path d="M7.8 12.3l2.9 2.9 5.5-5.9" stroke="#D3AC00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span><b>Soporte</b> institucional</span></span>
+            <span class="ib-chip k3"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="12" width="4.5" height="8.5" rx="1.5" fill="#D3AC00" opacity=".55"/><rect x="9.8" y="7" width="4.5" height="13.5" rx="1.5" fill="#D3AC00" opacity=".8"/><rect x="16" y="3" width="4.5" height="17.5" rx="1.5" fill="#D3AC00"/></svg><span><b>Comisiones</b> transparentes</span></span>
           </div>
         </div>
       </div>
@@ -605,7 +652,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611042046"></script>
+    <script src="components.js?v=202611042054"></script>
     <script>
       // Video principal del Programa IB (alojado en el sitio)
       (() => {
@@ -614,6 +661,16 @@
         box.querySelector('.hero-play-btn').addEventListener('click', (e) => { e.stopPropagation(); start(); });
         vid.addEventListener('click', () => { if (!box.classList.contains('playing')) start(); });
         vid.addEventListener('ended', () => { box.classList.remove('playing'); vid.controls = false; vid.load(); });
+        const tilt = document.querySelector('.ib-tilt');
+        if (tilt && matchMedia('(hover: hover) and (min-width: 901px)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          tilt.addEventListener('mousemove', (e) => {
+            if (box.classList.contains('playing')) return;
+            const r = tilt.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+            tilt.style.transform = `perspective(1100px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+          });
+          tilt.addEventListener('mouseleave', () => { tilt.style.transform = ''; });
+          vid.addEventListener('play', () => { tilt.style.transform = ''; });
+        }
       })();
 
       // DATOS DE LOS VIDEOS DEL PROGRAMA IB
