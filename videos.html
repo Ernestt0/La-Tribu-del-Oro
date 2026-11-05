@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611042033">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611042033">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611042033">
+  <link rel="stylesheet" href="styles.css?v=202611042036">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611042036">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611042036">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -367,17 +367,17 @@
     @media (max-width: 1100px) { .bt-row { padding: 10px 14px; } .bt-row b { font-size: 14.5px; } .bt-row span:not(.bi) { font-size: 12.5px; } }
     @media (max-width: 960px) { .bt-side { grid-row: auto; grid-template-rows: none; } }
     @media (min-width: 961px) { .bt-video { grid-column: 1; grid-row: 1 / span 2; } .bt-side { grid-column: 2; grid-row: 1 / span 2; } }
-    /* ===== Intro: la moneda gira y la cámara entra por sus franjas (3D) ===== */
-    .vx-intro { position: fixed; inset: 0; z-index: 9999; pointer-events: none; perspective: 900px; }
-    .vi-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-    .vi-coin { transform-origin: 500px 500px; animation: vi-spin 1.2s cubic-bezier(.45,.05,.25,1) both; }
-    .vi-zoom { transform-origin: 469px 497px; transition: transform 1.15s cubic-bezier(.7,0,.15,1); }
-    .vx-intro.zoom .vi-zoom { transform: scale(60); }
-    .vx-intro b { position: absolute; left: 0; right: 0; top: calc(50% + 120px); text-align: center; font: 800 clamp(20px, 3vw, 30px)/1 var(--display, 'Inter Tight'), sans-serif; color: #0b0b0f; letter-spacing: -.02em; animation: vi-txt .7s .35s cubic-bezier(.2,.8,.2,1) both; transition: opacity .3s; }
+    /* ===== Intro: la moneda gira en 3D y la cámara entra por sus franjas ===== */
+    .vx-intro { position: fixed; inset: 0; z-index: 9999; pointer-events: none; perspective: 1200px; }
+    .vi-cover { position: absolute; inset: 0; background: radial-gradient(circle at 50% 45%, #F0D277, #D3AC00 58%, #b08f00); will-change: clip-path; }
+    .vi-coinwrap { position: absolute; left: 50%; top: 45%; width: min(240px, 46vw); aspect-ratio: 1; margin: calc(min(240px, 46vw) / -2) 0 0 calc(min(240px, 46vw) / -2); border-radius: 50%;
+      background: radial-gradient(circle, #0b0b0f 61%, transparent 62%); transform-style: preserve-3d; animation: vi-spin 1.3s cubic-bezier(.3,.1,.2,1) both; filter: drop-shadow(0 30px 40px rgba(80,55,0,.45)); }
+    .vi-coin-img { width: 100%; height: 100%; display: block; }
+    .vi-shine { position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%); background-size: 250% 100%; animation: vi-shine 1.3s ease-out both; mix-blend-mode: soft-light; }
+    .vx-intro b { position: absolute; left: 0; right: 0; top: calc(45% + min(240px, 46vw) / 2 + 26px); text-align: center; font: 800 clamp(20px, 3vw, 30px)/1 var(--display, 'Inter Tight'), sans-serif; color: #0b0b0f; letter-spacing: -.02em; animation: vi-txt .7s .4s cubic-bezier(.2,.8,.2,1) both; transition: opacity .25s; }
     .vx-intro.zoom b { opacity: 0; }
-    .vi-fill { transition: opacity .35s ease; }
-    .vx-intro.zoom .vi-fill { opacity: 0; }
-    @keyframes vi-spin { 0% { transform: scale(.35) rotateY(-540deg); opacity: 0; } 30% { opacity: 1; } 100% { transform: scale(1) rotateY(0); } }
+    @keyframes vi-spin { 0% { transform: scale(.4) rotateY(-720deg); opacity: 0; } 25% { opacity: 1; } 100% { transform: scale(1) rotateY(0); } }
+    @keyframes vi-shine { from { background-position: 120% 0; } to { background-position: -40% 0; } }
     @keyframes vi-txt { from { opacity: 0; transform: translateY(12px); } }
     /* Filas negras con explicación más larga y esquinas iguales en todos los bloques */
     .vx-bento-hero { --r: 24px; }
@@ -385,8 +385,8 @@
     .bt-row b { color: #fff !important; font-size: 16px !important; }
     .bt-row span:not(.bi) { color: rgba(255,255,255,.66) !important; font-size: 13.5px !important; line-height: 1.45 !important; margin-top: 4px !important; }
     .bt-row .bi { background: #D3AC00 !important; color: #0b0b0f !important; border-radius: 10px !important; margin-top: 2px; }
-    .bt-go { border-radius: var(--r) !important; background: #fff !important; color: #0b0b0f !important; padding: 14px 14px 14px 22px; }
-    .bt-go i { border-radius: 14px !important; background: #0b0b0f !important; color: #D3AC00 !important; }
+    .bt-go { border-radius: var(--r) !important; background: #0b0b0f !important; color: #fff !important; padding: 14px 14px 14px 22px; box-shadow: 0 18px 36px -26px rgba(0,0,0,.7); }
+    .bt-go i { border-radius: 14px !important; background: #D3AC00 !important; color: #0b0b0f !important; }
     .bt-video, .bt-video .vx-player.vx-own { border-radius: var(--r) !important; }
     @media (max-width: 1200px) { .bt-row span:not(.bi) { font-size: 12.5px !important; } .bt-row { padding: 12px 16px !important; } }
     @media (max-width: 1060px) { .bt-row span:not(.bi) { display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } }
@@ -395,34 +395,43 @@
 </head>
 <body class="v2 page">
   <div class="vx-intro" id="vxIntro" aria-hidden="true">
-    <svg class="vi-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <mask id="viHoles">
-          <rect x="-5000" y="-5000" width="11000" height="11000" fill="#fff"/>
-          <g class="vi-bars" transform="translate(500 500)">
-            <rect x="-46" y="-62" width="30" height="118" rx="15" transform="rotate(20 -31 -3)" fill="#000"/>
-            <rect x="8" y="-30" width="30" height="80" rx="15" transform="rotate(20 23 10)" fill="#000"/>
-          </g>
-        </mask>
-        <radialGradient id="viG" cx="50%" cy="45%" r="70%"><stop offset="0" stop-color="#F0D277"/><stop offset=".55" stop-color="#D3AC00"/><stop offset="1" stop-color="#a88700"/></radialGradient>
-      </defs>
-      <g class="vi-zoom"><g class="vi-coin">
-        <rect x="-5000" y="-5000" width="11000" height="11000" fill="url(#viG)" mask="url(#viHoles)"/>
-        <circle cx="500" cy="500" r="96" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="6"/>
-        <g class="vi-fill" transform="translate(500 500)">
-          <rect x="-46" y="-62" width="30" height="118" rx="15" transform="rotate(20 -31 -3)" fill="#0b0b0f"/>
-          <rect x="8" y="-30" width="30" height="80" rx="15" transform="rotate(20 23 10)" fill="#0b0b0f"/>
-        </g>
-      </g></g>
-    </svg>
+    <div class="vi-cover" id="viCover"></div>
+    <div class="vi-coinwrap" id="viCoinWrap"><img class="vi-coin-img" id="viCoin" src="logo-coin.png" alt=""><span class="vi-shine"></span></div>
     <b>La Tribu del Oro</b>
   </div>
   <script>
-    (() => { const el = document.getElementById("vxIntro");
+    (() => {
+      const el = document.getElementById("vxIntro");
       if (matchMedia("(prefers-reduced-motion: reduce)").matches) { el.remove(); return; }
       document.documentElement.style.overflow = "hidden";
-      setTimeout(() => el.classList.add("zoom"), 1250);
-      setTimeout(() => { el.remove(); document.documentElement.style.overflow = ""; }, 2450); })();
+      const cover = document.getElementById("viCover"), wrap = document.getElementById("viCoinWrap");
+      // Geometría real de las franjas del logo (unidades de 0 a 1 sobre el diámetro de la moneda)
+      const BARS = [{ x: .3838, y: .4795, l: .7071, w: .2443 }, { x: .7088, y: .4892, l: .4359, w: .2442 }];
+      const ANG = 20 * Math.PI / 180;
+      const capsule = (cx, cy, L, Wd, s, ox, oy) => {
+        const r = Wd / 2, h = L / 2 - r, pts = [], N = 18;
+        for (let k = 0; k <= N; k++) { const t = Math.PI + Math.PI * k / N; pts.push([r * Math.cos(t), -h + r * Math.sin(t)]); }
+        for (let k = 0; k <= N; k++) { const t = Math.PI * k / N; pts.push([r * Math.cos(t), h + r * Math.sin(t)]); }
+        return pts.map(([x, y]) => { const X = cx + x * Math.cos(ANG) - y * Math.sin(ANG), Y = cy + x * Math.sin(ANG) + y * Math.cos(ANG); return [ox + (X - ox) * s, oy + (Y - oy) * s]; });
+      };
+      const zoom = () => {
+        const r = wrap.getBoundingClientRect(), D = r.width, L0 = r.left, T0 = r.top;
+        const geo = BARS.map((b) => ({ cx: L0 + b.x * D, cy: T0 + b.y * D, L: b.l * D, W: b.w * D }));
+        const ox = geo[0].cx, oy = geo[0].cy, W = innerWidth, H = innerHeight;
+        const outer = [[0, 0], [W, 0], [W, H], [0, H], [0, 0]];
+        const t0 = performance.now(), DUR = 1100, SMAX = Math.max(W, H) / geo[0].W * 3.2;
+        wrap.style.opacity = "0"; el.classList.add("zoom");
+        const frame = (t) => {
+          const k = Math.min(1, (t - t0) / DUR), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2, s = 1 + (SMAX - 1) * e;
+          let pts = outer.slice();
+          geo.forEach((g) => { const c = capsule(g.cx, g.cy, g.L, g.W, s, ox, oy); pts = pts.concat(c, [c[0], [0, 0]]); });
+          cover.style.clipPath = "polygon(evenodd, " + pts.map(([x, y]) => x.toFixed(1) + "px " + y.toFixed(1) + "px").join(", ") + ")";
+          if (k < 1) requestAnimationFrame(frame); else { el.remove(); document.documentElement.style.overflow = ""; }
+        };
+        requestAnimationFrame(frame);
+      };
+      setTimeout(zoom, 1350);
+    })();
   </script>
   <site-header active="videos"></site-header>
 
@@ -471,7 +480,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611042033"></script>
+  <script src="components.js?v=202611042036"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
