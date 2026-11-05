@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611042003">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611042003">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611042003">
+  <link rel="stylesheet" href="styles.css?v=202611042007">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611042007">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611042007">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -224,38 +224,113 @@
       .vx-aurora .a1 { width: 320px; height: 320px; } .vx-aurora .a2 { width: 280px; height: 280px; } .vx-aurora .a3 { display: none; }
     }
     @media (min-width: 701px) and (max-width: 900px) { .vx-hero-grid { grid-template-columns: 1fr !important; justify-items: center; } .vx-stage { max-width: 480px; } }
+
+    /* ===== Quiénes somos: diseño bento ===== */
+    .vx-bento-hero { background: #fbf8ef !important; padding: 48px 0 64px !important; position: relative; overflow: hidden; }
+    .vx-bento-hero::before { display: none !important; }
+    .vx-bento-hero .au { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+    .vx-bento-hero .a1 { width: 560px; height: 560px; background: rgba(211,172,0,.35); top: -220px; left: 30%; animation: au1 18s ease-in-out infinite alternate; }
+    .vx-bento-hero .a2 { width: 460px; height: 460px; background: rgba(255,214,120,.45); bottom: -240px; right: -120px; animation: au2 22s ease-in-out infinite alternate; }
+    .vx-bento-hero .container { position: relative; z-index: 1; }
+    .bt-grid { display: grid; grid-template-columns: 480px 1fr 1fr; grid-template-rows: auto auto; gap: 16px; }
+    .bt { border-radius: 28px; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border: 1px solid rgba(255,255,255,.95); box-shadow: 0 20px 44px -30px rgba(100,75,0,.45); padding: 28px; position: relative; overflow: hidden; }
+    .bt-video { grid-row: span 2; padding: 0 !important; background: transparent !important; border: 0 !important; align-self: start; display: flex; }
+    .bt-video .vx-stage, .bt-video .vx-player { flex: 1; }
+    .bt-video .vx-player.vx-own { width: 100% !important; height: auto !important; aspect-ratio: 1/1 !important; min-height: 0; border-radius: 28px !important; box-shadow: none !important; margin: 0 !important; }
+    .bt-title { grid-column: span 2; display: flex; flex-direction: column; justify-content: center; padding: 36px 40px; }
+    .bt-kicker { align-self: flex-start; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #9c7a00; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 8px; }
+    .bt-kicker::before { content: ""; width: 22px; height: 2px; background: #D3AC00; border-radius: 2px; }
+    .bt-title h1 { font-size: clamp(34px, 3.6vw, 52px) !important; line-height: 1.02 !important; letter-spacing: -.03em; margin: 0 0 14px !important; color: #0f172a !important; }
+    .bt-title h1 span { color: #9c7a00 !important; }
+    .bt-title p { margin: 0; color: #475569; font-size: 16.5px; line-height: 1.6; max-width: 52ch; }
+    .bt-label { display: block; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #94a3b8; margin-bottom: 14px; }
+    .bt-learn ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .bt-learn li { display: flex; align-items: center; gap: 12px; font-weight: 700; color: #0f172a; font-size: 15px; }
+    .bi { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: #0b0b0f; color: #D3AC00; font: 800 12px/1 var(--display, 'Inter Tight'), sans-serif; }
+    .bt-cta { background: #0b0b0f !important; border-color: #0b0b0f !important; color: #fff; display: flex; flex-direction: column; justify-content: space-between; text-decoration: none; min-height: 180px; transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
+    .bt-cta .bt-label { color: rgba(255,255,255,.5); }
+    .bt-cta b { font: 800 clamp(22px, 2vw, 28px)/1.1 var(--display, 'Inter Tight'), sans-serif; color: #fff; max-width: 12ch; }
+    .bt-cta .bt-arrow { position: absolute; right: 22px; bottom: 22px; width: 52px; height: 52px; border-radius: 50%; background: #D3AC00; color: #0b0b0f; display: grid; place-items: center; font-size: 22px; font-weight: 800; transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
+    .bt-cta::after { content: ""; position: absolute; width: 220px; height: 220px; right: -70px; top: -70px; border-radius: 50%; background: radial-gradient(circle, rgba(211,172,0,.35), transparent 70%); }
+    @media (hover: hover) { .bt-cta:hover { transform: translateY(-4px); } .bt-cta:hover .bt-arrow { transform: translateX(6px) rotate(-8deg); } .bt-learn:hover .bi { animation: bi-pop .5s cubic-bezier(.34,1.56,.64,1) both; } .bt-learn li:nth-child(2) .bi { animation-delay: .06s } .bt-learn li:nth-child(3) .bi { animation-delay: .12s } }
+    @keyframes bi-pop { 50% { transform: scale(1.15) rotate(-6deg); } }
+    @media (prefers-reduced-motion: no-preference) {
+      .bt { animation: bt-in .8s cubic-bezier(.2,.8,.2,1) backwards; }
+      .bt-title { animation-delay: .08s } .bt-learn { animation-delay: .16s } .bt-cta { animation-delay: .24s }
+      @keyframes bt-in { from { opacity: 0; transform: translateY(22px) scale(.98); } }
+    }
+    @media (max-width: 1100px) { .bt-grid { grid-template-columns: 400px 1fr 1fr; } }
+    @media (max-width: 960px) {
+      .bt-grid { grid-template-columns: 1fr 1fr; }
+      .bt-title { grid-column: 1 / -1; order: -1; }
+      .bt-video { grid-column: 1 / -1; grid-row: auto; justify-self: center; width: min(480px, 100%); }
+    }
+    @media (max-width: 600px) {
+      .vx-bento-hero { padding: 24px 0 40px !important; }
+      .bt-grid { grid-template-columns: 1fr; gap: 12px; }
+      .bt { border-radius: 22px; padding: 22px; } .bt-title { padding: 24px 22px; }
+      .bt-title h1 { font-size: clamp(28px, 8.4vw, 36px) !important; } .bt-title p { font-size: 15px; }
+      .bt-video .vx-player.vx-own { border-radius: 22px !important; }
+      .bt-cta { min-height: 130px; }
+    }
+
+    /* Sección en dorado completo con bloques blancos y negros para contraste */
+    .vx-bento-hero { background: #D3AC00 !important; }
+    .vx-bento-hero .a1 { background: rgba(255,236,160,.55) !important; }
+    .vx-bento-hero .a2 { background: rgba(160,120,0,.45) !important; }
+    .vx-bento-hero .bt { background: #fff !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: 0 24px 50px -30px rgba(60,40,0,.55) !important; }
+    .vx-bento-hero .bt-title { background: #0b0b0f !important; border-color: #0b0b0f !important; }
+    .vx-bento-hero .bt-title h1 { color: #fff !important; }
+    .vx-bento-hero .bt-title h1 span { color: #D3AC00 !important; }
+    .vx-bento-hero .bt-title p { color: rgba(255,255,255,.72) !important; }
+    .vx-bento-hero .bt-kicker { color: #D3AC00 !important; }
+    .vx-bento-hero .bt-cta { background: #fff !important; border-color: #fff !important; color: #0b0b0f; }
+    .vx-bento-hero .bt-cta b { color: #0b0b0f !important; }
+    .vx-bento-hero .bt-cta .bt-label { color: #94a3b8 !important; }
+    .vx-bento-hero .bt-cta .bt-arrow { background: #0b0b0f !important; color: #D3AC00 !important; }
+    .vx-bento-hero .bt-cta::after { background: radial-gradient(circle, rgba(211,172,0,.28), transparent 70%) !important; }
+    .vx-bento-hero .bt-video { box-shadow: 0 30px 60px -30px rgba(60,40,0,.7) !important; border-radius: 28px; }
+    .vx-bento-hero .vx-own .coin-play img { filter: drop-shadow(0 10px 22px rgba(0,0,0,.5)) drop-shadow(0 0 0 #fff); }
+    .vx-bento-hero .vx-own .coin-play { box-shadow: 0 0 0 4px #fff, 0 0 0 0 rgba(255,255,255,.6); }
   </style>
 </head>
 <body class="v2 page">
   <site-header active="videos"></site-header>
 
   <!-- 1. VIDEO PRINCIPAL: QUIÉNES SOMOS -->
-  <section class="vx-hero vx-aurora"><span class="au a1" aria-hidden="true"></span><span class="au a2" aria-hidden="true"></span><span class="au a3" aria-hidden="true"></span>
-    <div class="container vx-hero-grid">
-      <div class="vx-stage"><span class="vx-ring" aria-hidden="true"></span><span class="vx-chip c1" aria-hidden="true"><i></i>Sesiones en vivo L-V</span><span class="vx-chip c2" aria-hidden="true">📈 Riesgo controlado</span><span class="vx-chip c3" aria-hidden="true">🤝 Comunidad activa</span><div class="vx-player vx-own" id="vxMain">
-        <video id="vxVideo" src="media/quienes-somos.mp4" poster="media/quienes-somos.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
-        <span class="tag">Empieza aquí</span>
-        <button class="play coin-play" type="button" aria-label="Reproducir: Quiénes somos"><img src="logo-coin.png" alt="" width="96" height="96"></button>
-        <span class="dur" id="vxMainDur">01:04</span>
-      </div></div>
-      <div class="vx-copy">
-        <span class="eyebrow">Quiénes somos</span>
-        <h1>Conoce <span>La Tribu del Oro</span> en 1 minuto</h1>
-        <p>Quiénes somos, cómo enseñamos y qué vas a lograr con nosotros. El mejor punto de partida antes de ver el resto de los videos.</p>
-        <ul class="vx-points">
-          <li>Educación práctica, sin promesas de ganancias fáciles</li>
-          <li>Gestión de riesgo en cada operación</li>
-          <li>Comunidad y sesiones en vivo de lunes a viernes</li>
-        </ul>
-        <div class="vx-stats" aria-label="Datos de la comunidad">
-          <div class="vx-stat"><b>L-V</b><span>Sesiones en vivo 8:00 AM (NY)</span></div>
-          <div class="vx-stat"><b>7</b><span>Colecciones de videos por tema</span></div>
-          <div class="vx-stat"><b>1:1</b><span>Acompañamiento personalizado</span></div>
+  <section class="vx-hero vx-bento-hero">
+    <span class="au a1" aria-hidden="true"></span><span class="au a2" aria-hidden="true"></span>
+    <div class="container">
+      <div class="bt-grid">
+        <div class="bt bt-video">
+          <div class="vx-player vx-own" id="vxMain">
+            <video id="vxVideo" src="media/quienes-somos.mp4" poster="media/quienes-somos.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+            <button class="play coin-play" type="button" aria-label="Reproducir: Quiénes somos"><img src="logo-coin.png" alt="" width="96" height="96"></button>
+            <span class="dur" id="vxMainDur">01:04</span>
+          </div>
         </div>
-        <div class="vx-actions">
-          <button class="btn btn-red" type="button" >Ver quiénes somos</button>
-          <a class="btn btn-line" href="#empieza">Ver colecciones</a>
+
+        <div class="bt bt-title">
+          <span class="bt-kicker">Quiénes somos</span>
+          <h1>Conoce <span>La Tribu del Oro</span> en 1 minuto</h1>
+          <p>Quiénes somos, cómo enseñamos y qué vas a lograr con nosotros. El mejor punto de partida antes de ver el resto de los videos.</p>
         </div>
+
+        <div class="bt bt-learn">
+          <span class="bt-label">En este video</span>
+          <ul>
+            <li><span class="bi">01</span>Nuestra forma de enseñar</li>
+            <li><span class="bi">02</span>Cómo gestionamos el riesgo</li>
+            <li><span class="bi">03</span>Qué encuentras en la comunidad</li>
+          </ul>
+        </div>
+
+        <a class="bt bt-cta" href="#empieza">
+          <span class="bt-label">Siguiente paso</span>
+          <b>Explora las colecciones</b>
+          <span class="bt-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -275,7 +350,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611042003"></script>
+  <script src="components.js?v=202611042007"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
@@ -351,7 +426,7 @@
       box.querySelector('.play').addEventListener('click', (e) => { e.stopPropagation(); start(); });
       vid.addEventListener('click', () => { if (!box.classList.contains('playing')) start(); });
       vid.addEventListener('ended', () => { box.classList.remove('playing'); vid.controls = false; vid.load(); });
-      document.querySelectorAll('.vx-actions .btn-red').forEach((b) => b.onclick = () => { box.scrollIntoView({ behavior: 'smooth', block: 'center' }); start(); });
+      
     })();
     document.querySelectorAll('.vx-card').forEach((c) => c.addEventListener('click', () => play(c.dataset.url)));
     document.querySelectorAll('.vx-card').forEach((c) => c.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }));
