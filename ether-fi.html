@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611042038" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611042038" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611042038" />
+    <link rel="stylesheet" href="styles.css?v=202611042046" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611042046" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611042046" />
     <style>
       /* HERO DE ETHER.FI */
       .efi-hero {
@@ -245,6 +245,22 @@
         body.page .steps-grid::before { display: none; }
         .efi-pillars { margin-top: 20px; }
       }
+
+      /* Hero en formato cine y bloque de 3 beneficios */
+      body.page .efi-hero { padding: 64px 0 72px; }
+      .efi-hero .efi-pillars { margin-top: 18px; }
+      .efi-ben { display: grid; grid-template-columns: 1.45fr 1fr; gap: 24px; align-items: stretch; }
+      .efi-ben-video { position: relative; border-radius: 24px; overflow: hidden; background: #0b0b0f; box-shadow: 0 34px 70px -38px rgba(0,0,0,.55); align-self: center; }
+      .efi-ben-video .own-player { aspect-ratio: 16 / 9; }
+      .efi-dur { position: absolute; right: 14px; bottom: 14px; z-index: 2; padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.65); color: #fff; font-size: 12px; font-weight: 700; }
+      .efi-ben .efi-why-grid { grid-template-columns: 1fr; gap: 12px; }
+      .efi-ben .efi-why-card { position: relative; display: grid; grid-template-columns: auto 1fr; column-gap: 16px; align-items: center; padding: 18px 20px; }
+      .efi-ben .efi-why-card .efi-ico { grid-row: span 2; width: 48px; height: 48px; }
+      .efi-ben .efi-why-card h3 { margin: 0 0 4px; font-size: 16px; padding-right: 34px; }
+      .efi-ben .efi-why-card p { margin: 0; font-size: 13.5px; }
+      .efi-n { position: absolute; top: 14px; right: 16px; font-size: 12px; font-weight: 800; color: #D3AC00; letter-spacing: .04em; }
+      @media (max-width: 960px) { .efi-ben { grid-template-columns: 1fr; } }
+      @media (max-width: 600px) { .efi-ben-video { border-radius: 20px; } .efi-ben .efi-why-card { padding: 16px; column-gap: 12px; } .efi-ben .efi-why-card .efi-ico { width: 42px; height: 42px; } }
     </style>
   </head>
   <body class="v2 page">
@@ -253,13 +269,16 @@
 
     <!-- HERO DE ETHER.FI -->
     <section class="efi-hero">
-      <div class="container efi-grid">
-        <div>
-          <span class="efi-tag">Protocolo Descentralizado en Ethereum</span>
-          <h1 class="hero-title" style="font-size: 42px; margin-bottom: 16px">
+      <div class="container">
+        <div class="cine-head">
+          <div>
+            <span class="efi-tag">Protocolo Descentralizado en Ethereum</span>
+            <h1 class="hero-title">
             Descubre Ether.fi y el<br />
             <span>Restaking Líquido No Custodial</span>
           </h1>
+          </div>
+          <div>
           <p class="hero-subtitle">
             Pon a trabajar tu Ethereum de forma segura: genera recompensas de
             validación nativas y de restaking (EigenLayer) mientras mantienes en
@@ -280,27 +299,15 @@
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z" fill="currentColor"/><path d="M3 12.2l9 5 9-5" stroke="currentColor" stroke-width="2.2" fill="none" opacity=".6" stroke-linecap="round" stroke-linejoin="round"/></svg>Restaking con EigenLayer</li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M12 5.5l4 6.3-4 2.3-4-2.3z" fill="#fff"/><path d="M12 15.3l4-2.3-4 6.2-4-6.2z" fill="#fff" opacity=".8"/></svg>Token eETH</li>
           </ul>
+          </div>
         </div>
 
-        <!-- VIDEO INTRODUCTORIO GENERAL -->
-        <div class="hero-video-wrapper">
-          <div class="hero-video-header">
-            <span class="video-label-badge">Presentación</span>
-            <h3 class="video-header-title">¿Qué es y por qué usar Ether.fi?</h3>
-          </div>
-          <div
-            class="hero-video-box"
-            onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80"
-              alt="Plataforma Ether.fi"
-            />
-            <div class="hero-play-btn">
-              <svg viewBox="0 0 24 24">
-                <polygon points="6 4 20 12 6 20 6 4" />
-              </svg>
-            </div>
+        <!-- VIDEO DE PRESENTACIÓN EN FORMATO CINE -->
+        <div class="cine-frame cine-grow">
+          <div class="own-player">
+            <video src="media/ether-fi.mp4" poster="media/ether-fi.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+            <button class="op-play" type="button" aria-label="Reproducir: qué es Ether.fi"><img src="logo-coin.png" alt="" width="128" height="128"></button>
+            <div class="cine-cap op-hide"><em>Presentación</em><span>¿Qué es y por qué usar Ether.fi?</span><b>01:06</b></div>
           </div>
         </div>
       </div>
@@ -309,25 +316,35 @@
     <!-- POR QUÉ ETHER.FI -->
     <section class="section efi-why">
       <div class="container">
-        <div class="section-header" style="text-align: center; max-width: 620px; margin: 0 auto 28px">
-          <h2 class="section-title">¿Por qué conocer Ether.fi?</h2>
-          <p class="section-subtitle">Lo esencial del protocolo, en simple.</p>
+        <div class="section-header" style="max-width: 640px; margin: 0 0 28px">
+          <span class="efi-tag">Video · 1 minuto</span>
+          <h2 class="section-title">Los 3 beneficios de Ether.fi</h2>
+          <p class="section-subtitle">Míralo en un minuto y repásalo aquí al lado, en simple.</p>
         </div>
-        <div class="efi-why-grid">
-          <div class="efi-why-card">
+        <div class="efi-ben">
+          <div class="efi-ben-video">
+            <div class="own-player">
+              <video src="media/ether-fi-beneficios.mp4" poster="media/ether-fi-beneficios.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+              <button class="op-play" type="button" aria-label="Reproducir: 3 beneficios de Ether.fi"><img src="logo-coin.png" alt="" width="96" height="96"></button>
+              <span class="efi-dur op-hide">01:04</span>
+            </div>
+          </div>
+          <div class="efi-why-grid">
+          <div class="efi-why-card"><span class="efi-n">01</span>
             <span class="efi-ico"><svg class="ic-lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3" fill="currentColor"/><path class="sh" d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.5" fill="#fff"/></svg></span>
             <h3>Tus claves, tu control</h3>
             <p>Ether.fi es no custodial: mantienes el control de tus claves privadas en todo momento.</p>
           </div>
-          <div class="efi-why-card">
+          <div class="efi-why-card"><span class="efi-n">02</span>
             <span class="efi-ico"><svg class="ic-layers" viewBox="0 0 24 24" aria-hidden="true"><path class="top" d="M12 3l9 5-9 5-9-5z" fill="currentColor"/><path d="M3 12.2l9 5 9-5" stroke="currentColor" stroke-width="2.2" fill="none" opacity=".6" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 16.4l9 5 9-5" stroke="currentColor" stroke-width="2.2" fill="none" opacity=".35" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <h3>Dos tipos de recompensas</h3>
             <p>Combina las recompensas de validación nativa de Ethereum y las de restaking con EigenLayer.</p>
           </div>
-          <div class="efi-why-card">
+          <div class="efi-why-card"><span class="efi-n">03</span>
             <span class="efi-ico"><svg class="ic-token" viewBox="0 0 24 24" aria-hidden="true"><g class="disc"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M12 5.5l4 6.3-4 2.3-4-2.3z" fill="#fff"/><path d="M12 15.3l4-2.3-4 6.2-4-6.2z" fill="#fff" opacity=".8"/></g></svg></span>
             <h3>Token líquido eETH</h3>
             <p>Al depositar ETH recibes eETH 1:1 y puedes usarlo en protocolos DeFi sin bloquear tu capital.</p>
+          
           </div>
         </div>
       </div>
@@ -586,7 +603,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611042038"></script>
+    <script src="components.js?v=202611042046"></script>
     <script>
       // DATOS DE LOS VIDEOS DE ETHER.FI
       const efiVideos = [

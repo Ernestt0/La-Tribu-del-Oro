@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611042038">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611042038">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611042038">
+  <link rel="stylesheet" href="styles.css?v=202611042046">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611042046">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611042046">
   <style>
     /* ESTILOS EXCLUSIVOS DE SEÑALES */
     .signals-hero {
@@ -210,6 +210,11 @@
     }
     @keyframes sig-grow { from { transform: scaleX(0); } }
     /* Video de señales en una ventana tipo canal de Telegram */
+    .sg-cine .sg-win { transform: none; border-radius: 28px; }
+    @media (hover: hover) { .sg-cine .sg-win:hover { transform: none; } }
+    .sg-cine .signals-tag { margin-bottom: 14px; }
+    .sg-cine .cls-pills { margin-top: 18px; }
+    @media (max-width: 600px) { .sg-cine .sg-win { border-radius: 20px; } }
     .sg-win { border-radius: 26px; background: #0e141b; box-shadow: 0 40px 80px -40px rgba(34,158,217,.55), 0 0 0 1px rgba(255,255,255,.06); overflow: hidden; transform: rotate(-1.2deg); transition: transform .6s cubic-bezier(.34,1.56,.64,1); }
     @media (hover: hover) { .sg-win:hover { transform: rotate(0) translateY(-4px); } }
     .sg-bar { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: linear-gradient(90deg, #17212b, #1c2a37); }
@@ -235,33 +240,36 @@
   <site-header active="senales"></site-header>
 
   <!-- HERO DE SEÑALES -->
-  <section class="signals-hero">
-    <div class="container signals-grid">
-      <div>
-        <span class="signals-tag">Alertas en Tiempo Real</span>
-        <h1 class="hero-title" style="font-size: 44px; margin-bottom: 16px;">
+  <section class="signals-hero sg-cine">
+    <div class="container">
+      <div class="cine-head">
+        <div>
+          <span class="signals-tag">Alertas en Tiempo Real</span>
+          <h1 class="hero-title">
           Señales de Trading &<br>
           <span>Análisis con Criterio</span>
         </h1>
-        <p class="hero-subtitle">
+        </div>
+        <div>
+          <p class="hero-subtitle">
           Entradas basadas en análisis técnico institucional y estructura de mercado. Sin promesas milagrosas: cada señal incluye niveles exactos de entrada, invalidación (Stop Loss) y toma de ganancias.
         </p>
-
-        <div class="hero-buttons" style="margin-bottom: 0;">
+          <div class="hero-buttons" style="margin-bottom: 0;">
           <a href="https://t.me/" target="_blank" class="btn-telegram">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
             Unirme al Canal de Telegram
           </a>
         </div>
-        <ul class="cls-pills" aria-label="Lo esencial de las señales">
+          <ul class="cls-pills" aria-label="Lo esencial de las señales">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.7-3.2 8.2-8 9.8-4.8-1.6-8-5.1-8-9.8V5.5z" fill="currentColor"/><path d="M9 9l6 6M15 9l-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>Stop loss obligatorio</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="12" width="4.5" height="8.5" rx="1.5" fill="currentColor" opacity=".55"/><rect x="9.8" y="7" width="4.5" height="13.5" rx="1.5" fill="currentColor" opacity=".8"/><rect x="16" y="3" width="4.5" height="17.5" rx="1.5" fill="currentColor"/></svg>Ratio mínimo 1:2</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M7.8 12.3l2.9 2.9 5.5-5.9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Canal oficial</li>
         </ul>
+        </div>
       </div>
 
-      <!-- VIDEO INTRODUCTORIO DE METODOLOGÍA -->
-      <div class="sg-win">
+      <!-- VIDEO DE METODOLOGÍA EN FORMATO CINE -->
+      <div class="sg-win cine-frame cine-grow">
         <div class="sg-bar">
           <img class="sg-av" src="logo-coin.png" alt="" width="40" height="40">
           <div class="sg-who"><b>La Tribu del Oro · Señales</b><span><i></i>Canal oficial</span></div>
@@ -278,7 +286,7 @@
           <span class="sg-tag t-tp"><i></i>Take Profit</span>
           <span class="sg-note">Así se explica cada alerta</span>
         </div>
-      </div>
+      
     </div>
   </section>
 
@@ -391,6 +399,6 @@
   <site-footer></site-footer>
 
   <!-- SCRIPTS -->
-  <script src="components.js?v=202611042038"></script>
+  <script src="components.js?v=202611042046"></script>
 </body>
 </html>

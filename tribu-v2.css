@@ -1324,3 +1324,33 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
 @keyframes op-ring { 0% { box-shadow: 0 0 0 0 rgba(211,172,0,.55); } 80%, 100% { box-shadow: 0 0 0 24px rgba(211,172,0,0); } }
 .v2 .own-player.playing .op-play, .v2 .own-player.playing .op-hide { opacity: 0; pointer-events: none; transition: opacity .25s; }
 @media (max-width: 600px) { .v2 .own-player .op-play { width: 74px; height: 74px; margin: -37px 0 0 -37px; } }
+
+/* ===== Videos horizontales en formato cine (grandes, ancho completo) ===== */
+.v2 .cine-head { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: end; margin-bottom: 40px; }
+.v2 .cine-head h1 { font-size: clamp(40px, 5vw, 66px) !important; line-height: 1.02 !important; letter-spacing: -.03em; margin: 0 !important; }
+.v2 .cine-head .hero-subtitle { margin: 0 0 22px; }
+.v2 .cine-frame { position: relative; border-radius: 28px; overflow: hidden; background: #0b0b0f; box-shadow: 0 50px 100px -50px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.06); }
+.v2 .cine-frame .own-player { aspect-ratio: 16 / 9; width: 100%; }
+.v2 .cine-frame .own-player .op-play { width: 128px; height: 128px; margin: -64px 0 0 -64px; }
+.v2 .cine-cap { position: absolute; left: 22px; bottom: 20px; z-index: 2; display: flex; align-items: center; gap: 10px; max-width: calc(100% - 44px); padding: 8px 14px 8px 8px; border-radius: 999px;
+  background: rgba(11,11,15,.62); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: #fff; font-size: 14px; font-weight: 700; }
+.v2 .cine-cap em { font-style: normal; padding: 4px 10px; border-radius: 999px; background: #D3AC00; color: #0b0b0f; font-size: 12px; font-weight: 800; white-space: nowrap; }
+.v2 .cine-cap span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.v2 .cine-cap b { margin-left: 4px; color: rgba(255,255,255,.7); font-weight: 600; white-space: nowrap; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 961px) {
+    .v2 .cine-grow { animation: cine-grow linear both; animation-timeline: view(); animation-range: entry 0% cover 45%; }
+  }
+}
+@keyframes cine-grow { from { transform: scale(.88); } to { transform: scale(1); } }
+@media (max-width: 960px) {
+  .v2 .cine-head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 26px; }
+}
+@media (max-width: 600px) {
+  .v2 .cine-head h1 { font-size: clamp(34px, 10vw, 44px) !important; }
+  .v2 .cine-frame { border-radius: 20px; }
+  .v2 .cine-frame .own-player .op-play { width: 76px; height: 76px; margin: -38px 0 0 -38px; }
+  .v2 .cine-cap { left: 10px; bottom: 10px; max-width: calc(100% - 20px); font-size: 12px; padding: 5px 10px 5px 5px; }
+  .v2 .cine-cap em { font-size: 11px; padding: 3px 8px; }
+  .v2 .cine-cap b { display: none; }
+}
