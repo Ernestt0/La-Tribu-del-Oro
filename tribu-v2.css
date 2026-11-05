@@ -1462,11 +1462,15 @@ svg .ta-l { transform: translateY(8px); }
   .v2 .path:nth-child(3) .more { animation-delay: .4s; }
   .v2 .path:nth-child(4) .more { animation-delay: .6s; }
   .v2 .path:nth-child(5) .more { animation-delay: .8s; }
-  .v2 .path:hover .more { animation-play-state: paused; }
 }
 @keyframes more-beat {
   0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 1.5px rgba(211,172,0,0); }
   22%, 52% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 0 1.5px rgba(211,172,0,.85); }
   74% { transform: scale(1); opacity: .55; box-shadow: 0 0 0 1.5px rgba(211,172,0,0); }
   88% { opacity: 1; }
+}
+/* Al pasar el cursor por la tarjeta: zoom con borde que se mantiene hasta que el cursor sale */
+.v2 .path .more { transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, opacity .3s ease; }
+@media (hover: hover) {
+  .v2 .path:hover .more { animation: none; transform: scale(1.08); opacity: 1; box-shadow: 0 0 0 1.5px rgba(211,172,0,.85); }
 }
