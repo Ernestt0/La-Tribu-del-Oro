@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611042101" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611042101" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611042101" />
+    <link rel="stylesheet" href="styles.css?v=202611042105" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611042105" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611042105" />
     <style>
       /* ENCABEZADO DEL CURSO */
       .classroom-header {
@@ -206,30 +206,98 @@
         }
       }
       body.page { --acc: #a7995f; --acc-d: #8f8149; --acc-glow: rgba(167, 153, 95,.24); --acc-glow2: rgba(207, 192, 131,.18); }
+
+      /* ===== Encabezado Copy Trading: fondo negro, video con reflejo y diagrama de copia ===== */
+      .ct-hero { position: relative; isolation: isolate; overflow: hidden; background: #050505; color: #fff; padding: 64px 0 56px; }
+      .ct-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+        background: radial-gradient(48% 60% at 78% 30%, rgba(211,172,0,.22), transparent 70%), radial-gradient(40% 50% at 0% 100%, rgba(211,172,0,.10), transparent 70%); }
+      .ct-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 52px; align-items: center; }
+      .ct-tag { display: inline-block; padding: 5px 12px; border-radius: 999px; background: rgba(211,172,0,.16); color: #D3AC00; font-size: 11.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+      .ct-copy h1 { margin: 16px 0 16px; font-size: clamp(36px, 4.4vw, 58px); line-height: 1.02; letter-spacing: -.03em; font-weight: 850; color: #fff !important; }
+      .ct-copy h1 > span:not(.kw) { display: block; color: #D3AC00 !important; -webkit-text-fill-color: #D3AC00; font-size: .62em; letter-spacing: -.02em; margin-top: 8px; }
+      .ct-copy p { margin: 0; max-width: 46ch; font-size: 16.5px; line-height: 1.6; color: rgba(255,255,255,.7); }
+      .ct-copy .cls-pills { margin-top: 22px; }
+      body.page .ct-copy .cls-pills li { background: rgba(255,255,255,.06) !important; border-color: rgba(255,255,255,.14) !important; color: #fff !important; box-shadow: none !important; }
+      body.page .ct-copy .cls-pills svg { color: #D3AC00 !important; }
+      .ct-stage { position: relative; padding-bottom: 70px; }
+      .ct-frame { position: relative; border-radius: 26px; overflow: hidden; background: #000; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 40px 80px -40px rgba(211,172,0,.45);
+        -webkit-box-reflect: below 10px linear-gradient(transparent 80%, rgba(255,255,255,.2)); }
+      .ct-frame .own-player { aspect-ratio: 16 / 9; }
+      .ct-frame .own-player .op-play { width: 104px; height: 104px; margin: -52px 0 0 -52px; }
+      .ct-dur { position: absolute; right: 14px; top: 14px; z-index: 2; padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.65); color: #fff; font-size: 12px; font-weight: 700; }
+      @supports not (-webkit-box-reflect: below 0) { .ct-stage { padding-bottom: 0; } }
+
+      .ct-flow { list-style: none; margin: 18px 0 0; padding: 22px 26px; display: flex; align-items: center; gap: 14px; border-radius: 22px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
+      .ct-flow > li:not(.ct-line) { flex: 1; display: flex; align-items: center; gap: 12px; min-width: 0; }
+      .ct-flow b { display: block; font-size: 15px; color: #fff; } .ct-flow small { display: block; margin-top: 2px; font-size: 12.5px; color: rgba(255,255,255,.55); line-height: 1.4; }
+      .ct-node { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: rgba(255,255,255,.08); color: #fff; }
+      .ct-node svg { width: 24px; height: 24px; } .ct-node.gold { background: #D3AC00; color: #0b0b0f; }
+      .ct-line { position: relative; flex: 0 0 64px; height: 2px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 6px, transparent 6px 12px); }
+      .ct-line i { position: absolute; top: 50%; left: 0; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%; background: #D3AC00; box-shadow: 0 0 14px #D3AC00; opacity: 0; }
+      @media (prefers-reduced-motion: no-preference) {
+        .ct-line i { animation: ct-move 2.4s cubic-bezier(.6,0,.4,1) infinite; }
+        .ct-line:nth-child(4) i { animation-delay: 1.2s; }
+        .ct-flow .ct-node { animation: ct-pulse 2.4s ease-in-out infinite; }
+        .ct-flow li:nth-child(3) .ct-node { animation-delay: .9s; } .ct-flow li:nth-child(5) .ct-node { animation-delay: 2.1s; }
+        .ct-grid > * { animation: bt-in .9s cubic-bezier(.2,.8,.2,1) backwards; } .ct-stage { animation-delay: .12s !important; }
+      }
+      @keyframes ct-move { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 12px); opacity: 0; } }
+      @keyframes ct-pulse { 0%, 60%, 100% { box-shadow: 0 0 0 0 rgba(211,172,0,0); } 30% { box-shadow: 0 0 0 6px rgba(211,172,0,.25); } }
+      @keyframes bt-in { from { opacity: 0; transform: translateY(24px) scale(.98); } }
+      @media (max-width: 960px) {
+        .ct-hero { padding: 40px 0 36px; }
+        .ct-grid { grid-template-columns: 1fr; gap: 24px; }
+        .ct-stage { padding-bottom: 0; } .ct-frame { -webkit-box-reflect: unset; }
+        .ct-flow { flex-direction: column; align-items: stretch; gap: 0; padding: 16px 18px; margin-top: 24px; }
+        .ct-line { flex: none; width: 2px; height: 26px; margin-left: 22px; background: repeating-linear-gradient(180deg, rgba(255,255,255,.25) 0 5px, transparent 5px 10px); }
+        .ct-line i { left: 50% !important; margin-left: -6px; }
+        @media (prefers-reduced-motion: no-preference) { .ct-line i { animation-name: ct-move-v; } }
+      }
+      @keyframes ct-move-v { 0% { top: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+      @media (max-width: 600px) {
+        .ct-copy h1 { font-size: clamp(32px, 9.4vw, 40px); }
+        .ct-copy p { font-size: 15px; }
+        .ct-frame { border-radius: 18px; }
+        .ct-frame .own-player .op-play { width: 72px; height: 72px; margin: -36px 0 0 -36px; }
+      }
     </style>
   </head>
   <body class="v2 page">
     <!-- HEADER MAESTRO AUTOMÁTICO (SOLUCIONES ACTIVO) -->
     <site-header active="copy-trading"></site-header>
 
-    <!-- ENCABEZADO DEL CURSO -->
-    <section class="classroom-header">
+    <!-- ENCABEZADO: VIDEO CON REFLEJO + DIAGRAMA DE RÉPLICA -->
+    <section class="ct-hero">
       <div class="container">
-        <span class="classroom-tag">Mini-Curso Práctico Completo</span>
-        <h1 class="hero-title" style="font-size: 40px; margin-bottom: 10px">
-          Aprende Copy Trading<br />
-          <span>Con Criterio y Gestión de Riesgo</span>
-        </h1>
-        <p class="section-subtitle" style="max-width: 650px">
-          Domina cómo funciona la sincronización automática, cómo auditar el
-          rendimiento real de un trader y cómo blindar tu capital ante pérdidas
-          imprevistas.
-        </p>
-        <ul class="cls-pills" aria-label="Lo esencial del mini-curso">
+        <div class="ct-grid">
+          <div class="ct-copy">
+            <span class="ct-tag">Mini-curso práctico</span>
+            <h1>Aprende Copy Trading <span>con criterio y gestión de riesgo</span></h1>
+            <p>Cómo funciona la copia automática, cómo revisar el historial real de un trader y cómo proteger tu capital ante pérdidas imprevistas.</p>
+            <ul class="cls-pills" aria-label="Lo esencial del mini-curso">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M10 8.2l6 3.8-6 3.8z" fill="#fff"/></svg>4 clases prácticas</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M12 6.5V12l3.6 2.2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>45 minutos en total</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.7-3.2 8.2-8 9.8-4.8-1.6-8-5.1-8-9.8V5.5z" fill="currentColor"/><path d="M8.5 12l2.6 2.6 4.4-4.8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Riesgo primero</li>
         </ul>
+          </div>
+          <div class="ct-stage">
+            <div class="ct-frame">
+              <div class="own-player">
+                <video src="media/copy-trading.mp4" poster="media/copy-trading.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+                <button class="op-play" type="button" aria-label="Reproducir: qué es el copy trading"><img src="logo-coin.png" alt="" width="104" height="104"></button>
+                <span class="ct-dur op-hide">00:38</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ol class="ct-flow" aria-label="Cómo se copia una operación">
+          <li><span class="ct-node"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="currentColor"/><path d="M4.5 20.5c.8-4 3.8-6 7.5-6s6.7 2 7.5 6" fill="currentColor"/></svg></span><div><b>El trader abre una operación</b><small>Un perfil con historial que tú elegiste.</small></div></li>
+          <li class="ct-line" aria-hidden="true"><i></i></li>
+          <li><span class="ct-node"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7" width="11" height="13" rx="2.5" fill="currentColor" opacity=".55"/><rect x="9.5" y="3.5" width="11" height="13" rx="2.5" fill="currentColor"/></svg></span><div><b>Se copia en proporción</b><small>El tamaño se ajusta a tu saldo.</small></div></li>
+          <li class="ct-line" aria-hidden="true"><i></i></li>
+          <li><span class="ct-node gold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.7-3.2 8.2-8 9.8-4.8-1.6-8-5.1-8-9.8V5.5z" fill="currentColor"/><path d="M8.5 12l2.6 2.6 4.4-4.8" stroke="#0b0b0f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><div><b>Tú controlas el riesgo</b><small>Tu dinero sigue en tu broker, con tu límite de pérdida.</small></div></li>
+        </ol>
       </div>
     </section>
 
@@ -399,7 +467,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611042101"></script>
+    <script src="components.js?v=202611042105"></script>
     <script>
       // DATOS DE LAS LECCIONES DEL MINI-CURSO
       const lessonsData = [
