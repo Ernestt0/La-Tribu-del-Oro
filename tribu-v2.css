@@ -892,9 +892,7 @@ body.v2 {
 /* ===== Textos destacados en dorado del logo; al pasar el cursor, rojo ===== */
 :root { --gold-logo: #D3AC00; }
 .v2 :is(h1, h2, h3) span:not([class*="ico"]):not(.eyebrow), .v2 .hero-title span, .v2 .page-title span, .v2 .slide-copy h1 .hl-red { transition: color .35s ease; }
-@media (hover: hover) {
-  .v2 :is(h1, h2, h3) span:not([class*="ico"]):not(.eyebrow):hover, .v2 .hero-title span:hover, .v2 .page-title span:hover, .v2 .slide-copy h1 .hl-red:hover { color: #e5b909 !important; -webkit-text-fill-color: #e5b909; }
-}
+
 .v2 .header:not(.on-dark) .nav-link.active { background: rgba(211,172,0,.12); box-shadow: 0 0 0 1px rgba(211,172,0,.32); }
 
 /* ===== Menú hamburguesa con fondo negro ===== */
@@ -921,9 +919,7 @@ body.v2 {
 body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 .fld .err, .chk.bad, .reg-msg { color: #dc2626 !important; }
 .fld.bad input, .fld.bad select { border-color: #dc2626 !important; }
-@media (hover: hover) {
-  .v2 :is(h1, h2, h3) span:not([class*="ico"]):not(.eyebrow):hover, .v2 .hero-title span:hover, .v2 .page-title span:hover, .v2 .slide-copy h1 .hl-red:hover { color: #E50914 !important; -webkit-text-fill-color: #E50914; }
-}
+/* (sin cambio de color al pasar el cursor por los títulos) */
 
 /* ===== Banner: "trading" y "cripto" siguen dorados y al pasar el cursor se convierten en velas ===== */
 @media (hover: hover) { .v2 .slide-copy h1 .hl-red:hover { color: #D3AC00 !important; -webkit-text-fill-color: #D3AC00 !important; } }
@@ -1353,4 +1349,26 @@ section:has(> .container > .quotes-rows) { overflow: hidden; }
   .v2 .cine-cap { left: 10px; bottom: 10px; max-width: calc(100% - 20px); font-size: 12px; padding: 5px 10px 5px 5px; }
   .v2 .cine-cap em { font-size: 11px; padding: 3px 8px; }
   .v2 .cine-cap b { display: none; }
+}
+
+/* ===== Palabras clave de los títulos: velas o moneda al pasar el cursor ===== */
+.v2 .kw { display: inline-block; white-space: nowrap; cursor: default; perspective: 600px; }
+.v2 .kw .ch { position: relative; display: inline-block; color: var(--kc); -webkit-text-fill-color: var(--kc); }
+/* Velas */
+.v2 .kw-velas .ch { transition: color .3s ease, -webkit-text-fill-color .3s ease; transition-delay: calc(var(--i) * 28ms); }
+.v2 .kw-velas .cd { position: absolute; left: 50%; bottom: calc(18% + var(--o)); width: .26em; height: var(--h); margin-left: -.13em; border-radius: 2px;
+  background: var(--c); box-shadow: 0 0 16px -3px var(--c); transform: scaleY(0); transform-origin: 50% 100%; opacity: 0; pointer-events: none;
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1), opacity .2s ease; transition-delay: calc(var(--i) * 40ms); }
+.v2 .kw-velas .cd::before { content: ""; position: absolute; left: 50%; top: -22%; bottom: -22%; width: 2px; margin-left: -1px; background: var(--c); border-radius: 1px; z-index: -1; }
+/* Moneda: cada letra gira como una moneda y brilla */
+.v2 .kw-coin .ch { transform-style: preserve-3d; transition: transform .9s cubic-bezier(.34,1.3,.64,1), color .3s ease, -webkit-text-fill-color .3s ease, text-shadow .4s ease; transition-delay: calc(var(--i) * 45ms); }
+@media (prefers-reduced-motion: no-preference) {
+  @media (hover: hover) {
+    .v2 .kw-velas:hover .ch { color: var(--kdim); -webkit-text-fill-color: var(--kdim); }
+    .v2 .kw-velas:hover .cd { transform: scaleY(1); opacity: 1; }
+    .v2 .kw-coin:hover .ch { transform: rotateY(360deg); color: var(--kg); -webkit-text-fill-color: var(--kg); text-shadow: 0 0 18px var(--kglow); }
+  }
+  .v2 .kw-velas.auto .ch { color: var(--kdim); -webkit-text-fill-color: var(--kdim); }
+  .v2 .kw-velas.auto .cd { transform: scaleY(1); opacity: 1; }
+  .v2 .kw-coin.auto .ch { transform: rotateY(360deg); color: var(--kg); -webkit-text-fill-color: var(--kg); text-shadow: 0 0 18px var(--kglow); }
 }

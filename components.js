@@ -549,3 +549,58 @@ function initOwnPlayers() {
   });
 }
 document.addEventListener('DOMContentLoaded', initOwnPlayers);
+
+
+// ===== Palabras clave de los títulos: se convierten en velas o giran como moneda =====
+// Para agregar una palabra: ponla en la lista con 'velas' o 'moneda'. Se usa solo una por título.
+const KW_LISTA = [
+  ['Trading', 'velas'], ['trading', 'velas'], ['Señales', 'velas'], ['Ether.fi', 'moneda'], ['IB', 'moneda'],
+  ['Oro', 'moneda'], ['Cripto', 'moneda'], ['cripto', 'moneda'], ['Forex', 'velas'], ['mercados', 'velas'],
+  ['Mercados', 'velas'], ['Glosario', 'moneda'], ['Monetiza', 'moneda'], ['Análisis', 'velas'], ['riesgo', 'velas'],
+];
+function initKeywords() {
+  const L = 'A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9';
+  const rgb = (c) => (c.match(/[\d.]+/g) || []).map(Number);
+  const bgOf = (el) => { for (let n = el; n && n.nodeType === 1; n = n.parentElement) { const v = rgb(getComputedStyle(n).backgroundColor); if (v.length && (v[3] === undefined || v[3] > .5)) return v; } return [255, 255, 255]; };
+  const used = new Set();
+  document.querySelectorAll('main h1, main h2, body > section h1, body > section h2, section h1, section h2').forEach((h, hi) => {
+    if (h.dataset.kw || h.closest('.slide-copy, site-header, site-footer, .header, footer, button, a')) return; h.dataset.kw = 1;
+    const txt = h.textContent;
+    const hit = KW_LISTA.find(([w]) => !used.has(w.toLowerCase()) && new RegExp('(^|[^' + L + '])' + w.replace('.', '\\.') + '(?![' + L + '])').test(txt));
+    if (!hit) return;
+    const [word, fx] = hit; used.add(word.toLowerCase());
+    const walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+    const re = new RegExp('(^|[^' + L + '])(' + word.replace('.', '\\.') + ')(?![' + L + '])');
+    for (let node; (node = walker.nextNode());) {
+      const m = re.exec(node.nodeValue); if (!m) continue;
+      const start = m.index + m[1].length, rest = node.splitText(start); rest.splitText(word.length);
+      const kw = document.createElement('span'); kw.className = 'kw kw-' + (fx === 'velas' ? 'velas' : 'coin'); kw.setAttribute('aria-label', word);
+      rest.parentNode.replaceChild(kw, rest);
+      const cs = getComputedStyle(kw.parentElement);
+      let col = cs.webkitTextFillColor || cs.color; const cv = rgb(col);
+      if (!cv.length || cv[3] === 0) col = '#D3AC00';
+      const tc = rgb(col), light = (tc[0] * .3 + tc[1] * .59 + tc[2] * .11) > 150;
+      const bg = bgOf(kw), goldBg = bg[0] > 170 && bg[1] > 130 && bg[2] < 90;
+      kw.style.setProperty('--kc', col);
+      kw.style.setProperty('--kdim', `rgba(${tc[0]},${tc[1]},${tc[2]},.14)`);
+      kw.style.setProperty('--kg', goldBg ? '#ffffff' : '#D3AC00');
+      kw.style.setProperty('--kglow', goldBg ? 'rgba(255,255,255,.75)' : 'rgba(211,172,0,.55)');
+      const COL = goldBg ? ['#0b0b0f', '#ffffff'] : light ? ['#D3AC00', '#ffffff'] : ['#D3AC00', '#0b0b0f'];
+      let seed = 7 + hi * 29; const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+      kw.innerHTML = [...word].map((ch, i) => {
+        const cd = fx === 'velas' ? `<i class="cd" style="--h:${(0.3 + rnd() * 0.42).toFixed(2)}em;--o:${(rnd() * 0.2).toFixed(2)}em;--c:${COL[(i + (rnd() > .6 ? 1 : 0)) % 2]}"></i>` : '';
+        return `<span class="ch" aria-hidden="true" style="--i:${i}">${ch}${cd}</span>`;
+      }).join('');
+      break;
+    }
+  });
+  // Pantallas táctiles: el efecto se reproduce solo cuando la palabra aparece en pantalla
+  if (!matchMedia('(hover: hover)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return; const k = e.target; io.unobserve(k);
+      setTimeout(() => { k.classList.add('auto'); setTimeout(() => k.classList.remove('auto'), 1900); }, 350);
+    }), { threshold: .9 });
+    document.querySelectorAll('.kw').forEach((k) => io.observe(k));
+  }
+}
+window.addEventListener('load', () => setTimeout(initKeywords, 60));
