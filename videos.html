@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611042007">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611042007">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611042007">
+  <link rel="stylesheet" href="styles.css?v=202611042014">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611042014">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611042014">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -293,6 +293,31 @@
     .vx-bento-hero .bt-video { box-shadow: 0 30px 60px -30px rgba(60,40,0,.7) !important; border-radius: 28px; }
     .vx-bento-hero .vx-own .coin-play img { filter: drop-shadow(0 10px 22px rgba(0,0,0,.5)) drop-shadow(0 0 0 #fff); }
     .vx-bento-hero .vx-own .coin-play { box-shadow: 0 0 0 4px #fff, 0 0 0 0 rgba(255,255,255,.6); }
+
+    /* Video 1:1 que termina exactamente donde terminan los bloques de texto */
+    .bt-grid { --vs: 480px; grid-template-columns: var(--vs) 1fr 1fr !important; grid-template-rows: calc(var(--vs) * .6 - 8px) calc(var(--vs) * .4 - 8px) !important; }
+    .bt-video { width: var(--vs); height: var(--vs); }
+    .bt-video .vx-player.vx-own { width: var(--vs) !important; height: var(--vs) !important; }
+    .bt-title, .bt-learn, .bt-cta { min-height: 0 !important; overflow: hidden; }
+    .bt-learn { padding: 22px 24px !important; } .bt-learn ul { gap: 9px; } .bt-learn li { font-size: 14px; } .bi { width: 30px; height: 30px; }
+    .bt-cta { padding: 22px 24px !important; }
+    @media (max-width: 1200px) { .bt-grid { --vs: 420px; } .bt-title h1 { font-size: clamp(30px, 3.2vw, 44px) !important; } .bt-title p { font-size: 15px; } }
+    @media (max-width: 1060px) { .bt-grid { --vs: 380px; } .bt-learn .bt-label, .bt-cta .bt-label { margin-bottom: 8px; } .bt-learn li { font-size: 13px; } .bt-title { padding: 26px 28px !important; } .bt-title p { display: none; } }
+    @media (max-width: 960px) {
+      .bt-grid { grid-template-columns: 1fr 1fr !important; grid-template-rows: auto !important; }
+      .bt-video { width: min(480px, 100%); height: auto; aspect-ratio: 1/1; }
+      .bt-video .vx-player.vx-own { width: 100% !important; height: 100% !important; }
+      .bt-title p { display: block; }
+    }
+    @media (max-width: 600px) { .bt-grid { grid-template-columns: 1fr !important; } .bt-video { width: 100%; } }
+    /* Más espacio para la fila inferior y textos que caben */
+    .bt-grid { grid-template-rows: calc(var(--vs) * .54 - 8px) calc(var(--vs) * .46 - 8px) !important; }
+    .bt-learn { padding: 20px 22px !important; } .bt-learn .bt-label { margin-bottom: 10px; } .bt-learn ul { gap: 8px; } .bt-learn li { line-height: 1.25; }
+    @media (max-width: 1200px) { .bt-learn li { font-size: 13px; } .bi { width: 26px; height: 26px; font-size: 11px; } .bt-cta b { font-size: 20px; } .bt-learn .bt-label, .bt-cta .bt-label { font-size: 11px; } }
+    @media (max-width: 1060px) { .bt-learn li:nth-child(3) { display: none; } }
+    @media (max-width: 960px) { .bt-learn li:nth-child(3) { display: flex; } }
+    .bt-title { padding: 26px 34px !important; } .bt-kicker { margin-bottom: 10px; } .bt-title h1 { margin-bottom: 10px !important; } .bt-title p { font-size: 15px; line-height: 1.5; }
+    @media (max-width: 960px) { .bt-grid { grid-template-rows: auto !important; } .bt-title, .bt-learn, .bt-cta { overflow: visible; } }
   </style>
 </head>
 <body class="v2 page">
@@ -350,7 +375,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611042007"></script>
+  <script src="components.js?v=202611042014"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
