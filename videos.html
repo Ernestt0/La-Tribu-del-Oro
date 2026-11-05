@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611041954">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611041954">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611041954">
+  <link rel="stylesheet" href="styles.css?v=202611041958">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611041958">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611041958">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -183,6 +183,13 @@
     .vx-hero::after { content: ""; position: absolute; width: 620px; height: 620px; right: -160px; top: -140px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='92' fill='none' stroke='%23D3AC00' stroke-opacity='.22' stroke-width='14'/%3E%3Cg fill='%23D3AC00' fill-opacity='.16' transform='rotate(20 100 100)'%3E%3Crect x='72' y='52' width='22' height='92' rx='11'/%3E%3Crect x='108' y='66' width='22' height='72' rx='11'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat; pointer-events: none; animation: vx-spin 90s linear infinite; }
     .vx-hero .container { z-index: 1; }
     @media (max-width: 700px) { .vx-own .coin-play { width: 84px !important; height: 84px !important; margin: -42px 0 0 -42px !important; } .vx-own .coin-play .cp-tri { width: 30px; height: 30px; } .vx-hero::after { width: 360px; height: 360px; right: -140px; top: -90px; } }
+
+    /* Fondo uniforme con más contraste: monedas en cuadrícula */
+    .vx-hero { background: linear-gradient(180deg, #f7edcf 0%, #f3e6bf 100%) !important; }
+    .vx-hero::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'%3E%3Cg transform='translate(42 42)'%3E%3Ccircle r='19' fill='none' stroke='%23B8901A' stroke-opacity='.17' stroke-width='3'/%3E%3Cg fill='%23B8901A' fill-opacity='.19' transform='rotate(20)'%3E%3Crect x='-8.5' y='-11' width='6' height='22' rx='3'/%3E%3Crect x='2.5' y='-7' width='6' height='16' rx='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important; background-size: 84px 84px !important; background-position: center top; -webkit-mask-image: radial-gradient(120% 90% at 50% 40%, #000 55%, rgba(0,0,0,.35)) !important; mask-image: radial-gradient(120% 90% at 50% 40%, #000 55%, rgba(0,0,0,.35)) !important; }
+    .vx-hero::after { display: none !important; }
+    body.page .vx-copy h1 span { color: #9c7a00 !important; }
+    .vx-own .coin-play { box-shadow: 0 0 0 0 rgba(211,172,0,.6); }
   </style>
 </head>
 <body class="v2 page">
@@ -194,7 +201,7 @@
       <div class="vx-stage"><span class="vx-ring" aria-hidden="true"></span><span class="vx-chip c1" aria-hidden="true"><i></i>Sesiones en vivo L-V</span><span class="vx-chip c2" aria-hidden="true">📈 Riesgo controlado</span><span class="vx-chip c3" aria-hidden="true">🤝 Comunidad activa</span><div class="vx-player vx-own" id="vxMain">
         <video id="vxVideo" src="media/quienes-somos.mp4" poster="media/quienes-somos.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
         <span class="tag">Empieza aquí</span>
-        <button class="play coin-play" type="button" aria-label="Reproducir: Quiénes somos"><img src="logo-coin.png" alt="" width="96" height="96"><span class="cp-tri"><svg viewBox="0 0 24 24"><polygon points="7 4 20 12 7 20"/></svg></span></button>
+        <button class="play coin-play" type="button" aria-label="Reproducir: Quiénes somos"><img src="logo-coin.png" alt="" width="96" height="96"></button>
         <span class="dur" id="vxMainDur">01:04</span>
       </div></div>
       <div class="vx-copy">
@@ -229,7 +236,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611041954"></script>
+  <script src="components.js?v=202611041958"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
