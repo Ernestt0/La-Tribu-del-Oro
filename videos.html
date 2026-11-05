@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611041958">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611041958">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611041958">
+  <link rel="stylesheet" href="styles.css?v=202611042003">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611042003">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611042003">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -135,7 +135,7 @@
     .vx-hero { background: radial-gradient(60% 80% at 85% 20%, rgba(211,172,0,.22), transparent 60%), radial-gradient(50% 70% at 10% 90%, rgba(211,172,0,.14), transparent 60%), linear-gradient(180deg, #fffdf6, #f8f3e4) !important; color: #0f172a; padding: 56px 0 72px !important; position: relative; overflow: hidden; }
     .vx-hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(15,23,42,.08) 1px, transparent 1px); background-size: 22px 22px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%); mask-image: linear-gradient(180deg, #000, transparent 85%); pointer-events: none; }
     .vx-hero .container { position: relative; }
-    @media (min-width: 701px) { .vx-hero-grid { grid-template-columns: 1fr minmax(0, 480px) !important; gap: 64px !important; } .vx-copy { order: 1; } .vx-stage { order: 2; } }
+    @media (min-width: 901px) { .vx-hero-grid { grid-template-columns: 1fr minmax(0, 480px) !important; gap: 64px !important; } .vx-copy { order: 1; } .vx-stage { order: 2; } }
     body.page .vx-copy h1 { color: #0f172a !important; }
     body.page .vx-copy h1 span { color: #b38f00 !important; }
     .vx-copy p { color: #475569 !important; }
@@ -190,13 +190,47 @@
     .vx-hero::after { display: none !important; }
     body.page .vx-copy h1 span { color: #9c7a00 !important; }
     .vx-own .coin-play { box-shadow: 0 0 0 0 rgba(211,172,0,.6); }
+
+    /* ===== Fondo profesional: auroras doradas animadas + cuadrícula fina ===== */
+    .vx-hero.vx-aurora { background: #fffdf7 !important; isolation: isolate; }
+    .vx-aurora::before { background-image: linear-gradient(rgba(15,23,42,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,.06) 1px, transparent 1px) !important;
+      background-size: 56px 56px !important; -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 85%) !important; mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 85%) !important; z-index: 0; }
+    .vx-aurora .au { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; z-index: -1; pointer-events: none; }
+    .vx-aurora .a1 { width: 520px; height: 520px; background: #F0D277; top: -180px; right: 4%; animation: au1 16s ease-in-out infinite alternate; }
+    .vx-aurora .a2 { width: 420px; height: 420px; background: #FFE9B0; bottom: -200px; left: -80px; animation: au2 19s ease-in-out infinite alternate; }
+    .vx-aurora .a3 { width: 300px; height: 300px; background: #D3AC00; opacity: .28; top: 30%; left: 42%; animation: au3 22s ease-in-out infinite alternate; }
+    @keyframes au1 { to { transform: translate(-120px, 80px) scale(1.15); } }
+    @keyframes au2 { to { transform: translate(140px, -60px) scale(1.2); } }
+    @keyframes au3 { to { transform: translate(-90px, -70px) scale(.85); } }
+    .vx-aurora .vx-chip { background: rgba(255,255,255,.82) !important; border: 1px solid rgba(255,255,255,.9); }
+    /* Datos en tarjetas de vidrio */
+    .vx-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 4px 0 26px; max-width: 560px; }
+    .vx-stat { padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,.62); backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border: 1px solid rgba(255,255,255,.95); box-shadow: 0 14px 30px -20px rgba(120,90,0,.45); transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+    .vx-stat b { display: block; font: 800 24px/1 var(--display, 'Inter Tight'), sans-serif; color: #9c7a00; margin-bottom: 6px; }
+    .vx-stat span { font-size: 12.5px; line-height: 1.35; color: #475569; font-weight: 600; }
+    @media (hover: hover) { .vx-stat:hover { transform: translateY(-4px); } }
+    .vx-points { display: none !important; }
+    @media (prefers-reduced-motion: no-preference) {
+      .vx-copy > * { animation: vx-in .7s cubic-bezier(.2,.8,.2,1) backwards; }
+      .vx-copy > :nth-child(2) { animation-delay: .06s } .vx-copy > :nth-child(3) { animation-delay: .12s } .vx-copy > :nth-child(4), .vx-copy > :nth-child(5) { animation-delay: .18s } .vx-copy > :nth-child(6) { animation-delay: .24s }
+      .vx-stage { animation: vx-in .8s cubic-bezier(.2,.8,.2,1) .1s backwards; }
+      @keyframes vx-in { from { opacity: 0; transform: translateY(18px); } }
+    }
+    @media (prefers-reduced-motion: reduce) { .vx-aurora .au { animation: none; } }
+    @media (max-width: 700px) {
+      .vx-stats { order: 5; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+      .vx-stat { padding: 10px; border-radius: 14px; } .vx-stat b { font-size: 19px; } .vx-stat span { font-size: 11px; }
+      .vx-aurora .a1 { width: 320px; height: 320px; } .vx-aurora .a2 { width: 280px; height: 280px; } .vx-aurora .a3 { display: none; }
+    }
+    @media (min-width: 701px) and (max-width: 900px) { .vx-hero-grid { grid-template-columns: 1fr !important; justify-items: center; } .vx-stage { max-width: 480px; } }
   </style>
 </head>
 <body class="v2 page">
   <site-header active="videos"></site-header>
 
   <!-- 1. VIDEO PRINCIPAL: QUIÉNES SOMOS -->
-  <section class="vx-hero">
+  <section class="vx-hero vx-aurora"><span class="au a1" aria-hidden="true"></span><span class="au a2" aria-hidden="true"></span><span class="au a3" aria-hidden="true"></span>
     <div class="container vx-hero-grid">
       <div class="vx-stage"><span class="vx-ring" aria-hidden="true"></span><span class="vx-chip c1" aria-hidden="true"><i></i>Sesiones en vivo L-V</span><span class="vx-chip c2" aria-hidden="true">📈 Riesgo controlado</span><span class="vx-chip c3" aria-hidden="true">🤝 Comunidad activa</span><div class="vx-player vx-own" id="vxMain">
         <video id="vxVideo" src="media/quienes-somos.mp4" poster="media/quienes-somos.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
@@ -213,6 +247,11 @@
           <li>Gestión de riesgo en cada operación</li>
           <li>Comunidad y sesiones en vivo de lunes a viernes</li>
         </ul>
+        <div class="vx-stats" aria-label="Datos de la comunidad">
+          <div class="vx-stat"><b>L-V</b><span>Sesiones en vivo 8:00 AM (NY)</span></div>
+          <div class="vx-stat"><b>7</b><span>Colecciones de videos por tema</span></div>
+          <div class="vx-stat"><b>1:1</b><span>Acompañamiento personalizado</span></div>
+        </div>
         <div class="vx-actions">
           <button class="btn btn-red" type="button" >Ver quiénes somos</button>
           <a class="btn btn-line" href="#empieza">Ver colecciones</a>
@@ -236,7 +275,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611041958"></script>
+  <script src="components.js?v=202611042003"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
