@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611111145">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611111145">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611111145">
+  <link rel="stylesheet" href="styles.css?v=202611111147">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611111147">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611111147">
   <style>
     .course-hero {
       background: #FFFFFF;
@@ -151,9 +151,11 @@
     }
     /* Línea de progreso de la ruta: se llena al bajar y enciende cada módulo al llegar */
     body.page .modules-list { --p: 0; }
-    body.page .modules-list::after { transform: scaleY(var(--p)); transition: transform .15s linear; box-shadow: 0 0 10px rgba(229,185,9,.55); }
-    .ml-dot { position: absolute; z-index: 3; left: 26px; top: calc(26px + (100% - 52px) * var(--p)); width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%;
-      background: #D3AC00; box-shadow: 0 0 0 5px rgba(211,172,0,.22), 0 0 18px 4px rgba(211,172,0,.55); transition: top .15s linear, opacity .3s; pointer-events: none; }
+    body.page .modules-list::before, body.page .modules-list::after { z-index: 0; }
+    body.page .modules-list > .module-card { z-index: 1; }
+    body.page .modules-list::after { transform: scaleY(var(--p)); will-change: transform; box-shadow: 0 0 10px rgba(229,185,9,.55); }
+    .ml-dot { position: absolute; z-index: 0; left: 26px; top: 26px; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; transform: translateY(var(--py, 0px)); will-change: transform;
+      background: #D3AC00; box-shadow: 0 0 0 5px rgba(211,172,0,.22), 0 0 18px 4px rgba(211,172,0,.55); transition: opacity .4s; pointer-events: none; }
     .modules-list:not(.started) .ml-dot { opacity: 0; }
     body.page .module-card { transition: box-shadow .5s ease, border-color .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1); }
     .module-ico { transition: transform .5s cubic-bezier(.34,1.56,.64,1), box-shadow .5s ease, filter .5s ease; filter: saturate(.55) opacity(.75); }
@@ -279,25 +281,31 @@
 
   <!-- SCRIPTS -->
   <script>
-    // Progreso de la ruta: la línea dorada avanza con el scroll y enciende cada módulo al pasar por él
+    // Progreso de la ruta: la línea dorada sigue el scroll con suavizado continuo y enciende cada módulo al pasar por él
     (() => {
       const list = document.querySelector('.modules-list'); if (!list) return;
       const cards = [...list.querySelectorAll('.module-card')];
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) { cards.forEach((c) => c.classList.add('on')); return; }
-      let ticking = false;
-      const update = () => {
-        ticking = false;
-        const r = list.getBoundingClientRect(), mark = innerHeight * .62;
-        const top = r.top + 26, h = r.height - 52;
-        const p = Math.max(0, Math.min(1, (mark - top) / h));
-        list.style.setProperty('--p', p.toFixed(4)); list.classList.toggle('started', p > 0 && p < 1);
-        const tip = top + p * h;
-        cards.forEach((c) => { const ico = c.querySelector('.module-ico') || c; const cr = ico.getBoundingClientRect(); c.classList.toggle('on', tip >= cr.top + cr.height / 2 || (innerWidth <= 700 && cr.top < mark)); });
+      let target = 0, cur = 0, raf = 0, geo = null;
+      const measure = () => {
+        const r = list.getBoundingClientRect(), y0 = r.top + scrollY;
+        geo = { top: y0 + 26, h: r.height - 52, nodes: cards.map((c) => { const i = c.querySelector('.module-ico') || c, b = i.getBoundingClientRect(); return b.top + scrollY + b.height / 2; }) };
       };
-      const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
-      addEventListener('scroll', req, { passive: true }); addEventListener('resize', req); update();
+      const aim = () => { if (!geo) measure(); target = Math.max(0, Math.min(1, (scrollY + innerHeight * .62 - geo.top) / geo.h)); if (!raf) raf = requestAnimationFrame(frame); };
+      const frame = () => {
+        cur += (target - cur) * .14; if (Math.abs(target - cur) < .0005) cur = target;
+        list.style.setProperty('--p', cur.toFixed(4)); list.style.setProperty('--py', (cur * geo.h).toFixed(1) + 'px');
+        list.classList.toggle('started', cur > .001 && cur < .999);
+        const tip = geo.top + cur * geo.h, mobile = innerWidth <= 700;
+        cards.forEach((c, k) => c.classList.toggle('on', mobile ? geo.nodes[k] < scrollY + innerHeight * .8 : tip >= geo.nodes[k] - 2));
+        raf = cur === target ? 0 : requestAnimationFrame(frame);
+      };
+      addEventListener('scroll', aim, { passive: true });
+      addEventListener('resize', () => { measure(); aim(); });
+      addEventListener('load', () => { measure(); aim(); });
+      measure(); aim();
     })();
   </script>
-  <script src="components.js?v=202611111145"></script>
+  <script src="components.js?v=202611111147"></script>
 </body>
 </html>
