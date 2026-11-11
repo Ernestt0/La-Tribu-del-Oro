@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611111151" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611111151" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611111151" />
+    <link rel="stylesheet" href="styles.css?v=202611111152" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611111152" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611111152" />
     <style>
       /* HERO DE ETHER.FI */
       .efi-hero {
@@ -333,7 +333,7 @@
         .eg-pane.on .eg-cursor { animation: eg-cur 2.4s cubic-bezier(.4,0,.2,1) .3s forwards; }
         .eg-pane.on .c0 { --x0: 80%; --y0: 85%; --x1: 30%; --y1: 34%; }
         .eg-pane.on .c1 { --x0: 85%; --y0: 30%; --x1: 50%; --y1: 82%; }
-        .eg-pane.on .c2 { --x0: 85%; --y0: 30%; --x1: 50%; --y1: 72%; }
+        .eg-pane.on .c2 { --x0: 85%; --y0: 30%; --x1: 50%; --y1: 86%; }
         .eg-pane[data-p="0"].on .eg-w.hot { animation: eg-press .4s ease 1.9s both; }
         .eg-pane[data-p="0"].on .eg-ok { animation: eg-show .5s cubic-bezier(.34,1.56,.64,1) 2.3s forwards; }
         .eg-pane[data-p="1"].on .eg-type { animation: eg-typing 1.1s steps(4) .4s both, eg-caret .8s step-end infinite; }
@@ -354,6 +354,24 @@
       .eg-cta { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 28px; padding: 18px 22px; border-radius: 18px; background: #fbf7e8; }
       .eg-cta p { margin: 0; font-size: 14px; color: #475569; }
       .eg-cta .btn-referral { flex: none; }
+      .eg-ck { flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: rgba(211,172,0,.16); color: #D3AC00; font-weight: 900; font-size: 13px; }
+      .eg-card { position: relative; aspect-ratio: 1.586; width: min(100%, 330px); align-self: center; border-radius: 18px; padding: 18px 20px; color: #0b0b0f;
+        background: linear-gradient(135deg, #f3d34a, #D3AC00 45%, #a8840a); box-shadow: 0 30px 50px -24px rgba(211,172,0,.7); }
+      .ec-brand { font-weight: 900; font-size: 18px; letter-spacing: -.02em; }
+      .ec-chip { position: absolute; left: 20px; top: 46%; width: 40px; height: 30px; border-radius: 7px; background: linear-gradient(135deg, #fff6c8, #c9a227); }
+      .ec-num { position: absolute; left: 20px; bottom: 18px; font-weight: 700; font-size: 15px; letter-spacing: .08em; }
+      .ec-visa { position: absolute; right: 20px; bottom: 16px; font-weight: 900; font-style: italic; font-size: 20px; }
+      .eg-pay { display: flex; gap: 8px; justify-content: center; }
+      .eg-pay span { padding: 7px 14px; border-radius: 10px; background: #fff; color: #0b0b0f; font-weight: 800; font-size: 13px; }
+      .eg-tx { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 14px; background: #17171e; font-size: 14px; }
+      .eg-tx small { display: block; color: rgba(255,255,255,.5); font-size: 12px; } .tx-i { font-size: 20px; }
+      @media (prefers-reduced-motion: no-preference) {
+        .eg-pane[data-p="2"].on .eg-card { animation: eg-flipin .9s cubic-bezier(.2,.8,.2,1) both; }
+        .eg-pane[data-p="2"].on .eg-pay { animation: eg-in .5s ease .6s both; }
+        .eg-pane[data-p="3"].on .eg-tx { animation: eg-in .5s cubic-bezier(.2,.8,.2,1) both; } .eg-pane[data-p="3"].on .eg-tx + .eg-tx { animation-delay: .35s; }
+        .eg-pane[data-p="3"].on .eg-bal { animation: eg-show .6s cubic-bezier(.34,1.56,.64,1) .8s both; }
+      }
+      @keyframes eg-flipin { from { opacity: 0; transform: perspective(800px) rotateY(-70deg) translateY(20px); } }
       @media (max-width: 960px) {
         .eg { grid-template-columns: 1fr; gap: 20px; }
         .eg-screen { order: -1; }
@@ -423,58 +441,53 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Aprende a utilizar Ether.fi paso a paso</h2>
-          <p class="section-subtitle">Así se ve el proceso, de principio a fin. Toca cada paso para verlo en pantalla.</p>
+          <p class="section-subtitle">Así se ve en la app, de principio a fin. Toca cada paso para verlo en pantalla.</p>
         </div>
 
         <div class="eg">
           <ol class="eg-steps" role="tablist" aria-label="Pasos para usar Ether.fi">
-            <li><button type="button" role="tab" class="eg-step on" data-s="0" aria-selected="true"><span class="eg-n">1</span><span><b>Conecta tu wallet</b><small>Entra a la web oficial y vincula tu billetera.</small></span><i class="eg-bar"></i></button></li>
-            <li><button type="button" role="tab" class="eg-step" data-s="1" aria-selected="false"><span class="eg-n">2</span><span><b>Elige cuánto ETH depositar</b><small>Escribe el monto y revisa cuánto eETH recibirás.</small></span><i class="eg-bar"></i></button></li>
-            <li><button type="button" role="tab" class="eg-step" data-s="2" aria-selected="false"><span class="eg-n">3</span><span><b>Confirma en tu wallet</b><small>Revisa la comisión de red (gas) y firma.</small></span><i class="eg-bar"></i></button></li>
-            <li><button type="button" role="tab" class="eg-step" data-s="3" aria-selected="false"><span class="eg-n">4</span><span><b>Recibe eETH y úsalo</b><small>Tu eETH acumula recompensas y puedes usarlo en DeFi.</small></span><i class="eg-bar"></i></button></li>
+            <li><button type="button" role="tab" class="eg-step on" data-s="0" aria-selected="true"><span class="eg-n">1</span><span><b>Descarga la app y crea tu cuenta</b><small>Regístrate y verifica tu identidad con una selfie.</small></span><i class="eg-bar"></i></button></li>
+            <li><button type="button" role="tab" class="eg-step" data-s="1" aria-selected="false"><span class="eg-n">2</span><span><b>Recarga con dólares digitales</b><small>Deposita USDC o USDT en tu cuenta.</small></span><i class="eg-bar"></i></button></li>
+            <li><button type="button" role="tab" class="eg-step" data-s="2" aria-selected="false"><span class="eg-n">3</span><span><b>Activa tu tarjeta</b><small>Úsala al instante en Apple Pay o Google Pay.</small></span><i class="eg-bar"></i></button></li>
+            <li><button type="button" role="tab" class="eg-step" data-s="3" aria-selected="false"><span class="eg-n">4</span><span><b>Paga y recibe devolución</b><small>Cada compra te devuelve parte en recompensas.</small></span><i class="eg-bar"></i></button></li>
           </ol>
 
-          <div class="eg-screen" aria-live="polite">
-            <div class="eg-top"><span class="eg-dots"><i></i><i></i><i></i></span><span class="eg-url">ether.fi</span><span class="eg-tagi">Ilustración</span></div>
+          <div class="eg-screen eg-phone" aria-live="polite">
+            <div class="eg-top"><span class="eg-dots"><i></i><i></i><i></i></span><span class="eg-url">App ether.fi</span><span class="eg-tagi">Ilustración</span></div>
             <div class="eg-body">
 
               <div class="eg-pane on" data-p="0">
-                <p class="eg-h">Conectar billetera</p>
+                <p class="eg-h">Crea tu cuenta</p>
                 <div class="eg-list">
-                  <div class="eg-w hot"><span class="eg-wi" style="--w:#f6851b"></span>MetaMask<em>Detectada</em></div>
-                  <div class="eg-w"><span class="eg-wi" style="--w:#3b99fc"></span>WalletConnect</div>
-                  <div class="eg-w"><span class="eg-wi" style="--w:#7c6cf2"></span>Rabby</div>
+                  <div class="eg-w"><span class="eg-ck">✓</span>Correo y teléfono</div>
+                  <div class="eg-w hot"><span class="eg-ck">✓</span>Selfie de verificación</div>
+                  <div class="eg-w"><span class="eg-ck">✓</span>Tu dirección</div>
                 </div>
-                <div class="eg-ok"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" /></svg>Wallet conectada · 0x7a…3f9</div>
+                <div class="eg-ok"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" /></svg>Cuenta verificada</div>
                 <span class="eg-cursor c0" aria-hidden="true"></span>
               </div>
 
               <div class="eg-pane" data-p="1">
-                <p class="eg-h">Depositar</p>
-                <div class="eg-field"><small>Depositas</small><div class="eg-amt"><span class="eg-type">1.00</span><span class="eg-coin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l6 9.6-6 3.5-6-3.5z" fill="currentColor"/><path d="M12 16.8l6-3.5-6 8.2-6-8.2z" fill="currentColor" opacity=".7"/></svg>ETH</span></div></div>
+                <p class="eg-h">Recargar saldo</p>
+                <div class="eg-field"><small>Depositas</small><div class="eg-amt"><span class="eg-type">100</span><span class="eg-coin"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#2775CA"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="800" fill="#fff" font-family="Inter,Arial">$</text></svg>USDC</span></div></div>
                 <div class="eg-arrow" aria-hidden="true">↓</div>
-                <div class="eg-field soft"><small>Recibes</small><div class="eg-amt"><span>≈ 1.00</span><span class="eg-coin gold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l6 9.6-6 3.5-6-3.5z" fill="currentColor"/><path d="M12 16.8l6-3.5-6 8.2-6-8.2z" fill="currentColor" opacity=".7"/></svg>eETH</span></div></div>
-                <div class="eg-btn">Depositar</div>
+                <div class="eg-field soft"><small>Saldo disponible para gastar</small><div class="eg-amt"><span>$100</span><span class="eg-coin gold">USD</span></div></div>
+                <div class="eg-btn">Recargar</div>
                 <span class="eg-cursor c1" aria-hidden="true"></span>
               </div>
 
               <div class="eg-pane" data-p="2">
-                <div class="eg-modal">
-                  <p class="eg-h">Confirmar transacción</p>
-                  <div class="eg-row"><span>Monto</span><b>1.00 ETH</b></div>
-                  <div class="eg-row"><span>Comisión de red (gas)</span><b>Varía según la red</b></div>
-                  <div class="eg-row"><span>Recibes</span><b>≈ 1.00 eETH</b></div>
-                  <div class="eg-btn">Confirmar</div>
-                  <div class="eg-sent"><span class="eg-spin"></span>Transacción enviada</div>
-                </div>
+                <div class="eg-card"><span class="ec-brand">ether.fi</span><span class="ec-chip"></span><span class="ec-num">•••• 4821</span><span class="ec-visa">VISA</span></div>
+                <div class="eg-pay"><span class="pay-a">Apple Pay</span><span class="pay-g">Google Pay</span></div>
+                <div class="eg-btn">Agregar a mi billetera</div>
                 <span class="eg-cursor c2" aria-hidden="true"></span>
               </div>
 
               <div class="eg-pane" data-p="3">
-                <p class="eg-h">Tu saldo</p>
-                <div class="eg-bal"><span class="eg-coin gold big"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l6 9.6-6 3.5-6-3.5z" fill="currentColor"/><path d="M12 16.8l6-3.5-6 8.2-6-8.2z" fill="currentColor" opacity=".7"/></svg></span><div><small>eETH</small><b>1.00</b></div><span class="eg-live"><i></i>Acumulando recompensas</span></div>
-                <div class="eg-grow" aria-hidden="true"><i style="--d:0"></i><i style="--d:1"></i><i style="--d:2"></i><i style="--d:3"></i><i style="--d:4"></i><i style="--d:5"></i><i style="--d:6"></i></div>
-                <div class="eg-uses"><span>Validación de Ethereum</span><span>Restaking (EigenLayer)</span><span>Úsalo en DeFi</span></div>
+                <p class="eg-h">Tus compras</p>
+                <div class="eg-tx"><span class="tx-i">☕</span><div><b>Café</b><small>Hoy</small></div><b>−$4.50</b></div>
+                <div class="eg-tx"><span class="tx-i">🛒</span><div><b>Supermercado</b><small>Hoy</small></div><b>−$62.00</b></div>
+                <div class="eg-bal"><div><small>Devolución en recompensas</small><b>Hasta 3%</b></div><span class="eg-live"><i></i>En cada compra</span></div>
               </div>
 
             </div>
@@ -482,7 +495,7 @@
         </div>
 
         <div class="eg-cta">
-          <p>Los montos son solo un ejemplo. Usa siempre el enlace oficial y verifica la dirección antes de firmar.</p>
+          <p>Montos de ejemplo. La devolución depende de tu plan y de cuánto gastes al mes: revisa las condiciones vigentes en la app.</p>
           <a href="https://ether.fi/" target="_blank" rel="noopener" class="btn-referral">Ir a la web de Ether.fi</a>
         </div>
       </div>
@@ -620,7 +633,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611111151"></script>
+    <script src="components.js?v=202611111152"></script>
     <script>
       // Guía gráfica: cambia de paso sola cada pocos segundos; al tocar un paso se detiene en él
       (() => {
