@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611111140">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611111140">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611111140">
+  <link rel="stylesheet" href="styles.css?v=202611111142">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611111142">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611111142">
   <style>
     .course-hero {
       background: #FFFFFF;
@@ -149,11 +149,25 @@
       .module-card:hover .glass { animation: crs-glow .7s ease; }
       .module-card:hover .disc { animation: crs-flip .7s ease; }
     }
-    @supports (animation-timeline: view()) {
-      @media (prefers-reduced-motion: no-preference) {
-        body.page .modules-list::after { animation: crs-line linear both; animation-timeline: view(); animation-range: entry 10% cover 60%; }
-      }
+    /* Línea de progreso de la ruta: se llena al bajar y enciende cada módulo al llegar */
+    body.page .modules-list { --p: 0; }
+    body.page .modules-list::after { transform: scaleY(var(--p)); transition: transform .15s linear; box-shadow: 0 0 10px rgba(229,185,9,.55); }
+    .ml-dot { position: absolute; z-index: 3; left: 26px; top: calc(26px + (100% - 52px) * var(--p)); width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%;
+      background: #D3AC00; box-shadow: 0 0 0 5px rgba(211,172,0,.22), 0 0 18px 4px rgba(211,172,0,.55); transition: top .15s linear, opacity .3s; pointer-events: none; }
+    .modules-list:not(.started) .ml-dot { opacity: 0; }
+    body.page .module-card { transition: box-shadow .5s ease, border-color .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1); }
+    .module-ico { transition: transform .5s cubic-bezier(.34,1.56,.64,1), box-shadow .5s ease, filter .5s ease; filter: saturate(.55) opacity(.75); }
+    .module-card.on .module-ico { transform: scale(1.1); filter: none; box-shadow: 0 0 0 4px rgba(211,172,0,.28), 0 10px 22px -10px rgba(211,172,0,.8); }
+    body.page .module-card.on { border-color: rgba(211,172,0,.45); box-shadow: 0 22px 44px -30px rgba(211,172,0,.55); }
+    .module-card .module-num { transition: color .4s; }
+    @media (prefers-reduced-motion: no-preference) {
+      .module-card.on .mer { animation: crs-mer .8s ease; }
+      .module-card.on .c1 { animation: crs-c .5s ease; } .module-card.on .c2 { animation: crs-c .5s ease .1s; } .module-card.on .c3 { animation: crs-c .5s ease .2s; }
+      .module-card.on .tick { stroke-dasharray: 16; animation: crs-draw .6s ease backwards; }
+      .module-card.on .glass { animation: crs-glow .7s ease; }
+      .module-card.on .disc { animation: crs-flip .7s ease; }
     }
+    @media (prefers-reduced-motion: reduce) { body.page .modules-list { --p: 1 !important; } .module-ico { filter: none; } .ml-dot { display: none; } }
     @keyframes crs-line { from { transform: scaleY(0); } to { transform: scaleY(1); } }
     @keyframes crs-mer { 50% { transform: scaleX(.2); } }
     @keyframes crs-c { 40% { transform: translateY(-2px); } }
@@ -162,7 +176,7 @@
     @keyframes crs-flip { to { transform: rotateY(360deg); } }
     @media (max-width: 700px) {
       body.page .modules-list { padding-left: 0; }
-      body.page .modules-list::before, body.page .modules-list::after { display: none; }
+      body.page .modules-list::before, body.page .modules-list::after, .ml-dot { display: none; }
       .module-ico { position: static; margin-bottom: 12px; width: 46px; height: 46px; border: 0; }
       .crs-cta { padding: 34px 20px; }
     }
@@ -212,6 +226,7 @@
       </div>
 
       <div class="modules-list">
+        <span class="ml-dot" aria-hidden="true"></span>
         <div class="module-card" data-tone="blue">
           <span class="module-ico"><svg class="ic-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><ellipse class="mer" cx="12" cy="12" rx="4" ry="9.5" stroke="#fff" stroke-width="1.6" fill="none"/><path d="M2.5 12h19" stroke="#fff" stroke-width="1.6"/></svg></span>
           <div class="module-header"><span class="module-num">Módulo 1</span><span class="module-tag">Fundamentos</span></div>
@@ -263,6 +278,26 @@
   <site-footer></site-footer>
 
   <!-- SCRIPTS -->
-  <script src="components.js?v=202611111140"></script>
+  <script>
+    // Progreso de la ruta: la línea dorada avanza con el scroll y enciende cada módulo al pasar por él
+    (() => {
+      const list = document.querySelector('.modules-list'); if (!list) return;
+      const cards = [...list.querySelectorAll('.module-card')];
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { cards.forEach((c) => c.classList.add('on')); return; }
+      let ticking = false;
+      const update = () => {
+        ticking = false;
+        const r = list.getBoundingClientRect(), mark = innerHeight * .62;
+        const top = r.top + 26, h = r.height - 52;
+        const p = Math.max(0, Math.min(1, (mark - top) / h));
+        list.style.setProperty('--p', p.toFixed(4)); list.classList.toggle('started', p > 0 && p < 1);
+        const tip = top + p * h;
+        cards.forEach((c) => { const ico = c.querySelector('.module-ico') || c; const cr = ico.getBoundingClientRect(); c.classList.toggle('on', tip >= cr.top + cr.height / 2 || (innerWidth <= 700 && cr.top < mark)); });
+      };
+      const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+      addEventListener('scroll', req, { passive: true }); addEventListener('resize', req); update();
+    })();
+  </script>
+  <script src="components.js?v=202611111142"></script>
 </body>
 </html>

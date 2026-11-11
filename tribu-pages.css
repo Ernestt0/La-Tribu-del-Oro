@@ -136,20 +136,26 @@ body.page .hero-play-btn, body.page .video-play-mini {
 }
 body.page .hero-play-btn svg, body.page .video-play-mini svg { fill: var(--red) !important; }
 
-/* ---------- Banners oscuros: mismo rojo profundo del inicio ---------- */
+/* ---------- Banners oscuros: negro con resplandor dorado (paleta de la marca) ---------- */
 body.page .cta-banner, body.page .referral-banner, body.page .ib-cta-banner, body.page .support-box {
-  background: radial-gradient(100% 140% at 0% 0%, #7a1116 0%, #3d0a0d 50%, #1a0b0c 100%) !important;
-  border: 1px solid rgba(252, 230, 143, 0.35);
+  background: radial-gradient(70% 120% at 0% 0%, rgba(211,172,0,.28) 0%, rgba(211,172,0,0) 60%), radial-gradient(60% 100% at 100% 100%, rgba(211,172,0,.12), rgba(211,172,0,0) 70%), #0b0b0f !important;
+  border: 1px solid rgba(211, 172, 0, 0.3);
   border-radius: 32px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 30px 60px -30px rgba(122, 17, 22, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
 }
 body.page .cta-banner h2, body.page .referral-banner h2, body.page .ib-cta-banner h2, body.page .support-box h3,
 body.page .cta-banner h3, body.page .referral-banner h3, body.page .ib-cta-banner h3 { color: #fff; }
+body.page .cta-banner p, body.page .referral-banner p, body.page .ib-cta-banner p { color: rgba(255,255,255,.72); }
 body.page .cta-banner .btn-hero-red, body.page .referral-banner .btn-hero-red, body.page .referral-banner .btn-referral,
 body.page .ib-cta-banner .btn-hero-red {
-  background: rgba(229, 185, 9, 0.28); color: #fff; border-color: rgba(251, 224, 114, 0.7);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: #D3AC00 !important; color: #0b0b0f !important; -webkit-text-fill-color: #0b0b0f; border: 1px solid #D3AC00 !important; font-weight: 800;
+  box-shadow: 0 12px 26px -14px rgba(211, 172, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
 }
+@media (hover: hover) {
+  body.page .cta-banner .btn-hero-red:hover, body.page .referral-banner .btn-hero-red:hover, body.page .referral-banner .btn-referral:hover,
+  body.page .ib-cta-banner .btn-hero-red:hover { background: #e2bd14 !important; transform: translateY(-2px) scale(1.02); }
+}
+body.page .cta-banner .btn-hero-outline, body.page .ib-cta-banner .btn-hero-outline { background: rgba(255,255,255,.08) !important; color: #fff !important; border-color: rgba(255,255,255,.35) !important; }
 /* Resultado de la calculadora: panel oscuro de vidrio con cifras en oro */
 body.page .calc-result-box {
   background: linear-gradient(160deg, rgba(23, 30, 45, 0.94), rgba(13, 17, 23, 0.96)) !important;
