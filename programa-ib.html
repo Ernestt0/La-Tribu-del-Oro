@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611051148" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611051148" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611051148" />
+    <link rel="stylesheet" href="styles.css?v=202611111137" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611111137" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611111137" />
     <style>
       /* HERO PROGRAMA IB */
       .ib-hero {
@@ -271,6 +271,10 @@
         .ib-tilt .hero-video-box { margin-bottom: 8px; }
         .ib-aura { inset: -4% -6% auto -6%; aspect-ratio: 9 / 8; }
       }
+      /* Animaciones de la serie IB más ágiles */
+      #ibAnim .ta-l { transition-duration: .35s, .5s; }
+      #ibAnim .ta-l.on .ta-con i { animation-duration: 1.1s !important; }
+      #ibAnim .ta-cap p.in { animation-duration: .4s; }
       /* Video IB más grande */
       body.page .ib-hero-grid { grid-template-columns: 1fr 1fr; gap: 56px; }
       body.page .ib-hero .hero-video-wrapper { max-width: 600px; width: 100%; }
@@ -647,7 +651,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611051148"></script>
+    <script src="components.js?v=202611111137"></script>
     <script>
       // Video principal del Programa IB (alojado en el sitio)
       (() => {
@@ -703,7 +707,7 @@
         const data = ibVideos[index];
         if (!data) return;
 
-        TA.mount(document.getElementById('ibAnim'), data.anim, 2300);
+        TA.mount(document.getElementById('ibAnim'), data.anim, 1600);
         document.getElementById('ibVideoBadge').innerText = data.badge;
         document.getElementById('ibVideoTitle').innerText = data.title;
         document.getElementById('ibVideoDesc').innerText = data.desc;
@@ -717,7 +721,7 @@
           }
         });
       }
-      document.addEventListener('DOMContentLoaded', () => TA.mount(document.getElementById('ibAnim'), ibVideos[0].anim, 2300));
+      document.addEventListener('DOMContentLoaded', () => TA.mount(document.getElementById('ibAnim'), ibVideos[0].anim, 1600));
     </script>
   </body>
 </html>
