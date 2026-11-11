@@ -399,3 +399,22 @@ body.page .rb-row > a { flex: none; padding: 15px 30px !important; font-size: 16
 body.page .rb-row .rb-btns { flex: none; display: flex; gap: 12px; margin: 0 !important; }
 body.page .rb-row .rb-btns a { white-space: nowrap; }
 @media (max-width: 860px) { body.page .rb-row .rb-btns { flex-direction: column; } body.page .rb-row .rb-btns a { justify-content: center; text-align: center; } }
+
+/* Títulos de las páginas internas: escalan con la pantalla (no se apilan en 5 líneas en teléfonos pequeños) */
+@media (max-width: 600px) {
+  body.page .hero-title, body.page .cine-head h1 { font-size: clamp(27px, 8.2vw, 34px) !important; line-height: 1.08 !important; letter-spacing: -.025em; }
+  body.page .hero-title br { display: none; }
+  body.page .hero-title > span:not(.kw) { display: block; }
+  body.page .efi-tag, body.page .signals-tag { font-size: 10.5px; }
+}
+@media (min-width: 601px) and (max-width: 960px) {
+  body.page .hero-title { font-size: clamp(36px, 5.6vw, 48px) !important; line-height: 1.05 !important; }
+}
+
+/* Tablet: las tarjetas de 3 se ven en 3 columnas, no apiladas a todo el ancho */
+@media (min-width: 640px) and (max-width: 960px) {
+  body.page .features-grid, body.page .benefits-grid, body.page .safety-grid, body.page .calc-guide-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 14px !important; }
+  body.page .features-grid > *, body.page .benefits-grid > *, body.page .safety-grid > *, body.page .calc-guide-grid > * { padding: 20px 16px !important; }
+  body.page .features-grid h3, body.page .benefits-grid h3, body.page .safety-grid h3, body.page .calc-guide-grid h3 { font-size: 16px !important; }
+  body.page .features-grid p, body.page .benefits-grid p, body.page .safety-grid p, body.page .calc-guide-grid p { font-size: 13.5px !important; }
+}
