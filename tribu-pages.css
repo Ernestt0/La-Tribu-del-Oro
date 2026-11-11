@@ -385,3 +385,17 @@ body.page .referral-banner .btn-referral::after, body.page .cta-banner .btn-hero
 @media (hover: hover) {
   body.page .referral-banner .btn-referral:hover, body.page .cta-banner .btn-hero-red:hover { animation: none; transform: scale(1.07) !important; }
 }
+
+/* Banners compactos: texto a la izquierda, botón a la derecha */
+body.page .rb-row { display: flex; align-items: center; justify-content: space-between; gap: 36px; padding: 30px 40px !important; text-align: left; }
+body.page .rb-copy h2 { margin: 0 0 6px; font-size: clamp(22px, 2.2vw, 28px); font-weight: 850; letter-spacing: -.02em; color: #fff; }
+body.page .rb-copy p { margin: 0; max-width: 560px; font-size: 15px; line-height: 1.55; color: rgba(255,255,255,.75); }
+body.page .rb-row > a { flex: none; padding: 15px 30px !important; font-size: 16px !important; white-space: nowrap; }
+@media (max-width: 860px) {
+  body.page .rb-row { flex-direction: column; align-items: stretch; text-align: center; gap: 18px; padding: 26px 22px !important; }
+  body.page .rb-copy p { margin: 0 auto; }
+  body.page .rb-row > a { justify-content: center; white-space: normal; }
+}
+body.page .rb-row .rb-btns { flex: none; display: flex; gap: 12px; margin: 0 !important; }
+body.page .rb-row .rb-btns a { white-space: nowrap; }
+@media (max-width: 860px) { body.page .rb-row .rb-btns { flex-direction: column; } body.page .rb-row .rb-btns a { justify-content: center; text-align: center; } }
