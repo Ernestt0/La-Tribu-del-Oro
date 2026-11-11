@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611111234" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611111234" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611111234" />
+    <link rel="stylesheet" href="styles.css?v=202611111238" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611111238" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611111238" />
     <style>
       /* HERO DE ETHER.FI */
       .efi-hero {
@@ -456,6 +456,20 @@
         .rb-copy p { margin: 0 auto; }
         .rb-row .btn-referral { text-align: center; white-space: normal; }
       }
+      /* Teléfono más compacto y a la par de los pasos */
+      .eg:has(.ph) { grid-template-columns: minmax(0, 520px) auto; justify-content: center; gap: 56px; }
+      .eg .ph { width: 280px; aspect-ratio: 9 / 17; border-radius: 40px; border-width: 7px; }
+      .ph .eg-pane { padding: 40px 14px 10px; gap: 10px; }
+      .ph-big { font-size: 30px; } .ph-acts i { width: 42px; height: 42px; font-size: 16px; } .ph-acts span { font-size: 10px; }
+      .ph-title { font-size: 17px; } .ph-serif { font-size: 13.5px; } .ph-sm { font-size: 15px; }
+      .ph-av { width: 30px; height: 30px; font-size: 12px; } .ph-logo { width: 30px; height: 30px; }
+      .ph-row, .ph-tx { font-size: 13px; } .ph-tok { width: 30px; height: 30px; }
+      .ph-circ i { width: 40px; height: 40px; font-size: 16px; } .ph-circ span { font-size: 10.5px; }
+      .ph-cb b { font-size: 22px; } .ph-cb { padding: 12px; }
+      .ph-toast, .ph-note { font-size: 12.5px; padding: 10px 12px; }
+      .ph-nav { padding: 8px 4px 12px; } .ph-nav span { font-size: 8.5px; } .ph-nav svg { width: 19px; height: 19px; }
+      .ph-island { width: 80px; height: 22px; margin-left: -40px; top: 8px; }
+      @media (max-width: 960px) { .eg:has(.ph) { grid-template-columns: 1fr; gap: 24px; } .eg .ph { width: min(100%, 270px); } }
     </style>
   </head>
   <body class="v2 page">
@@ -707,7 +721,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611111234"></script>
+    <script src="components.js?v=202611111238"></script>
     <script>
       // Guía gráfica: cambia de paso sola cada pocos segundos; al tocar un paso se detiene en él
       (() => {
