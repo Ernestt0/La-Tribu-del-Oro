@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611111137" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611111137" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611111137" />
+    <link rel="stylesheet" href="styles.css?v=202611111140" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611111140" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611111140" />
     <style>
       /* ENCABEZADO DEL CURSO */
       .classroom-header {
@@ -207,6 +207,10 @@
       }
       body.page { --acc: #a7995f; --acc-d: #8f8149; --acc-glow: rgba(167, 153, 95,.24); --acc-glow2: rgba(207, 192, 131,.18); }
 
+      /* Animaciones de las clases más ágiles */
+      #lessonAnim .ta-l { transition-duration: .35s, .5s; }
+      #lessonAnim .ta-l.on .ta-con i { animation-duration: 1.1s !important; }
+      #lessonAnim .ta-cap p.in { animation-duration: .4s; }
       /* ===== Encabezado Copy Trading: fondo negro, video con reflejo y diagrama de copia ===== */
       .ct-hero { position: relative; isolation: isolate; overflow: hidden; background: #050505; color: #fff; padding: 64px 0 56px; }
       .ct-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
@@ -462,7 +466,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611111137"></script>
+    <script src="components.js?v=202611111140"></script>
     <script>
       // DATOS DE LAS LECCIONES DEL MINI-CURSO
       const lessonsData = [
@@ -498,7 +502,7 @@
         if (!data) return;
 
         // Actualizar reproductor e información
-        TA.mount(document.getElementById('lessonAnim'), data.anim);
+        TA.mount(document.getElementById('lessonAnim'), data.anim, 1600);
         document.getElementById('lessonBadge').innerText = data.badge;
         document.getElementById('lessonTitle').innerText = data.title;
         document.getElementById('lessonDesc').innerText = data.desc;
@@ -529,7 +533,7 @@
         it.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); it.click(); } });
       });
       markProgress(0);
-      document.addEventListener('DOMContentLoaded', () => TA.mount(document.getElementById('lessonAnim'), lessonsData[0].anim));
+      document.addEventListener('DOMContentLoaded', () => TA.mount(document.getElementById('lessonAnim'), lessonsData[0].anim, 1600));
     </script>
   </body>
 </html>
