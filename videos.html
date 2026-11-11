@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611111316">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611111316">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611111316">
+  <link rel="stylesheet" href="styles.css?v=202611111846">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611111846">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611111846">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -404,7 +404,7 @@
     @media (max-width: 1060px) { .bt-row span:not(.bi) { display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } }
     @media (max-width: 960px) { .bt-row span:not(.bi) { display: block !important; -webkit-line-clamp: unset; } }
       /* Moneda de play: centrada y con la misma animación del video de Señales */
-    #vxMain .coin-play { inset: 50% auto auto 50% !important; width: 104px !important; height: 104px !important; margin: -52px 0 0 -52px !important; transform: none !important; translate: none !important; z-index: 3;
+    #vxMain .coin-play { inset: 64% auto auto 50% !important; width: 104px !important; height: 104px !important; margin: -52px 0 0 -52px !important; transform: none !important; translate: none !important; z-index: 3;
       box-shadow: none !important; animation: op-ring 2s ease-out infinite !important; transition: scale .3s cubic-bezier(.34,1.56,.64,1); }
     #vxMain .coin-play img { border-radius: 50%; background: radial-gradient(circle, #0b0b0f 62%, transparent 63%); filter: drop-shadow(0 12px 24px rgba(0,0,0,.5)) !important; transform: none; transition: none; }
     @media (prefers-reduced-motion: no-preference) { #vxMain .coin-play img { animation: coin-flip 6s cubic-bezier(.45,.05,.25,1) 1s infinite !important; } }
@@ -465,7 +465,7 @@
       <div class="bt-grid">
         <div class="bt bt-video">
           <div class="vx-player vx-own" id="vxMain">
-            <video id="vxVideo" src="media/quienes-somos.mp4" poster="media/quienes-somos.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+            <video id="vxVideo" src="media/quienes-somos.mp4" poster="media/quienes-somos-portada.jpg" preload="metadata" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
             <button class="play coin-play" type="button" aria-label="Reproducir: Quiénes somos"><img src="logo-coin.png" alt="" width="96" height="96"></button>
             <span class="dur" id="vxMainDur">01:04</span>
           </div>
@@ -498,7 +498,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611111316"></script>
+  <script src="components.js?v=202611111846"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
