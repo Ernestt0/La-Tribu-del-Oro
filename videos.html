@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202611111149">
-  <link rel="stylesheet" href="tribu-v2.css?v=202611111149">
-  <link rel="stylesheet" href="tribu-pages.css?v=202611111149">
+  <link rel="stylesheet" href="styles.css?v=202611111151">
+  <link rel="stylesheet" href="tribu-v2.css?v=202611111151">
+  <link rel="stylesheet" href="tribu-pages.css?v=202611111151">
   <style>
     body.page { background: #fff; }
     /* ===== Video principal: Quiénes somos ===== */
@@ -403,7 +403,14 @@
     @media (max-width: 1200px) { .bt-row span:not(.bi) { font-size: 12.5px !important; } .bt-row { padding: 12px 16px !important; } }
     @media (max-width: 1060px) { .bt-row span:not(.bi) { display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } }
     @media (max-width: 960px) { .bt-row span:not(.bi) { display: block !important; -webkit-line-clamp: unset; } }
-  </style>
+      /* Moneda de play: centrada y con la misma animación del video de Señales */
+    #vxMain .coin-play { inset: 50% auto auto 50% !important; width: 104px !important; height: 104px !important; margin: -52px 0 0 -52px !important; transform: none !important; translate: none !important; z-index: 3;
+      box-shadow: none !important; animation: op-ring 2s ease-out infinite !important; transition: scale .3s cubic-bezier(.34,1.56,.64,1); }
+    #vxMain .coin-play img { border-radius: 50%; background: radial-gradient(circle, #0b0b0f 62%, transparent 63%); filter: drop-shadow(0 12px 24px rgba(0,0,0,.5)) !important; transform: none; transition: none; }
+    @media (prefers-reduced-motion: no-preference) { #vxMain .coin-play img { animation: coin-flip 6s cubic-bezier(.45,.05,.25,1) 1s infinite !important; } }
+    @media (hover: hover) { #vxMain:hover .coin-play { scale: 1.06; } #vxMain:hover .coin-play img { transform: none !important; } }
+    @media (max-width: 700px) { #vxMain .coin-play { width: 84px !important; height: 84px !important; margin: -42px 0 0 -42px !important; } }
+</style>
 </head>
 <body class="v2 page">
   <div class="vx-intro" id="vxIntro" aria-hidden="true">
@@ -491,7 +498,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611111149"></script>
+  <script src="components.js?v=202611111151"></script>
   <script>
     // ==========================================================================
     // VIDEOS: para agregar uno, copia una línea dentro de la colección que quieras.
