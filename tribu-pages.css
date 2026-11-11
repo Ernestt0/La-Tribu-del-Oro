@@ -372,3 +372,16 @@ body.page :is(.btn-hero-red, .btn-hero-outline, .btn-referral, .btn-telegram, .b
   /* Botón flotante de WhatsApp más discreto para no tapar contenido */
   .wa-container { transform: scale(.82); transform-origin: bottom right; opacity: .92; }
 }
+
+/* Botón principal de los banners: mini zoom que se sostiene + anillo de luz dorada */
+body.page .referral-banner .btn-referral, body.page .cta-banner .btn-hero-red { position: relative; }
+body.page .referral-banner .btn-referral::after, body.page .cta-banner .btn-hero-red::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; box-shadow: 0 0 0 0 rgba(211,172,0,.6); }
+@media (prefers-reduced-motion: no-preference) {
+  body.page .referral-banner .btn-referral, body.page .cta-banner .btn-hero-red { animation: cta-beat 2s ease-in-out infinite; }
+  body.page .referral-banner .btn-referral::after, body.page .cta-banner .btn-hero-red::after { animation: cta-ring 2s ease-out infinite; }
+}
+@keyframes cta-beat { 0%, 100% { transform: scale(1); } 22%, 50% { transform: scale(1.07); } 74% { transform: scale(1); } }
+@keyframes cta-ring { 0%, 18% { box-shadow: 0 0 0 0 rgba(211,172,0,.6); } 70%, 100% { box-shadow: 0 0 0 16px rgba(211,172,0,0); } }
+@media (hover: hover) {
+  body.page .referral-banner .btn-referral:hover, body.page .cta-banner .btn-hero-red:hover { animation: none; transform: scale(1.07) !important; }
+}
