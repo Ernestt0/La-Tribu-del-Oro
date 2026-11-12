@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', initOwnPlayers);
 const KW_LISTA = [
   ['Trading', 'velas'], ['trading', 'velas'], ['Señales', 'velas'], ['Ether.fi', 'moneda'], ['IB', 'moneda'],
   ['Oro', 'moneda'], ['Cripto', 'moneda'], ['cripto', 'moneda'], ['Forex', 'velas'], ['mercados', 'velas'],
-  ['Mercados', 'velas'], ['Glosario', 'moneda'], ['Monetiza', 'moneda'], ['Análisis', 'velas'], ['riesgo', 'velas'],
+  ['Mercados', 'velas'], ['Glosario', 'moneda'], ['Gana', 'moneda'], ['Análisis', 'velas'], ['riesgo', 'velas'],
 ];
 function initKeywords() {
   const L = 'A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9';
