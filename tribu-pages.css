@@ -418,3 +418,13 @@ body.page .rb-row .rb-btns a { white-space: nowrap; }
   body.page .features-grid h3, body.page .benefits-grid h3, body.page .safety-grid h3, body.page .calc-guide-grid h3 { font-size: 16px !important; }
   body.page .features-grid p, body.page .benefits-grid p, body.page .safety-grid p, body.page .calc-guide-grid p { font-size: 13.5px !important; }
 }
+
+/* Botón destacado que late (mini zoom + anillo dorado), para usar fuera de los banners */
+body.page .btn-beat { position: relative; background: #D3AC00 !important; color: #0b0b0f !important; -webkit-text-fill-color: #0b0b0f; border: 1px solid #D3AC00 !important; font-weight: 800;
+  box-shadow: 0 14px 28px -14px rgba(211,172,0,.95), inset 0 1px 0 rgba(255,255,255,.35) !important; }
+body.page .btn-beat::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; box-shadow: 0 0 0 0 rgba(211,172,0,.6); }
+@media (prefers-reduced-motion: no-preference) {
+  body.page .btn-beat { animation: cta-beat 2s ease-in-out infinite; }
+  body.page .btn-beat::after { animation: cta-ring 2s ease-out infinite; }
+}
+@media (hover: hover) { body.page .btn-beat:hover { animation: none; transform: scale(1.07) !important; background: #e2bd14 !important; } }
