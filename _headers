@@ -1,0 +1,21 @@
+# Cloudflare Pages: tiempos de caché (las visitas repetidas cargan casi al instante)
+
+# Estilos y scripts: se versionan con ?v=..., así que pueden guardarse mucho tiempo
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# Imágenes y videos: 30 días
+/*.png
+  Cache-Control: public, max-age=2592000
+/*.jpg
+  Cache-Control: public, max-age=2592000
+/media/*
+  Cache-Control: public, max-age=2592000
+
+# Páginas: siempre se revisa si hay una versión nueva
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate

@@ -130,7 +130,13 @@ class MarketRows extends HTMLElement {
         });
       } catch (e) {}
     };
-    loadCrypto(); loadFx(); setInterval(loadCrypto, 30000);
+    // Precios: se actualizan cada 30 s solo mientras la pestaña está visible (ahorra datos y batería en el celular)
+    loadCrypto(); loadFx();
+    let tick = setInterval(loadCrypto, 30000);
+    document.addEventListener('visibilitychange', () => {
+      clearInterval(tick);
+      if (!document.hidden) { loadCrypto(); tick = setInterval(loadCrypto, 30000); }
+    });
   }
 }
 customElements.define('market-rows', MarketRows);
