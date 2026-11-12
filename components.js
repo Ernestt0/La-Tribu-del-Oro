@@ -704,8 +704,8 @@ const TA_SCENES = {
     cap: ['Exchange o wallet propia: ¿quién guarda tus llaves?', 'Las stablecoins buscan valer siempre 1 dólar.', 'Sirven para mover valor rápido y sin volatilidad.'] },
   cr4: { t: 'wave', title: 'Ciclos de mercado', cap: ['Acumulación: el precio está bajo y casi nadie mira.', 'Euforia: todos compran… y suele ser tarde.', 'Pánico: todos venden… y suele ser tarde también.'] },
   // ---------- Programa IB ----------
-  ib1: { t: 'flow', title: 'Modelo IB', items: [['people', 'Tu comunidad', 'Opera en un broker regulado'], ['broker', 'El broker', 'Paga un rebate por lote'], ['coin', 'Tú', 'Recibes tus comisiones']],
-    cap: ['Las personas de tu comunidad operan en su cuenta.', 'Por cada lote, el broker paga un rebate.', 'Tú recibes esas comisiones sin cobrarle nada a tus miembros.'] },
+  ib1: { t: 'flow', title: 'Modelo IB', items: [['people', 'Tu comunidad', 'Opera en un broker regulado'], ['broker', 'El broker', 'Te paga por cada operación'], ['coin', 'Tú', 'Recibes tus comisiones']],
+    cap: ['Las personas de tu comunidad operan en su cuenta.', 'Por cada operación, el broker te paga una comisión.', 'Tú recibes esas comisiones sin cobrarle nada a tus miembros.'] },
   ib2: { t: 'list', title: 'Beneficios del aliado', mark: 'ok', items: [['Material para tu comunidad', 'Gráficos y contenido educativo.'], ['Webinars educativos', 'Para formar a tu audiencia.'], ['Soporte prioritario', 'Comunicación directa con el equipo.']],
     cap: ['Recibes material listo para compartir.', 'Formación para que tu comunidad opere con criterio.', 'Y un canal directo cuando lo necesites.'] },
   ib3: { t: 'flow', title: 'Del registro al lanzamiento', items: [['user', 'Registro', 'Abrimos tu cuenta IB'], ['link', 'Tu enlace', 'Seguimiento personalizado'], ['chart', 'Tu panel', 'Revisas tus métricas']],
