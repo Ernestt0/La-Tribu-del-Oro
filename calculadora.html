@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611121707" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611121707" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611121707" />
+    <link rel="stylesheet" href="styles.css?v=202611121711" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611121711" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611121711" />
     <style>
       /* HERO DE LA PÁGINA */
       .calc-page-hero {
@@ -248,6 +248,22 @@
       .sl-explain svg { display: block; width: 100%; max-width: 300px; height: auto; overflow: visible; }
       .sl-explain text { font-size: 10px; font-weight: 700; fill: #0f172a; font-family: inherit; } .sl-explain text.r { fill: #dc2626; } .sl-explain text.g { fill: #8a6d00; }
       .sl-hint { margin: 0 0 10px; font-size: 13px; line-height: 1.5; color: #64748b; } .sl-hint b { color: #0f172a; }
+      /* Pantallas anchas: los 4 datos en una cuadrícula de 2x2 y el resultado al lado, así se ve todo sin bajar */
+      @media (min-width: 1100px) {
+        .calc-widget { padding: 36px 40px !important; }
+        .calc-grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) !important; gap: 40px !important; }
+        .calc-inputs { display: grid !important; grid-template-columns: 1fr 1fr; column-gap: 26px; row-gap: 6px; align-content: start; }
+        .calc-inputs > :first-child { grid-column: 1 / -1; margin-bottom: 10px; }
+        .calc-field-group { padding: 0 0 18px 44px !important; }
+        .calc-field-group::before { width: 30px !important; height: 30px !important; font-size: 13px !important; }
+        .calc-field-group::after { display: none !important; }
+        .calc-field-group label { min-height: 40px; font-size: 14.5px !important; }
+        .sl-explain { padding: 8px 10px 4px; margin: 0 0 6px; } .sl-explain svg { max-width: 100%; } .sl-explain text { font-size: 13px; }
+        .calc-select { padding-left: 14px !important; padding-right: 30px !important; text-overflow: ellipsis; }
+        .calc-inputs { column-gap: 22px; } .calc-field-group { padding-left: 40px !important; }
+        .sl-hint { font-size: 12.5px; margin-bottom: 8px; }
+        .calc-result-box { top: 100px; }
+      }
       /* Nada se sale del panel, aunque el número sea largo */
       .calc-result-box, .calc-result-box * { min-width: 0; }
       /* El tamaño de la cifra se adapta al ancho de su caja: siempre cabe en una línea */
@@ -398,10 +414,10 @@
                     class="calc-select"
                     onchange="calculatePosition()"
                   >
-                    <option value="forex">Forex (EUR/USD, GBP/USD)</option>
-                    <option value="gold">Oro (XAU/USD)</option>
-                    <option value="crypto">Cripto (BTC, ETH)</option>
-                    <option value="indices">Índices (US30, NAS100)</option>
+                    <option value="forex">Forex</option>
+                    <option value="gold">Oro</option>
+                    <option value="crypto">Cripto</option>
+                    <option value="indices">Índices</option>
                   </select>
                 </div>
               </div>
@@ -615,7 +631,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611121707"></script>
+    <script src="components.js?v=202611121711"></script>
     <script>
       // Las cifras del resultado dan un pequeño pulso cuando cambian
       (() => {
