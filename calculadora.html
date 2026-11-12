@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=202611121701" />
-    <link rel="stylesheet" href="tribu-v2.css?v=202611121701" />
-    <link rel="stylesheet" href="tribu-pages.css?v=202611121701" />
+    <link rel="stylesheet" href="styles.css?v=202611121703" />
+    <link rel="stylesheet" href="tribu-v2.css?v=202611121703" />
+    <link rel="stylesheet" href="tribu-pages.css?v=202611121703" />
     <style>
       /* HERO DE LA PÁGINA */
       .calc-page-hero {
@@ -244,6 +244,10 @@
         border: 1px solid rgba(255,255,255,.9); transition: transform .25s, box-shadow .25s; }
       @media (hover:hover) { .calc-guide-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(15,23,42,.1); } }
       @media (max-width: 900px) { .calc-widget { padding: 22px 16px; } #resLotSize { font-size: 28px; } }
+      .sl-explain { margin: 4px 0 10px; padding: 10px 12px 6px; border-radius: 14px; background: #faf8f1; border: 1px solid #f1ead2; }
+      .sl-explain svg { display: block; width: 100%; max-width: 300px; height: auto; overflow: visible; }
+      .sl-explain text { font-size: 10px; font-weight: 700; fill: #0f172a; font-family: inherit; } .sl-explain text.r { fill: #dc2626; } .sl-explain text.g { fill: #8a6d00; }
+      .sl-hint { margin: 0 0 10px; font-size: 13px; line-height: 1.5; color: #64748b; } .sl-hint b { color: #0f172a; }
       /* Nada se sale del panel, aunque el número sea largo */
       .calc-result-box, .calc-result-box * { min-width: 0; }
       /* El tamaño de la cifra se adapta al ancho de su caja: siempre cabe en una línea */
@@ -448,7 +452,14 @@
                 </div>
 
                 <div class="calc-field-group">
-                  <label for="inSL">¿A cuántos puntos pones tu Stop Loss? <span class="tip" tabindex="0" aria-label="El Stop Loss es el punto donde la operación se cierra sola si el precio va en tu contra. Pon la distancia desde tu entrada hasta ese punto.">i<span class="tip-box" role="tooltip">El Stop Loss es el punto donde la operación se cierra sola si el precio va en tu contra. Pon la distancia desde tu entrada hasta ese punto.</span></span></label>
+                  <label for="inSL">¿Qué tan lejos pones tu Stop Loss? <span class="tip" tabindex="0" aria-label="El Stop Loss es el precio donde tu operación se cierra sola para que no pierdas más. Aquí pones la distancia entre el precio al que entras y ese precio de salida.">i<span class="tip-box" role="tooltip">El Stop Loss es el precio donde tu operación se cierra sola para que no pierdas más. Aquí pones la distancia entre el precio al que entras y ese precio de salida.</span></span></label>
+                  <div class="sl-explain" aria-hidden="true">
+                    <svg viewBox="0 0 220 64"><polyline points="4,22 30,30 52,18 78,26 96,16" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linejoin="round"/>
+                      <line x1="96" y1="16" x2="216" y2="16" stroke="#0f172a" stroke-width="1.6" stroke-dasharray="4 4"/><text x="214" y="12" text-anchor="end">Entras aquí</text>
+                      <line x1="96" y1="52" x2="216" y2="52" stroke="#ef4444" stroke-width="1.6" stroke-dasharray="4 4"/><text x="214" y="62" text-anchor="end" class="r">Stop Loss</text>
+                      <path d="M150 20 V48 M146 24 L150 19 L154 24 M146 44 L150 49 L154 44" stroke="#D3AC00" stroke-width="2" fill="none" stroke-linecap="round"/><text x="158" y="38" class="g">Esta distancia</text></svg>
+                  </div>
+                  <p class="sl-hint" id="slHint">En Forex se mide en <b>pips</b>. Ejemplo: entras en 1.1050 y tu Stop Loss está en 1.1020 → son <b>30 pips</b>.</p>
                   <div class="calc-input-wrapper">
                     <input
                       type="number"
@@ -604,7 +615,7 @@
     <site-footer></site-footer>
 
     <!-- SCRIPTS -->
-    <script src="components.js?v=202611121701"></script>
+    <script src="components.js?v=202611121703"></script>
     <script>
       // Las cifras del resultado dan un pequeño pulso cuando cambian
       (() => {
@@ -685,6 +696,13 @@
         const safeEl = document.getElementById('resSafeCapital');
 
         document.getElementById('unitLabel').innerText = cfg.unit;
+        const SL_HINTS = {
+          forex: 'En Forex se mide en <b>pips</b>. Ejemplo: entras en 1.1050 y tu Stop Loss está en 1.1020 → son <b>30 pips</b>.',
+          gold: 'En el oro se mide en <b>dólares de precio</b>. Ejemplo: entras en 2.350 y tu Stop Loss está en 2.345 → son <b>5 USD</b>.',
+          crypto: 'En cripto se mide en <b>dólares de precio</b>. Ejemplo: entras en 60.000 y tu Stop Loss está en 59.400 → son <b>600 USD</b>.',
+          indices: 'En índices se mide en <b>puntos</b>. Ejemplo: entras en 18.000 y tu Stop Loss está en 17.950 → son <b>50 puntos</b>.'
+        };
+        const hint = document.getElementById('slHint'); if (hint) hint.innerHTML = SL_HINTS[assetKey] || SL_HINTS.forex;
         document.querySelectorAll('.risk-btn').forEach((btn) => {
           btn.classList.toggle('active', parseFloat(btn.dataset.risk) === riskPercent);
         });
