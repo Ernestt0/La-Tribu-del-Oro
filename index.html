@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611181537" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611181537" />
+  <link rel="stylesheet" href="styles.css?v=202611181539" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611181539" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -192,7 +192,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611181537"></script>
+  <script src="components.js?v=202611181539"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -223,10 +223,10 @@
       function seed(n) { C.list = []; regime(); let p = C.price; for (let i = 0; i < n; i++) { const k = makeCandle(p); C.list.push(k); p = k.c; } C.price = p; startLive(); C.ready = true; }
       function startLive() { const o = C.list[C.list.length - 1].c; const tgt = makeCandle(o); C.live = { o, c: o, h: o, l: o, tgt, path: [] }; C.tick = 0; }
       function drawCandles() {
-        const sp = Math.max(13, Math.min(24, w / 64)), n = Math.ceil(w / sp) + 3;
+        const sp = Math.max(20, Math.min(40, w / 36)), n = Math.ceil(w / sp) + 3;
         if (!C.ready || C.list.length < n) seed(n);
         // la vela en vivo se mueve "tick a tick" hacia su cierre, tocando máximo y mínimo
-        const L = C.live, dur = 70; C.tick++;
+        const L = C.live, dur = 90; C.tick++;
         const k = C.tick / dur, T = L.tgt;
         const wav = Math.sin(k * Math.PI * 3) * (T.h - T.l) * .18 * (1 - k);
         L.c = L.o + (T.c - L.o) * k + wav + gauss() * .05 * C.vol;
@@ -236,25 +236,25 @@
         if (C.tick >= dur) { C.list.push({ o: L.o, c: T.c, h: Math.max(L.h, T.h), l: Math.min(L.l, T.l) }); if (C.list.length > n + 4) C.list.shift(); startLive(); }
         // escala vertical suave: siempre en el centro del encuadre
         const all = C.list.slice(-n).concat([L]); let mn = Infinity, mx = -Infinity; all.forEach(c => { mn = Math.min(mn, c.l); mx = Math.max(mx, c.h); });
-        const pad = (mx - mn) * .12 || 1; mn -= pad; mx += pad;
+        const pad = (mx - mn) * .06 || 1; mn -= pad; mx += pad;
         if (!C.hi) { C.lo = mn; C.hi = mx; } C.lo += (mn - C.lo) * .04; C.hi += (mx - C.hi) * .04;
-        const top = h * .14, bot = h * .86, YY = v => bot - (v - C.lo) / (C.hi - C.lo) * (bot - top);
+        const top = h * .08, bot = h * .92, YY = v => bot - (v - C.lo) / (C.hi - C.lo) * (bot - top);
         // fondo y cuadrícula
         bg('#14110a', '#050505');
         ctx.strokeStyle = 'rgba(255,255,255,.035)'; ctx.lineWidth = 1;
         for (let x = w - ((C.list.length * sp) % (sp * 8)); x > 0; x -= sp * 8) { ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h); ctx.stroke(); }
-        const shift = (C.tick / dur) * sp, xr = w - sp * 4.5; // la vela en vivo queda cerca del borde derecho
+        const shift = (C.tick / dur) * sp, xr = w - Math.max(78, sp * 2.6); // la vela en vivo queda cerca del borde derecho
         const vis = C.list.slice(-n);
         const xOf = i => xr - (vis.length - i) * sp - shift + sp;
         // media móvil de 20 velas
         ctx.beginPath(); let started = false;
         vis.forEach((c, i) => { if (i < 19) return; let a = 0; for (let j = i - 19; j <= i; j++) a += vis[j].c; const x = xOf(i) + sp / 2, y = YY(a / 20); started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true); });
         ctx.strokeStyle = 'rgba(223,183,72,.45)'; ctx.lineWidth = 1.8; ctx.stroke();
-        const bw = Math.max(5, sp * .62);
+        const bw = Math.max(9, sp * .64);
         const candle = (c, x, live) => {
           const up = c.c >= c.o, col = up ? 'rgba(223,183,72,' : 'rgba(229,57,53,';
           const a = live ? 1 : .78;
-          ctx.strokeStyle = col + (a * .85) + ')'; ctx.lineWidth = 1.2;
+          ctx.strokeStyle = col + (a * .85) + ')'; ctx.lineWidth = Math.max(1.4, sp / 16);
           ctx.beginPath(); ctx.moveTo(x + sp / 2 + .5, YY(c.h)); ctx.lineTo(x + sp / 2 + .5, YY(c.l)); ctx.stroke();
           const y1 = YY(Math.max(c.o, c.c)), y2 = YY(Math.min(c.o, c.c)), bh = Math.max(1.5, y2 - y1);
           ctx.fillStyle = col + a + ')'; ctx.fillRect(x + (sp - bw) / 2, y1, bw, bh);
