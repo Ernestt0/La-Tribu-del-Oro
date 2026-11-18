@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611181543" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611181543" />
+  <link rel="stylesheet" href="styles.css?v=202611181544" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611181544" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -192,7 +192,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611181543"></script>
+  <script src="components.js?v=202611181544"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -244,8 +244,8 @@
         const top = h * .07, bot = h * .74, vTop = h * .78, vBot = h * .93;
         const YY = v => bot - (v - C.lo) / (C.hi - C.lo) * (bot - top);
         const toP = v => 60000 + (v - 100) * 650;      // precio de ejemplo tipo BTC/USDT
-        ctx.fillStyle = '#0f1117'; ctx.fillRect(0, 0, w, h);
-        const GREEN = '38,166,154', RED = '239,83,80';
+        bg('#14110a', '#050505');
+        const GREEN = '223,183,72', RED = '229,57,53'; // dorado de la marca y rojo
         // cuadrícula horizontal con etiquetas de precio "redondas"
         const range = toP(C.hi) - toP(C.lo), raw = range / 7, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 2.5, 5, 10].map(k => k * mag).find(k => k >= raw);
         ctx.font = '500 11px Inter, system-ui, sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
@@ -270,7 +270,7 @@
         // media móvil de 20 velas
         ctx.beginPath(); let started = false;
         vis.forEach((c, i) => { if (i < 19) return; let a = 0; for (let j = i - 19; j <= i; j++) a += vis[j].c; const x = xOf(i) + sp / 2, y = YY(a / 20); started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true); });
-        ctx.strokeStyle = 'rgba(223,183,72,.85)'; ctx.lineWidth = 1.6; ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1.6; ctx.stroke();
         // volumen
         const vmax = Math.max(...all.map(c => c.v || 1));
         const bw = Math.max(7, sp * .7);
@@ -291,14 +291,14 @@
         ctx.setLineDash([2, 3]); ctx.strokeStyle = `rgba(${pc},.8)`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, Math.round(py) + .5); ctx.lineTo(w - AX, Math.round(py) + .5); ctx.stroke(); ctx.setLineDash([]);
         const label = toP(L.c).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), tw = AX ? AX - 4 : 70;
         ctx.fillStyle = `rgb(${pc})`; ctx.fillRect(w - tw - (AX ? 0 : 6), py - 10, tw, 20);
-        ctx.fillStyle = '#fff'; ctx.font = '700 11px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(label, w - tw / 2 - (AX ? 0 : 6), py + .5);
+        ctx.fillStyle = upL ? '#0b0b0f' : '#fff'; ctx.font = '700 11px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(label, w - tw / 2 - (AX ? 0 : 6), py + .5);
         // etiqueta del par, como en la plataforma
         ctx.textAlign = 'left'; ctx.fillStyle = 'rgba(209,212,220,.6)'; ctx.font = '600 12px Inter, system-ui, sans-serif'; ctx.fillText('Bitcoin / TetherUS · 1D · Ejemplo', 14, h * .035);
         // viñeta: oscurece el centro para que el texto se lea siempre
         const vg = ctx.createRadialGradient(w / 2, h * .48, 0, w / 2, h * .48, Math.max(w, h) * .55);
-        vg.addColorStop(0, 'rgba(10,11,16,.62)'); vg.addColorStop(.5, 'rgba(10,11,16,.28)'); vg.addColorStop(1, 'rgba(5,5,5,0)');
+        vg.addColorStop(0, 'rgba(5,5,5,.62)'); vg.addColorStop(.5, 'rgba(5,5,5,.28)'); vg.addColorStop(1, 'rgba(5,5,5,0)');
         ctx.fillStyle = vg; ctx.fillRect(0, 0, w, h);
-        const fl = ctx.createLinearGradient(0, 0, w * .08, 0); fl.addColorStop(0, 'rgba(15,17,23,.85)'); fl.addColorStop(1, 'rgba(5,5,5,0)'); ctx.fillStyle = fl; ctx.fillRect(0, 0, w * .08, h);
+        const fl = ctx.createLinearGradient(0, 0, w * .08, 0); fl.addColorStop(0, 'rgba(5,5,5,.85)'); fl.addColorStop(1, 'rgba(5,5,5,0)'); ctx.fillStyle = fl; ctx.fillRect(0, 0, w * .08, h);
       }
       function draw() {
         if (!w) size();
