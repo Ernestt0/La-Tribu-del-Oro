@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611181544" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611181544" />
+  <link rel="stylesheet" href="styles.css?v=202611181547" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611181547" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -192,7 +192,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611181544"></script>
+  <script src="components.js?v=202611181547"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -241,16 +241,16 @@
         const all = vis.concat([L]); let mn = Infinity, mx = -Infinity; all.forEach(c => { mn = Math.min(mn, c.l); mx = Math.max(mx, c.h); });
         const pad = (mx - mn) * .05 || 1; mn -= pad; mx += pad;
         if (!C.hi) { C.lo = mn; C.hi = mx; } C.lo += (mn - C.lo) * .04; C.hi += (mx - C.hi) * .04;
-        const top = h * .07, bot = h * .74, vTop = h * .78, vBot = h * .93;
+        const top = h * .08, bot = h * .86, vTop = h * .78, vBot = h * .9;
         const YY = v => bot - (v - C.lo) / (C.hi - C.lo) * (bot - top);
-        const toP = v => 60000 + (v - 100) * 650;      // precio de ejemplo tipo BTC/USDT
+        const toP = v => 2350 + (v - 100) * 6.5;        // precio de ejemplo tipo oro (XAU/USD)
         bg('#14110a', '#050505');
         const GREEN = '223,183,72', RED = '229,57,53'; // dorado de la marca y rojo
         // cuadrícula horizontal con etiquetas de precio "redondas"
         const range = toP(C.hi) - toP(C.lo), raw = range / 7, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 2.5, 5, 10].map(k => k * mag).find(k => k >= raw);
         ctx.font = '500 11px Inter, system-ui, sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
         for (let pv = Math.ceil(toP(C.lo) / step) * step; pv < toP(C.hi); pv += step) {
-          const y = YY(100 + (pv - 60000) / 650); if (y < top - 4 || y > bot + 4) continue;
+          const y = YY(100 + (pv - 2350) / 6.5); if (y < top - 4 || y > bot + 4) continue;
           ctx.strokeStyle = 'rgba(255,255,255,.05)'; ctx.beginPath(); ctx.moveTo(0, Math.round(y) + .5); ctx.lineTo(w - AX, Math.round(y) + .5); ctx.stroke();
           if (AX) { ctx.fillStyle = 'rgba(209,212,220,.55)'; ctx.fillText(pv.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), w - AX + 8, y); }
         }
@@ -275,7 +275,6 @@
         const vmax = Math.max(...all.map(c => c.v || 1));
         const bw = Math.max(7, sp * .7);
         const vol = (c, x) => { const up = c.c >= c.o, vh = (c.v || 1) / vmax * (vBot - vTop); ctx.fillStyle = `rgba(${up ? GREEN : RED},.38)`; ctx.fillRect(x + (sp - bw) / 2, vBot - vh, bw, vh); };
-        vis.forEach((c, i) => vol(c, xOf(i)));
         // velas
         const candle = (c, x) => {
           const up = c.c >= c.o, col = `rgb(${up ? GREEN : RED})`, cx = Math.round(x + sp / 2) + .5;
@@ -285,7 +284,7 @@
           ctx.fillStyle = col; ctx.fillRect(Math.round(x + (sp - bw) / 2), Math.round(y1), Math.round(bw), Math.max(1, Math.round(y2 - y1)));
         };
         vis.forEach((c, i) => candle(c, xOf(i)));
-        const lx = xOf(vis.length); L.v = (L.tgt.v || 1) * Math.min(1, C.tick / dur + .1); vol(L, lx); candle(L, lx);
+        const lx = xOf(vis.length); candle(L, lx);
         // línea y etiqueta del precio actual
         const py = YY(L.c), upL = L.c >= L.o, pc = upL ? GREEN : RED;
         ctx.setLineDash([2, 3]); ctx.strokeStyle = `rgba(${pc},.8)`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, Math.round(py) + .5); ctx.lineTo(w - AX, Math.round(py) + .5); ctx.stroke(); ctx.setLineDash([]);
@@ -293,7 +292,6 @@
         ctx.fillStyle = `rgb(${pc})`; ctx.fillRect(w - tw - (AX ? 0 : 6), py - 10, tw, 20);
         ctx.fillStyle = upL ? '#0b0b0f' : '#fff'; ctx.font = '700 11px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(label, w - tw / 2 - (AX ? 0 : 6), py + .5);
         // etiqueta del par, como en la plataforma
-        ctx.textAlign = 'left'; ctx.fillStyle = 'rgba(209,212,220,.6)'; ctx.font = '600 12px Inter, system-ui, sans-serif'; ctx.fillText('Bitcoin / TetherUS · 1D · Ejemplo', 14, h * .035);
         // viñeta: oscurece el centro para que el texto se lea siempre
         const vg = ctx.createRadialGradient(w / 2, h * .48, 0, w / 2, h * .48, Math.max(w, h) * .55);
         vg.addColorStop(0, 'rgba(5,5,5,.62)'); vg.addColorStop(.5, 'rgba(5,5,5,.28)'); vg.addColorStop(1, 'rgba(5,5,5,0)');
