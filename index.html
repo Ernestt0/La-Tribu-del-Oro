@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611181547" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611181547" />
+  <link rel="stylesheet" href="styles.css?v=202611181550" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611181550" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -192,7 +192,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611181547"></script>
+  <script src="components.js?v=202611181550"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -256,12 +256,12 @@
         }
         const shift = (C.tick / dur) * sp, xr = w - AX - Math.max(40, sp * 1.6);
         const xOf = i => xr - (vis.length - i) * sp - shift;
-        // líneas verticales y fechas (cada 8 velas)
+        // gráfico de 1 hora: cada vela es una hora; marcas cada 6 horas y el número del día a medianoche
         const MES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         C.base = C.base || 0;
-        vis.forEach((c, i) => { const id = C.count - vis.length + i; if (id % 8) return; const x = xOf(i) + sp / 2;
+        vis.forEach((c, i) => { const id = C.count - vis.length + i, hr = (id + 9) % 24; if (hr % 6) return; const x = xOf(i) + sp / 2;
           ctx.strokeStyle = 'rgba(255,255,255,.035)'; ctx.beginPath(); ctx.moveTo(Math.round(x) + .5, 0); ctx.lineTo(Math.round(x) + .5, vBot); ctx.stroke();
-          ctx.fillStyle = 'rgba(209,212,220,.45)'; ctx.textAlign = 'center'; ctx.fillText(MES[Math.floor(id / 8) % 12], x, h * .965); });
+          ctx.fillStyle = hr === 0 ? 'rgba(209,212,220,.7)' : 'rgba(209,212,220,.45)'; ctx.textAlign = 'center'; ctx.fillText(hr === 0 ? String(1 + Math.floor((id + 9) / 24) % 28) : String(hr).padStart(2, '0') + ':00', x, h * .965); });
         // zonas de soporte y resistencia (máximo y mínimo recientes)
         const rec = vis.slice(-Math.min(vis.length, 30));
         const zHi = Math.max(...rec.map(c => Math.max(c.o, c.c))), zLo = Math.min(...rec.map(c => Math.min(c.o, c.c)));
