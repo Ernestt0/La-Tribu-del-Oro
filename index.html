@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611121727" />
-  <link rel="stylesheet" href="tribu-v2.css?v=202611121727" />
+  <link rel="stylesheet" href="styles.css?v=202611181537" />
+  <link rel="stylesheet" href="tribu-v2.css?v=202611181537" />
 </head>
 <body class="v2">
   <!-- Header + cinta de precios TradingView (components.js) -->
@@ -192,7 +192,7 @@
 
   <site-footer></site-footer>
 
-  <script src="components.js?v=202611121727"></script>
+  <script src="components.js?v=202611181537"></script>
   <script>
   (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -206,12 +206,77 @@
       function size() { const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); w = r.width; h = r.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0); data = []; let v = .5; for (let i = 0; i < 200; i++) { const o = v; v = Math.min(.85, Math.max(.15, v + rnd(-.05, .053))); data.push([o, v]); } }
       function bg(c1, c2) { const g = ctx.createRadialGradient(w * .7, h * .2, 0, w * .7, h * .2, Math.max(w, h)); g.addColorStop(0, c1); g.addColorStop(1, c2); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); ctx.strokeStyle = 'rgba(255,255,255,.05)'; for (let y = 40; y < h; y += 70) { ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5); ctx.stroke(); } }
       const Y = v => h * .9 - v * h * .7;
+
+      // ----- Velas con comportamiento de mercado real: tendencias, retrocesos, mechas variables y una vela "en vivo" -----
+      const C = { list: [], price: 100, trend: 0, left: 0, vol: 1, live: null, tick: 0, lo: 0, hi: 0, ready: false };
+      const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
+      function regime() { // cada 12-30 velas cambia el "humor" del mercado
+        const r = Math.random(); C.trend = r < .38 ? rnd(.25, .6) : r < .7 ? -rnd(.2, .55) : rnd(-.08, .08);
+        C.left = Math.floor(rnd(12, 30)); C.vol = rnd(.7, 1.5);
+      }
+      function makeCandle(o) {
+        if (C.left-- <= 0) regime();
+        const body = (C.trend + gauss() * 1.35) * C.vol * (Math.random() < .12 ? 1.9 : 1), c = o + body;
+        const wick = () => (.15 + Math.abs(gauss()) * (Math.random() < .18 ? 1.6 : .75)) * C.vol;
+        return { o, c, h: Math.max(o, c) + wick(), l: Math.min(o, c) - wick() };
+      }
+      function seed(n) { C.list = []; regime(); let p = C.price; for (let i = 0; i < n; i++) { const k = makeCandle(p); C.list.push(k); p = k.c; } C.price = p; startLive(); C.ready = true; }
+      function startLive() { const o = C.list[C.list.length - 1].c; const tgt = makeCandle(o); C.live = { o, c: o, h: o, l: o, tgt, path: [] }; C.tick = 0; }
+      function drawCandles() {
+        const sp = Math.max(13, Math.min(24, w / 64)), n = Math.ceil(w / sp) + 3;
+        if (!C.ready || C.list.length < n) seed(n);
+        // la vela en vivo se mueve "tick a tick" hacia su cierre, tocando máximo y mínimo
+        const L = C.live, dur = 70; C.tick++;
+        const k = C.tick / dur, T = L.tgt;
+        const wav = Math.sin(k * Math.PI * 3) * (T.h - T.l) * .18 * (1 - k);
+        L.c = L.o + (T.c - L.o) * k + wav + gauss() * .05 * C.vol;
+        if (k > .25) L.h = Math.max(L.h, L.c, L.o + (T.h - L.o) * Math.min(1, (k - .25) * 2.2));
+        if (k > .45) L.l = Math.min(L.l, L.c, L.o + (T.l - L.o) * Math.min(1, (k - .45) * 2.4));
+        L.h = Math.max(L.h, L.c); L.l = Math.min(L.l, L.c);
+        if (C.tick >= dur) { C.list.push({ o: L.o, c: T.c, h: Math.max(L.h, T.h), l: Math.min(L.l, T.l) }); if (C.list.length > n + 4) C.list.shift(); startLive(); }
+        // escala vertical suave: siempre en el centro del encuadre
+        const all = C.list.slice(-n).concat([L]); let mn = Infinity, mx = -Infinity; all.forEach(c => { mn = Math.min(mn, c.l); mx = Math.max(mx, c.h); });
+        const pad = (mx - mn) * .12 || 1; mn -= pad; mx += pad;
+        if (!C.hi) { C.lo = mn; C.hi = mx; } C.lo += (mn - C.lo) * .04; C.hi += (mx - C.hi) * .04;
+        const top = h * .14, bot = h * .86, YY = v => bot - (v - C.lo) / (C.hi - C.lo) * (bot - top);
+        // fondo y cuadrícula
+        bg('#14110a', '#050505');
+        ctx.strokeStyle = 'rgba(255,255,255,.035)'; ctx.lineWidth = 1;
+        for (let x = w - ((C.list.length * sp) % (sp * 8)); x > 0; x -= sp * 8) { ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h); ctx.stroke(); }
+        const shift = (C.tick / dur) * sp, xr = w - sp * 4.5; // la vela en vivo queda cerca del borde derecho
+        const vis = C.list.slice(-n);
+        const xOf = i => xr - (vis.length - i) * sp - shift + sp;
+        // media móvil de 20 velas
+        ctx.beginPath(); let started = false;
+        vis.forEach((c, i) => { if (i < 19) return; let a = 0; for (let j = i - 19; j <= i; j++) a += vis[j].c; const x = xOf(i) + sp / 2, y = YY(a / 20); started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true); });
+        ctx.strokeStyle = 'rgba(223,183,72,.45)'; ctx.lineWidth = 1.8; ctx.stroke();
+        const bw = Math.max(5, sp * .62);
+        const candle = (c, x, live) => {
+          const up = c.c >= c.o, col = up ? 'rgba(223,183,72,' : 'rgba(229,57,53,';
+          const a = live ? 1 : .78;
+          ctx.strokeStyle = col + (a * .85) + ')'; ctx.lineWidth = 1.2;
+          ctx.beginPath(); ctx.moveTo(x + sp / 2 + .5, YY(c.h)); ctx.lineTo(x + sp / 2 + .5, YY(c.l)); ctx.stroke();
+          const y1 = YY(Math.max(c.o, c.c)), y2 = YY(Math.min(c.o, c.c)), bh = Math.max(1.5, y2 - y1);
+          ctx.fillStyle = col + a + ')'; ctx.fillRect(x + (sp - bw) / 2, y1, bw, bh);
+        };
+        vis.forEach((c, i) => candle(c, xOf(i), false));
+        const lx = xOf(vis.length); candle(L, lx, true);
+        // línea y etiqueta del precio actual
+        const py = YY(L.c), up = L.c >= L.o, pc = up ? '#dfb748' : '#e53935';
+        ctx.setLineDash([4, 5]); ctx.strokeStyle = up ? 'rgba(223,183,72,.45)' : 'rgba(229,57,53,.45)'; ctx.beginPath(); ctx.moveTo(0, py + .5); ctx.lineTo(w, py + .5); ctx.stroke(); ctx.setLineDash([]);
+        const label = (2350 + (L.c - 100) * 1.8).toFixed(2), tw = 58;
+        ctx.fillStyle = pc; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(w - tw - 8, py - 10, tw, 20, 5) : ctx.rect(w - tw - 8, py - 10, tw, 20); ctx.fill();
+        ctx.fillStyle = '#0b0b0f'; ctx.font = '700 11px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, w - tw / 2 - 8, py + .5);
+        // viñeta: oscurece el centro para que el texto se lea siempre
+        const vg = ctx.createRadialGradient(w / 2, h * .48, 0, w / 2, h * .48, Math.max(w, h) * .55);
+        vg.addColorStop(0, 'rgba(5,5,5,.55)'); vg.addColorStop(.5, 'rgba(5,5,5,.22)'); vg.addColorStop(1, 'rgba(5,5,5,0)');
+        ctx.fillStyle = vg; ctx.fillRect(0, 0, w, h);
+        const fl = ctx.createLinearGradient(0, 0, w * .12, 0); fl.addColorStop(0, 'rgba(5,5,5,.9)'); fl.addColorStop(1, 'rgba(5,5,5,0)'); ctx.fillStyle = fl; ctx.fillRect(0, 0, w * .12, h);
+      }
       function draw() {
         if (!w) size();
         if (kind === 'velas') {
-          bg('#14110a', '#050505'); const s = 26, off = t % s;
-          data.forEach((c, i) => { const x = i * s - off; if (x > w + s) return; const up = c[1] >= c[0]; ctx.fillStyle = ctx.strokeStyle = up ? 'rgba(223,183,72,.55)' : 'rgba(229,9,20,.45)'; const hi = Math.max(c[0], c[1]) + .02, lo = Math.min(c[0], c[1]) - .02; ctx.beginPath(); ctx.moveTo(x + s / 2, Y(hi)); ctx.lineTo(x + s / 2, Y(lo)); ctx.stroke(); ctx.fillRect(x + s * .2, Y(Math.max(c[0], c[1])), s * .6, Math.max(2, Math.abs(Y(c[0]) - Y(c[1])))); });
-          t += .35; if (t % s < .35) { data.shift(); const l = data[data.length - 1][1]; data.push([l, Math.min(.85, Math.max(.15, l + rnd(-.05, .053)))]); }
+          drawCandles();
         } else if (kind === 'vivo') {
           bg('#3a0b0e', '#0d1117'); const s = 9, off = t % s; ctx.lineWidth = 2.5; ctx.strokeStyle = '#ffffff'; ctx.beginPath();
           data.forEach((c, i) => { const x = i * s - off; i ? ctx.lineTo(x, Y(c[1])) : ctx.moveTo(x, Y(c[1])); }); ctx.stroke();
@@ -226,7 +291,7 @@
         }
         if (live && !reduce) requestAnimationFrame(draw);
       }
-      addEventListener('resize', () => { w = 0; if (reduce) draw(); });
+      addEventListener('resize', () => { w = 0; C.ready = false; C.hi = 0; if (reduce) draw(); });
       draw();
       return { stop() { live = false; } };
     }

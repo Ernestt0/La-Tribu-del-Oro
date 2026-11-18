@@ -1080,7 +1080,7 @@ body.page .btn-hero-red, body.page .btn-referral { color: #6b5300 !important; }
 /* ===== Sesiones en vivo bien diagramada en celular ===== */
 @media (max-width: 700px) {
   .v2 .hero-slider { height: auto; min-height: 0; padding: 120px 0 40px; }
-  .v2 .hero-slider .slide { position: relative; }
+  .v2 .hero-slider .slide { position: static; }
   .v2 .hero-slider .slide-copy { position: relative; inset: auto; padding-bottom: 0; }
   .v2 .slide-copy h1 { font-size: clamp(34px, 10vw, 44px); max-width: 12ch; }
   .v2 .sec-live { padding: 8px 0 40px; }
