@@ -19,3 +19,8 @@
   Cache-Control: public, max-age=0, must-revalidate
 /
   Cache-Control: public, max-age=0, must-revalidate
+
+# Imágenes de redes sociales (se pueden cargar desde otras páginas)
+/redes/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
