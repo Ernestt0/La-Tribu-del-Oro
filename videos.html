@@ -551,7 +551,7 @@
     ];
     // Bloques de venta que aparecen después de ciertas colecciones
     const VX_OFERTAS = {
-      consejos: { cls: 'dark', t: 'Aprende en vivo con la comunidad', p: 'Sesiones de lunes a viernes a las 8:00 AM (hora de Nueva York). Pregunta y opera con criterio.', b: 'Unirme al canal', h: 'senales.html' },
+      consejos: { cls: 'dark', t: 'Aprende en vivo con la comunidad', p: 'Sesiones de lunes a viernes a las 8:00 AM (hora de Nueva York). Pregunta y opera con criterio.', b: 'Ver en vivo en YouTube', h: 'https://www.youtube.com/@LaTribuDelOro/streams' },
       riesgo: { cls: 'gold', t: 'Calcula tu riesgo antes de cada operación', p: 'Usa la calculadora de lotaje y nunca arriesgues más de lo que decidiste.', b: 'Abrir la calculadora', h: 'calculadora.html' },
     };
 
@@ -563,7 +563,7 @@
     document.getElementById('vxCols').innerHTML = VX_COLECCIONES.map((c) => {
       const cards = c.videos.map(([t, d, lvl, url]) => `<div class="vx-card" role="button" tabindex="0" data-url="${esc(url)}" aria-label="Reproducir: ${esc(t)}"><div class="vx-thumb">${thumb(++k)}${lvl ? `<span class="lvl">${esc(lvl)}</span>` : ''}<span class="dur">${esc(d)}</span><span class="mini"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20"/></svg></span></div><h3>${esc(t)}</h3><span class="meta">${esc(c.titulo)}</span></div>`).join('');
       const o = VX_OFERTAS[c.id];
-      const offer = o ? `<div class="vx-offer ${o.cls}"><div><h3>${o.t}</h3><p>${o.p}</p></div><a class="btn btn-red" href="${o.h}">${o.b}</a></div>` : '';
+      const offer = o ? `<div class="vx-offer ${o.cls}"><div><h3>${o.t}</h3><p>${o.p}</p></div><a class="btn btn-red" href="${o.h}"${o.h.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${o.b}</a></div>` : '';
       return `<section class="vx-col" id="${c.id}"><div class="vx-col-head"><div><h2>${esc(c.titulo)}</h2><p>${esc(c.desc)}</p></div><span class="n">${c.videos.length} videos</span></div><div class="vx-row">${cards}</div></section>${offer}`;
     }).join('');
 

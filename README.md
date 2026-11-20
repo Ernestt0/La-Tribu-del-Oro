@@ -136,7 +136,7 @@ Orden de secciones (simple, de arriba a abajo):
 
 1. **Banner principal con 3 videos** (`#hero.hero-slider`, estilo TradeQuo). Rota cada 7 s, con barras de progreso doradas abajo, botón de pausa, swipe en celular y flechas del teclado.
    - Slide 1: "Aprende trading y cripto a tu ritmo" → Ver videos gratis / Ver introducción.
-   - Slide 2: "Opera en vivo con la comunidad" (Lun–Vie 8:00 AM EST) → Unirme al canal en vivo / Ver señales.
+   - Slide 2: "Opera en vivo con la comunidad" (Lun–Vie 8:00 AM EST) → Ver en vivo en YouTube (@LaTribuDelOro) / Ver señales.
    - Slide 3: "Sigue a traders con experiencia" → Conocer copy trading / Ver el curso.
    - **Videos propios:** en cada `<div class="slide" data-video="">` poner la ruta del clip (ej. `data-video="videos/hero-1.mp4"`). Recomendado: 8–15 s, horizontal, sin sonido, menos de 5 MB. Si está vacío o falla, se muestra una animación de gráfico en canvas (escenas `velas`, `vivo`, `copy`).
 2. **Franja de confianza** (3 ítems de vidrio): Educación práctica · Riesgo primero · Tu dinero es tuyo (nunca custodiamos capital).
