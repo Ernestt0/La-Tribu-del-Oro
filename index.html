@@ -212,15 +212,18 @@
     const DEMO_URL = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // reemplazar por los videos reales
 
     // ---------- Escenas animadas de respaldo (si no hay video) ----------
+    const NF = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); // se crea una sola vez (toLocaleString por cuadro es muy costoso)
     function scene(cv, kind) {
-      const ctx = cv.getContext('2d'); let w = 0, h = 0, t = 0, data = [], live = true;
+      const ctx = cv.getContext('2d', { alpha: false }); let w = 0, h = 0, t = 0, data = [], live = true, layers = {};
+      // capas fijas (fondo y viñeta) se dibujan una vez por tamaño y luego solo se copian
+      const layer = (key, paint) => { if (!layers[key]) { const c = document.createElement('canvas'); c.width = cv.width; c.height = cv.height; const x = c.getContext('2d'); x.setTransform(cv.width / w, 0, 0, cv.height / h, 0, 0); paint(x); layers[key] = c; } ctx.drawImage(layers[key], 0, 0, w, h); };
       const rnd = (a, b) => a + Math.random() * (b - a);
-      function size() { const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); w = r.width; h = r.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0); data = []; let v = .5; for (let i = 0; i < 200; i++) { const o = v; v = Math.min(.85, Math.max(.15, v + rnd(-.05, .053))); data.push([o, v]); } }
+      function size() { const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, r.width < 600 ? 1.5 : 2); w = r.width; h = r.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0); layers = {}; data = []; let v = .5; for (let i = 0; i < 200; i++) { const o = v; v = Math.min(.85, Math.max(.15, v + rnd(-.05, .053))); data.push([o, v]); } }
       function bg(c1, c2) { const g = ctx.createRadialGradient(w * .7, h * .2, 0, w * .7, h * .2, Math.max(w, h)); g.addColorStop(0, c1); g.addColorStop(1, c2); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); ctx.strokeStyle = 'rgba(255,255,255,.05)'; for (let y = 40; y < h; y += 70) { ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5); ctx.stroke(); } }
       const Y = v => h * .9 - v * h * .7;
 
       // ----- Velas con comportamiento de mercado real: tendencias, retrocesos, mechas variables y una vela "en vivo" -----
-      const C = { count: 0, list: [], price: 100, trend: 0, left: 0, vol: 1, live: null, tick: 0, lo: 0, hi: 0, ready: false };
+      const C = { step: 1, count: 0, list: [], price: 100, trend: 0, left: 0, vol: 1, live: null, tick: 0, lo: 0, hi: 0, ready: false };
       const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
       function regime() { // cada 12-30 velas cambia el "humor" del mercado
         const r = Math.random(); C.trend = r < .38 ? rnd(.25, .6) : r < .7 ? -rnd(.2, .55) : rnd(-.08, .08);
@@ -239,7 +242,7 @@
         const sp = Math.max(22, Math.min(38, w / 38)), n = Math.ceil(w / sp) + 3;
         if (!C.ready || C.list.length < n) seed(n);
         // la vela en vivo se mueve "tick a tick" hacia su cierre, tocando máximo y mínimo
-        const L = C.live, dur = 90; C.tick++;
+        const L = C.live, dur = 90; C.tick = Math.min(dur, C.tick + C.step);
         const k = C.tick / dur, T = L.tgt;
         const wav = Math.sin(k * Math.PI * 3) * (T.h - T.l) * .18 * (1 - k);
         L.c = L.o + (T.c - L.o) * k + wav + gauss() * .05 * C.vol;
@@ -256,7 +259,7 @@
         const top = h * .08, bot = h * .86, vTop = h * .78, vBot = h * .9;
         const YY = v => bot - (v - C.lo) / (C.hi - C.lo) * (bot - top);
         const toP = v => 2350 + (v - 100) * 6.5;        // precio de ejemplo tipo oro (XAU/USD)
-        bg('#14110a', '#050505');
+        layer('bg', x => { const g = x.createRadialGradient(w * .7, h * .2, 0, w * .7, h * .2, Math.max(w, h)); g.addColorStop(0, '#14110a'); g.addColorStop(1, '#050505'); x.fillStyle = g; x.fillRect(0, 0, w, h); });
         const GREEN = '223,183,72', RED = '229,57,53'; // dorado de la marca y rojo
         // cuadrícula horizontal con etiquetas de precio "redondas"
         const range = toP(C.hi) - toP(C.lo), raw = range / 7, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 2.5, 5, 10].map(k => k * mag).find(k => k >= raw);
@@ -264,7 +267,7 @@
         for (let pv = Math.ceil(toP(C.lo) / step) * step; pv < toP(C.hi); pv += step) {
           const y = YY(100 + (pv - 2350) / 6.5); if (y < top - 4 || y > bot + 4) continue;
           ctx.strokeStyle = 'rgba(255,255,255,.05)'; ctx.beginPath(); ctx.moveTo(0, Math.round(y) + .5); ctx.lineTo(w - AX, Math.round(y) + .5); ctx.stroke();
-          if (AX) { ctx.fillStyle = 'rgba(209,212,220,.55)'; ctx.fillText(pv.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), w - AX + 8, y); }
+          if (AX) { ctx.fillStyle = 'rgba(209,212,220,.55)'; ctx.fillText(NF.format(pv), w - AX + 8, y); }
         }
         const shift = (C.tick / dur) * sp, xr = w - AX - Math.max(40, sp * 1.6);
         const xOf = i => xr - (vis.length - i) * sp - shift;
@@ -300,17 +303,29 @@
         // línea y etiqueta del precio actual
         const py = YY(L.c), upL = L.c >= L.o, pc = upL ? GREEN : RED;
         ctx.setLineDash([2, 3]); ctx.strokeStyle = `rgba(${pc},.8)`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, Math.round(py) + .5); ctx.lineTo(w - AX, Math.round(py) + .5); ctx.stroke(); ctx.setLineDash([]);
-        const label = toP(L.c).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), tw = AX ? AX - 4 : 70;
+        const label = NF.format(toP(L.c)), tw = AX ? AX - 4 : 70;
         ctx.fillStyle = `rgb(${pc})`; ctx.fillRect(w - tw - (AX ? 0 : 6), py - 10, tw, 20);
         ctx.fillStyle = upL ? '#0b0b0f' : '#fff'; ctx.font = '700 11px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(label, w - tw / 2 - (AX ? 0 : 6), py + .5);
         // etiqueta del par, como en la plataforma
         // viñeta: oscurece el centro para que el texto se lea siempre
-        const vg = ctx.createRadialGradient(w / 2, h * .48, 0, w / 2, h * .48, Math.max(w, h) * .55);
-        vg.addColorStop(0, 'rgba(5,5,5,.62)'); vg.addColorStop(.5, 'rgba(5,5,5,.28)'); vg.addColorStop(1, 'rgba(5,5,5,0)');
-        ctx.fillStyle = vg; ctx.fillRect(0, 0, w, h);
-        const fl = ctx.createLinearGradient(0, 0, w * .08, 0); fl.addColorStop(0, 'rgba(5,5,5,.85)'); fl.addColorStop(1, 'rgba(5,5,5,0)'); ctx.fillStyle = fl; ctx.fillRect(0, 0, w * .08, h);
+        layer('vig', x => {
+          const vg = x.createRadialGradient(w / 2, h * .48, 0, w / 2, h * .48, Math.max(w, h) * .55);
+          vg.addColorStop(0, 'rgba(5,5,5,.62)'); vg.addColorStop(.5, 'rgba(5,5,5,.28)'); vg.addColorStop(1, 'rgba(5,5,5,0)');
+          x.fillStyle = vg; x.fillRect(0, 0, w, h);
+          const fl = x.createLinearGradient(0, 0, w * .08, 0); fl.addColorStop(0, 'rgba(5,5,5,.85)'); fl.addColorStop(1, 'rgba(5,5,5,0)'); x.fillStyle = fl; x.fillRect(0, 0, w * .08, h);
+        });
       }
-      function draw() {
+      let onScreen = true, last = 0;
+      if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { const was = onScreen; onScreen = e.isIntersecting; if (onScreen && !was && live && !reduce) { last = 0; requestAnimationFrame(loop); } }).observe(cv);
+      function loop(now) {
+        if (!live || reduce || !onScreen) return;
+        const minGap = w && w < 600 ? 32 : 0; // celular: ~30 cuadros por segundo, suficiente y ahorra batería
+        if (last && now - last < minGap) { requestAnimationFrame(loop); return; }
+        C.step = last ? Math.min(4, (now - last) / 16.67) : 1; last = now;
+        draw(true);
+        requestAnimationFrame(loop);
+      }
+      function draw(fromLoop) {
         if (!w) size();
         if (kind === 'velas') {
           drawCandles();
@@ -326,7 +341,7 @@
           [['#dfb748', 0, 3], ['rgba(255,255,255,.75)', .05, 2]].forEach(([col, lag, lw]) => { ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.setLineDash(lag ? [7, 7] : []); ctx.beginPath(); data.forEach((c, i) => { const x = i * s - off; const v = c[1] - lag; i ? ctx.lineTo(x, Y(v)) : ctx.moveTo(x, Y(v)); }); ctx.stroke(); });
           ctx.setLineDash([]); t += .4; if (t % s < .4) { data.shift(); const l = data[data.length - 1][1]; data.push([l, Math.min(.85, Math.max(.2, l + rnd(-.04, .045)))]); }
         }
-        if (live && !reduce) requestAnimationFrame(draw);
+        if (!fromLoop && live && !reduce) requestAnimationFrame(loop);
       }
       addEventListener('resize', () => { w = 0; C.ready = false; C.hi = 0; if (reduce) draw(); });
       draw();
